@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>¹H 与 ¹³C NMR 化学位移 ppm 图文讲解</title>
+<style>
+:root{color-scheme:light dark;--bg:#f6f8fb;--paper:#fff;--fg:#192333;--sub:#536276;--border:#dbe3ed;--teal:#0e9488;--blue:#2563eb}
+@media(prefers-color-scheme:dark){:root{--bg:#0e141d;--paper:#17202c;--fg:#eaf0f7;--sub:#a9b8cb;--border:#344355}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.8 system-ui,-apple-system,"Segoe UI","PingFang SC","Microsoft YaHei",sans-serif}main{max-width:920px;margin:35px auto;padding:40px 48px;background:var(--paper);border:1px solid var(--border);border-radius:18px;box-shadow:0 6px 28px #0000000b}h1{font-size:clamp(25px,4vw,35px);line-height:1.35;margin:0 0 18px}h2{font-size:23px;margin:36px 0 16px;padding-bottom:8px;border-bottom:1px solid var(--border)}p{margin:12px 0}ul{padding-left:24px}li{margin:5px 0}strong{color:var(--fg)}.lead{font-size:17px}.plot{border:1px solid var(--border);border-radius:12px;padding:16px;margin:18px 0;background:var(--paper)}.plot svg{display:block;width:100%;height:auto;max-height:220px}.plot svg text{font-family:system-ui,"Microsoft YaHei",sans-serif}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;margin:15px 0}td,th{padding:12px 14px;text-align:left;border-bottom:1px solid var(--border)}th{background:color-mix(in srgb,var(--sub) 7%,transparent)}.note{border-left:4px solid var(--teal);background:color-mix(in srgb,var(--teal) 8%,transparent);padding:10px 18px;border-radius:0 9px 9px 0}.tag{display:inline-block;border:1px solid var(--border);border-radius:99px;padding:1px 11px;font-size:13px;color:var(--sub)}footer{font-size:13px;color:var(--sub);margin-top:38px}@media(max-width:600px){main{margin:0;padding:24px 18px;border:0;border-radius:0}h2{font-size:20px}td,th{padding:10px 8px}}@media print{body{background:white;color:#111}main{margin:0;max-width:none;padding:8mm;border:0;box-shadow:none}.plot{break-inside:avoid}h2{break-after:avoid}}
+</style></head><body><main>
+<span class="tag">NMR 学习笔记 · 图文版</span>
+<h1>¹H 和 ¹³C NMR 的 ppm 数值意味着什么？</h1>
+<p class="lead">在核磁共振（NMR）中，<strong>¹H NMR 和 ¹³C NMR 的 ppm 数值都表示化学位移（Chemical Shift，δ）</strong>。</p>
+<ul><li><strong>ppm 越大：</strong>信号越向低场（Downfield）移动，通常说明原子核受到的电子屏蔽越弱。</li><li><strong>ppm 越小：</strong>信号越向高场（Upfield）移动，通常说明原子核受到的电子屏蔽越强。</li></ul>
+<p class="note"><strong>注意：</strong>¹H 和 ¹³C 的 ppm 范围不同，不能直接比较数值大小。</p>
+<h2>1. ¹H NMR：氢谱的 ppm 代表什么？</h2>
+<div class="plot"><svg viewBox="0 0 700 175" role="img" aria-label="氢核磁谱化学位移刻度：从左侧12 ppm低场到右侧0 ppm高场，芳香氢约6到8.5 ppm">
+<text x="20" y="23" font-size="19" fill="var(--sub)">低场 · 去屏蔽</text><text x="680" y="23" font-size="19" text-anchor="end" fill="var(--sub)">高场 · 强屏蔽</text>
+<line x1="32" y1="94" x2="670" y2="94" stroke="var(--fg)" stroke-width="2"/>
+<rect x="217" y="51" width="133" height="38" rx="8" fill="#0d9488" fill-opacity=".22"/><text x="283" y="76" font-size="18" fill="var(--teal)" text-anchor="middle">芳香氢</text>
+<g fill="var(--fg)" font-size="17" text-anchor="middle"><path d="M32 84v20 M138.3 84v20 M244.7 84v20 M351 84v20 M457.3 84v20 M563.7 84v20 M670 84v20" stroke="var(--fg)" stroke-width="2"/><text x="32" y="128">12</text><text x="138.3" y="128">10</text><text x="244.7" y="128">8</text><text x="351" y="128">6</text><text x="457.3" y="128">4</text><text x="563.7" y="128">2</text><text x="670" y="128">0</text></g><text x="350" y="161" font-size="18" text-anchor="middle" fill="var(--sub)">¹H 化学位移 δ (ppm)</text></svg></div>
+<div class="tablewrap"><table><thead><tr><th>¹H δ (ppm)</th><th>常见氢环境</th></tr></thead><tbody><tr><td>0.5–2</td><td>烷基氢（CH₃、CH₂）</td></tr><tr><td>2–3</td><td>靠近羰基、苯环的氢</td></tr><tr><td>3–4.5</td><td>与 O、N 等相连的碳上的氢</td></tr><tr><td>4.5–6.5</td><td>烯烃氢（C=C–H）</td></tr><tr><td>6–8.5</td><td><strong>芳香环氢</strong></td></tr><tr><td>9–10</td><td>醛基氢（–CHO）</td></tr><tr><td>10–13</td><td>羧酸氢（–COOH）</td></tr></tbody></table></div>
+<p>例如，图片中的 <strong>¹H δ ≈ 7.90 ppm</strong>，说明这组氢处于典型的芳香环化学环境，并且相对去屏蔽。</p>
+<h2>2. ¹³C NMR：碳谱的 ppm 代表什么？</h2>
+<div class="plot"><svg viewBox="0 0 700 175" role="img" aria-label="碳核磁谱化学位移刻度：从左侧220 ppm低场到右侧0 ppm高场，芳香碳约100到150 ppm">
+<text x="20" y="23" font-size="19" fill="var(--sub)">低场 · 去屏蔽</text><text x="680" y="23" font-size="19" text-anchor="end" fill="var(--sub)">高场 · 强屏蔽</text>
+<line x1="32" y1="94" x2="670" y2="94" stroke="var(--fg)" stroke-width="2"/>
+<rect x="235" y="51" width="145" height="38" rx="8" fill="#2563eb" fill-opacity=".18"/><text x="307" y="76" font-size="18" fill="var(--blue)" text-anchor="middle">芳香碳</text>
+<g fill="var(--fg)" font-size="17" text-anchor="middle"><path d="M32 84v20 M148 84v20 M264 84v20 M380 84v20 M496 84v20 M612 84v20 M670 84v20" stroke="var(--fg)" stroke-width="2"/><text x="32" y="128">220</text><text x="148" y="128">180</text><text x="264" y="128">140</text><text x="380" y="128">100</text><text x="496" y="128">60</text><text x="612" y="128">20</text><text x="670" y="128">0</text></g><text x="350" y="161" font-size="18" text-anchor="middle" fill="var(--sub)">¹³C 化学位移 δ (ppm)</text></svg></div>
+<div class="tablewrap"><table><thead><tr><th>¹³C δ (ppm)</th><th>常见碳环境</th></tr></thead><tbody><tr><td>0–50</td><td>饱和烷基碳</td></tr><tr><td>50–90</td><td>与 O、N 等相连的饱和碳</td></tr><tr><td>100–150</td><td><strong>芳香环碳、烯烃碳</strong></td></tr><tr><td>150–185</td><td>酯、酰胺、羧酸等羰基碳</td></tr><tr><td>190–220</td><td>醛、酮羰基碳</td></tr></tbody></table></div>
+<p>图片中的 <strong>¹³C δ = 131.7 ppm</strong>，意味着这个碳很可能属于芳香环或其他 sp² 碳环境。结合 ¹H 7.90 ppm，芳香环上的 CH 是合理判断。</p>
+<h2>3. 为什么同一个位置，H 是 7.90，而 C 是 131.7？</h2>
+<p>因为测量的是两种不同原子核：</p><ul><li>¹H 感受到的是氢核的局部电子环境。</li><li>¹³C 感受到的是碳核的局部电子环境。</li></ul>
+<p>它们的核磁屏蔽响应及常见化学位移范围都不同。因此，<strong>131.7 ppm 并不意味着该碳受到的去屏蔽程度是相连氢的 16.7 倍</strong>。</p>
+<h2>4. 回到你的 NMR 数据</h2><div class="note"><strong>H₂ / H₆ · 酯基侧</strong></div>
+<div class="tablewrap"><table><tbody><tr><td>¹H δ</td><td><strong>7.90 ppm</strong></td></tr><tr><td>¹³C δ</td><td><strong>131.7 ppm</strong></td></tr><tr><td>¹H 积分</td><td>1.9 ≈ 2H</td></tr><tr><td>推测环境</td><td>芳香环上的两个等效氢</td></tr></tbody></table></div>
+<p>这组数据可以理解为：两个化学等效的芳香氢具有约 7.90 ppm 的化学位移，它们所连接的碳位于约 131.7 ppm。</p>
+<p class="note"><strong>重要区别：</strong>ppm 不能直接告诉你有多少个氢。¹H 谱中的积分（Integration）才是判断氢原子相对数量的主要依据，而普通 ¹³C 谱的信号强度通常不能直接用来数碳。</p>
+<p>做有机结构推断时，建议重点掌握 <strong>化学位移 δ、积分 Integration、裂分 Multiplicity、偶合常数 J</strong> 四个概念。结合这些信息，才能比较可靠地确定分子结构。</p>
+<footer>注：化学位移范围为常见经验值，可能因取代基、溶剂、氢键等因素发生变化。示意图为学习用途，并非实测谱图。</footer>
+</main></body></html>
