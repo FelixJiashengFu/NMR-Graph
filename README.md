@@ -7,6 +7,7 @@
 | 分类 | 专题 | 入口 |
 | --- | --- | --- |
 | 碳骨架连接 | INADEQUATE：1-辛醇碳峰归属练习 | [打开](./topics/inadequate-octanol/index.html) |
+| 碳骨架连接 | 1,1-ADEQUATE：4-甲基伞形酮交叉峰判读 | [打开](./topics/adequate-methylumbelliferone/index.html) |
 | 异核长程相关 | H2BC × HMBC：两键与三键相关判读 | [打开](./topics/h2bc-hmbc/index.html) |
 
 ## 仓库结构
@@ -18,6 +19,9 @@ NMR-Graph/
 └── topics/
     ├── inadequate-octanol/
     │   └── index.html                 # 原有 INADEQUATE 练习
+    ├── adequate-methylumbelliferone/
+    │   ├── index.html                 # ADEQUATE 交互示意与判读讲解
+    │   └── README.md                  # 本专题的范围与来源
     └── h2bc-hmbc/
         └── index.html                 # H2BC / HMBC 互动图解
 ```
