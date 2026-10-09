@@ -1,0 +1,32 @@
+{
+  "independent_RK4_max_error": 9.43689570931383e-16,
+  "RK4_step_seconds": 1e-05,
+  "selftest": {
+    "ok": true,
+    "checks": {
+      "two_spin_exact": true,
+      "zero_time_identity": true,
+      "disconnected_zero": true,
+      "symmetry": true,
+      "row_conservation": true,
+      "nonnegative": true,
+      "slide_groups": true,
+      "nh_off_groups": true,
+      "alkene_groups": true,
+      "weak_join_groups": true,
+      "proton_count": true,
+      "carbon_count": true,
+      "DBE": true,
+      "slide_peak_count": true,
+      "alkene_peak_count": true
+    },
+    "maxSymmetry": 5.551115123125783e-17,
+    "maxRowError": 7.771561172376096e-16,
+    "twoSpin20ms": 0.3990517410026723,
+    "alkeneFormula": "C10H20"
+  },
+  "C10H20_hydrogen_sum": 20,
+  "DBE": 1,
+  "two_spin_20ms_exact": 0.3990517410026723,
+  "ok": true
+}

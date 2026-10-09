@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark"><meta name="description" content="从原图 A–D 谱图与烯烃练习理解 TOCSY、自旋系统和多步接力相关的中文离线交互教程。">
+<title>TOCSY · 沿耦合网络读懂相关</title>
+<!--KATEX_CSS-->
+<style>/*STYLES*/</style>
+</head>
+<body>
+<header class="wrap hero">
+  <div class="eyebrow">NMR GRAPH <span>05 / 同核相关 · 中文交互教程</span></div>
+  <h1>TOCSY<span>沿耦合网络，读懂相关。</span></h1>
+  <p class="lede">从一个质子出发，观察信息如何逐步传给同一自旋系统中的其他质子。</p>
+  <div class="meta"><span>大学课程初学者</span><span>¹H–¹H · 全相关谱</span><span>原图 + 可检验的示意模型</span></div>
+  <aside class="read-first"><strong>读前必读</strong><p>远端交叉峰说明存在<strong>可用的耦合路径</strong>，不等于两端直接耦合。下方图形是教学示意；A–D 的 ppm 来自截图估读，峰强与混合时间均为演示设定。截图没有原始实验数据，无法恢复真实谱线。</p></aside>
+  <nav aria-label="章节导航"><a href="#lab">操作图形</a><a href="#reason">分步推理</a><a href="#assignment">完整归属</a><a href="#numbers">数值核对</a><a href="#original">原始材料</a></nav>
+</header>
+<main class="wrap">
+  <section class="conclusion" aria-labelledby="conclusion-title">
+    <div class="section-line"><span>01 / 主要结论</span><h2 id="conclusion-title">相关的是一个网络，不只是一对邻居。</h2></div>
+    <div class="three-cards">
+      <article><span class="card-no">01</span><h3>COSY 看直接耦合</h3><p>通常先用 COSY 找直接 J 耦合的质子对。这里“直接”指两个核之间有标量耦合，并非两个氢之间有化学键。</p></article>
+      <article><span class="card-no">02</span><h3>TOCSY 允许多步接力</h3><p>B 与 C 耦合、C 与 D 耦合，即使 B 与 D 没有可用的直接耦合，也可能出现 B↔D 交叉峰。</p></article>
+      <article><span class="card-no">03</span><h3>连续的是耦合路径</h3><p>碳骨架连通不足以保证 TOCSY 传递。弱耦合、交换、弛豫和混合条件都会影响可见相关。</p></article>
+    </div>
+  </section>
+  <section id="lab" class="lab-section" aria-labelledby="lab-title">
+    <div class="section-line"><span>02 / 直观解释 · 交互实验台</span><h2 id="lab-title">选一个氢组，沿路径追踪它。</h2></div>
+    <p class="section-desc">先选 B 与 D，再比较 COSY 和 TOCSY；把混合时间从 0 拉到 120 ms，观察接力相关如何逐渐出现。</p>
+    <div class="lab-grid">
+      <aside class="panel controls">
+        <h3>选择与参数</h3>
+        <label for="example">教学对象</label><select id="example"><option value="slide">原图上方：A–D 小谱图</option><option value="alkene">原图下方：烯烃分组练习</option></select>
+        <fieldset><legend>显示方式（均为示意）</legend><div class="segmented"><button id="tocsyMode" type="button" aria-pressed="true">TOCSY 接力</button><button id="cosyMode" type="button" aria-pressed="false">COSY 直接</button></div></fieldset>
+        <label id="mixLabel" for="mix">演示混合时间 <output id="mixValue">80 ms</output></label><input id="mix" type="range" min="0" max="120" step="5" value="80" aria-describedby="mixNote"><div class="range-ends"><span>0 ms</span><span>120 ms</span></div><p class="tiny" id="mixNote">改变扩散类比模型中的传递程度；不是原图采集参数，也不是实际脉冲模拟。</p>
+        <div id="nhControl"><label class="check"><input type="checkbox" id="nh" checked><span>假设含 NH 的耦合可传递</span></label><p class="tiny">关闭后，D 脱离 B–C 网络。此操作演示交换等因素造成的可用路径损失，不是测得的交换速率。</p></div>
+        <div id="weakControl" hidden><label class="check"><input type="checkbox" id="weak"><span>加入假设的弱长程通路</span></label><p class="tiny">加入 G4–G6 与 G4–G10 的可能 ⁴J 路径；截图没有测得 J 值，不能据此认定它们存在。</p></div>
+        <fieldset><legend>出发氢组（同步高亮）</legend><div id="nodeButtons" class="node-buttons"></div></fieldset>
+        <label for="target">比较对象 / 交叉峰另一端</label><select id="target"></select>
+        <button id="reset" class="reset" type="button">恢复初始状态</button>
+        <p class="tiny">键盘：Tab 进入控件；方向键调整滑块。在谱图上用方向键移动选中格，Enter 或空格选峰。</p>
+      </aside>
+      <div class="panel figure-panel">
+        <div class="plot-head"><h3 id="plotTitle">TOCSY 相关图</h3><span class="pill">示意 · 非实验峰强</span></div>
+        <svg id="matrix" viewBox="0 0 440 425" role="grid" aria-label="二维相关示意图；每一格对应两个氢组，可用方向键选择"></svg>
+        <div class="legend"><span><i class="legend-shape circle"></i>对角峰</span><span><i class="legend-shape square"></i>直接相关</span><span><i class="legend-shape diamond"></i>接力相关</span></div>
+        <p id="matrixCaption" class="tiny"></p>
+        <div class="structure-head"><h4>结构位置与可用耦合路径</h4><span class="tiny">实线：基线假设 · 虚线：附加假设</span></div>
+        <div id="structure"></div><div id="pathText" class="path-strip"></div>
+      </div>
+      <aside class="panel readout" aria-live="polite" aria-atomic="true">
+        <h3>当前读数与解释</h3><div class="big-pair" id="pairName">B ↔ D</div><span class="pill" id="pairType">接力相关</span>
+        <dl><div><dt>坐标 / 氢组</dt><dd id="coordinates"></dd></div><div><dt>图中权重</dt><dd id="weight"></dd></div><div><dt>最短路径</dt><dd id="distance"></dd></div><div><dt>当前网络分组</dt><dd id="groups"></dd></div></dl>
+        <h4>这一个峰告诉你什么？</h4><p id="pairExplanation"></p>
+        <div class="evidence-note"><strong>证据等级</strong><p id="evidence"></p></div>
+        <div class="read-summary" id="currentConclusion"></div>
+      </aside>
+    </div>
+  </section>
+  <section class="zoom-section" aria-labelledby="zoom-title"><div class="section-line"><span>03 / 局部放大与横向读谱</span><h2 id="zoom-title">同一行的峰，是同一个出发点的相关对象。</h2></div>
+    <div class="two-col"><article class="panel"><h3>选中峰与镜像峰</h3><svg id="pairZoom" viewBox="0 0 420 210" role="img" aria-label="选中峰坐标与沿对角线镜像的坐标"></svg><p class="tiny">理想同核相关图中的 (δᵢ, δⱼ) 与 (δⱼ, δᵢ) 成对出现；真实实验可有强度差异、重叠和伪峰。</p></article><article class="panel"><h3 id="sliceTitle">B 行的相关对象</h3><div id="slice"></div><p class="tiny">柱长为模型权重；不是质子积分，也不用于定量氢数。选择条目可同步查看结构与解释。</p></article></div>
+  </section>
+  <section id="reason"><div class="section-line"><span>04 / 分步推理</span><h2>从峰的位置，到有条件的结构解释。</h2></div>
+    <div class="steps"><article><b>1</b><div><h3>先看两条轴</h3><p>上方小图的 F₂ 横轴和 F₁ 纵轴都为 ¹H 化学位移，单位 ppm。横轴从左向右递减；纵轴从上向下递增。两端位移相同的位置构成对角线，不能把对角峰当成新连接。</p></div></article><article><b>2</b><div><h3>选 B，沿行和列找 C、D</h3><p>截图中 B、C、D 构成一个 3×3 的峰块；A 只有一个独立峰。按这张小图的画法，B、C、D 属于同一相关网络，A 未被画入该网络。峰的“有无”优先于模糊峰形的精细解释。</p></div></article><article><b>3</b><div><h3>比较直接相关与接力相关</h3><p>教学基线采用 B–C、C–D 两条边，因此 B↔D 可由 B→C→D 传递。原图结构还画了 B–D 的长程虚线箭头；这只是示意可能性，既未给出 J，也不能单凭 B↔D 的 TOCSY 峰区分两种路径。需对照 COSY 或混合时间序列。</p></div></article><article><b>4</b><div><h3>对下方分子建立分组假设</h3><p>给主链编号 C1–C9、支链甲基编号 C10。只保留常规相邻含氢碳之间的可用 ³J 路径时，分成左段 G1–G4、右段 G6–G9、支链 G10 三个组。C5 是无氢烯碳，没有可作为接力节点的质子。</p></div></article><article><b>5</b><div><h3>再检验这条“断开”是否真的成立</h3><p>无氢碳不意味着任何 H–H 耦合都严格为零。G4 的烯氢与 G6、G10 的烯丙位氢之间可能有 ⁴J 通路；若其传递有效，可跨过上述基线分组。开启“弱长程通路”展示这一假设，不能当作实验结论。</p></div></article></div>
+    <aside class="key-box"><strong>回答原图的问题：这个分子有哪些“链”？</strong><p><strong>常规近邻耦合的简化答案：三组。</strong>左侧 4 个含氢碳位置、右侧 4 个含氢碳位置、支链甲基单独一组。<strong>实际 TOCSY 的分组仍待实验确认</strong>，因为可能存在长程耦合、弱峰和重叠。双键本身不是普遍断点；这里需要注意的是 C5 没有氢以及可用耦合大小。</p></aside>
+  </section>
+  <section id="assignment"><div class="section-line"><span>05 / 完整归属表 · 区分证据与假设</span><h2>读到什么，就写到什么。</h2></div>
+    <h3>上方 A–D 图：按截图标记解释</h3><div class="table-wrap"><table><thead><tr><th>标记</th><th>结构位置</th><th>位移 / ppm</th><th>理论 H 数</th><th>原图表现与限制</th></tr></thead><tbody>
+    <tr><td>A</td><td>羰基左侧 CH₃</td><td>约 2.1 · 估读</td><td>3</td><td>独立对角峰；截图没有提供积分或相关检测阈值。</td></tr>
+    <tr><td>B</td><td>羰基右侧 CH₂</td><td>约 3.0 · 估读</td><td>2</td><td>与 C、D 同属图中的 3×3 峰块。</td></tr>
+    <tr><td>C</td><td>邻氮 CH₂</td><td>约 3.3 · 估读</td><td>2</td><td>与 B、D 同块；位移不是对结构预测得到的实测值。</td></tr>
+    <tr><td>D</td><td>NH₂（按结构标签）</td><td>约 2.6 · 估读</td><td>2</td><td>交换氢归属来自图示；能否看见含 NH 相关取决于实际样品条件。</td></tr>
+    </tbody></table></div><p class="tiny">以上仅录入一位小数，不能用于精确引用。H 数是按结构数出的理论值；图中的红点不能提供积分、SNR、J、线宽或实验浓度。</p>
+    <h3>下方烯烃：新加编号，不是原图给出的峰归属</h3><div class="table-wrap"><table><thead><tr><th>氢组</th><th>位置 / 类型</th><th>理论 H 数</th><th>基线分组</th><th>化学位移 / 谱峰归属</th></tr></thead><tbody id="alkeneTable"></tbody></table></div><p class="tiny">G 是“含氢碳位置”的教学编号，不等于独立共振数。CH₂ 上两个氢可能不等价；不同位置也可能峰位重叠。不能由九个 G 节点断言恰有九条实验信号。</p>
+  </section>
+  <section id="numbers"><div class="section-line"><span>06 / 数值核对</span><h2>数清结构，也数清谱图中的两种“峰数”。</h2></div>
+    <div class="two-col"><article class="panel"><h3>结构计数：C₁₀H₂₀</h3><p>下方结构读作 CH₃–CH₂–CH₂–CH=C(CH₃)–CH₂–CH₂–CH₂–CH₃。该读法与截图一致；本页不判定 E/Z 构型。</p><div class="math" data-math="N_H=3\times3+5\times2+1=20"></div><p>3 个 CH₃、5 个 CH₂、1 个 CH、1 个无氢碳，共 10 个碳。</p><div class="math" data-math="\mathrm{DBE}=\frac{2C+2-H}{2}=\frac{22-20}{2}=1"></div><p class="tiny">适用于这里仅含 C/H 的中性闭壳层结构；一个 C=C 与 DBE = 1 相符。理论氢数不是实测积分。</p></article><article class="panel"><h3>理想相关计数：对角与镜像要分开</h3><div class="math" data-math="\begin{aligned}N_{\rm total}&=\sum_s n_s^2\\N_{\rm cross}&=\sum_s n_s(n_s-1)\end{aligned}"></div><p>上方分组大小为 1、3：共有 4 个对角位置、6 个非对角位置，即 3 对镜像交叉峰，共 10 个位置；与截图画出的十个红色峰斑相符。</p><p>下方基线按 4、4、1 个节点分组：理想有 9 个对角位置与 24 个非对角位置，合计 33；不重复的交叉峰对数为 12。</p><p class="tiny">前提：各节点可分辨、系统内传递充分、忽略伪峰和漏峰。下方 33 是示意节点计数，既非真实自旋数，也非实验观测峰数。</p></article></div>
+    <article class="model-note panel"><h3>数值模型如何计算？</h3><p>用无向加权图模拟“信息逐步分散”的类比，节点是氢组。每条边指定传递速率 k；基线烯烃边设为 40 s⁻¹，假设弱边为 4 s⁻¹，A–D 中 B–C 为 40 s⁻¹、C–D 为 20 s⁻¹。它们<strong>不是 J 值</strong>，也没有从图中拟合。</p><div class="math" data-math="\begin{aligned}L_{ii}&=\sum_j k_{ij}\\L_{ij}&=-k_{ij}\quad(i\ne j)\\T(t)&=e^{-tL}\end{aligned}"></div><p>输入 t 的单位是 ms，计算时除以 1000 转成 s。矩阵 T 的第 i 行表示从 i 出发的模型分布。圆、方、菱形面积随权重变化；没有绘制任何实验等高线或线形。</p><div class="math" data-math="T_{12}(t)=\frac{1-e^{-2kt}}{2}"></div><p>k = 40 s⁻¹，t = 20 ms 时 T₁₂ = 0.399052。模型检查：t = 0 为单位矩阵；断开的网络间始终为 0；T 对称、非负、每行和为 1。独立 RK4 与矩阵指数算法对拍，误差小于 10⁻¹²。</p><p class="tiny">指数以 uniformization 的 Poisson 级数计算，终止项小于 10⁻¹⁶；仅在本页有限图和 0–120 ms 参数范围验证。真实 TOCSY 有相干自旋动力学、混合序列、交换和弛豫；峰强可非单调，长时间可能下降。本类比没有模拟这些效应，不能用于预测实际最优混合时间。</p><button type="button" id="runTest">运行页面数值自检</button><output id="testResult" class="test-result">构建前：15 项数值检查通过；可在此重新运行。</output></article>
+  </section>
+  <section id="mistakes"><div class="section-line"><span>07 / 常见误区</span><h2>看见相关，不要跳过推理条件。</h2></div>
+    <div class="misconceptions"><article><h3>“TOCSY 就是直接看长程耦合”</h3><p>主要教学区别是可沿多条耦合接力。远端峰不要求两端有直接长程 J；COSY 也可能检测某些长程 J，不能仅按键数划分实验。</p></article><article><h3>“碳链连续，全部氢一定相关”</h3><p>需要连续的可用 H–H 耦合路径，以及合适的实验条件。没有看见一个峰，可能是传递不足或峰重叠，不能直接判定结构不连通。</p></article><article><h3>“没有氢的碳一定把网络切断”</h3><p>它缺少接力质子，但可能有跨过它的长程 H–H 耦合。基线分组要写明忽略这些通路，不能把近似说成普遍定律。</p></article><article><h3>“交叉峰越大，氢就越多”</h3><p>TOCSY 峰强取决于传递和实验条件，不是简单的氢数积分。这里的面积和柱长只编码类比模型权重。</p></article><article><h3>“一个 CH₂ 只对应一条信号”</h3><p>等价性取决于分子环境。G 编号合并同一碳上的氢以便教学，没有展开同碳耦合或磁不等价；实际峰数需要实验确认。</p></article><article><h3>“混合越久，就一定看得越远”</h3><p>延长混合常能增加接力机会，但实际信号受到弛豫等限制。滑块展示单纯的图扩散，不代表真实峰强必然增长。</p></article></div>
+  </section>
+  <section id="original"><div class="section-line"><span>08 / 原始材料 · 可展开复习</span><h2>回到截图，核对每一句话的来源。</h2></div>
+    <div class="two-col source-zooms"><article class="panel"><h3>原图局部：A–D 谱图与结构箭头</h3><svg viewBox="962 184 800 365" role="img" aria-label="用户截图上方右侧的原始 TOCSY 小谱图和氨基酮结构"><image width="1808" height="1060" href="/*ORIGINAL_DATA*/"/></svg><p class="tiny">局部显示原像素，未改变数据。小谱图的红点是课程图示，没有等高线强度标尺。</p></article><article class="panel"><h3>原图局部：下方分子骨架</h3><svg viewBox="954 647 817 306" role="img" aria-label="用户截图下方烯烃分子的原始结构"><image width="1808" height="1060" href="/*ORIGINAL_DATA*/"/></svg><p class="tiny">本页按该骨架添加 C/G 编号。截图没有为这个分子提供谱图、峰表或采集参数。</p></article></div>
+    <details class="original-details"><summary>展开完整原始截图（1808 × 1060）</summary><img src="/*ORIGINAL_DATA*/" width="1808" height="1060" alt="上传的原始 TOCSY 课程截图，含四条英文说明、A–D 小谱图和下方烯烃练习"><button type="button" id="openOriginal">按原像素尺寸放大查看</button></details>
+    <details class="transcript" open><summary>原图文字识别与中文校读</summary><div class="table-wrap"><table><thead><tr><th>可确认的原文</th><th>中文解释 / 需要补充的条件</th></tr></thead><tbody><tr><td>Total correlation spectroscopy</td><td>全相关谱；TOCSY 是同核相关实验。</td></tr><tr><td>TOCSY is homonuclear like COSY but also includes longer range couplings</td><td>更严谨地理解为“也可显示沿耦合网络接力的远端相关”；不是每个远端峰都证明直接长程耦合。</td></tr><tr><td>Every proton in an uninterrupted chain can be seen as correlated</td><td>“不中断”应指存在可用的耦合路径；“can”表示条件允许，不能读成所有实验都必然看到。</td></tr><tr><td>What chains do we have in this molecule?</td><td>本页先给三组的近邻耦合基线，再演示弱长程路径可能改变分组。</td></tr></tbody></table></div><p class="tiny">图内单位 ppm 可确认。微小的 J 上标与下标无法逐字精确确认，不录入成测量数值；只按箭头解释近邻与可能长程路径。</p></details>
+  </section>
+  <section id="sources"><div class="section-line"><span>09 / 来源与限制</span><h2>原图观测、结构计数和模型，各自有边界。</h2></div>
+    <div class="source-list"><p><b>[原材料]</b>用户上传的 TOCSY 课程截图，1808 × 1060 像素，完整保留并嵌入本 HTML。没有上传 PDF、FID、处理后二维矩阵、峰表或仪器参数。原作者、教材出处和原实验条件无法确认。</p><p><b>[机制核对]</b> <a href="https://nmr.chem.columbia.edu/content/tocsy" target="_blank" rel="noopener">Columbia University NMR Core Facility · TOCSY</a>：支持同一耦合系统内的逐步传递，以及混合时间与可见相关的条件性。不是本截图的原始出处。</p><p><b>[实验解释]</b> <a href="https://imserc.northwestern.edu/guide/eNMR/eNMR2D/tocsy.html" target="_blank" rel="noopener">Northwestern IMSERC · 2D TOCSY</a>：支持各向同性混合、直接与接力相关；本页用独立的图扩散类比解释，不复现脉冲序列。</p><p><b>[COSY 对照]</b> <a href="https://imserc.northwestern.edu/guide/eNMR/eNMR2D/cosy.html" target="_blank" rel="noopener">Northwestern IMSERC · 2D COSY</a>：直接 J 相关与长程 COSY 的边界；本页 COSY 模式只显示假设边，不模拟峰相位或细裂分。</p><p><b>[未验证]</b>绝对峰强、精确位移、J 值、积分、SNR、实验混合时间、NH 交换、烯烃真实分组与 E/Z 构型均未由原始数据验证。本页不据此给出完整实验结构解析。</p></div>
+    <div class="final-strip"><strong>操作建议</strong><span>先 B↔D 比较两种模式 → 调整混合时间 → 关闭 NH 路径 → 切到烯烃 → 开启弱长程假设 → 回看原图。</span></div>
+  </section>
+</main>
+<footer class="wrap"><span>TOCSY · 中文交互教程</span><span>单文件离线可用 · 公式字体与原图已嵌入 · 外部来源仅在点击时打开</span></footer>
+<dialog id="sourceDialog"><div class="dialog-head"><strong>原始截图 · 可滚动查看</strong><button id="closeOriginal" type="button">关闭</button></div><div class="native-image"><img src="/*ORIGINAL_DATA*/" width="1808" height="1060" alt="完整原始 TOCSY 截图，原像素显示"></div></dialog>
+<!--KATEX_JS-->
+<script id="core">/*CORE*/</script>
+<script>/*APP*/</script>
+</body></html>

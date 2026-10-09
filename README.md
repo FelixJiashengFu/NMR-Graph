@@ -10,6 +10,7 @@
 | 碳骨架连接 | 1,1-ADEQUATE：4-甲基伞形酮交叉峰判读 | [打开](./topics/adequate-methylumbelliferone/index.html) |
 | 异核长程相关 | H2BC × HMBC：两键与三键相关判读 | [打开](./topics/h2bc-hmbc/index.html) |
 | 结构解析 | 苯佐卡因：¹H NMR 与 ¹³C APT 拼结构 | [打开](./topics/benzocaine-structure/index.html) |
+| 同核相关 | TOCSY × COSY：接力相关与自旋系统 | [打开](./topics/tocsy-spin-systems/index.html) |
 
 ## 仓库结构
 
@@ -25,6 +26,10 @@ NMR-Graph/
     │   └── README.md                  # 本专题的范围与来源
     ├── h2bc-hmbc/
     │   └── index.html                 # H2BC / HMBC 互动图解
+    ├── tocsy-spin-systems/
+    │   ├── index.html                 # TOCSY 接力相关与分组图解
+    │   ├── preview.png                # 整页预览
+    │   └── source/                    # 可编辑源码、原图与验证脚本
     └── benzocaine-structure/
         └── index.html                 # 苯佐卡因氢谱与 APT 结构解析
 ```
@@ -37,3 +42,5 @@ NMR-Graph/
 4. 在专题页面注明真实实验数据与教学示意的区别，并列出必要来源。
 
 原有的 INADEQUATE 练习已从仓库根目录移至 `topics/inadequate-octanol/`，内容保留。该练习的谱图和相关关系根据题目截图重绘；ppm 为估读值，不宜作为精确化学位移参考。H2BC / HMBC 页面中的相关峰为概念示意，不对应原始苯乙烯实验峰位或峰强。
+
+TOCSY 专题使用用户课程截图：ppm 仅为估读，峰强为图扩散类比。下方烯烃按常规近邻耦合可分三组；弱长程通路可能改变分组，尚无原始谱图验证。

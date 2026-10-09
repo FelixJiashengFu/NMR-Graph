@@ -1,0 +1,114 @@
+{
+  "testedAt": "2026-10-09T23:01:07.345Z",
+  "browser": "Installed Google Chrome via Playwright, actual file:// navigation",
+  "errors": [],
+  "externalRequests": [],
+  "results": [
+    {
+      "width": 1440,
+      "interactions": "all primary controls and all 13 source choices passed",
+      "overflow": {
+        "document": false,
+        "clipped": []
+      },
+      "formulaBlocks": 5,
+      "sourceImagesLoaded": true,
+      "selftest": {
+        "ok": true,
+        "checks": {
+          "two_spin_exact": true,
+          "zero_time_identity": true,
+          "disconnected_zero": true,
+          "symmetry": true,
+          "row_conservation": true,
+          "nonnegative": true,
+          "slide_groups": true,
+          "nh_off_groups": true,
+          "alkene_groups": true,
+          "weak_join_groups": true,
+          "proton_count": true,
+          "carbon_count": true,
+          "DBE": true,
+          "slide_peak_count": true,
+          "alkene_peak_count": true
+        },
+        "maxSymmetry": 5.551115123125783e-17,
+        "maxRowError": 7.771561172376096e-16,
+        "twoSpin20ms": 0.3990517410026723,
+        "alkeneFormula": "C10H20"
+      },
+      "height": 7967
+    },
+    {
+      "width": 390,
+      "interactions": "all primary controls and all 13 source choices passed",
+      "overflow": {
+        "document": false,
+        "clipped": []
+      },
+      "formulaBlocks": 5,
+      "sourceImagesLoaded": true,
+      "selftest": {
+        "ok": true,
+        "checks": {
+          "two_spin_exact": true,
+          "zero_time_identity": true,
+          "disconnected_zero": true,
+          "symmetry": true,
+          "row_conservation": true,
+          "nonnegative": true,
+          "slide_groups": true,
+          "nh_off_groups": true,
+          "alkene_groups": true,
+          "weak_join_groups": true,
+          "proton_count": true,
+          "carbon_count": true,
+          "DBE": true,
+          "slide_peak_count": true,
+          "alkene_peak_count": true
+        },
+        "maxSymmetry": 5.551115123125783e-17,
+        "maxRowError": 7.771561172376096e-16,
+        "twoSpin20ms": 0.3990517410026723,
+        "alkeneFormula": "C10H20"
+      },
+      "height": 11650
+    },
+    {
+      "width": 320,
+      "interactions": "all primary controls and all 13 source choices passed",
+      "overflow": {
+        "document": false,
+        "clipped": []
+      },
+      "formulaBlocks": 5,
+      "sourceImagesLoaded": true,
+      "selftest": {
+        "ok": true,
+        "checks": {
+          "two_spin_exact": true,
+          "zero_time_identity": true,
+          "disconnected_zero": true,
+          "symmetry": true,
+          "row_conservation": true,
+          "nonnegative": true,
+          "slide_groups": true,
+          "nh_off_groups": true,
+          "alkene_groups": true,
+          "weak_join_groups": true,
+          "proton_count": true,
+          "carbon_count": true,
+          "DBE": true,
+          "slide_peak_count": true,
+          "alkene_peak_count": true
+        },
+        "maxSymmetry": 5.551115123125783e-17,
+        "maxRowError": 7.771561172376096e-16,
+        "twoSpin20ms": 0.3990517410026723,
+        "alkeneFormula": "C10H20"
+      },
+      "height": 12258
+    }
+  ],
+  "ok": true
+}
