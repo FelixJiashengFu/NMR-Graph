@@ -1,2 +1,11 @@
-# NMR-Graph
-Interactive INADEQUATE NMR carbon assignment practice
+# NMR Graph
+
+交互式 INADEQUATE 碳峰归属练习，以 1-辛醇为例。
+
+## 使用
+
+1. 下载并用浏览器打开 [index.html](./index.html)。
+2. 点击谱图峰号查看相邻碳的相关线，选 C1–C8 与峰号配对。
+3. 点击“检查答案”；需要完整推导时点击“显示答案”或展开“详细判读过程”。
+
+谱图和相关关系根据练习题截图重绘；ppm 是估读值，不适合用作精确化学位移参考。
