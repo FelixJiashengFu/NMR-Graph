@@ -1,0 +1,263 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="用互动键路和二维相关谱示意理解 H2BC 与 HMBC 的区别。">
+  <title>H2BC × HMBC｜二维核磁相关谱互动图解</title>
+  <style>
+    :root{--bg:#09111c;--surface:#111d2a;--surface2:#142333;--line:#294052;--text:#f0f7fb;--muted:#afc3d0;--cyan:#5bd7e7;--cyanSoft:rgba(91,215,231,.15);--coral:#ff977f;--coralSoft:rgba(255,151,127,.15);--green:#a7e6b8;--grid:#27404e;--focus:#f8e59b}
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:radial-gradient(900px 500px at 85% -10%,#17334b 0%,transparent 70%),var(--bg);color:var(--text);font-family:Inter,"Noto Sans SC","Microsoft YaHei",system-ui,sans-serif;line-height:1.55}
+    button,a{touch-action:manipulation}
+    button:focus-visible,a:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+    .wrap{width:min(1250px,calc(100% - 48px));margin:auto}
+    header{padding:34px 0 18px}
+    .topline{display:flex;justify-content:space-between;align-items:center;gap:18px;color:var(--muted);font-size:12px;font-weight:700;letter-spacing:.17em;text-transform:uppercase}
+    .brand{display:flex;align-items:center;gap:10px;color:var(--cyan)}
+    .brand-mark{width:21px;height:21px;border:2px solid currentColor;border-radius:6px;display:grid;place-items:center;font-size:13px;line-height:1}
+    .eyebrow{margin:48px 0 10px;color:var(--cyan);font-size:12px;font-weight:800;letter-spacing:.24em;text-transform:uppercase}
+    h1{margin:0;font-size:clamp(40px,6vw,78px);line-height:1.05;letter-spacing:-.06em;font-weight:800}
+    h1 span{color:var(--cyan)}
+    .lede{max-width:800px;margin:19px 0 28px;color:#c8d9e2;font-size:clamp(17px,2vw,21px)}
+    .lede strong{color:var(--text)}
+    .takeaway{display:flex;flex-wrap:wrap;gap:10px 28px;align-items:center;padding:16px 20px;border-left:3px solid var(--cyan);background:linear-gradient(90deg,var(--cyanSoft),transparent);font-size:14px;color:#d6e6ed}
+    .takeaway b{color:var(--cyan);letter-spacing:.05em}
+    main{padding-bottom:50px}
+    .section-head{display:flex;align-items:end;justify-content:space-between;gap:20px;margin:55px 0 18px}
+    h2{margin:0;font-size:clamp(23px,2.5vw,32px);letter-spacing:-.035em}
+    .section-head p{margin:0;color:var(--muted);font-size:13px}
+    .controlbar{display:flex;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:18px}
+    .control-label{margin-right:7px;color:var(--muted);font-size:13px;font-weight:700}
+    .path-button{min-height:42px;border:1px solid var(--line);border-radius:10px;background:var(--surface);color:var(--text);font:inherit;font-size:14px;font-weight:700;padding:8px 16px;cursor:pointer;transition:background .2s,border-color .2s,transform .2s}
+    .path-button:hover{transform:translateY(-1px);border-color:#5c7c8b}
+    .path-button[aria-pressed="true"]{background:var(--cyanSoft);border-color:var(--cyan);color:#c8f9ff}
+    .path-button.three[aria-pressed="true"]{background:var(--coralSoft);border-color:var(--coral);color:#ffe4dd}
+    .explorer{display:grid;grid-template-columns:minmax(300px,.92fr) minmax(470px,1.45fr);gap:18px;align-items:stretch}
+    .panel{background:linear-gradient(150deg,rgba(22,39,54,.97),rgba(13,26,38,.98));border:1px solid var(--line);border-radius:18px;box-shadow:0 18px 55px rgba(0,0,0,.14)}
+    .molecule-panel{padding:26px 25px 20px;min-height:480px;display:flex;flex-direction:column}
+    .panel-kicker{color:var(--muted);font-size:11px;letter-spacing:.18em;text-transform:uppercase;font-weight:800}
+    .panel h3{font-size:21px;margin:5px 0 0;letter-spacing:-.03em}
+    .molecule-stage{flex:1;min-height:255px;display:grid;place-items:center}
+    #molecule{width:100%;max-width:450px;height:auto;overflow:visible}
+    .atom-label{font-size:21px;font-weight:800;fill:var(--text)}
+    .atom-sub{font-size:13px;font-weight:700;fill:var(--muted)}
+    .bond{stroke:#72909f;stroke-width:3;stroke-linecap:round}
+    .trace{fill:none;stroke:var(--cyan);stroke-width:8;stroke-linecap:round;stroke-linejoin:round;opacity:.88;filter:drop-shadow(0 0 8px rgba(91,215,231,.5));transition:stroke .2s}
+    .trace.three-bond{stroke:var(--coral);filter:drop-shadow(0 0 8px rgba(255,151,127,.4))}
+    .atom-halo{fill:var(--cyanSoft);stroke:var(--cyan);stroke-width:2}
+    .atom-halo.three-bond{fill:var(--coralSoft);stroke:var(--coral)}
+    .bond-step{fill:var(--bg);stroke:var(--cyan);stroke-width:2}
+    .bond-step.three-bond{stroke:var(--coral)}
+    .bond-step-text{fill:var(--text);font-size:12px;font-weight:800;text-anchor:middle;dominant-baseline:middle}
+    .path-detail{padding:17px 0 0;border-top:1px solid var(--line);min-height:95px}
+    .path-detail strong{font-size:16px}
+    .path-detail p{margin:5px 0 0;color:var(--muted);font-size:14px}
+    .path-detail .accent-two{color:var(--cyan)}
+    .path-detail .accent-three{color:var(--coral)}
+    .charts-panel{padding:25px 24px 19px}
+    .chart-head{display:flex;justify-content:space-between;align-items:start;gap:15px;margin-bottom:13px}
+    .chart-head small{color:var(--muted);font-size:11px;text-align:right;line-height:1.4}
+    .spectra{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+    .spectrum{min-width:0}
+    .spectrum-title{display:flex;align-items:center;gap:8px;margin:0 0 6px;font-size:17px;font-weight:800}
+    .spectrum-title i{display:block;width:9px;height:9px;border-radius:50%;background:var(--coral)}
+    .spectrum.h2bc .spectrum-title i{background:var(--cyan)}
+    .spectrum svg{width:100%;height:auto;display:block}
+    .gridline{stroke:var(--grid);stroke-width:1}
+    .axisline{stroke:#71909f;stroke-width:1.4}
+    .axislabel{fill:var(--muted);font-size:13px;font-weight:700}
+    .peak{transition:opacity .25s}
+    .peak.two circle{fill:var(--cyan);stroke:#b9f5fb}
+    .peak.three circle{fill:var(--coral);stroke:#ffe0d7}
+    .peak circle{stroke-width:1.5}
+    .peak .peak-core{fill:var(--bg);stroke:none}
+    .peak.hidden-peak{opacity:.09;pointer-events:none}
+    .peak.dimmed{opacity:.24}
+    .peak.selected circle{stroke-width:3;filter:drop-shadow(0 0 7px currentColor)}
+    .peak.two.selected{color:var(--cyan)}
+    .peak.three.selected{color:var(--coral)}
+    .legend{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;margin-top:10px;font-size:12px;color:var(--muted)}
+    .legend span{display:flex;align-items:center;gap:6px}
+    .legend i{display:inline-block;width:10px;height:10px;border-radius:50%}
+    .legend .two-dot{background:var(--cyan)}
+    .legend .three-dot{background:var(--coral)}
+    .note{margin:13px 0 0;padding:10px 12px;background:rgba(255,255,255,.035);border-radius:8px;color:#b6cbd5;font-size:12px}
+    .readout{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+    .readout-item{border-top:2px solid var(--line);padding:16px 4px 0}
+    .readout-item b{display:block;font-size:13px;color:var(--cyan);margin-bottom:5px}
+    .readout-item:nth-child(2) b{color:var(--coral)}
+    .readout-item:nth-child(3) b{color:var(--green)}
+    .readout-item p{margin:0;color:#c1d1d9;font-size:13px;line-height:1.55}
+    .how-to{margin-top:57px}
+    .how-to .intro{max-width:830px;margin:10px 0 23px;color:var(--muted);font-size:15px}
+    .worked-example{border:1px solid #38677a;border-radius:16px;background:linear-gradient(110deg,rgba(91,215,231,.12),rgba(17,29,42,.65));padding:22px 25px;margin-bottom:24px}
+    .worked-example h3{margin:6px 0 13px;font-size:20px;letter-spacing:-.025em}
+    .worked-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .worked-grid div{border-top:1px solid #477183;padding-top:12px}
+    .worked-grid b{display:block;font-size:13px;color:var(--cyan);margin-bottom:4px}
+    .worked-grid p{margin:0;color:#d4e3e9;font-size:14px}
+    .steps-list{list-style:none;display:grid;grid-template-columns:repeat(4,1fr);gap:14px;padding:0;margin:0}
+    .steps-list li{padding:18px 17px;border:1px solid var(--line);border-radius:13px;background:rgba(255,255,255,.025)}
+    .step-num{display:block;color:var(--cyan);font-size:12px;letter-spacing:.15em;font-weight:800;margin-bottom:8px}
+    .steps-list h3{font-size:16px;line-height:1.35;margin:0 0 8px}
+    .steps-list p{margin:0;color:var(--muted);font-size:13px}
+    .steps-list strong{color:var(--text)}
+    .decision{margin-top:36px}
+    .decision h3{margin:0 0 6px;font-size:22px}
+    .decision>p{color:var(--muted);font-size:14px;margin:0 0 15px}
+    .decision-list{display:grid;gap:8px}
+    .decision-row{display:grid;grid-template-columns:220px minmax(200px,1fr) minmax(200px,1fr);gap:18px;align-items:start;padding:15px 17px;border:1px solid var(--line);border-radius:10px;background:rgba(255,255,255,.02)}
+    .decision-row:first-child{border-color:#457d8c;background:rgba(91,215,231,.065)}
+    .decision-row b{font-size:14px}
+    .decision-row p{font-size:13px;color:var(--muted);margin:0}
+    .decision-row .state{font-weight:800;font-size:13px;color:var(--text)}
+    .decision-row .state .yes{color:var(--cyan)}
+    .decision-row .state .no{color:var(--coral)}
+    .decision-foot{font-size:13px;color:#cbdbe3;margin:16px 0 0;padding-left:13px;border-left:2px solid var(--coral)}
+    .limits{display:grid;grid-template-columns:170px 1fr;gap:26px;margin-top:54px;padding:26px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+    .limits h2{font-size:21px}
+    .limits p{margin:0;color:var(--muted);font-size:14px}
+    footer{display:flex;justify-content:space-between;gap:30px;flex-wrap:wrap;padding:25px 0 42px;color:#96acb9;font-size:12px}
+    footer a{color:#b5e9f0;text-decoration-thickness:1px;text-underline-offset:3px}
+    footer .sources{max-width:800px}
+    @media(max-width:1050px){.explorer{grid-template-columns:1fr}.molecule-panel{min-height:390px}.molecule-stage{min-height:210px}.steps-list{grid-template-columns:repeat(2,1fr)}.decision-row{grid-template-columns:180px 1fr 1fr}}
+    @media(max-width:700px){.wrap{width:min(100% - 28px,650px)}header{padding-top:22px}.eyebrow{margin-top:35px}.section-head{display:block;margin-top:42px}.section-head p{margin-top:6px}.spectra{grid-template-columns:1fr;gap:24px}.charts-panel,.molecule-panel{padding:20px 16px}.readout{grid-template-columns:1fr;gap:15px}.readout-item{padding-top:10px}.worked-example{padding:18px 16px}.worked-grid,.steps-list,.decision-row{grid-template-columns:1fr}.worked-grid{gap:13px}.decision-row{gap:7px}.limits{grid-template-columns:1fr;gap:8px;margin-top:42px}.chart-head{display:block}.chart-head small{display:block;text-align:left;margin-top:4px}}
+    @media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;transition:none!important;animation:none!important}}
+  </style>
+</head>
+<body>
+  <header class="wrap">
+    <div class="topline"><div class="brand"><span class="brand-mark" aria-hidden="true">⌁</span><span>NMR VISUAL LAB</span></div><span>二维核磁 · 互动图解</span></div>
+    <p class="eyebrow">Heteronuclear Two-Bond Correlation</p>
+    <h1><span>H2BC</span> × HMBC</h1>
+    <p class="lede">同一个 H–C 相关峰，究竟隔了几根化学键？<strong>HMBC 展示长程线索，H2BC 帮你确认其中的两键路径。</strong></p>
+    <div class="takeaway"><b>一句话看懂</b><span>HMBC 常同时出现两键与三键相关；H2BC 主要突出两键相关，尤其能补足 HMBC 中较弱或缺失的两键峰。</span></div>
+  </header>
+  <main class="wrap">
+    <div class="section-head"><h2>从键路到相关峰</h2><p>选择路径，比较两种实验中的可见相关。</p></div>
+    <div class="controlbar" role="group" aria-label="选择键路"><span class="control-label">高亮路径</span><button class="path-button" id="two-button" type="button" aria-pressed="true">两键 H<sub>A</sub> → C₂</button><button class="path-button three" id="three-button" type="button" aria-pressed="false">三键 H<sub>A</sub> → C₃</button></div>
+    <div class="explorer">
+      <section class="panel molecule-panel" aria-labelledby="path-title">
+        <div><div class="panel-kicker">01 / Bond path</div><h3 id="path-title">数清楚 H 到 C 的键数</h3></div>
+        <div class="molecule-stage">
+          <svg id="molecule" viewBox="0 0 470 280" role="img" aria-labelledby="molecule-title molecule-desc">
+            <title id="molecule-title">示意性碳链 H_A–C₁–C₂–C₃</title><desc id="molecule-desc">H_A 到 C₂ 相隔两键，到 C₃ 相隔三键。C₂ 和 C₃ 均带氢。</desc>
+            <path class="bond" d="M61 130 L135 130 M167 130 L254 130 M287 130 L373 130 M271 145 L271 211 M389 145 L389 211"/>
+            <path id="active-trace" class="trace" d="M62 130 L151 130 L270 130"/>
+            <circle class="atom-halo" cx="270" cy="130" r="26" id="target-halo"/>
+            <text class="atom-label" x="31" y="138">H<tspan baseline-shift="sub" font-size="12">A</tspan></text>
+            <text class="atom-label" x="135" y="138">C<tspan baseline-shift="sub" font-size="12">1</tspan></text>
+            <text class="atom-label" x="254" y="138">C<tspan baseline-shift="sub" font-size="12">2</tspan></text>
+            <text class="atom-label" x="373" y="138">C<tspan baseline-shift="sub" font-size="12">3</tspan></text>
+            <text class="atom-sub" x="255" y="239">H<tspan baseline-shift="sub" font-size="10">B</tspan></text>
+            <text class="atom-sub" x="373" y="239">H<tspan baseline-shift="sub" font-size="10">C</tspan></text>
+            <g id="steps" aria-hidden="true"></g>
+          </svg>
+        </div>
+        <div class="path-detail" aria-live="polite"><strong id="path-name" class="accent-two">H<sub>A</sub> → C₂：两键相关</strong><p id="path-explanation">沿 H<sub>A</sub>—C₁—C₂ 走两步。H2BC 的设计重点就是突出这样的相关。</p></div>
+      </section>
+      <section class="panel charts-panel" aria-labelledby="chart-title">
+        <div class="chart-head"><div><div class="panel-kicker">02 / Correlation map</div><h3 id="chart-title">两张谱图会怎样显示？</h3></div><small>横轴为氢、纵轴为碳<br>圆点代表示意性相关峰</small></div>
+        <div class="spectra">
+          <div class="spectrum hmbc"><div class="spectrum-title"><i aria-hidden="true"></i>HMBC</div><svg id="hmbc-chart" viewBox="0 0 300 310" role="img" aria-label="HMBC 示意相关谱，显示两键和三键相关"></svg></div>
+          <div class="spectrum h2bc"><div class="spectrum-title"><i aria-hidden="true"></i>H2BC</div><svg id="h2bc-chart" viewBox="0 0 300 310" role="img" aria-label="H2BC 示意相关谱，主要显示两键相关"></svg></div>
+        </div>
+        <div class="legend"><span><i class="two-dot" aria-hidden="true"></i>两键相关</span><span><i class="three-dot" aria-hidden="true"></i>三键相关</span><span>淡化＝当前未选路径</span></div>
+        <p class="note">教学示意：圆点位置与大小不对应图片中苯乙烯的实际化学位移或实验峰强；H2BC 对三键以上相关是抑制，并非绝对排除。</p>
+      </section>
+    </div>
+    <div class="readout" aria-label="关键结论"><div class="readout-item"><b>HMBC · 范围更广</b><p>常见两键、三键相关，也可能出现更长程峰；单看一张 HMBC 谱通常难判键数。</p></div><div class="readout-item"><b>H2BC · 两键更清楚</b><p>增强并筛出多数两键 H–C 相关，帮助核对 HMBC 中含糊或偏弱的线索。</p></div><div class="readout-item"><b>联合使用 · 互补</b><p>把 H2BC 的两键证据与 HMBC 的长程信息放在一起，缩小结构归属的歧义。</p></div></div>
+    <section class="how-to" aria-labelledby="how-to-title">
+      <h2 id="how-to-title">实际拿到谱图，怎么判断？</h2>
+      <p class="intro">把一个交叉峰当作一对坐标来追踪：横坐标是氢的化学位移 δ<sub>H</sub>，纵坐标是碳的化学位移 δ<sub>C</sub>。先确定原子归属，再看这对坐标是否同时出现在两种实验中；“没看到峰”不能单独证明键数。</p>
+      <div class="worked-example" aria-live="polite">
+        <div class="panel-kicker">跟着上方高亮路径试判</div>
+        <h3 id="worked-title">例 1：H<sub>A</sub> 与 C₂</h3>
+        <div class="worked-grid"><div><b>先核对归属</b><p id="worked-assign">HSQC 显示 H<sub>A</sub> 直接连 C₁，H<sub>B</sub> 直接连 C₂；所以目标 C₂ 是带氢碳。</p></div><div><b>再看两张谱</b><p id="worked-observe">在同一组 H<sub>A</sub> / C₂ 坐标上，示意 HMBC 与 H2BC 都有峰。</p></div><div><b>最后下结论</b><p id="worked-conclude">支持 H<sub>A</sub>—C₁—C₂ 的两键路径。再用 COSY 的 H<sub>A</sub> / H<sub>B</sub> 相关及其他归属交叉核对。</p></div></div>
+      </div>
+      <ol class="steps-list">
+        <li><span class="step-num">STEP 01</span><h3>先用 HSQC 定位</h3><p>找出待分析氢 <strong>H<sub>A</sub> 直接连哪一个碳</strong>；再查目标碳是否在 HSQC 上带有氢。标准 H2BC 对不带氢的目标碳不会给出相关。</p></li>
+        <li><span class="step-num">STEP 02</span><h3>对齐同一坐标</h3><p>在 HMBC 和 H2BC 中找<strong>相同 δ<sub>H</sub> / δ<sub>C</sub></strong> 的交叉峰。先核查化学位移校准、峰重叠和信噪比，避免把邻近峰误当同一峰。</p></li>
+        <li><span class="step-num">STEP 03</span><h3>看 H2BC 的证据</h3><p>若目标碳带氢，且 H2BC 在该坐标有清楚的峰，<strong>优先考虑两键 H–C 路径</strong>。它利用 <sup>1</sup>J<sub>CH</sub> 与相邻氢间的 <sup>3</sup>J<sub>HH</sub> 传递，不直接依赖可能很小的 <sup>2</sup>J<sub>CH</sub>。</p></li>
+        <li><span class="step-num">STEP 04</span><h3>画路径再交叉核对</h3><p>从 H 出发，沿共价键逐根数到目标 C。可用 <strong>COSY 检查邻近氢</strong>，结合 HMBC 的其他相关和分子式，排除重叠或偶然弱峰。</p></li>
+      </ol>
+      <div class="decision" aria-labelledby="decision-title">
+        <h3 id="decision-title">四种常见组合，分别能说明什么</h3>
+        <p>以下默认比较的是同一对 H / C 坐标，且谱图采集和处理质量足以判断峰是否存在。</p>
+        <div class="decision-list">
+          <div class="decision-row"><div class="state">HMBC <span class="yes">有</span> · H2BC <span class="yes">有</span></div><div><b>倾向两键</b><p>目标 C 带氢时，这是两键相关的有力支持。</p></div><div><b>接着查</b><p>HSQC 归属、相邻氢的 COSY 和合理的 C–C 连接；注意少量残余高阶相关。</p></div></div>
+          <div class="decision-row"><div class="state">HMBC <span class="no">无</span> · H2BC <span class="yes">有</span></div><div><b>仍可支持两键</b><p>两键 <sup>2</sup>J<sub>CH</sub> 很小或接近零时，HMBC 可能漏掉这条相关。</p></div><div><b>接着查</b><p>确认 H2BC 峰不是噪声或重叠，再核对 HSQC 和结构键路。</p></div></div>
+          <div class="decision-row"><div class="state">HMBC <span class="yes">有</span> · H2BC <span class="no">无</span></div><div><b>不能直接判“三键”</b><p>可能是三键或更长程；也可能是两键到不带氢碳，或 H2BC 因 H–H 耦合弱而漏峰。</p></div><div><b>接着查</b><p>先看目标 C 是否带氢，再看 COSY、信噪比与其他可行键路。</p></div></div>
+          <div class="decision-row"><div class="state">HMBC <span class="no">无</span> · H2BC <span class="no">无</span></div><div><b>不提供可靠键数</b><p>缺峰可能受耦合常数、实验参数、浓度或重叠影响。</p></div><div><b>接着查</b><p>回到 HSQC/COSY 与其他相关峰，必要时优化实验条件。</p></div></div>
+        </div>
+        <p class="decision-foot">判读原则：<strong>有峰是支持证据，缺峰通常不是排除证据；峰强也不能直接换算成“两键”或“三键”。</strong></p>
+      </div>
+    </section>
+    <section class="limits" aria-labelledby="limits-title"><h2 id="limits-title">读谱边界</h2><p>标准 H2BC 的目标碳必须带氢；它依赖邻近质子间的耦合传递，因此弱 H–H 耦合、峰重叠等情况仍可能漏峰或产生少量非目标相关。请结合 HSQC、COSY 等实验和真实谱图判断，不要把峰强直接当成键数尺子。</p></section>
+  </main>
+  <footer class="wrap"><div>内容根据用户提供的讲义图片重构，谱图为概念示意。</div><div class="sources">科学依据：<a href="https://pubmed.ncbi.nlm.nih.gov/15853304/" target="_blank" rel="noopener noreferrer">H2BC 原始论文（JACS, 2005）</a> · <a href="https://pubmed.ncbi.nlm.nih.gov/16406276/" target="_blank" rel="noopener noreferrer">H2BC 应用研究（2006）</a> · <a href="https://nmr.chem.ox.ac.uk/nmr-glossary" target="_blank" rel="noopener noreferrer">Oxford NMR 实验释义</a> · <a href="https://www.nmr.ucdavis.edu/sites/g/files/dgvnsk4156/files/inline-files/topspin-3-userguide-ucdavis_0.pdf" target="_blank" rel="noopener noreferrer">UC Davis NMR 实验指南</a></div></footer>
+  <script>
+  (()=>{
+    const ns='http://www.w3.org/2000/svg';
+    const positions={A:76,B:160,C:244}, carbons={1:66,2:146,3:226};
+    const peaks=[{h:'A',c:2,bonds:2},{h:'A',c:3,bonds:3},{h:'B',c:1,bonds:2},{h:'B',c:3,bonds:2},{h:'C',c:1,bonds:3},{h:'C',c:2,bonds:2}];
+    const charts={hmbc:document.getElementById('hmbc-chart'),h2bc:document.getElementById('h2bc-chart')};
+    let selected=2;
+    function svgEl(name,attrs={}){const el=document.createElementNS(ns,name);for(const [k,v] of Object.entries(attrs))el.setAttribute(k,String(v));return el}
+    function drawChart(kind){
+      const svg=charts[kind];
+      [66,146,226].forEach(y=>svg.appendChild(svgEl('line',{x1:35,x2:268,y1:y,y2:y,class:'gridline'})));
+      [76,160,244].forEach(x=>svg.appendChild(svgEl('line',{x1:x,x2:x,y1:31,y2:255,class:'gridline'})));
+      svg.appendChild(svgEl('line',{x1:35,x2:268,y1:255,y2:255,class:'axisline'}));
+      svg.appendChild(svgEl('line',{x1:35,x2:35,y1:31,y2:255,class:'axisline'}));
+      [['A',76],['B',160],['C',244]].forEach(([h,x])=>{const t=svgEl('text',{x,y:281,'text-anchor':'middle',class:'axislabel'});t.textContent='H'+h;svg.appendChild(t)});
+      [[1,66],[2,146],[3,226]].forEach(([c,y])=>{const t=svgEl('text',{x:21,y:y+5,'text-anchor':'middle',class:'axislabel'});t.textContent='C'+c;svg.appendChild(t)});
+      const xAxis=svgEl('text',{x:259,y:302,'text-anchor':'end',class:'axislabel'});xAxis.textContent='¹H';svg.appendChild(xAxis);
+      const yAxis=svgEl('text',{x:8,y:22,class:'axislabel'});yAxis.textContent='¹³C';svg.appendChild(yAxis);
+      peaks.forEach((p,index)=>{
+        const g=svgEl('g',{class:`peak ${p.bonds===2?'two':'three'}`,'data-bonds':p.bonds,'data-index':index,role:'img','aria-label':`H${p.h} 到 C${p.c}：${p.bonds} 键相关`});
+        const r=kind==='hmbc'&&p.bonds===2?11:13;
+        g.appendChild(svgEl('circle',{cx:positions[p.h],cy:carbons[p.c],r}));
+        g.appendChild(svgEl('circle',{cx:positions[p.h],cy:carbons[p.c],r:kind==='hmbc'&&p.bonds===2?4:5,class:'peak-core'}));
+        svg.appendChild(g);
+      });
+    }
+    drawChart('hmbc');drawChart('h2bc');
+    function drawSteps(count){
+      const group=document.getElementById('steps');group.replaceChildren();
+      const coords=count===2?[[105,130],[210,130]]:[[105,130],[210,130],[330,130]];
+      coords.forEach(([x,y],i)=>{group.appendChild(svgEl('circle',{cx:x,cy:y-23,r:12,class:`bond-step ${count===3?'three-bond':''}`}));const t=svgEl('text',{x,y:y-22,class:'bond-step-text'});t.textContent=i+1;group.appendChild(t)})
+    }
+    function select(count){
+      selected=count;
+      document.getElementById('two-button').setAttribute('aria-pressed',String(count===2));
+      document.getElementById('three-button').setAttribute('aria-pressed',String(count===3));
+      const trace=document.getElementById('active-trace'),halo=document.getElementById('target-halo');
+      trace.setAttribute('d',count===2?'M62 130 L151 130 L270 130':'M62 130 L151 130 L270 130 L389 130');
+      trace.classList.toggle('three-bond',count===3);halo.classList.toggle('three-bond',count===3);
+      halo.setAttribute('cx',count===2?'270':'389');drawSteps(count);
+      const title=document.getElementById('path-name'),explanation=document.getElementById('path-explanation');
+      title.className=count===2?'accent-two':'accent-three';
+      title.innerHTML=count===2?'H<sub>A</sub> → C₂：两键相关':'H<sub>A</sub> → C₃：三键相关';
+      explanation.innerHTML=count===2?'沿 H<sub>A</sub>—C₁—C₂ 走两步。H2BC 的设计重点就是突出这样的相关。':'沿 H<sub>A</sub>—C₁—C₂—C₃ 走三步。HMBC 可显示这类长程线索，H2BC 通常会抑制它。';
+      document.getElementById('worked-title').innerHTML=count===2?'例 1：H<sub>A</sub> 与 C₂':'例 2：H<sub>A</sub> 与 C₃';
+      document.getElementById('worked-assign').innerHTML=count===2?'HSQC 显示 H<sub>A</sub> 直接连 C₁，H<sub>B</sub> 直接连 C₂；所以目标 C₂ 是带氢碳。':'HSQC 显示 H<sub>A</sub> 直接连 C₁，H<sub>C</sub> 直接连 C₃；所以目标 C₃ 也是带氢碳。';
+      document.getElementById('worked-observe').innerHTML=count===2?'在同一组 H<sub>A</sub> / C₂ 坐标上，示意 HMBC 与 H2BC 都有峰。':'在同一组 H<sub>A</sub> / C₃ 坐标上，示意 HMBC 有峰、H2BC 无明显峰。';
+      document.getElementById('worked-conclude').innerHTML=count===2?'支持 H<sub>A</sub>—C₁—C₂ 的两键路径。再用 COSY 的 H<sub>A</sub> / H<sub>B</sub> 相关及其他归属交叉核对。':'本示例的已知结构中，H<sub>A</sub>—C₁—C₂—C₃ 是三键。对未知结构，仅凭“HMBC 有、H2BC 无”不能直接判三键。';
+      for(const [kind,svg] of Object.entries(charts))for(const peak of svg.querySelectorAll('.peak')){
+        const bonds=Number(peak.dataset.bonds),index=Number(peak.dataset.index);
+        peak.classList.toggle('hidden-peak',kind==='h2bc'&&bonds===3);
+        peak.classList.toggle('dimmed',bonds!==count);
+        peak.classList.toggle('selected',index===(count===2?0:1));
+      }
+    }
+    document.getElementById('two-button').addEventListener('click',()=>select(2));
+    document.getElementById('three-button').addEventListener('click',()=>select(3));
+    select(2);
+  })();
+  </script>
+</body>
+</html>
