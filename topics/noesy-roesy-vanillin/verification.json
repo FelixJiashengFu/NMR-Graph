@@ -1,0 +1,8 @@
+{
+  "reference": "I(3 Å)/I₀ = 1",
+  "doubleDistance": "I(6 Å)/I₀ = 1/64",
+  "halfDistance": "I(1.5 Å)/I₀ = 64",
+  "modelInvariant": "I(r)/I₀ × (r/3 Å)^6 = 1",
+  "ppmExample": "1 ppm at 400 MHz = 400 Hz",
+  "offlineAssets": "scripts, styles, and screenshot embedded"
+}

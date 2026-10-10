@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <meta name="description" content="从 NOESY/ROESY 截图读懂空间相关：交叉峰、结构归属与 r⁻⁶ 距离模型。">
+  <title>NOESY / ROESY｜交叉峰怎样提示空间邻近</title>
+  <style>__STYLE__</style>
+</head>
+<body>
+  <a class="skip" href="#main">跳到教学内容</a>
+  <div class="shell">
+    <header class="hero">
+      <div class="topline"><span class="brand">NMR GRAPH <span class="brand-rule">/</span> 同核空间相关</span><span class="chapter">专题 11 · 截图精读</span></div>
+      <div class="hero-grid">
+        <div><p class="eyebrow">NOESY / ROESY · INTERPRETATION</p><h1>一个交叉峰，<br><em>说明多近？</em></h1><p class="lede">从截图中的交叉峰出发，连回香草醛结构；再用距离滑块看见 NOE 随距离迅速衰减的原因。</p></div>
+        <aside class="hero-claim"><span class="mini-label">主要结论</span><strong>有可核实的空间相关峰，通常提示两个氢在空间上接近。</strong><p>峰强受距离、运动、混合时间与其他转移路径共同影响，不能仅凭本截图直接量出 Å 距离。</p></aside>
+      </div>
+      <div class="read-first"><strong>读前必读</strong><span>下方彩色轮廓和峰位为原图估读；距离滑块只改变教学模型。原始截图未给出积分、混合时间、NOESY/ROESY 的具体采集条件。</span></div>
+    </header>
+
+    <main id="main">
+      <div class="section-label"><span>01 / 从图到判断</span><span>点选交叉峰，三栏联动</span></div>
+      <section class="dashboard" aria-label="交互判读仪表盘">
+        <aside class="panel control-panel">
+          <div class="panel-head"><span class="step">01</span><div><h2>选择观察对象</h2><p>选择一组相关，定位谱图与结构</p></div></div>
+          <div class="choices" role="group" aria-label="交叉峰选择">
+            <button type="button" class="choice" data-pair="aldehyde" aria-pressed="true"><span class="dot pair-red"></span><span><b>醛氢 ↔ 芳香峰区</b><small>红色 · 约 9.9 / 7.3 ppm</small></span><span class="arrow">↗</span></button>
+            <button type="button" class="choice" data-pair="methoxy" aria-pressed="false"><span class="dot pair-green"></span><span><b>甲氧基 ↔ 芳香峰区</b><small>绿色 · 约 3.8 / 7.3 ppm</small></span><span class="arrow">↗</span></button>
+            <button type="button" class="choice" data-pair="aromatic" aria-pressed="false"><span class="dot pair-purple"></span><span><b>两个芳香峰区</b><small>紫色 · 约 7.0 / 7.3 ppm</small></span><span class="arrow">↗</span></button>
+          </div>
+          <div class="divider"></div>
+          <label class="slider-label" for="distance">演示距离 <strong id="distance-value">3.0 Å</strong></label>
+          <input id="distance" type="range" min="2" max="6" step="0.1" value="3" aria-describedby="distance-help">
+          <div class="scale"><span>2.0 Å</span><span>6.0 Å</span></div>
+          <p class="field-note" id="distance-help">仅改变右侧模型曲线与读数；原图交叉峰位置和结构不随之移动。</p>
+          <div class="model-chip">模型基准：r₀ = 3.0 Å，I₀ = 1</div>
+        </aside>
+
+        <section class="panel visual-panel">
+          <div class="panel-head"><span class="step">02</span><div><h2>谱图 × 结构</h2><p>亮点是截图中可辨的交叉峰位置估读</p></div></div>
+          <div class="plot-key"><span><i class="key-peak"></i>原图估读的相关位置</span><span><i class="key-diag"></i>对角峰示意</span><span><i class="key-active"></i>当前选中</span></div>
+          <div class="plot-wrap"><svg id="spectrum" viewBox="0 0 650 500" role="img" aria-label="NOESY/ROESY 双氢化学位移示意图，横纵轴为 ppm，具体峰位来自截图估读"></svg></div>
+          <div class="structure-block"><div class="subhead"><span>结构定位</span><span>香草醛骨架 · 示意</span></div><svg id="structure" viewBox="0 0 420 240" role="img" aria-label="香草醛结构示意，选中相关氢被突出显示"></svg><p class="structure-caption" id="structure-caption"></p></div>
+        </section>
+
+        <aside class="panel readout-panel" aria-live="polite">
+          <div class="panel-head"><span class="step">03</span><div><h2>当前读数</h2><p>观察与解释分开看</p></div></div>
+          <div class="readout-title"><span class="status" id="pair-status">原图估读</span><h3 id="pair-title">醛氢 ↔ 芳香峰区</h3><p id="pair-summary"></p></div>
+          <dl class="numbers"><div><dt>横轴 f₂</dt><dd id="x-read">约 9.9 ppm</dd></div><div><dt>纵轴 f₁</dt><dd id="y-read">约 7.3 ppm</dd></div><div><dt>成对位置</dt><dd id="pair-count">2 个对称位置</dd></div></dl>
+          <div class="inference"><span class="mini-label">怎样理解</span><p id="pair-explain"></p></div>
+          <div class="model-output"><span class="mini-label">独立演示模型 · 非原图峰强</span><div class="model-value"><strong id="intensity">1.000</strong><span>I / I₀</span></div><svg id="curve" viewBox="0 0 280 118" role="img" aria-label="归一化 NOE 距离模型曲线"></svg><p id="model-sentence"></p></div>
+        </aside>
+      </section>
+
+      <section class="below-grid">
+        <article class="panel detail-panel"><div class="panel-head"><span class="step">04</span><div><h2>局部放大</h2><p>原截图像素裁切，无重绘</p></div></div><img class="detail-img" src="__DETAIL__" alt="原截图谱图中 3.8、7.3 和 9.9 ppm 附近的相关峰放大图"><p class="caption">黄红小轮廓是截图中的交叉峰；青色长轮廓集中在对角线附近。图中峰强没有可供定量积分的刻度。</p></article>
+        <article class="panel logic-panel"><div class="panel-head"><span class="step">05</span><div><h2>分步推理</h2><p>从可见证据走到有限结论</p></div></div><ol class="steps"><li><b>找到对角线。</b>横纵轴都是 <sup>1</sup>H 化学位移，单位 ppm；同一信号的自相关落在 f₁ = f₂。</li><li><b>寻找离开对角线的轮廓。</b>约 9.9/7.3 与 3.8/7.3 ppm 一带能看到较清楚的黄色小峰；对称位置互相核对。</li><li><b>映射回结构。</b>约 9.9 ppm 与醛氢、约 3.8 ppm 与甲氧基相符；约 7.3 ppm 是芳香氢拥挤区，单一 H 位点无法凭截图完全确认。</li><li><b>只做可支持的推断。</b>若这些确为 NOE/ROE 相关，相关氢在空间上可能相近；还需采集信息与完整谱图排除重叠、交换等其他解释。</li></ol></article>
+      </section>
+
+      <section class="panel table-panel"><div class="panel-head"><span class="step">06</span><div><h2>完整归属表</h2><p>颜色来自截图；位移均为读图估计</p></div></div><div class="table-scroll"><table><thead><tr><th>原图标记</th><th>结构中的氢</th><th>截图峰区</th><th>证据类型</th><th>归属把握</th></tr></thead><tbody><tr><td><span class="td-dot pair-red"></span>红</td><td>醛基 –CHO 的 H</td><td>约 9.9 ppm</td><td>原图标记 + 结构</td><td>较清楚；精确位移未提供</td></tr><tr><td><span class="td-dot pair-green"></span>绿</td><td>甲氧基 –OCH₃ 的 3 H</td><td>约 3.8 ppm</td><td>原图标记 + 结构</td><td>较清楚；精确位移未提供</td></tr><tr><td><span class="td-dot pair-orange"></span>橙</td><td>芳香 H2</td><td>约 7.3 ppm</td><td>原图颜色对应结构</td><td>附近重叠，交叉峰归属待确认</td></tr><tr><td><span class="td-dot pair-cyan"></span>青</td><td>芳香 H6</td><td>约 7.4 ppm</td><td>原图颜色对应结构</td><td>与 H2 临近；位移估读</td></tr><tr><td><span class="td-dot pair-purple"></span>紫</td><td>芳香 H5</td><td>约 7.0 ppm</td><td>原图颜色对应结构</td><td>弱相关靠近对角线，需核验</td></tr><tr><td><span class="td-dot neutral"></span>未标</td><td>酚羟基 –OH 的 H</td><td>无法确认</td><td>仅结构上存在</td><td>截图未提供可靠谱峰</td></tr></tbody></table></div><p class="table-note">位次 H2/H5/H6 按图示芳香醛碳为 1 位、顺时针编号。上述是结构辅助的候选归属，不等同原始实验峰表。</p></section>
+
+      <section class="below-grid second-row">
+        <article class="panel formula-panel"><div class="panel-head"><span class="step">07</span><div><h2>数值核对</h2><p>把“第六次方”变成可检查的比值</p></div></div><div class="formula">σ ∝ r<sup>−6</sup><span>→</span><span>I(r) / I₀ = (r₀ / r)<sup>6</sup></span></div><p>在相同实验条件、初始速率近似下，用交叉弛豫速率或经过校正的积分讨论距离依赖。右侧曲线只是设定 r₀ = 3.0 Å 的归一化练习。</p><div class="checks"><div><b>r = 3.0 Å</b><span>I / I₀ = 1</span></div><div><b>距离变为 2 倍</b><span>I / I₀ = 1/64 ≈ 0.0156</span></div><div><b>距离减半</b><span>I / I₀ = 64</span></div></div><p class="foot-small">距离单位相消，因此 I/I₀ 无单位。谱图的 ppm 是化学位移单位，不是空间距离。</p></article>
+        <article class="panel pitfalls-panel"><div class="panel-head"><span class="step">08</span><div><h2>常见误区</h2><p>哪些结论不能从这张图直接得到</p></div></div><div class="pitfall"><b>“峰越亮，就能直接读出 Å 数。”</b><p>截图没有积分、参考距离和实验条件。颜色轮廓也可能取决于等高线阈值。</p></div><div class="pitfall"><b>“没看到峰，就一定不近。”</b><p>低信噪比、重叠、零交叉区和实验设置都可能让相关不明显。</p></div><div class="pitfall"><b>“有交叉峰，就一定是直接 NOE。”</b><p>化学交换、间接转移与自旋扩散可能产生或改变相关，需结合实验设计核查。</p></div><div class="pitfall"><b>“NOESY 和 ROESY 可按同一峰相位判读。”</b><p>两种实验的转移与相位判读有区别；本截图没有给出相位说明。</p></div></article>
+      </section>
+
+      <section class="panel source-panel"><div class="panel-head"><span class="step">09</span><div><h2>来源与限制</h2><p>原材料可随时展开核对</p></div></div><div class="source-grid"><div><p>上传截图标题为 “NOESY/ROESY - Interpretation”。正文两点分别说：交叉峰提示质子空间接近；NOE 转移随距离的六次反比迅速减弱。右侧有二维谱、投影、颜色标注和香草醛样式结构。</p><p>截图没有原始峰表、采集参数、混合时间、温度、相位说明或积分。网页没有恢复真实实验曲线；重绘坐标只用于帮助定位，距离曲线只用于公式演示。</p><div class="sources"><a href="https://nmr.chem.ucsb.edu/education/part5.html" target="_blank" rel="noopener noreferrer">UCSB NMR Theory：NOESY 与距离依赖 ↗</a><a href="https://pubs.rsc.org/en/content/articlehtml/2020/sc/d0sc02970j" target="_blank" rel="noopener noreferrer">Chemical Science：定量 NOE 分析 ↗</a></div></div><details><summary>展开查看完整原图 <span>▾</span></summary><img src="__ORIGINAL__" alt="用户上传的 NOESY/ROESY Interpretation 完整教学截图"></details></div></section>
+    </main>
+    <footer>NOESY / ROESY · 香草醛截图精读 <span>原图估读 / 结构推断 / 演示模型 已分开标记</span></footer>
+  </div>
+  <script>__SCRIPT__</script>
+</body>
+</html>

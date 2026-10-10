@@ -1,0 +1,57 @@
+{
+  "url": "file:///C:/Users/fujia/Documents/Codex/2026-10-10/pdf-1-2-3-4-5/work/NMR-Graph/topics/noesy-roesy-vanillin/index.html",
+  "checks": [
+    {
+      "name": "desktop",
+      "selectionChanged": true,
+      "plotAndStructureClick": true,
+      "keyboardButtons": true,
+      "sliderBoundary": true,
+      "curveMoves": true,
+      "sliderKeyboard": true,
+      "originalExpanded": true,
+      "measures": {
+        "scrollWidth": 1440,
+        "innerWidth": 1440,
+        "bodyWidth": 1440,
+        "plotWidth": 742,
+        "formulaHeight": 63.25
+      }
+    },
+    {
+      "name": "mobile-390",
+      "selectionChanged": true,
+      "plotAndStructureClick": true,
+      "keyboardButtons": true,
+      "sliderBoundary": true,
+      "curveMoves": true,
+      "sliderKeyboard": true,
+      "originalExpanded": true,
+      "measures": {
+        "scrollWidth": 390,
+        "innerWidth": 390,
+        "bodyWidth": 390,
+        "plotWidth": 336,
+        "formulaHeight": 58.515625
+      }
+    },
+    {
+      "name": "mobile-320",
+      "selectionChanged": true,
+      "plotAndStructureClick": true,
+      "keyboardButtons": true,
+      "sliderBoundary": true,
+      "curveMoves": true,
+      "sliderKeyboard": true,
+      "originalExpanded": true,
+      "measures": {
+        "scrollWidth": 320,
+        "innerWidth": 320,
+        "bodyWidth": 320,
+        "plotWidth": 266,
+        "formulaHeight": 98.375
+      }
+    }
+  ],
+  "errors": []
+}

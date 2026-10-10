@@ -1,0 +1,60 @@
+const { chromium } = require('playwright');
+const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
+const { pathToFileURL } = require('url');
+const root=path.resolve(__dirname,'..');
+const url=pathToFileURL(path.join(root,'index.html')).href;
+const chrome='C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe';
+(async()=>{
+  const browser=await chromium.launch({headless:true,executablePath:chrome,args:['--allow-file-access-from-files']});
+  const report={url,checks:[],errors:[]};
+  async function run(width,height,name,screenshot){
+    const page=await browser.newPage({viewport:{width,height},deviceScaleFactor:1});
+    page.on('pageerror',e=>report.errors.push(`${name}: ${e.message}`));
+    await page.goto(url,{waitUntil:'load'});
+    await page.locator('#spectrum ellipse').first().waitFor();
+    assert.strictEqual(await page.locator('h1').count(),1);
+    assert.strictEqual(await page.locator('.choice').count(),3);
+    const img=await page.locator('.detail-img').evaluate(e=>e.complete&&e.naturalWidth>0);
+    assert(img);
+    const before=await page.locator('#pair-title').textContent();
+    await page.locator('[data-pair="methoxy"].choice').click();
+    assert.match(await page.locator('#pair-title').textContent(),/甲氧基/);
+    assert.strictEqual(await page.locator('[data-pair="methoxy"].choice').getAttribute('aria-pressed'),'true');
+    assert.match(await page.locator('#structure-caption').textContent(),/绿色甲氧基/);
+    await page.locator('[data-pair="aromatic"].choice').focus();
+    await page.keyboard.press('Enter');
+    assert.match(await page.locator('#pair-status').textContent(),/待确认/);
+    await page.locator('#spectrum g[data-pair="methoxy"]').first().click();
+    assert.match(await page.locator('#pair-title').textContent(),/甲氧基/);
+    await page.locator('#structure g[data-atom="CHO"]').click();
+    assert.match(await page.locator('#pair-title').textContent(),/醛氢/);
+    const dotBefore=await page.locator('#curve circle').getAttribute('cx');
+    await page.locator('#distance').evaluate(e=>{e.value='6';e.dispatchEvent(new Event('input',{bubbles:true}));});
+    assert.strictEqual(await page.locator('#distance-value').textContent(),'6.0 Å');
+    assert.strictEqual(await page.locator('#intensity').textContent(),'0.016');
+    assert.notStrictEqual(await page.locator('#curve circle').getAttribute('cx'),dotBefore);
+    await page.locator('#distance').focus();await page.keyboard.press('ArrowLeft');
+    assert.strictEqual(await page.locator('#distance-value').textContent(),'5.9 Å');
+    await page.locator('details summary').click();
+    assert(await page.locator('details').evaluate(e=>e.open));
+    assert(await page.locator('details img').evaluate(e=>e.complete&&e.naturalWidth>0));
+    await page.locator('[data-pair="aldehyde"].choice').click();
+    await page.locator('#distance').evaluate(e=>{e.value='3';e.dispatchEvent(new Event('input',{bubbles:true}));});
+    const measures=await page.evaluate(()=>({scrollWidth:document.documentElement.scrollWidth,innerWidth:innerWidth,bodyWidth:document.body.scrollWidth,plotWidth:document.getElementById('spectrum').getBoundingClientRect().width,formulaHeight:document.querySelector('.formula').getBoundingClientRect().height}));
+    assert(measures.scrollWidth<=measures.innerWidth+1,`${name} horizontal overflow: ${JSON.stringify(measures)}`);
+    assert(measures.plotWidth>260);
+    assert(measures.formulaHeight>20);
+    if(screenshot) await page.screenshot({path:screenshot,fullPage:true,animations:'disabled'});
+    report.checks.push({name,selectionChanged:before!=='甲氧基 ↔ 芳香峰区',plotAndStructureClick:true,keyboardButtons:true,sliderBoundary:true,curveMoves:true,sliderKeyboard:true,originalExpanded:true,measures});
+    await page.close();
+  }
+  try{
+    await run(1440,900,'desktop',path.join(root,'preview.png'));
+    await run(390,844,'mobile-390',path.join(root,'preview-mobile.png'));
+    await run(320,700,'mobile-320',null);
+    assert.deepStrictEqual(report.errors,[]);
+  }finally{await browser.close();fs.writeFileSync(path.join(root,'browser-verification.json'),JSON.stringify(report,null,2)+'\n');}
+  console.log(JSON.stringify(report,null,2));
+})().catch(e=>{console.error(e);process.exit(1)});

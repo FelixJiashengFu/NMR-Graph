@@ -16,6 +16,7 @@
 | 同核相关 | 3-庚酮：TOCSY 与 COSY 对照 | [打开](./topics/tocsy-cosy-heptanone/index.html) |
 | 同核相关 | 正丙醇 TOCSY：三个氢组的接力相关 | [打开](./topics/tocsy-propanol/index.html) |
 | 同核相关 | 正丙醇 TOCSY：自旋混合模型与画谱练习 | [打开](./topics/tocsy-propanol-spin-dynamics/index.html) |
+| 空间相关 | NOESY / ROESY：交叉峰怎样提示空间邻近 | [打开](./topics/noesy-roesy-vanillin/index.html) |
 
 ## 仓库结构
 
@@ -51,6 +52,10 @@ NMR-Graph/
     │   ├── index.html                 # 3-庚酮 COSY / TOCSY 对照
     │   ├── preview.png                # 整页预览
     │   └── source/                    # 可编辑源码、原图与验证脚本
+    ├── noesy-roesy-vanillin/
+    │   ├── index.html                 # 单文件离线教学网页
+    │   ├── preview.png                # 整页预览
+    │   └── source/                    # 可编辑源码、原图与局部放大
     └── benzocaine-structure/
         └── index.html                 # 苯佐卡因氢谱与 APT 结构解析
 ```
@@ -75,3 +80,5 @@ TOCSY 专题使用用户课程截图：ppm 仅为估读，峰强为图扩散类�
 3-庚酮 HSQC 专题以用户课程截图为来源，提供六个峰位、两种谱图、结构和相位类别联动。ppm 为粗略估读；C2/C4 细分是结构辅助推断；阈值和局部图为演示，不代表原始实验分辨率。完整原图、验证脚本与预览随专题保存。
 
 正丙醇 TOCSY 自旋混合专题保留另一份独立教学实现，使用理想各向同性混合模型显示四组质子（含可选 OH）的磁化转移。默认化学位移、J、混合时间与峰强均属教学模型或文献近似；原练习截图不含实测谱图。
+
+NOESY / ROESY 专题以用户上传的香草醛教学截图为来源。页面联动选中交叉峰、结构位置与估读值；芳香区具体归属无法凭截图独立确认。距离曲线只展示归一化 r⁻⁶ 模型，不对应截图实测峰强。原图、局部裁切、可编辑源码、数值检查和整页预览随专题保存。
