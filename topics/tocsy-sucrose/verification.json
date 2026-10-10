@@ -1,0 +1,93 @@
+{
+  "ok": true,
+  "model": {
+    "ok": true,
+    "checks": {
+      "carbon_bound_H": true,
+      "grouped_full_coordinates": true,
+      "zero_only_diagonal": true,
+      "matrix_symmetric": true,
+      "no_cross_system": true,
+      "F1_is_local": true,
+      "depth_monotonic": true,
+      "COSY_is_subset": true,
+      "ppm_axis_reversed": true,
+      "ppm_hz_example": true,
+      "peakwidth_keeps_center": true
+    },
+    "model_group_counts": [
+      6,
+      4,
+      1
+    ],
+    "individual_H_counts": [
+      7,
+      5,
+      2
+    ],
+    "ideal_individual_coordinates": 78,
+    "off_diagonal": 64,
+    "unordered_pairs": 32
+  },
+  "selections": [
+    "selection G1",
+    "selection G2",
+    "selection G3",
+    "selection G4",
+    "selection G5",
+    "selection G6",
+    "selection F1",
+    "selection F3",
+    "selection F4",
+    "selection F5",
+    "selection F6"
+  ],
+  "controls": [
+    "depth 0–5",
+    "width changes projection",
+    "COSY/TOCSY",
+    "show all",
+    "H1′ shortcut",
+    "reset",
+    "Enter and Space",
+    "structure click",
+    "assignment click",
+    "quiz",
+    "original expand"
+  ],
+  "math_count": 3,
+  "browser_errors": [],
+  "external_requests": [],
+  "layouts": [
+    {
+      "viewport": 1440,
+      "scroll": 1440,
+      "body": 1440,
+      "height": 6800
+    },
+    {
+      "viewport": 1180,
+      "scroll": 1180,
+      "body": 1180,
+      "height": 7636
+    },
+    {
+      "viewport": 768,
+      "scroll": 768,
+      "body": 768,
+      "height": 8120
+    },
+    {
+      "viewport": 390,
+      "scroll": 390,
+      "body": 390,
+      "height": 11758
+    },
+    {
+      "viewport": 320,
+      "scroll": 320,
+      "body": 320,
+      "height": 13152
+    }
+  ]
+}

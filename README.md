@@ -11,6 +11,7 @@
 | 异核长程相关 | H2BC × HMBC：两键与三键相关判读 | [打开](./topics/h2bc-hmbc/index.html) |
 | 结构解析 | 苯佐卡因：¹H NMR 与 ¹³C APT 拼结构 | [打开](./topics/benzocaine-structure/index.html) |
 | 同核相关 | TOCSY × COSY：接力相关与自旋系统 | [打开](./topics/tocsy-spin-systems/index.html) |
+| 同核相关 | 蔗糖 TOCSY：H1′ 的近邻耦合中断 | [打开](./topics/tocsy-sucrose/index.html) |
 
 ## 仓库结构
 
@@ -44,3 +45,5 @@ NMR-Graph/
 原有的 INADEQUATE 练习已从仓库根目录移至 `topics/inadequate-octanol/`，内容保留。该练习的谱图和相关关系根据题目截图重绘；ppm 为估读值，不宜作为精确化学位移参考。H2BC / HMBC 页面中的相关峰为概念示意，不对应原始苯乙烯实验峰位或峰强。
 
 TOCSY 专题使用用户课程截图：ppm 仅为估读，峰强为图扩散类比。下方烯烃按常规近邻耦合可分三组；弱长程通路可能改变分组，尚无原始谱图验证。
+
+蔗糖 TOCSY 专题保留用户课程原图与局部放大，提供氢位点、示意相关矩阵、结构及解释联动。单文件包含离线公式字体。ppm 为截图估读，接力步数与峰形为教学示意；14 个碳上氢和 7/5/2 网络分组为结构理论计数。验证结果见专题中的 `verification.json`，可编辑源码与原图位于 `source/`。
