@@ -1,0 +1,13 @@
+/* Group-level pedagogical model, not spin-Hamiltonian simulation. */
+const NMR=(()=>{
+const nodes=[{id:1,h:3,kind:'CH₃',delta:1.03,estimate:'约 1.0–1.1',where:'乙基末端',system:'A'},{id:2,h:2,kind:'CH₂',delta:2.48,estimate:'约 2.3–2.5',where:'羰基左侧 α 位',system:'A'},{id:4,h:2,kind:'CH₂',delta:2.32,estimate:'约 2.3–2.5',where:'羰基右侧 α 位',system:'B'},{id:5,h:2,kind:'CH₂',delta:1.54,estimate:'约 1.5–1.6',where:'右侧 β 位',system:'B'},{id:6,h:2,kind:'CH₂',delta:1.30,estimate:'约 1.2–1.4',where:'右侧内部亚甲基',system:'B'},{id:7,h:3,kind:'CH₃',delta:0.89,estimate:'约 0.8–1.0',where:'右侧链末端',system:'B'}];
+const edges=[[1,2],[4,5],[5,6],[6,7]];
+function path(a,b){const q=[[a]],seen=new Set([a]);for(const p of q){const x=p.at(-1);if(x===b)return p;for(const [u,v]of edges){const y=u===x?v:v===x?u:null;if(y!==null&&!seen.has(y)){seen.add(y);q.push([...p,y]);}}}return null;}
+function weight(d,t){if(d===null)return 0;if(d===0)return 1;const u=t/30;let s=1,term=1;for(let k=1;k<d;k++){term*=u/k;s+=term;}return Math.max(0,Math.min(1,1-Math.exp(-u)*s));}
+function relation(a,b){const p=path(a,b);return !p?'blocked':p.length===1?'diagonal':p.length===2?'direct':'relay';}
+function value(a,b,t,mode){const p=path(a,b);const d=p?p.length-1:null;return mode==='COSY'?(d===0||d===1?1:0):weight(d,t);}
+function count(t,threshold,mode){let n=0;for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){const v=value(nodes[i].id,nodes[j].id,t,mode);if(v>0&&v>=threshold)n++;}return n;}
+function selftest(){const checks={};checks.hydrogens=nodes.reduce((s,n)=>s+n.h,0)===14;checks.DBE=(2*7+2-14)/2===1;checks.COSY_pairs=count(90,0,'COSY')===4;checks.TOCSY_pairs=count(90,0,'TOCSY')===7;checks.extra_pairs=[[4,6],[4,7],[5,7]].every(([a,b])=>relation(a,b)==='relay');checks.zero_time=count(0,0,'TOCSY')===0;checks.symmetry=true;checks.bounds=true;checks.disconnected=true;checks.diagonal=true;checks.monotonic=true;checks.threshold_monotonic=true;for(let t=0;t<=120;t++)for(const a of nodes)for(const b of nodes){const v=value(a.id,b.id,t,'TOCSY');checks.symmetry&&=Math.abs(v-value(b.id,a.id,t,'TOCSY'))<1e-12;checks.bounds&&=v>=0&&v<=1;checks.diagonal&&=a.id!==b.id||v===1;checks.disconnected&&=a.system===b.system||v===0;if(t<120)checks.monotonic&&=value(a.id,b.id,t+1,'TOCSY')>=v-1e-12;}for(let t=0;t<=120;t+=10)for(let th=0;th<.8;th+=.05)checks.threshold_monotonic&&=count(t,th+.05,'TOCSY')<=count(t,th,'TOCSY');checks.expected_90ms=Math.abs(weight(3,90)-.5768099188731565)<1e-12;return{ok:Object.values(checks).every(Boolean),checks,weights90:[1,2,3].map(d=>weight(d,90))};}
+return{nodes,edges,path,weight,relation,value,count,selftest};})();
+if(typeof window!=='undefined'){window.NMR=NMR;window.__selftest=NMR.selftest;}
+if(typeof module!=='undefined')module.exports=NMR;

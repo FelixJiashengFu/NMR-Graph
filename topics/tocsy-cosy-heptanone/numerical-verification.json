@@ -1,0 +1,51 @@
+{
+  "passed": true,
+  "JS_selftest": {
+    "ok": true,
+    "checks": {
+      "hydrogens": true,
+      "DBE": true,
+      "COSY_pairs": true,
+      "TOCSY_pairs": true,
+      "extra_pairs": true,
+      "zero_time": true,
+      "symmetry": true,
+      "bounds": true,
+      "disconnected": true,
+      "diagonal": true,
+      "monotonic": true,
+      "threshold_monotonic": true,
+      "expected_90ms": true
+    },
+    "weights90": [
+      0.950212931632136,
+      0.8008517265285442,
+      0.5768099188731565
+    ]
+  },
+  "independent_values_checked": 4356,
+  "max_abs_error": 3.3306690738754696e-16,
+  "derivative_max_abs_error": 9.58283365853907e-12,
+  "formula": "C7H14O",
+  "theoretical_H": 14,
+  "DBE": 1,
+  "effective_networks": [
+    [
+      1,
+      2
+    ],
+    [
+      4,
+      5,
+      6,
+      7
+    ]
+  ],
+  "COSY_unique_pairs": 4,
+  "TOCSY_ideal_unique_pairs": 7,
+  "extra_unique_pairs": 3,
+  "COSY_offdiagonal_positions": 8,
+  "TOCSY_offdiagonal_positions": 14,
+  "diagonal_positions": 6,
+  "caveat": "group-level theory and illustrative weights; no measured intensities or raw spectra"
+}

@@ -1,0 +1,92 @@
+{
+  "default_pair": "H4 ↔ H7",
+  "tests": [
+    "all 36 selector combinations",
+    "all 6 structure sites",
+    "all 36 topology matrix cells",
+    "all default COSY and TOCSY visible markers",
+    "all 4 presets",
+    "time endpoints / intermediate values, threshold, COSY invariance",
+    "keyboard ranges, native buttons and SVG activation, retained focus",
+    "source image details, quiz answers, live selftest"
+  ],
+  "layouts": [
+    {
+      "viewport": 1440,
+      "body": 1440,
+      "plots": [
+        {
+          "w": 392.5,
+          "h": 416.453125
+        },
+        {
+          "w": 392.5,
+          "h": 416.453125
+        }
+      ],
+      "clippedSVGTexts": [],
+      "overlappingSVGTexts": [],
+      "visiblePanels": true
+    },
+    {
+      "viewport": 1280,
+      "body": 1280,
+      "plots": [
+        {
+          "w": 312.5,
+          "h": 331.5625
+        },
+        {
+          "w": 312.5,
+          "h": 331.5625
+        }
+      ],
+      "clippedSVGTexts": [],
+      "overlappingSVGTexts": [],
+      "visiblePanels": true
+    },
+    {
+      "viewport": 390,
+      "body": 390,
+      "plots": [
+        {
+          "w": 330,
+          "h": 350.140625
+        },
+        {
+          "w": 330,
+          "h": 350.140625
+        }
+      ],
+      "clippedSVGTexts": [],
+      "overlappingSVGTexts": [],
+      "visiblePanels": true
+    },
+    {
+      "viewport": 320,
+      "body": 320,
+      "plots": [
+        {
+          "w": 260,
+          "h": 275.859375
+        },
+        {
+          "w": 260,
+          "h": 275.859375
+        }
+      ],
+      "clippedSVGTexts": [],
+      "overlappingSVGTexts": [],
+      "visiblePanels": true
+    }
+  ],
+  "external_requests": [],
+  "browser_errors": [],
+  "passed": true,
+  "checked_at": "2026-10-10T01:00:41.909Z",
+  "browser": "154.0.8037.98",
+  "math_formulas": 4,
+  "offline": true,
+  "repository_entry_test": "Root index card opened topic and default H4 ↔ H7 readout was verified",
+  "visual_review": "Full-page desktop preview plus desktop lab and 320px molecule/plot inspected"
+}

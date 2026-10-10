@@ -12,6 +12,7 @@
 | 结构解析 | 苯佐卡因：¹H NMR 与 ¹³C APT 拼结构 | [打开](./topics/benzocaine-structure/index.html) |
 | 同核相关 | TOCSY × COSY：接力相关与自旋系统 | [打开](./topics/tocsy-spin-systems/index.html) |
 | 同核相关 | 蔗糖 TOCSY：H1′ 的近邻耦合中断 | [打开](./topics/tocsy-sucrose/index.html) |
+| 同核相关 | 3-庚酮：TOCSY 与 COSY 对照 | [打开](./topics/tocsy-cosy-heptanone/index.html) |
 
 ## 仓库结构
 
@@ -31,6 +32,10 @@ NMR-Graph/
     │   ├── index.html                 # TOCSY 接力相关与分组图解
     │   ├── preview.png                # 整页预览
     │   └── source/                    # 可编辑源码、原图与验证脚本
+    ├── tocsy-cosy-heptanone/
+    │   ├── index.html                 # 3-庚酮 COSY / TOCSY 对照
+    │   ├── preview.png                # 整页预览
+    │   └── source/                    # 可编辑源码、原图与验证脚本
     └── benzocaine-structure/
         └── index.html                 # 苯佐卡因氢谱与 APT 结构解析
 ```
@@ -47,3 +52,5 @@ NMR-Graph/
 TOCSY 专题使用用户课程截图：ppm 仅为估读，峰强为图扩散类比。下方烯烃按常规近邻耦合可分三组；弱长程通路可能改变分组，尚无原始谱图验证。
 
 蔗糖 TOCSY 专题保留用户课程原图与局部放大，提供氢位点、示意相关矩阵、结构及解释联动。单文件包含离线公式字体。ppm 为截图估读，接力步数与峰形为教学示意；14 个碳上氢和 7/5/2 网络分组为结构理论计数。验证结果见专题中的 `verification.json`，可编辑源码与原图位于 `source/`。
+
+3-庚酮专题保留 TOCSY vs COSY 课程原图与局部放大，提供六组氢、两组有效网络、4/7/3 对关联计数与 COSY/TOCSY 联动对照。峰位仅为粗略估读，精确重绘坐标、峰形和混合时间权重均为教学设置；跨羰基弱长程耦合被忽略。单文件含离线公式字体，数值和浏览器验收记录与可编辑源码随专题保存。
