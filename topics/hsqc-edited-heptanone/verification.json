@@ -1,0 +1,71 @@
+{
+  "selftest": {
+    "count": true,
+    "unique": true,
+    "types": true,
+    "hydrogens": true,
+    "carbonylAbsent": true,
+    "closePair": true,
+    "zeroThresholdNoDistinctPairs": true,
+    "wideThresholdIncludesPair": true,
+    "ok": true
+  },
+  "interactions": [
+    "select C1",
+    "select C2",
+    "select C4",
+    "select C5",
+    "select C6",
+    "select C7",
+    "keyboard structure",
+    "keyboard spectrum",
+    "assignment table",
+    "zoom slider",
+    "threshold boundaries",
+    "original image",
+    "original new window",
+    "repository directory link"
+  ],
+  "layouts": [
+    {
+      "viewport": 1440,
+      "scroll": 1440,
+      "structure": 766,
+      "structureViewBox": "0 0 690 165",
+      "zoomViewBox": "0 0 780 265",
+      "charts": [
+        353,
+        353
+      ],
+      "images": true
+    },
+    {
+      "viewport": 390,
+      "scroll": 390,
+      "structure": 336,
+      "structureViewBox": "0 0 285 380",
+      "zoomViewBox": "0 0 410 265",
+      "charts": [
+        312,
+        312
+      ],
+      "images": true
+    },
+    {
+      "viewport": 320,
+      "scroll": 320,
+      "structure": 266,
+      "structureViewBox": "0 0 285 380",
+      "zoomViewBox": "0 0 410 265",
+      "charts": [
+        242,
+        242
+      ],
+      "images": true
+    }
+  ],
+  "errors": [],
+  "external": [],
+  "ok": true,
+  "browser": "154.0.8037.98"
+}

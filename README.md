@@ -10,6 +10,7 @@
 | 碳骨架连接 | 1,1-ADEQUATE：4-甲基伞形酮交叉峰判读 | [打开](./topics/adequate-methylumbelliferone/index.html) |
 | 异核长程相关 | H2BC × HMBC：两键与三键相关判读 | [打开](./topics/h2bc-hmbc/index.html) |
 | 结构解析 | 苯佐卡因：¹H NMR 与 ¹³C APT 拼结构 | [打开](./topics/benzocaine-structure/index.html) |
+| 异核单键相关 | 3-庚酮：HSQC 与编辑 HSQC 峰归属 | [打开](./topics/hsqc-edited-heptanone/index.html) |
 | 同核相关 | TOCSY × COSY：接力相关与自旋系统 | [打开](./topics/tocsy-spin-systems/index.html) |
 | 同核相关 | 蔗糖 TOCSY：H1′ 的近邻耦合中断 | [打开](./topics/tocsy-sucrose/index.html) |
 | 同核相关 | 3-庚酮：TOCSY 与 COSY 对照 | [打开](./topics/tocsy-cosy-heptanone/index.html) |
@@ -29,6 +30,10 @@ NMR-Graph/
     │   └── README.md                  # 本专题的范围与来源
     ├── h2bc-hmbc/
     │   └── index.html                 # H2BC / HMBC 互动图解
+    ├── hsqc-edited-heptanone/
+    │   ├── index.html                 # 3-庚酮 HSQC/编辑 HSQC 离线练习
+    │   ├── preview.png                # 整页预览
+    │   └── source/                    # 原图、源码、构建与验证脚本
     ├── tocsy-spin-systems/
     │   ├── index.html                 # TOCSY 接力相关与分组图解
     │   ├── preview.png                # 整页预览
@@ -61,3 +66,5 @@ TOCSY 专题使用用户课程截图：ppm 仅为估读，峰强为图扩散类�
 3-庚酮专题保留 TOCSY vs COSY 课程原图与局部放大，提供六组氢、两组有效网络、4/7/3 对关联计数与 COSY/TOCSY 联动对照。峰位仅为粗略估读，精确重绘坐标、峰形和混合时间权重均为教学设置；跨羰基弱长程耦合被忽略。单文件含离线公式字体，数值和浏览器验收记录与可编辑源码随专题保存。
 
 正丙醇 TOCSY 专题以用户练习截图为来源，默认展示 3 个碳上氢组与 9 个理想相关峰中心；可比较 COSY、耦合断路及 OH 条件。ppm、峰形与图扩散权重均为示意，OH 是否接入未由原图确认。单文件嵌入原图、脚本及公式字体；源码、手机预览和验证记录保存在专题目录。
+
+3-庚酮 HSQC 专题以用户课程截图为来源，提供六个峰位、两种谱图、结构和相位类别联动。ppm 为粗略估读；C2/C4 细分是结构辅助推断；阈值和局部图为演示，不代表原始实验分辨率。完整原图、验证脚本与预览随专题保存。

@@ -1,0 +1,18 @@
+{
+  "status": "passed",
+  "counts": {
+    "carbon": 7,
+    "hydrogen": 14,
+    "oxygen": 1,
+    "protonated_carbons": 6,
+    "methyl_sites": 2,
+    "methylene_sites": 4,
+    "carbonyl_carbons": 1,
+    "DBE": 1
+  },
+  "approximate_visual_pair": {
+    "C2_C4_delta_H_ppm": 0.03,
+    "C2_C4_delta_C_ppm": 7
+  },
+  "precision_warning": "All ppm values are visual estimates from the screenshot."
+}
