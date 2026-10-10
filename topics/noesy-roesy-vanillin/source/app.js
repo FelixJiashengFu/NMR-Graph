@@ -137,7 +137,7 @@
     $('structure-caption').textContent=p.structure;
     $('x-read').textContent=`约 ${p.x.toFixed(1)} ppm`;
     $('y-read').textContent=`约 ${p.y.toFixed(1)} ppm`;
-    $('pair-count').textContent=id==='aromatic'?'弱轮廓，独立性未确认':'约 2 个对称位置';
+    $('pair-count').textContent=id==='aromatic'?'理论 2；图中无法确认':'理论 2；图中约 2';
     $('pair-status').textContent=id==='aromatic'?'原图弱轮廓 · 待确认':'原图估读';
     renderPlot();renderStructure();
   }

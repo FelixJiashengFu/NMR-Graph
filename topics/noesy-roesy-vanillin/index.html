@@ -29,6 +29,7 @@ h1 em{font-style:normal;color:var(--mint)}
 .mini-label{display:block;text-transform:uppercase;letter-spacing:.13em;color:var(--mint);font-size:11px;font-weight:800;margin-bottom:9px}
 .hero-claim strong{font-size:19px;line-height:1.42;display:block}.hero-claim p{color:var(--muted);font-size:13px;margin:10px 0 0}
 .read-first{display:flex;gap:16px;padding:13px 16px;border:1px solid #6b5b3d;background:#231f19;color:#ded6c4;font-size:13px}.read-first strong{color:var(--amber);white-space:nowrap}
+.evidence-key{display:flex;flex-wrap:wrap;gap:7px;margin-top:10px}.evidence-key span{border:1px solid var(--line);color:#b9c9ce;padding:3px 9px;font-size:11px}.evidence-key span:first-child{color:var(--amber);border-color:#806b43}.evidence-key span:last-child{color:var(--mint);border-color:#367962}
 main{padding-bottom:38px}.section-label{display:flex;justify-content:space-between;gap:12px;margin:24px 0 10px;color:var(--mint);font-size:11px;font-weight:800;letter-spacing:.14em;text-transform:uppercase}
 .section-label span:last-child{color:var(--muted);letter-spacing:0;text-transform:none}
 .dashboard{display:grid;grid-template-columns:276px minmax(0,1fr) 304px;gap:12px;align-items:stretch}
@@ -63,6 +64,7 @@ svg text{font-family:"Noto Sans SC","Microsoft YaHei",system-ui,sans-serif}
         <aside class="hero-claim"><span class="mini-label">主要结论</span><strong>有可核实的空间相关峰，通常提示两个氢在空间上接近。</strong><p>峰强受距离、运动、混合时间与其他转移路径共同影响，不能仅凭本截图直接量出 Å 距离。</p></aside>
       </div>
       <div class="read-first"><strong>读前必读</strong><span>下方彩色轮廓和峰位为原图估读；距离滑块只改变教学模型。原始截图未给出积分、混合时间、NOESY/ROESY 的具体采集条件。</span></div>
+      <div class="evidence-key" aria-label="证据层级"><span>原图观测 / 估读</span><span>结构辅助推断</span><span>理论对称计数</span><span>独立演示模型</span></div>
     </header>
 
     <main id="main">
@@ -93,7 +95,7 @@ svg text{font-family:"Noto Sans SC","Microsoft YaHei",system-ui,sans-serif}
         <aside class="panel readout-panel" aria-live="polite">
           <div class="panel-head"><span class="step">03</span><div><h2>当前读数</h2><p>观察与解释分开看</p></div></div>
           <div class="readout-title"><span class="status" id="pair-status">原图估读</span><h3 id="pair-title">醛氢 ↔ 芳香峰区</h3><p id="pair-summary"></p></div>
-          <dl class="numbers"><div><dt>横轴 f₂</dt><dd id="x-read">约 9.9 ppm</dd></div><div><dt>纵轴 f₁</dt><dd id="y-read">约 7.3 ppm</dd></div><div><dt>成对位置</dt><dd id="pair-count">2 个对称位置</dd></div></dl>
+          <dl class="numbers"><div><dt>横轴 f₂ · 原图估读</dt><dd id="x-read">约 9.9 ppm</dd></div><div><dt>纵轴 f₁ · 原图估读</dt><dd id="y-read">约 7.3 ppm</dd></div><div><dt>理论对称计数</dt><dd id="pair-count">理论 2；图中约 2</dd></div></dl>
           <div class="inference"><span class="mini-label">怎样理解</span><p id="pair-explain"></p></div>
           <div class="model-output"><span class="mini-label">独立演示模型 · 非原图峰强</span><div class="model-value"><strong id="intensity">1.000</strong><span>I / I₀</span></div><svg id="curve" viewBox="0 0 280 118" role="img" aria-label="归一化 NOE 距离模型曲线"></svg><p id="model-sentence"></p></div>
         </aside>
@@ -254,7 +256,7 @@ svg text{font-family:"Noto Sans SC","Microsoft YaHei",system-ui,sans-serif}
     $('structure-caption').textContent=p.structure;
     $('x-read').textContent=`约 ${p.x.toFixed(1)} ppm`;
     $('y-read').textContent=`约 ${p.y.toFixed(1)} ppm`;
-    $('pair-count').textContent=id==='aromatic'?'弱轮廓，独立性未确认':'约 2 个对称位置';
+    $('pair-count').textContent=id==='aromatic'?'理论 2；图中无法确认':'理论 2；图中约 2';
     $('pair-status').textContent=id==='aromatic'?'原图弱轮廓 · 待确认':'原图估读';
     renderPlot();renderStructure();
   }
