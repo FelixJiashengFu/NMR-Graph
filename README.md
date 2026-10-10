@@ -15,6 +15,7 @@
 | 同核相关 | 蔗糖 TOCSY：H1′ 的近邻耦合中断 | [打开](./topics/tocsy-sucrose/index.html) |
 | 同核相关 | 3-庚酮：TOCSY 与 COSY 对照 | [打开](./topics/tocsy-cosy-heptanone/index.html) |
 | 同核相关 | 正丙醇 TOCSY：三个氢组的接力相关 | [打开](./topics/tocsy-propanol/index.html) |
+| 同核相关 | 正丙醇 TOCSY：自旋混合模型与画谱练习 | [打开](./topics/tocsy-propanol-spin-dynamics/index.html) |
 
 ## 仓库结构
 
@@ -42,6 +43,10 @@ NMR-Graph/
     │   ├── index.html                 # 正丙醇 TOCSY 画谱与 OH 条件比较
     │   ├── preview.png                # 整页预览
     │   └── source/                    # 可编辑源码、原图与离线公式资源
+    ├── tocsy-propanol-spin-dynamics/
+    │   ├── index.html                 # 正丙醇 TOCSY 自旋混合模型
+    │   ├── preview.png                # 整页预览
+    │   └── source/                    # 原图、源码、公式字体与验证脚本
     ├── tocsy-cosy-heptanone/
     │   ├── index.html                 # 3-庚酮 COSY / TOCSY 对照
     │   ├── preview.png                # 整页预览
@@ -68,3 +73,5 @@ TOCSY 专题使用用户课程截图：ppm 仅为估读，峰强为图扩散类�
 正丙醇 TOCSY 专题以用户练习截图为来源，默认展示 3 个碳上氢组与 9 个理想相关峰中心；可比较 COSY、耦合断路及 OH 条件。ppm、峰形与图扩散权重均为示意，OH 是否接入未由原图确认。单文件嵌入原图、脚本及公式字体；源码、手机预览和验证记录保存在专题目录。
 
 3-庚酮 HSQC 专题以用户课程截图为来源，提供六个峰位、两种谱图、结构和相位类别联动。ppm 为粗略估读；C2/C4 细分是结构辅助推断；阈值和局部图为演示，不代表原始实验分辨率。完整原图、验证脚本与预览随专题保存。
+
+正丙醇 TOCSY 自旋混合专题保留另一份独立教学实现，使用理想各向同性混合模型显示四组质子（含可选 OH）的磁化转移。默认化学位移、J、混合时间与峰强均属教学模型或文献近似；原练习截图不含实测谱图。

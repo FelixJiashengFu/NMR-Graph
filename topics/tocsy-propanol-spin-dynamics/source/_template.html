@@ -1,0 +1,1743 @@
+<!DOCTYPE html><html lang="zh-CN"><head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>TOCSY 练习题 · 正丙醇 — 交互可视化讲解</title>
+<!--KATEX_CSS-->
+<!--KATEX_JS-->
+<style>
+:root{
+  --bg:#0e1116; --panel:#151a21; --panel2:#1b222c; --panel3:#10151b;
+  --line:#303a47; --txt:#dde5ef; --dim:#93a0b0; --acc:#5fd0a8;
+  --diag:#8b97a6; --d1:#5fd0a8; --d2:#f0a83c; --d3:#a98bf0; --neg:#e2685f;
+  /* 原图取色（逐像素采样自截图） */
+  --c1:#D70F10; --c2:#EAE41C; --c3:#209C48; --coh:#cfd8e3;
+  --slidebg:#F8EED8; --slidetitle:#2E7BA6;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--txt);
+  font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+  font-size:14px;line-height:1.66;-webkit-text-size-adjust:100%}
+#errbar{display:none;background:#7a1f1a;color:#fff;padding:8px 14px;font-family:var(--mono);font-size:12px;white-space:pre-wrap;word-break:break-all}
+.wrap{max-width:1620px;margin:0 auto;padding:22px 20px 64px}
+h1{font-size:25px;margin:0 0 6px;letter-spacing:.2px;line-height:1.35}
+h1 small{font-size:13px;color:var(--dim);font-weight:400;margin-left:10px}
+.sub{color:var(--dim);margin:0 0 16px;font-size:13.5px}
+.grid{display:grid;grid-template-columns:302px minmax(0,1fr) 382px;gap:14px;align-items:start}
+.grid.g2side{grid-template-columns:minmax(0,1fr) 340px}
+@media (max-width:1000px){.grid.g2side{grid-template-columns:1fr}}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 14px;min-width:0}
+.card>.card{margin-top:12px}
+.card h2{font-size:12px;text-transform:uppercase;letter-spacing:.9px;color:var(--acc);
+  margin:0 0 9px;font-weight:600}
+.card h3{font-size:13px;margin:14px 0 5px;color:var(--txt);font-weight:600}
+.card h3:first-child{margin-top:0}
+p{margin:8px 0}
+canvas{width:100%;display:block;border-radius:8px;background:#0b0e12;touch-action:none}
+canvas.clickable{cursor:pointer}
+.btn{display:block;width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line);
+  color:var(--txt);padding:6px 9px;border-radius:7px;font-family:var(--mono);font-size:11.5px;
+  margin:4px 0;cursor:pointer;line-height:1.5}
+.btn:hover{border-color:var(--acc);color:var(--acc)}
+.btn.on{background:#1f3a30;border-color:var(--acc);color:var(--acc)}
+.btn .sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:7px;vertical-align:-1px;border:1px solid rgba(255,255,255,.35)}
+.btn .sub2{color:var(--dim);font-size:10.5px}
+.btn.on .sub2{color:#8fc7b1}
+.row2{display:flex;gap:6px;flex-wrap:wrap}
+.row2 .btn{width:auto;flex:1 1 46%;text-align:center}
+label.row{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:12.5px;cursor:pointer}
+label.row input{accent-color:var(--acc);width:15px;height:15px}
+.slid{margin:9px 0 12px}
+.slid .lab{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--dim);gap:8px}
+.slid .lab b{color:var(--txt);font-weight:500}
+.slid .val{font-family:var(--mono);color:var(--acc);font-size:12.5px;white-space:nowrap}
+input[type=range]{width:100%;height:22px;background:transparent;-webkit-appearance:none;appearance:none;cursor:pointer;margin:2px 0 0}
+input[type=range]::-webkit-slider-runnable-track{height:4px;background:var(--line);border-radius:3px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;margin-top:-6px;
+  border-radius:50%;background:var(--acc);border:2px solid #0e1116}
+input[type=range]::-moz-range-track{height:4px;background:var(--line);border-radius:3px}
+input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--acc);border:2px solid #0e1116}
+table.read{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11.5px}
+@media (max-width:900px){
+  #tblAll{min-width:720px}
+  #tblSites{min-width:430px}
+  #tblCount{min-width:330px}
+  table.grid4{min-width:330px}
+}
+table.read th{text-align:left;color:var(--dim);font-weight:500;border-bottom:1px solid var(--line);padding:4px 3px}
+table.read td{padding:3px;border-bottom:1px solid #222a34;vertical-align:top}
+table.read tr:hover td{background:#1a212a}
+table.read td.n,table.read th.n{text-align:right}
+.note{background:#12241d;border-left:3px solid var(--acc);padding:9px 12px;border-radius:0 7px 7px 0;
+  font-size:12.5px;color:#badccb;margin:10px 0}
+.warn{background:#2a1a17;border-left:3px solid var(--neg);padding:9px 12px;border-radius:0 7px 7px 0;
+  font-size:12.5px;color:#e8c3bd;margin:10px 0}
+.info{background:#151f2b;border-left:3px solid #4d9de0;padding:9px 12px;border-radius:0 7px 7px 0;
+  font-size:12.5px;color:#bdd3e8;margin:10px 0}
+.gap2{background:#1d1a2b;border-left:3px solid var(--d3);padding:9px 12px;border-radius:0 7px 7px 0;
+  font-size:12.5px;color:#cec3ea;margin:10px 0}
+.mono{font-family:var(--mono)}
+.k{color:var(--acc)} .rd{color:var(--neg)} .dm{color:var(--dim)}
+.big{font-size:19px;font-family:var(--mono);color:var(--acc);line-height:1.35;word-break:break-word}
+.legend{display:flex;flex-wrap:wrap;gap:9px 14px;font-size:11.5px;color:var(--dim);margin:9px 0 0}
+.legend span{display:flex;align-items:center;gap:5px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;flex:none;border:1px solid rgba(255,255,255,.3)}
+.legend i.sh{width:13px;height:9px;border-radius:1px}
+.foot{margin-top:22px;padding-top:14px;border-top:1px solid var(--line);color:var(--dim);font-size:12px}
+.bdg{display:inline-block;font-family:var(--mono);font-size:10px;padding:0 5px;border-radius:4px;
+  border:1px solid;line-height:1.6;white-space:nowrap;vertical-align:1px}
+.b-slide{color:#e8c98a;border-color:#6b5527;background:#2a2313}
+.b-lit{color:#8fb8e6;border-color:#2e4f74;background:#132030}
+.b-theory{color:#9ee0c4;border-color:#2d5c48;background:#12241d}
+.b-model{color:#c3b2ee;border-color:#4a3f70;background:#1d1a2b}
+.b-calc{color:#9fd6c0;border-color:#31584a;background:#122019}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table.grid4{border-collapse:separate;border-spacing:3px;width:100%;font-family:var(--mono);font-size:11px}
+table.grid4 th{color:var(--dim);font-weight:500;font-size:10.5px;padding:1px;text-align:center}
+table.grid4 td{padding:0;text-align:center}
+table.grid4 td.cell{padding:3px 1px;border-radius:5px;cursor:pointer;border:1px solid transparent;
+  color:#0b0e12;font-weight:600;line-height:1.35}
+table.grid4 td.cell.sel{border-color:#fff;border-width:2px}
+table.grid4 td.cell.dimmed{opacity:.30}
+.kbd{font-family:var(--mono);font-size:11px;background:var(--panel2);border:1px solid var(--line);
+  border-bottom-width:2px;border-radius:4px;padding:0 5px;color:var(--txt)}
+.origwrap{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:#000}
+.origwrap img{display:block;width:100%;transition:none;transform-origin:0 0}
+details{border:1px solid var(--line);border-radius:8px;padding:8px 11px;margin:9px 0;background:var(--panel3)}
+details>summary{cursor:pointer;font-size:12.5px;color:var(--acc);font-weight:600;list-style:none}
+details>summary::-webkit-details-marker{display:none}
+details>summary::before{content:"▸ ";color:var(--dim)}
+details[open]>summary::before{content:"▾ "}
+details>div{margin-top:8px}
+.selbox{background:var(--panel3);border:1px solid var(--line);border-radius:8px;padding:9px 11px;margin:8px 0}
+.eq{font-size:14px;overflow-x:auto;overflow-y:hidden;padding:2px 0}
+.f2{display:inline-block;text-align:center;vertical-align:middle;font-size:.9em;line-height:1.1;margin:0 2px}
+.f2 span{display:block;padding:0 3px}
+.f2 .den{border-top:1px solid currentColor}
+.chip{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:0;border:1px solid rgba(255,255,255,.3)}
+ul.tight{margin:6px 0;padding-left:19px} ul.tight li{margin:4px 0}
+ol.tight{margin:6px 0;padding-left:20px} ol.tight li{margin:5px 0}
+a{color:#7fb8e8}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:4px}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media (max-width:1240px){
+  .grid{grid-template-columns:1fr}
+  .wrap{padding:16px 12px 48px}
+  h1{font-size:21px} h1 small{display:block;margin:4px 0 0}
+  .two{grid-template-columns:1fr}
+}
+@media (max-width:560px){
+  body{font-size:13.5px}
+  .wrap{padding:12px 9px 40px}
+  .card{padding:11px 10px}
+  .big{font-size:16px}
+  .legend{font-size:11px;gap:7px 11px}
+  table.read{font-size:11px}
+}
+</style></head><body>
+<div id="errbar"></div>
+<div class="wrap">
+
+<h1>TOCSY 练习题 · 正丙醇<small>把「画出正丙醇的 TOCSY 谱」拆成可检验的四步</small></h1>
+<p class="sub">自旋体系怎么定 → 转移效率算多少 → 峰画在哪里 → 计数核对。全部图形可点、参数可拖，右侧读数实时跟着变。</p>
+
+<div class="note"><b>读前必读（三条）</b><br>
+1. <b>原图里没有任何谱图数据</b>——只有正丙醇的结构式、三个着色的碳方块，和两行文字。本页每个数字都带来源徽章：
+<span class="bdg b-slide">原图</span> 截图里直接看得到的 ·
+<span class="bdg b-lit">文献近似</span> 教学常用值，不是原图数据 ·
+<span class="bdg b-theory">理论计数</span> 组合数学结果 ·
+<span class="bdg b-calc">计算</span> 本页数值模拟的输出 ·
+<span class="bdg b-model">演示模型</span> 为讲解选定的假设。没有实测曲线可以恢复。<br>
+2. 中间那幅 2D 谱是<b>示意</b>：峰强由「各向同性混合」的精确量子模拟算出，不是任何一台谱仪的输出，也没有加噪声。<br>
+3. 原图第二条提示「精确位移不重要」正是本页的用法：拖动位移滑块，峰位会满图跑，但<b>哪些格子有峰、谁和谁相关，一点都不会变</b>。</div>
+
+<div class="grid">
+  <!-- ================= 左栏 ================= -->
+  <div class="card">
+    <h2>① 选择自旋位点</h2>
+    <div id="sitebtns"></div>
+    <div class="legend" style="margin-top:7px"><span>键盘 <span class="kbd">1</span>–<span class="kbd">4</span> 直选上方对应编号的位点，<span class="kbd">←</span><span class="kbd">→</span> 轮换，<span class="kbd">↑</span><span class="kbd">↓</span> 改 τ<sub>m</sub></span></div>
+    <div class="info" style="margin-top:8px;font-size:11.5px">点中栏的结构方块、2D 谱上的峰，或点这里，三处会同步高亮。</div>
+
+    <h2 style="margin-top:16px">② 混合时间 τ<sub>m</sub></h2>
+    <div class="slid">
+      <div class="lab"><b>各向同性混合时间</b><span class="val" id="vTau">80 ms</span></div>
+      <input type="range" id="sTau" min="0" max="180" step="1" value="80" aria-label="混合时间，单位毫秒" />
+      <div class="lab" style="margin-top:2px"><span>0 ms</span><span>180 ms</span></div>
+    </div>
+    <div class="row2"><button class="btn" id="bTauFast">τ<sub>m</sub> 短（≈25 ms）</button><button class="btn" id="bTauFull">τ<sub>m</sub> 足（≈80 ms）</button></div>
+    <div class="legend"><span>键盘 <span class="kbd">↑</span><span class="kbd">↓</span> 步进 2 ms</span></div>
+
+    <h2 style="margin-top:16px">③ 自旋体系</h2>
+    <label class="row"><input type="checkbox" id="cbOH" checked /> 羟基质子参与自旋体系（慢交换）</label>
+    <div class="slid" id="wrapJOH">
+      <div class="lab"><b>J(–OH, –CH₂–O)</b><span class="val" id="vJOH">5.2 Hz</span></div>
+      <input type="range" id="sJOH" min="0" max="10" step="0.1" value="5.2" aria-label="羟基与相邻亚甲基的耦合常数，单位赫兹" />
+      <div class="lab" style="margin-top:2px"><span>0 Hz（等价于去耦）</span><span>10 Hz</span></div>
+    </div>
+    <div class="info" style="font-size:11.5px">CDCl₃ 中痕量酸会让 –OH 快速交换而被去耦 → 取消勾选即该情形。DMSO-d₆ 中 –OH 出三重峰（J ≈ 5.2 Hz）→ 勾选。<br>
+<b>本页约定</b>：取消勾选时把 –OH <b>整个移出</b>自旋体系（网格退化为 3×3）。真实谱里 –OH 的对角峰往往仍在（一个宽单峰），但<b>不会与任何位点出交叉峰</b>——两种画法的结论一致。</div>
+    <div class="slid" style="margin-top:10px">
+      <div class="lab"><b>自旋锁定弛豫 T<sub>1ρ</sub></b><span class="val" id="vT1">600 ms</span></div>
+      <input type="range" id="sT1" min="120" max="2000" step="10" value="600" aria-label="自旋锁定弛豫时间，单位毫秒" />
+      <div class="lab" style="margin-top:2px"><span>120 ms</span><span>2000 ms</span></div>
+    </div>
+
+    <h2 style="margin-top:16px">④ 化学位移 <span class="bdg b-lit" style="text-transform:none">文献近似</span></h2>
+    <div id="dsliders"></div>
+    <div class="row2" style="margin-top:6px">
+      <button class="btn" id="bResetD">重置为典型值</button>
+      <button class="btn" id="bScramble">打乱位移</button>
+    </div>
+    <div class="note" style="font-size:11.5px">打乱之后：峰的位置全变，<b>有峰的格子一个不多一个不少</b>。这就是原图第二条提示的意思。</div>
+
+    <h2 style="margin-top:16px">⑤ 显示</h2>
+    <div class="slid">
+      <div class="lab"><b>弱峰显示阈值</b><span class="val" id="vThr">0.05</span></div>
+      <input type="range" id="sThr" min="0.01" max="0.45" step="0.01" value="0.05" aria-label="弱峰显示阈值" />
+      <div class="lab" style="margin-top:2px"><span>0.01（全部画出）</span><span>0.45（只看强峰）</span></div>
+    </div>
+    <label class="row"><input type="checkbox" id="cbMode" /> COSY 对照模式（只连相邻位点）</label>
+    <label class="row"><input type="checkbox" id="cbProj" checked /> 画 F2 / F1 一维投影</label>
+    <label class="row"><input type="checkbox" id="cbLabels" checked /> 峰上标注中继级数</label>
+    <label class="row"><input type="checkbox" id="cbDiag" checked /> 画对角线 (F1 = F2)</label>
+    <label class="row"><input type="checkbox" id="cbEnv" checked /> 转移曲线同时画不含弛豫的 M(τ)（细虚线）</label>
+    <div class="warn" style="font-size:11.5px;margin-top:8px">切换 COSY 对照只是把「只允许相邻相关」这条规则套在同一套数值上，<b>不是真实的 COSY 强度模型</b>（真实 COSY 有相位、有强耦合效应）。</div>
+  </div>
+
+  <!-- ================= 中栏 ================= -->
+  <div class="card">
+    <h2>正丙醇骨架（方块取色自原图 · 可点击）</h2>
+    <canvas id="cvStruct" class="clickable" aria-label="正丙醇结构式，三个碳原子上有可点击的彩色方块"></canvas>
+    <div class="legend">
+      <span><i style="background:#D70F10"></i>红 = C1 的 –CH₂–（连 –OH）<span class="bdg b-slide">原图</span></span>
+      <span><i style="background:#EAE41C"></i>黄 = C2 的 –CH₂–<span class="bdg b-slide">原图</span></span>
+      <span><i style="background:#209C48"></i>绿 = C3 的 –CH₃<span class="bdg b-slide">原图</span></span>
+      <span><i style="background:#cfd8e3;border-style:dashed"></i>虚线框 = –OH 的氢<span class="bdg b-model">讲解补充</span></span>
+    </div>
+
+    <h2 style="margin-top:16px">选中位点的一维多重峰（Hz 轴，示意）</h2>
+    <canvas id="cvMulti" aria-label="选中位点在赫兹轴上的多重峰示意"></canvas>
+    <div class="legend"><span>用来看清 –OH 的耦合开关如何改变 –CH₂–O 的多重峰：三重峰（1:2:1）↔ 六线（1:2:1 × 1:1）。</span></div>
+
+    <h2 style="margin-top:16px">TOCSY 谱（示意 · 由模型算出，非实测）</h2>
+    <canvas id="cv2d" class="clickable" aria-label="二维 TOCSY 谱示意图，横轴 F2、纵轴 F1，均为化学位移"></canvas>
+    <div class="legend">
+      <span><i class="sh" style="background:#8b97a6"></i>对角峰（自我相关，D）</span>
+      <span><i class="sh" style="background:#5fd0a8"></i>直连（隔着 3 根键，1）</span>
+      <span><i class="sh" style="background:#f0a83c"></i>单中继（2）</span>
+      <span><i class="sh" style="background:#a98bf0"></i>双中继（3）</span>
+      <span><i class="sh" style="background:#4d9de0"></i>一维投影</span>
+      <span>峰心数字 = 中继级数</span>
+    </div>
+    <div class="legend"><span>横轴 F2：δ 向左增大；纵轴 F1：δ 向下增大（常用 NMR 出图约定）。轴范围 0–4.8 ppm 固定，便于对比。</span></div>
+
+    <h2 style="margin-top:16px">转移效率随 τ<sub>m</sub> 的演化</h2>
+    <canvas id="cvBuild" aria-label="各对自旋之间转移效率随混合时间变化的曲线"></canvas>
+    <div class="legend">
+      <span><i class="sh" style="background:#5fd0a8"></i>直连</span>
+      <span><i class="sh" style="background:#f0a83c"></i>单中继</span>
+      <span><i class="sh" style="background:#a98bf0"></i>双中继</span>
+      <span>竖线 = 当前 τ<sub>m</sub>；圆点 = 当前读数</span>
+      <span>细虚线 = 不含弛豫的 M(τ)</span>
+    </div>
+    <div id="builNote" class="info">拖动 τ<sub>m</sub> 滑块看竖线扫过：转移是<b>振荡</b>的，不是单调增长。</div>
+  </div>
+
+  <!-- ================= 右栏 ================= -->
+  <div class="card">
+    <h2>当前选中</h2>
+    <div class="big" id="roTitle">—</div>
+    <div style="color:var(--dim);font-size:12px;margin:4px 0 8px" id="roSub">—</div>
+    <div id="roBox" class="selbox"></div>
+    <div id="roExplain" class="info">—</div>
+
+    <h2 style="margin-top:14px">位点表</h2>
+    <div class="tblwrap"><table class="read" id="tblSites"><thead><tr><th>位点</th><th class="n">δ / ppm</th><th class="n">¹H</th><th>耦合</th></tr></thead><tbody></tbody></table></div>
+
+    <h2 style="margin-top:14px">转移矩阵 M<sub>jk</sub>(τ<sub>m</sub>)</h2>
+    <div style="color:var(--dim);font-size:11px;margin:-4px 0 6px">行 = 被观测位点 j，列 = 起始位点 k；数字 = 该位点 z 磁化的分数</div>
+    <table class="grid4" id="tblM"></table>
+    <div class="legend"><span>点任一方格 = 选中该 (j, k) 对</span></div>
+
+    <h2 style="margin-top:14px">峰计数（阈值 <span class="mono" id="roThr">0.05</span>）</h2>
+    <div class="tblwrap"><table class="read" id="tblCount"><tbody></tbody></table></div>
+
+    <h2 style="margin-top:14px">当前解释</h2>
+    <div id="roWhy" class="gap2">—</div>
+  </div>
+</div>
+
+<!-- ==================== 下方：结论 → 原图 → 归属表 → 推导 → 误区 → 来源 ==================== -->
+<div class="card" style="margin-top:16px;border-color:var(--acc)">
+<h2>主要结论（先给答案）</h2>
+<div class="two">
+<div>
+<p><b>正丙醇的四个 <sup>1</sup>H 位点在同一条耦合链上</b>：<span class="mono">H–O–CH₂–CH₂–CH₃</span>。沿这条链，任意两个位点之间都隔着 3 的整数倍根键，于是它们属于<b>同一个自旋体系</b>。TOCSY 的混合过程把磁化沿这条链来回搬运，所以每个位点都能"看见"其余所有位点。</p>
+<p>因此答案是一个<b>完整的方格</b>：4 个位点两两相关 = <span class="k">4 个对角峰</span> + <span class="k">C(4,2) = 6 对、共 12 个交叉峰</span> = <b>16 个峰</b>，对称地铺满 4 × 4 = 16 个格子。<span class="bdg b-theory">理论计数</span></p>
+</div>
+<div>
+<p><b>但有一个真实的岔路口：羟基氢。</b>–OH 是化学交换的活泼氢。</p>
+<ul class="tight">
+<li><b>慢交换</b>（干 CDCl₃、DMSO-d₆、低温）：–OH 是自旋体系的一员 → 4 位点 → <b>16 个峰</b>。</li>
+<li><b>快交换</b>（CDCl₃ 含痕量酸/水）：–OH 被去耦，从体系里掉出去 → 3 位点 → 3 个对角 + 3 对交叉 = <b>9 个峰</b>。</li>
+</ul>
+<p class="dm" style="font-size:12px;margin-bottom:0">原图没有给溶剂与温度，所以<b>两个答案都对</b>——关键是说清你假设了哪一种。页面上用左栏勾选框切换。</p>
+</div>
+</div>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h2>原始材料（原样保留）与局部放大</h2>
+<div class="grid g2side">
+  <div>
+    <div class="origwrap" id="origwrap"><img id="origimg" src="__SLIDE_SRC__" alt="练习题截图：标题 TOCSY – Practice Problem，两条要求，底部是带红黄绿三个方块的 HO-CH2-CH2-CH3 结构式" /></div>
+    <div class="row2" style="margin-top:8px">
+      <button class="btn" data-zoom="page">整页</button>
+      <button class="btn" data-zoom="title">标题区</button>
+      <button class="btn" data-zoom="text">文字要求</button>
+      <button class="btn" data-zoom="struct">结构式</button>
+    </div>
+    <div class="slid" style="margin-top:4px">
+      <div class="lab"><b>放大倍数</b><span class="val" id="vZoom">1.0×</span></div>
+      <input type="range" id="sZoom" min="1" max="5" step="0.1" value="1" aria-label="原图放大倍数" />
+    </div>
+    <div class="legend"><span>在图上按住拖动可平移。</span></div>
+  </div>
+  <div>
+    <h3>原图里确实存在的（逐像素核对过）</h3>
+    <table class="read"><tbody>
+      <tr><td>结构式</td><td class="mono">HO–CH₂–CH₂–CH₃</td></tr>
+      <tr><td>三个色块</td><td class="mono">#D70F10 / #EAE41C / #209C48</td></tr>
+      <tr><td>色块中心（像素）</td><td class="mono">(794,560) (879,609) (966,563)</td></tr>
+      <tr><td>色块边长</td><td class="mono">≈ 48–53 px（方块，非峰形）</td></tr>
+      <tr><td>文字</td><td class="mono">2 条 bullet + 标题</td></tr>
+      <tr><td>幻灯片底色</td><td class="mono">#F8EED8</td></tr>
+    </tbody></table>
+    <div class="warn"><b>原图里不存在的</b>（因此本页不能"读"出来，只能建模）：谱图本身、任何化学位移、任何耦合常数、溶剂、温度、谱仪频率、混合时间、峰强度、相位、噪声。本页凡涉及这些，都标了 <span class="bdg b-lit">文献近似</span> 或 <span class="bdg b-model">演示模型</span>。</div>
+    <div class="info" style="font-size:11.5px">色块的形状是<b>正方形</b>，不是等高线峰形——它只是幻灯片作者用来标记三个碳位置的高亮块，<b>不编码任何强度或位移信息</b>。这是本题最容易过度解读的地方。</div>
+  </div>
+</div>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h2>完整归属表（所有峰对，随滑块实时更新）</h2>
+<div class="tblwrap"><table class="read" id="tblAll"><thead><tr>
+<th>#</th><th>类型</th><th>起始 k</th><th>观测 j</th><th class="n">δ(F2)</th><th class="n">δ(F1)</th><th class="n">中继</th><th class="n">M<sub>jk</sub></th><th class="n">强度 I</th><th>状态</th><th>来源</th>
+</tr></thead><tbody></tbody></table></div>
+<div class="legend">
+<span>M<sub>jk</sub> = 未经弛豫的转移分数；I = M<sub>jk</sub> · e<sup>−τ<sub>m</sub>/T<sub>1ρ</sub></sup>（模型强度）；"状态"按阈值判定"可见 / 弱 / 未画出"。</span>
+</div>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h2>分步推理与数值核对</h2>
+<div class="two">
+<div>
+<h3>第 1 步 · 谁在自旋体系里</h3>
+<p>把每个化学等价的氢团当成一个"分组自旋"（磁等价近似）：</p>
+<table class="read"><thead><tr><th>位点</th><th>碳</th><th class="n">¹H 数</th><th>相邻耦合对象</th></tr></thead><tbody>
+<tr><td>–OH</td><td>O 上</td><td class="n">1</td><td>C1 的 –CH₂–</td></tr>
+<tr><td>C1 –CH₂–</td><td>C1</td><td class="n">2</td><td>–OH、C2 的 –CH₂–</td></tr>
+<tr><td>C2 –CH₂–</td><td>C2</td><td class="n">2</td><td>C1、C3</td></tr>
+<tr><td>C3 –CH₃</td><td>C3</td><td class="n">3</td><td>C2</td></tr>
+</tbody></table>
+<p>4 个位点、3 条耦合边，构成一条<b>链</b>（不是两支、不是环）。链上任两点都连通 ⇒ 只有一个自旋体系。这就是"每个位点都能看见其他所有位点"的结构原因。</p>
+<div class="note" style="font-size:12px">C1 与 C3 之间没有直接的 <sup>3</sup>J，但它们仍然出交叉峰——磁化走 C1→C2→C3 两跳。TOCSY 与 COSY 的区别正在这里。</div>
+
+<h3>第 2 步 · 转移效率怎么算</h3>
+<p>理想 TOCSY 的自旋锁定相当于各向同性混合，哈密顿量（角频率单位）：</p>
+<div class="eq katex-display-eq">H = 2\pi \sum_{i&lt;j} J_{ij}\left(\hat I_{ix}\hat I_{jx} + \hat I_{iy}\hat I_{jy} + \hat I_{iz}\hat I_{jz}\right)</div>
+<p>演化算符 <span class="katex-inline">U(\tau_m) = e^{-\mathrm{i}H\tau_m}</span>。从位点 k 出发、在位点 j 上看到的 z 磁化分数：</p>
+<div class="eq katex-display-eq">M_{jk}(\tau_m) = \frac{\operatorname{Tr}\bigl[\hat I_{jz}\,U\,\hat I_{kz}\,U^{\dagger}\bigr]}{\operatorname{Tr}\bigl[\hat I_{kz}^{2}\bigr]} = \frac{1}{2^{N-2}}\sum_{a,b} \zeta_j(a)\,\zeta_k(b)\,\bigl|U_{ab}\bigr|^{2},\qquad \zeta_j(a)=\pm\tfrac12</div>
+<p>本页对这个 4 自旋（16 维）体系<b>精确对角化</b>后逐点求和，不做微扰、不做截断。</p>
+</div>
+
+<div>
+<h3>第 3 步 · 两个必须成立的核对</h3>
+<p><b>(a) 磁化守恒</b>：因为 <span class="katex-inline">[\sum_k \hat I_{kz}, H]=0</span>，</p>
+<div class="eq katex-display-eq">\sum_{j} M_{jk}(\tau_m) = 1 \quad \text{对一切 } \tau_m</div>
+<p><b>(b) 矩阵对称</b>：<span class="katex-inline">H</span> 在乘积基下是实对称矩阵，故 <span class="katex-inline">U</span> 复对称（<span class="katex-inline">U^{T}=U</span>），于是</p>
+<div class="eq katex-display-eq">M_{jk} = \frac{1}{2^{N-2}}\sum_{a,b}\zeta_j(a)\zeta_k(b)\,|U_{ab}|^{2} = M_{kj}</div>
+<p>这一条<b>直接解释了 2D 谱为什么关于对角线镜像对称</b>——不是画图习惯，是哈密顿量的性质。</p>
+
+<h3>第 4 步 · 两自旋闭式解（用来校准代码）</h3>
+<div class="eq katex-display-eq">M_{12}(\tau_m)=\sin^{2}\!\bigl(\pi J \tau_m\bigr),\qquad \max = 1 \text{ 在 } \tau_m=\frac{1}{2J}</div>
+<p>J = 7.0 Hz 时极值在 <span class="mono">τ<sub>m</sub> = 71.43 ms</span>。数值对角化给出 <span class="mono">71.45 ms、峰值 0.99999978</span>，与闭式解的最大偏差 <span class="mono">8.9 × 10<sup>−16</sup></span>。<span class="bdg b-calc">计算</span></p>
+<div class="info" style="font-size:12px">这三个数就是本页的"标尺"：守恒偏差、对称性偏差、闭式解偏差都必须落在机器精度（≈10<sup>−15</sup>）附近，否则模型写错了。</div>
+
+<h3>第 5 步 · 计数核对</h3>
+<p>n 个位点 ⇒ 对角 n 个，交叉峰 <span class="katex-inline">\binom{n}{2}</span> 对（画在图上是对称的 2 倍，即 <span class="katex-inline">n(n-1)</span> 个方块）。</p>
+<div class="eq katex-display-eq">n=4:\; 4 + \tfrac{4\cdot 3}{2} = 4+6 = 10 \text{ 个独立峰},\;\; 4\times4 = 16 \text{ 个方块}</div>
+<div class="eq katex-display-eq">n=3:\; 3 + \tfrac{3\cdot 2}{2} = 3+3 = 6 \text{ 个独立峰},\;\; 3\times3 = 9 \text{ 个方块}</div>
+<p>τ<sub>m</sub> = 80 ms、阈值 0.05 时，本页模拟给出 16/16 个方块全部可见（最小强度 0.0679 ≈ 阈值的 1.36 倍），与计数一致。τ<sub>m</sub> = 25 ms 时只剩 10/16，弱峰确实小到看不见。</p>
+</div>
+</div>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h2>常见误区</h2>
+<div class="two">
+<div>
+<div class="warn"><b>误区 1 · 把 TOCSY 当 COSY 画。</b>只画相邻位点的峰（–OH↔C1、C1↔C2、C2↔C3），漏掉 C1↔C3、–OH↔C2、–OH↔C3。<br><b>纠正</b>：TOCSY 搬运磁化可以连跳，<b>整个自旋体系内部两两都有峰</b>。这一条是本题的考点。</div>
+<div class="warn"><b>误区 2 · 忘了对角线峰。</b>对角线 (δ, δ) 上的 4 个峰是真实存在的峰。<br><b>纠正</b>：完整的图是 <b>4×4 的满格</b>，不是只有 6 对交叉峰。</div>
+<div class="warn"><b>误区 3 · 认为 –OH 一定出峰。</b>–OH 是活泼氢，交换速率决定它是否留在自旋体系里。<br><b>纠正</b>：报答案时必须写明溶剂/温度假设。原图没给，所以两种答案都要能说。</div>
+<div class="warn"><b>误区 4 · 认为 τ<sub>m</sub> 越长峰越强。</b>转移是 sin² 型<b>振荡</b>；τ<sub>m</sub> 过长还会被 T<sub>1ρ</sub> 弛豫和 ROE 拖低。<br><b>纠正</b>：看中栏第三条曲线的竖线扫过过程。</div>
+</div>
+<div>
+<div class="warn"><b>误区 5 · 把原图的彩色方块当成峰。</b>那些方块是<b>正方形</b>，等大、等间距、无强度信息，只是幻灯片作者标记三个碳的位置。<br><b>纠正</b>：它们对应"位点"，不对应"峰"；尤其不能读出任何 δ 值。</div>
+<div class="warn"><b>误区 6 · 以为 TOCSY 给空间距离。</b>TOCSY 的相关靠<b>标量耦合（化学键）</b>传递；给空间接近信息的是 NOESY / ROESY。<br><b>纠正</b>：C1 与 C3 在空间上并不特别接近，靠的是三根键的链。</div>
+<div class="warn"><b>误区 7 · 只画一半。</b>有人只画对角线上方的峰"因为对称"。<br><b>纠正</b>：谱图是<b>全平面</b>采集的，(δ<sub>a</sub>,δ<sub>b</sub>) 与 (δ<sub>b</sub>,δ<sub>a</sub>) 都在图上，两个都要画。</div>
+<div class="warn"><b>误区 8 · 认为 2D 谱的颜色/色块深度有定量含义。</b>本页峰的大小按模型强度画，但真实谱图的等高线层数、相位、噪声都会影响观感。<br><b>纠正</b>：定量要靠积分/截面，不能靠"看起来深"。</div>
+</div>
+</div>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h2>来源与限制</h2>
+<div class="two">
+<div>
+<h3>每个数字的出处</h3>
+<div class="tblwrap"><table class="read"><thead><tr><th>量</th><th>取值</th><th>来源</th></tr></thead><tbody>
+<tr><td>结构式</td><td class="mono">HO–CH₂–CH₂–CH₃</td><td><span class="bdg b-slide">原图</span></td></tr>
+<tr><td>三个色块颜色/位置</td><td class="mono">#D70F10/#EAE41C/#209C48</td><td><span class="bdg b-slide">原图</span></td></tr>
+<tr><td>题目要求</td><td>画出 TOCSY 谱；位移不必精确</td><td><span class="bdg b-slide">原图</span></td></tr>
+<tr><td>δ(CH₃) = 0.93 ppm</td><td>近似</td><td><span class="bdg b-lit">文献近似</span></td></tr>
+<tr><td>δ(C2 –CH₂–) = 1.56 ppm</td><td>近似</td><td><span class="bdg b-lit">文献近似</span></td></tr>
+<tr><td>δ(C1 –CH₂–O) = 3.57 ppm</td><td>近似</td><td><span class="bdg b-lit">文献近似</span></td></tr>
+<tr><td>δ(–OH) = 2.20 ppm</td><td><b>极不确定</b>（0.5–5 ppm 随浓度/溶剂/温度漂移）</td><td><span class="bdg b-lit">文献近似</span></td></tr>
+<tr><td>J(C1,C2) = 6.6 Hz</td><td>近似</td><td><span class="bdg b-lit">文献近似</span></td></tr>
+<tr><td>J(C2,C3) = 7.4 Hz</td><td>近似</td><td><span class="bdg b-lit">文献近似</span></td></tr>
+<tr><td>J(–OH,C1) = 5.2 Hz</td><td>近似（DMSO-d₆ 中可观测；CDCl₃ 中常观测不到）</td><td><span class="bdg b-lit">文献近似</span></td></tr>
+<tr><td>T<sub>1ρ</sub> = 600 ms</td><td>为演示选定</td><td><span class="bdg b-model">演示模型</span></td></tr>
+<tr><td>谐振频率 400 MHz</td><td>为 1D 投影的 Hz↔ppm 换算选定</td><td><span class="bdg b-model">演示模型</span></td></tr>
+<tr><td>峰数 16 / 9</td><td>组合计数</td><td><span class="bdg b-theory">理论计数</span></td></tr>
+<tr><td>转移矩阵 M<sub>jk</sub></td><td>16 维精确对角化</td><td><span class="bdg b-calc">计算</span></td></tr>
+</tbody></table></div>
+</div>
+<div>
+<h3>模型假设（都做了简化）</h3>
+<ul class="tight">
+<li><b>分组自旋近似</b>：–CH₃ 的 3 个氢、–CH₂– 的 2 个氢按磁等价当成一个自旋 ½。分子内旋转快、无手性中心时这是标准做法，但忽略了同碳氢之间的偕偶（<sup>2</sup>J ≈ −12 Hz）与碳上氢的磁不等价。</li>
+<li><b>理想各向同性混合</b>：假设自旋锁定完全抵消化学位移偏置、射频场完全均匀。真实 TOCSY 里 ω<sub>1</sub> 失配会显著压低转移效率。</li>
+<li><b>只算 z 磁化的在位分数</b>：真实交叉峰的多重峰有反相分量、TOE（TOCSY echo）伪峰与色散分量，本页不做相位建模。</li>
+<li><b>弛豫用一个唯象因子</b> e<sup>−τ<sub>m</sub>/T<sub>1ρ</sub></sup>，同时乘在对角峰与交叉峰上；真实弛豫是复杂多指数过程，还会产生交叉弛豫。</li>
+<li><b>忽略 NOE/ROE 通路</b>与溶剂峰、水峰压制伪影。</li>
+<li><b>一维投影</b>用一阶多重峰（二项式强度）+ 洛伦兹线型合成，<b>示意</b>，忽略二阶效应、线宽差异与数字分辨率。</li>
+</ul>
+<h3>本页做不到的</h3>
+<ul class="tight">
+<li>无法给出真实实验谱。原材料里没有谱图、没有 FID、没有参数表，<b>不存在可以恢复的实测曲线</b>。</li>
+<li>无法确定 –OH 在题目设定条件下的行为——必须由溶剂与温度决定。</li>
+<li>δ 与 J 的"文献近似"值随条件漂移 ±0.05 ppm / ±0.5 Hz 量级；本页的 ppm 读数只到 0.01 ppm，<b>那个小数位没有实验意义</b>，只是为了滑块连续可调。</li>
+</ul>
+</div>
+</div>
+</div>
+
+<div class="card" style="margin-top:14px">
+<h2>页面自检（每次加载自动运行）</h2>
+<div id="selftestBox">—</div>
+<details><summary>显示原始 JSON（供脚本核对）</summary><div><pre class="mono" id="selftestRaw" style="font-size:11px;white-space:pre-wrap;margin:0;color:var(--dim)">—</pre></div></details>
+</div>
+
+<div class="foot">
+<b>怎么用这一页：</b>左栏选位点、拖 τ<sub>m</sub>；中栏三张图（骨架 / 2D 谱 / 转移曲线）与右栏读数同步；下方归属表列出全部峰对，随参数实时变化。
+本页为教学示意，<b>不是实验数据</b>；所有模型外推都已在"来源与限制"里列明。
+</div>
+</div>
+<script id="core">
+/* ============================================================================
+   TOCSY 数值内核 —— 各向同性混合(isotropic mixing)的精确解
+   ----------------------------------------------------------------------------
+   约定   H   = 2*pi * sum_{i<j} J_ij ( Iix Ijx + Iiy Ijy + Iiz Ijz )   [角频率]
+          U(t)= exp(-i H t)
+          M_jk(t) = Tr(I_jz U I_kz U+)/Tr(I_kz^2)
+                  = (1/2^(N-2)) * sum_{a,b} zeta_j(a) zeta_k(b) |U_ab|^2 ,
+            zeta_j(a) = 该基态下 j 号自旋的 I_z 本征值 = +-1/2
+   实现：16 维实对称矩阵 Jacobi 特征分解（与 Python numpy.linalg.eigh 独立实现）。
+
+   ---- 已用 Python 独立核对（详见项目 README）--------------------------------
+   N=4, J = [J(OH,C1)=5.2, J(C1,C2)=6.6, J(C2,C3)=7.4] Hz, tau = 80 ms:
+     M = [[0.275937,0.378642,0.182781,0.162641],
+          [0.378642,0.149127,0.067901,0.404329],
+          [0.182781,0.067901,0.498142,0.251177],
+          [0.162641,0.404329,0.251177,0.181853]]
+     16 个元素最小值 0.067901 > 阈值 0.05  =>  4x4 满格 = 16/16 全部可见
+   两自旋 J=7 Hz:  tau=30.000 ms -> 0.375655056 ; 闭式 sin^2(pi J tau)=0.375655056 (偏差 8.9e-16)
+                   tau=1/(2J)=71.4286 ms -> 1.000000（极大）
+   不变量: sum_j M_jk = 1 偏差 <= 6.7e-16 ;  M_jk = M_kj 偏差 <= 1.1e-16
+            零耦合/单自旋/tau=0 => M = 单位阵（偏差 0 ~ 5e-16）
+   ========================================================================== */
+(function () {
+  "use strict";
+
+  var NSITE_MAX = 4;
+  var DIM = 1 << NSITE_MAX;                 // 16
+
+  /* ---------- 参考值（来自 Python 独立实现，用于自检对拍） ---------- */
+  var REF = {
+    M_80ms_withOH: [
+      [0.275937, 0.378642, 0.182781, 0.162641],
+      [0.378642, 0.149127, 0.067901, 0.404329],
+      [0.182781, 0.067901, 0.498142, 0.251177],
+      [0.162641, 0.404329, 0.251177, 0.181853]
+    ],
+    twoSpin_J7_tau30ms: 0.375655056,
+    twoSpin_J7_tauOpt_ms: 71.42857142857143,
+    twoSpin_maxTau_ms_tol: 0.05,
+    minEntryAt80ms: 0.067901
+  };
+
+  /* ---------- Jacobi 实对称特征分解 A = V diag(w) V^T （V 列为本征向量） ---- */
+  function jacobi(Ain, n) {
+    var A = [], V = [], i, j, k;
+    for (i = 0; i < n; i++) {
+      A.push(Ain[i].slice());
+      var r = new Array(n), s;
+      for (s = 0; s < n; s++) r[s] = (s === i) ? 1 : 0;
+      V.push(r);
+    }
+    for (var sweep = 0; sweep < 200; sweep++) {
+      var off = 0;
+      for (i = 0; i < n; i++) for (j = i + 1; j < n; j++) off += A[i][j] * A[i][j];
+      if (off < 1e-30) break;
+      for (i = 0; i < n - 1; i++) {
+        for (j = i + 1; j < n; j++) {
+          var apq = A[i][j];
+          if (Math.abs(apq) < 1e-18) continue;
+          var theta = (A[j][j] - A[i][i]) / (2 * apq);
+          var t = (theta >= 0 ? 1 : -1) / (Math.abs(theta) + Math.sqrt(theta * theta + 1));
+          var c = 1 / Math.sqrt(t * t + 1), s2 = t * c;
+          for (k = 0; k < n; k++) {
+            var akp = A[k][i], akq = A[k][j];
+            A[k][i] = c * akp - s2 * akq;
+            A[k][j] = s2 * akp + c * akq;
+          }
+          for (k = 0; k < n; k++) {
+            var apk = A[i][k], aqk = A[j][k];
+            A[i][k] = c * apk - s2 * aqk;
+            A[j][k] = s2 * apk + c * aqk;
+          }
+          for (k = 0; k < n; k++) {
+            var vkp = V[k][i], vkq = V[k][j];
+            V[k][i] = c * vkp - s2 * vkq;
+            V[k][j] = s2 * vkp + c * vkq;
+          }
+        }
+      }
+    }
+    var w = new Array(n);
+    for (i = 0; i < n; i++) w[i] = A[i][i];
+    return { w: w, V: V };
+  }
+
+  /* ---------- 构造耦合矩阵（链式 OH - C1 - C2 - C3） ---------- */
+  function makeJ(cfg) {
+    var n = cfg.n, i, j, J = [];
+    for (i = 0; i < n; i++) { J.push(new Array(n)); for (j = 0; j < n; j++) J[i][j] = 0; }
+    function set(a, b, v) { if (a < n && b < n) { J[a][b] = v; J[b][a] = v; } }
+    set(1, 2, cfg.J12);
+    set(2, 3, cfg.J23);
+    if (cfg.includeOH) set(0, 1, cfg.JOH);
+    return J;
+  }
+
+  /* ---------- 哈密顿量 H = 2*pi*sum J_ij (IxIx+IyIy+IzIz) ---------- */
+  function buildH(J, n) {
+    var D = 1 << n, H = [], m, i, j;
+    for (m = 0; m < D; m++) H.push(new Float64Array(D));
+    for (i = 0; i < n; i++) {
+      for (j = i + 1; j < n; j++) {
+        var Jv = J[i][j];
+        if (!Jv) continue;
+        var w = 2 * Math.PI * Jv;
+        for (m = 0; m < D; m++) {
+          var bi = (m >> i) & 1, bj = (m >> j) & 1;
+          var zi = bi ? -0.5 : 0.5, zj = bj ? -0.5 : 0.5;
+          H[m][m] += w * zi * zj;
+          if (bi !== bj) H[m][m ^ (1 << i) ^ (1 << j)] += w * 0.5;
+        }
+      }
+    }
+    return H;
+  }
+
+  function eigenFor(J, n) {
+    var H = buildH(J, n), D = 1 << n, e = jacobi(H, D);
+    /* zeta[k][a] : 基态 a 下自旋 k 的 I_z 本征值 */
+    var zeta = [], k, a;
+    for (k = 0; k < n; k++) {
+      var z = new Float64Array(D);
+      for (a = 0; a < D; a++) z[a] = ((a >> k) & 1) ? -0.5 : 0.5;
+      zeta.push(z);
+    }
+    return { w: e.w, V: e.V, n: n, D: D, zeta: zeta, J: J };
+  }
+
+  /* ---------- 转移矩阵 M_jk(tau) ---------- */
+  function transferMat(eig, tau) {
+    var n = eig.n, D = eig.D, V = eig.V, w = eig.w, zeta = eig.zeta;
+    var cosT = new Float64Array(D), sinT = new Float64Array(D), m;
+    for (m = 0; m < D; m++) { cosT[m] = Math.cos(w[m] * tau); sinT[m] = Math.sin(w[m] * tau); }
+    /* P[a][b] = |U_ab|^2 ，U = V diag(e^{-i w tau}) V^T */
+    var P = [], a, b;
+    for (a = 0; a < D; a++) {
+      P.push(new Float64Array(D));
+      for (b = 0; b < D; b++) {
+        var re = 0, im = 0, Va = V[a], Vb = V[b];
+        for (m = 0; m < D; m++) {
+          var p = Va[m] * Vb[m];
+          re += p * cosT[m];
+          im -= p * sinT[m];
+        }
+        P[a][b] = re * re + im * im;
+      }
+    }
+    /* s[k][a] = sum_b zeta_k(b) P[a][b] ;  M[j][k] = 2^{-(n-2)} sum_a zeta_j(a) s[k][a] */
+    var s = [], k;
+    for (k = 0; k < n; k++) {
+      var sk = new Float64Array(D), zk = zeta[k];
+      for (a = 0; a < D; a++) {
+        var acc = 0, Pa = P[a];
+        for (b = 0; b < D; b++) acc += zk[b] * Pa[b];
+        sk[a] = acc;
+      }
+      s.push(sk);
+    }
+    var norm = Math.pow(2, n - 2), M = [];
+    for (a = 0; a < n; a++) M.push(new Array(n));
+    var j;
+    for (j = 0; j < n; j++) {
+      var zj = zeta[j];
+      for (k = 0; k < n; k++) {
+        var sk2 = s[k], tot = 0;
+        for (var aa = 0; aa < D; aa++) tot += zj[aa] * sk2[aa];
+        M[j][k] = tot / norm;
+      }
+    }
+    return M;
+  }
+
+  /* ---------- 多重峰（一阶，二项式强度） ---------- */
+  function binomial(n) {
+    var c = [1], i, k;
+    for (i = 1; i <= n; i++) { var nx = [1]; for (k = 1; k < i; k++) nx.push(c[k - 1] + c[k]); nx.push(1); c = nx; }
+    return c;
+  }
+  /* couplings: [[J / Hz, 等价氢数], ...] -> [[相对频率 / Hz, 幅度], ...] */
+  function multipletLines(couplings) {
+    var lines = [[0, 1]], i, j;
+    for (i = 0; i < couplings.length; i++) {
+      var J = couplings[i][0], nH = Math.round(couplings[i][1]);
+      if (!J || nH <= 0) continue;
+      var coef = binomial(nH), next = [];
+      for (j = 0; j < lines.length; j++) {
+        for (var m = 0; m <= nH; m++) next.push([lines[j][0] + J * (m - nH / 2), lines[j][1] * coef[m]]);
+      }
+      lines = next;
+    }
+    return lines;
+  }
+
+  /* ================= 自检 ================= */
+  function maxAbs(M) { var v = 0, i, j; for (i = 0; i < M.length; i++) for (j = 0; j < M[i].length; j++) v = Math.max(v, Math.abs(M[i][j])); return v; }
+
+  window.__selftest = function () {
+    var out = {}, ok = true;
+
+    /* 1) 平凡情形：零耦合 / tau = 0 / 单自旋 -> 单位阵 */
+    var e0 = eigenFor(makeJ({ n: 4, includeOH: true, JOH: 0, J12: 0, J23: 0 }), 4);
+    var M0 = transferMat(e0, 0.05), dev0 = 0, i, j;
+    for (i = 0; i < 4; i++) for (j = 0; j < 4; j++) dev0 = Math.max(dev0, Math.abs(M0[i][j] - (i === j ? 1 : 0)));
+    out.zeroCouplingDev = dev0;
+
+    var eC = eigenFor(makeJ({ n: 4, includeOH: true, JOH: 5.2, J12: 6.6, J23: 7.4 }), 4);
+    var Mt0 = transferMat(eC, 0), devT0 = 0;
+    for (i = 0; i < 4; i++) for (j = 0; j < 4; j++) devT0 = Math.max(devT0, Math.abs(Mt0[i][j] - (i === j ? 1 : 0)));
+    out.t0Dev = devT0;
+
+    var e1 = eigenFor(makeJ({ n: 1, includeOH: false, JOH: 0, J12: 0, J23: 0 }), 1);
+    out.oneSpinDev = Math.abs(transferMat(e1, 0.037)[0][0] - 1);
+
+    /* 2) 守恒 sum_j M_jk = 1 与对称 M_jk = M_kj */
+    var consDev = 0, symDev = 0, ts = [0.005, 0.037, 0.0714, 0.12];
+    for (var ti = 0; ti < ts.length; ti++) {
+      var M = transferMat(eC, ts[ti]);
+      for (var k = 0; k < 4; k++) {
+        var col = 0;
+        for (j = 0; j < 4; j++) col += M[j][k];
+        consDev = Math.max(consDev, Math.abs(col - 1));
+      }
+      for (i = 0; i < 4; i++) for (j = 0; j < 4; j++) symDev = Math.max(symDev, Math.abs(M[i][j] - M[j][i]));
+    }
+    out.conservationDev = consDev;
+    out.symmetryDev = symDev;
+
+    /* 3) 两自旋闭式解 sin^2(pi J tau) */
+    var e2 = eigenFor(makeJ({ n: 2, includeOH: true, JOH: 7.0, J12: 0, J23: 0 }), 2);
+    out.twoSpin_tau30ms = transferMat(e2, 0.030)[1][0];
+    out.twoSpin_closedForm = Math.sin(Math.PI * 7.0 * 0.030) * Math.sin(Math.PI * 7.0 * 0.030);
+    out.twoSpinDev = Math.abs(out.twoSpin_tau30ms - out.twoSpin_closedForm);
+    var bestT = 0, bestV = -1;
+    for (var tms = 0; tms <= 200; tms += 0.01) {
+      var v = transferMat(e2, tms / 1000)[1][0];
+      if (v > bestV) { bestV = v; bestT = tms; }
+    }
+    out.twoSpin_maxTau_ms = bestT;
+    out.twoSpin_maxVal = bestV;
+    out.twoSpinDevFromOpt = Math.abs(bestT - REF.twoSpin_J7_tauOpt_ms);
+
+    /* 4) 与 Python 独立实现的 16 元素对拍 */
+    var M80 = transferMat(eC, 0.080), refDev = 0, minEntry = 1e9;
+    for (i = 0; i < 4; i++) for (j = 0; j < 4; j++) {
+      refDev = Math.max(refDev, Math.abs(M80[i][j] - REF.M_80ms_withOH[i][j]));
+      minEntry = Math.min(minEntry, M80[i][j]);
+    }
+    out.pythonCrossCheckDev = refDev;
+    out.minEntryAt80ms = minEntry;
+
+    /* 5) 计数：4x4 满格判定 */
+    var nVis = 0;
+    for (i = 0; i < 4; i++) for (j = 0; j < 4; j++) if (M80[i][j] >= 0.05) nVis++;
+    out.visibleSquares_80ms_thr05 = nVis;
+    out.expectedSquares = 16;
+
+    /* 6) 关闭 OH 后，OH 行/列必须严格为 0 */
+    var eNo = eigenFor(makeJ({ n: 4, includeOH: false, JOH: 5.2, J12: 6.6, J23: 7.4 }), 4);
+    var Mn = transferMat(eNo, 0.08), ohLeak = 0, subVis = 0;
+    /* 只查"交叉项"：去耦的 –OH 不该与任何位点有交叉峰（它的对角项本来就是 1） */
+    for (i = 1; i < 4; i++) { ohLeak = Math.max(ohLeak, Math.abs(Mn[0][i]), Math.abs(Mn[i][0])); }
+    for (i = 1; i < 4; i++) for (j = 1; j < 4; j++) if (Mn[i][j] >= 0.05) subVis++;
+    out.ohDecoupledLeak = ohLeak;
+    out.visibleSquares_noOH_80ms = subVis;
+
+    /* 7) 多重峰计数：C3H3 应为 1:2:1 三重峰 */
+    var trip = multipletLines([[7.4, 2]]);
+    out.tripletLines = trip.length;
+    out.tripletRatio = trip.map(function (p) { return Math.round(p[1] * 100) / 100; }).join(":");
+
+    out.ok = (dev0 < 1e-12) && (devT0 < 1e-12) && (out.oneSpinDev < 1e-12) &&
+             (consDev < 1e-12) && (symDev < 1e-12) && (out.twoSpinDev < 1e-12) &&
+             (out.twoSpinDevFromOpt < REF.twoSpin_maxTau_ms_tol) &&
+             (refDev < 1e-5) && (nVis === 16) && (ohLeak < 1e-12) &&
+             (out.tripletLines === 3);
+    return out;
+  };
+
+  window.NMR = {
+    NSITE_MAX: NSITE_MAX, DIM: DIM, REF: REF,
+    jacobi: jacobi, makeJ: makeJ, buildH: buildH, eigenFor: eigenFor,
+    transferMat: transferMat, multipletLines: multipletLines, binomial: binomial
+  };
+})();
+</script>
+<script>
+/* ============================================================================
+   界面层：状态 -> 绘图 -> 交互 -> 读数同步
+   所有数值来自 #core 里的精确解；绘图只做渲染，不再引入新物理。
+   ========================================================================== */
+(function () {
+"use strict";
+var N = window.NMR;
+
+/* ---------------- 数据模型 ---------------- */
+var SITES = [
+  { key: "OH",   name: "–OH",       cn: "羟基氢（活泼氢）", nH: 1, color: "#cfd8e3", dashed: true,  inSlide: false },
+  { key: "C1H2", name: "C1 –CH₂–",  cn: "亚甲基（连氧）",   nH: 2, color: "#D70F10", dashed: false, inSlide: true  },
+  { key: "C2H2", name: "C2 –CH₂–",  cn: "亚甲基（中间）",   nH: 2, color: "#EAE41C", dashed: false, inSlide: true  },
+  { key: "C3H3", name: "C3 –CH₃",   cn: "甲基",            nH: 3, color: "#209C48", dashed: false, inSlide: true  }
+];
+var DEF_D = [2.20, 3.57, 1.56, 0.93];
+var ORDC = ["#8b97a6", "#5fd0a8", "#f0a83c", "#a98bf0"];
+var ORDN = ["对角（自己）", "直连（隔 3 根键）", "单中继（2 跳）", "双中继（3 跳）"];
+var ORDS = ["D", "1", "2", "3"];
+var PPM_MIN = 0, PPM_MAX = 4.8, FIELD = 400, TMAX = 180;
+
+var ST = {
+  sel: 1, pair: null, tau: 80, includeOH: true,
+  JOH: 5.2, J12: 6.6, J23: 7.4, T1: 600, thr: 0.05,
+  cosy: false, showProj: true, showLab: true, showDiag: true, showEnv: true,
+  delta: DEF_D.slice(), zoom: { s: 1, x: 0, y: 0 }
+};
+
+/* ---------------- 小工具 ---------------- */
+function clamp(v, a, b) { return v < a ? a : (v > b ? b : v); }
+function $id(s) { return document.getElementById(s); }
+function lerp(a, b, t) { return a + (b - a) * t; }
+function hex2rgb(h) { return [parseInt(h.slice(1, 3), 16), parseInt(h.slice(3, 5), 16), parseInt(h.slice(5, 7), 16)]; }
+function rgba(h, a) { var c = hex2rgb(h); return "rgba(" + c[0] + "," + c[1] + "," + c[2] + "," + a + ")"; }
+function fmt(v, d) { return (Math.round(v * Math.pow(10, d)) / Math.pow(10, d)).toFixed(d); }
+
+var EIG = null, EIGKEY = "";
+function curEig() {
+  var key = [ST.includeOH, ST.JOH, ST.J12, ST.J23].join("|");
+  if (!EIG || EIGKEY !== key) {
+    EIG = N.eigenFor(N.makeJ({ n: 4, includeOH: ST.includeOH, JOH: ST.JOH, J12: ST.J12, J23: ST.J23 }), 4);
+    EIGKEY = key;
+  }
+  return EIG;
+}
+var MCACHE = null, MCACHEKEY = "";
+function curM() {
+  var key = EIGKEY + "|" + ST.tau;
+  if (!MCACHE || MCACHEKEY !== key) { MCACHE = N.transferMat(curEig(), ST.tau / 1000); MCACHEKEY = key; }
+  return MCACHE;
+}
+function activeIdx() { return ST.includeOH ? [0, 1, 2, 3] : [1, 2, 3]; }
+function isActive(i) { return ST.includeOH || i !== 0; }
+function ord(i, j) { return Math.abs(i - j); }
+function rawI(k, j) {
+  if (!isActive(k) || !isActive(j)) return 0;
+  if (ST.cosy && Math.abs(j - k) > 1) return 0;
+  return Math.abs(curM()[j][k]);
+}
+function relI(k, j) { return rawI(k, j) * Math.exp(-ST.tau / ST.T1); }
+
+/* ---------------- 画布初始化 ---------------- */
+function cvW(id) { var e = $id(id); if (!e) return 700; var r = e.getBoundingClientRect(); return r.width > 60 ? r.width : 700; }
+function setup(id, cssH) {
+  var cv = $id(id);
+  var dpr = Math.min(window.devicePixelRatio || 1, 2);
+  var w = Math.round(cvW(id));
+  cv.style.height = cssH + "px";
+  if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(cssH * dpr)) {
+    cv.width = Math.round(w * dpr); cv.height = Math.round(cssH * dpr);
+  }
+  var g = cv.getContext("2d");
+  g.setTransform(dpr, 0, 0, dpr, 0, 0);
+  g.clearRect(0, 0, w, cssH);
+  cv._w = w; cv._h = cssH; cv._g = g;
+  return cv;
+}
+function txt(g, s, x, y, col, font, align, base) {
+  g.fillStyle = col; g.font = font || "11px " + MONO;
+  g.textAlign = align || "left"; g.textBaseline = base || "alphabetic";
+  g.fillText(s, x, y);
+}
+var MONO = 'ui-monospace,SFMono-Regular,Menlo,Consolas,monospace';
+var SANS = '-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif';
+
+/* ---------------- 骨架几何（供绘图与命中测试共用） ---------------- */
+var GEO = null;
+function geo() {
+  var cv = $id("cvStruct");
+  var W = cv._w || 700, H = cv._h || 180;
+  var sq = clamp(W * 0.047, 20, 34);
+  var o = {
+    W: W, H: H, sq: sq,
+    yLo: H * 0.55, yHi: H * 0.24,
+    PH:  { x: W * 0.085, y: H * 0.24 },
+    PO:  { x: W * 0.255, y: H * 0.55 },
+    node: [{ x: W * 0.085, y: H * 0.24 }, { x: W * 0.435, y: H * 0.24 },
+           { x: W * 0.615, y: H * 0.55 }, { x: W * 0.805, y: H * 0.24 }]
+  };
+  GEO = o;
+  return o;
+}
+function edgeLit(a1, b1) {
+  var lo, hi;
+  if (ST.pair) {
+    lo = Math.min(ST.pair[0], ST.pair[1]); hi = Math.max(ST.pair[0], ST.pair[1]);
+    return a1 >= lo && b1 <= hi;
+  }
+  if (ST.sel >= 0) return ST.sel === a1 || ST.sel === b1;
+  return false;
+}
+function pathPts(i, j) {
+  var o = geo(), a = Math.min(i, j), b = Math.max(i, j), pts = [o.node[a]];
+  if (a === 0) pts.push(o.PO);
+  for (var k = a + 1; k <= b; k++) pts.push(o.node[k]);
+  return pts;
+}
+
+/* ---------------- 图 1：骨架 ---------------- */
+function drawStruct() {
+  var cv = setup("cvStruct", clamp(cvW("cv2d") * 0.33, 214, 276));
+  var g = cv._g, o = geo(), W = cv._w, H = cv._h, sq = o.sq, h = sq / 2;
+
+  /* 键 */
+  g.lineWidth = 2; g.strokeStyle = "#7d8a99"; g.lineCap = "round";
+  function bond(a, b) { g.beginPath(); g.moveTo(a.x, a.y); g.lineTo(b.x, b.y); g.stroke(); }
+  g.setLineDash([4, 4]);
+  bond(o.PH, o.PO);
+  g.setLineDash([]);
+  bond(o.PO, o.node[1]); bond(o.node[1], o.node[2]); bond(o.node[2], o.node[3]);
+
+  /* 选中/相关路径高亮 */
+  var hi = [];
+  if (ST.pair) hi = pathPts(ST.pair[0], ST.pair[1]);
+  else if (ST.sel >= 0) {
+    for (var k = 0; k < 4; k++) if (k !== ST.sel && isActive(k)) {
+      var d = Math.abs(k - ST.sel); if (d === 1) { hi = hi.concat(pathPts(k, ST.sel)); }
+    }
+  }
+  if (hi.length > 1) {
+    var col = ST.pair ? ORDC[ord(ST.pair[0], ST.pair[1])] : "#5fd0a8";
+    g.strokeStyle = rgba(col, 0.85); g.lineWidth = 5; g.lineJoin = "round"; g.lineCap = "round";
+    g.beginPath(); g.moveTo(hi[0].x, hi[0].y);
+    for (var q = 1; q < hi.length; q++) g.lineTo(hi[q].x, hi[q].y);
+    g.stroke();
+  }
+
+  /* O 原子 */
+  txt(g, "O", o.PO.x, o.PO.y + 1, "#cfd8e3", "600 17px " + SANS, "center", "middle");
+
+  /* 位点方块 */
+  for (var i = 0; i < 4; i++) {
+    var p = o.node[i], s = SITES[i];
+    var sel = (ST.sel === i) || (ST.pair && (ST.pair[0] === i || ST.pair[1] === i));
+    if (s.dashed) {
+      g.setLineDash([5, 4]); g.lineWidth = 2.5; g.strokeStyle = sel ? "#ffffff" : s.color;
+      g.fillStyle = rgba(s.color, 0.10); g.fillRect(p.x - h, p.y - h, sq, sq); g.strokeRect(p.x - h, p.y - h, sq, sq);
+      g.setLineDash([]);
+      txt(g, "H", p.x, p.y + 1, s.color, "600 " + Math.round(sq * 0.42) + "px " + MONO, "center", "middle");
+    } else {
+      g.fillStyle = s.color; g.fillRect(p.x - h, p.y - h, sq, sq);
+      g.lineWidth = sel ? 3.5 : 1; g.strokeStyle = sel ? "#ffffff" : "rgba(0,0,0,.35)";
+      g.strokeRect(p.x - h, p.y - h, sq, sq);
+      var dark = (i === 2);
+      txt(g, String(s.nH) + "H", p.x, p.y + 1, dark ? "#1b222c" : "#ffffff",
+          "700 " + Math.round(sq * 0.40) + "px " + MONO, "center", "middle");
+    }
+    /* 标签：两行，方块正下方，避免与底部 J 条带重叠 */
+    var ly = p.y + h + 15;
+    txt(g, s.name, p.x, ly, sel ? "#ffffff" : "#c3ccd8", (sel ? "600 " : "") + "11px " + SANS, "center");
+    txt(g, "δ " + fmt(ST.delta[i], 2), p.x, ly + 13, sel ? "#5fd0a8" : "#6d7987", "10px " + MONO, "center");
+  }
+
+  /* 耦合常数标注 */
+  var pairJ = [[0, 1, "J(OH,C1)", ST.JOH], [1, 2, "J(C1,C2)", ST.J12], [2, 3, "J(C2,C3)", ST.J23]];
+  for (var t = 0; t < pairJ.length; t++) {
+    var a1 = pairJ[t][0], b1 = pairJ[t][1];
+    if (!isActive(a1) || !isActive(b1) || !pairJ[t][3]) continue;
+    var pa = o.node[a1], pb = o.node[b1];
+    if (a1 === 0) pa = o.PO;
+    var mx = (pa.x + pb.x) / 2;
+    var jl = (W < 620 ? fmt(pairJ[t][3], 1) : (pairJ[t][2] + " = " + fmt(pairJ[t][3], 1))) + " Hz";
+    txt(g, jl, mx, H - 6,
+        edgeLit(a1, b1) ? "#5fd0a8" : "#59636e", (edgeLit(a1, b1) ? "600 " : "") + "10px " + MONO, "center");
+  }
+  g.strokeStyle = "#262f3a"; g.lineWidth = 1;
+  g.beginPath(); g.moveTo(8, H - 19.5); g.lineTo(W - 8, H - 19.5); g.stroke();
+  txt(g, W < 620 ? "示意图：虚线方块 = –OH 的氢（原图未着色）"
+                 : "示意：原图把 –OH 写成文字「HO」、未给它的氢着色；虚线方块与底部 J 标注是讲解补充，方块可点击。",
+      10, H - 30, "#5c6874", "10.5px " + SANS);
+  cv._nodes = o.node;
+}
+
+/* ---------------- 图 2：选中位点的多重峰（Hz 轴） ---------------- */
+function siteCouplings(i) {
+  var c = [];
+  if (i === 0) { if (ST.includeOH && ST.JOH > 0) c.push([ST.JOH, 2]); }
+  else if (i === 1) { c.push([ST.J12, 2]); if (ST.includeOH && ST.JOH > 0) c.push([ST.JOH, 1]); }
+  else if (i === 2) { c.push([ST.J23, 3]); c.push([ST.J12, 2]); }
+  else { c.push([ST.J23, 2]); }
+  return c;
+}
+function drawMulti() {
+  var cv = setup("cvMulti", clamp(cvW("cv2d") * 0.27, 152, 196));
+  var g = cv._g, W = cv._w, H = cv._h;
+  var i = ST.sel >= 0 ? ST.sel : 1;
+  var cop = siteCouplings(i), lines = N.multipletLines(cop);
+  var sumN = 0; for (var q = 0; q < cop.length; q++) sumN += Math.round(cop[q][1]);
+  var denom = Math.pow(2, sumN);
+  var amps = [], mx = 0;
+  for (var t = 0; t < lines.length; t++) {
+    var a = SITES[i].nH * lines[t][1] / denom; amps.push(a); if (a > mx) mx = a;
+  }
+  var span = 6; for (t = 0; t < lines.length; t++) span = Math.max(span, Math.abs(lines[t][0]) + 5);
+  var ML = 40, MR = 14, MT = 24, MB = 30;
+  var x0 = ML, x1 = W - MR, y0 = MT, y1 = H - MB;
+  function X(hz) { return (x0 + x1) / 2 + hz / span * (x1 - x0) / 2; }
+  var vmax = 1e-9;
+  function Y(v) { return y1 - (v / (vmax * 1.10)) * (y1 - y0); }
+
+  g.fillStyle = "#0b0e12"; g.fillRect(x0, y0, x1 - x0, y1 - y0);
+  g.strokeStyle = "#303a47"; g.lineWidth = 1; g.strokeRect(x0 + .5, y0 + .5, x1 - x0 - 1, y1 - y0 - 1);
+  for (var hz = Math.ceil(-span / 5) * 5; hz <= span; hz += 5) {
+    g.strokeStyle = hz === 0 ? "#3d4a59" : "#1e2630";
+    g.beginPath(); g.moveTo(X(hz), y0); g.lineTo(X(hz), y1); g.stroke();
+    txt(g, (hz > 0 ? "+" : "") + hz, X(hz), y1 + 13, "#5c6874", "10px " + MONO, "center");
+  }
+  /* 洛伦兹线型叠加（FWHM = 1.5 Hz，示意） */
+  var fw = 1.5, NS = Math.max(300, Math.round(x1 - x0));
+  /* 两遍：先采样定标，再画，避免重叠谱线之和把峰顶顶出画框 */
+  var samp = new Float64Array(NS + 1);
+  for (var sp = 0; sp <= NS; sp++) {
+    var xp = x0 + (x1 - x0) * sp / NS, hzp = (xp - (x0 + x1) / 2) / ((x1 - x0) / 2) * span, ap = 0;
+    for (t = 0; t < lines.length; t++) {
+      var dp = hzp - lines[t][0], hwp = fw / 2;
+      ap += amps[t] * (hwp * hwp) / (dp * dp + hwp * hwp);
+    }
+    samp[sp] = ap; if (ap > vmax) vmax = ap;
+  }
+  g.beginPath();
+  for (var s = 0; s <= NS; s++) {
+    var xx = x0 + (x1 - x0) * s / NS, hzv = (xx - (x0 + x1) / 2) / ((x1 - x0) / 2) * span;
+    var yy = Y(samp[s]);
+    if (s === 0) g.moveTo(xx, yy); else g.lineTo(xx, yy);
+  }
+  g.strokeStyle = SITES[i].color === "#EAE41C" ? "#e8e05a" : SITES[i].color;
+  g.lineWidth = 1.8; g.lineJoin = "round"; g.stroke();
+  g.lineTo(x1, y1); g.lineTo(x0, y1); g.closePath();
+  g.fillStyle = rgba(SITES[i].color === "#EAE41C" ? "#e8e05a" : SITES[i].color, 0.13); g.fill();
+
+  var parts = [];
+  if (i === 0) parts.push(ST.includeOH && ST.JOH > 0 ? ("J(OH,C1)=" + fmt(ST.JOH, 1) + " Hz × 2H") : "无耦合（快交换被去耦）");
+  else if (i === 1) { parts.push("J(C1,C2)=" + fmt(ST.J12, 1) + " Hz × 2H"); if (ST.includeOH && ST.JOH > 0) parts.push("J(OH,C1)=" + fmt(ST.JOH, 1) + " Hz × 1H"); }
+  else if (i === 2) { parts.push("J(C2,C3)=" + fmt(ST.J23, 1) + " Hz × 3H"); parts.push("J(C1,C2)=" + fmt(ST.J12, 1) + " Hz × 2H"); }
+  else parts.push("J(C2,C3)=" + fmt(ST.J23, 1) + " Hz × 2H");
+  txt(g, SITES[i].name + " 的多重峰 · 共 " + lines.length + " 线", 6, 13, "#dde5ef", "600 11.5px " + SANS);
+  txt(g, parts.join("   "), 6, H - 4, "#93a0b0", "10.5px " + MONO);
+  txt(g, "Hz（相对 δ=" + fmt(ST.delta[i], 2) + " ppm）", W - 8, 13, "#5c6874", "10px " + SANS, "right");
+  txt(g, "线型为洛伦兹示意，FWHM 1.5 Hz", W - 8, H - 4, "#5c6874", "10px " + SANS, "right");
+}
+
+/* ---------------- 图 3：2D TOCSY 谱（示意） ---------------- */
+function draw2D() {
+  var cv = setup("cv2d", clamp(cvW("cv2d") * 0.84, 372, 800));
+  var g = cv._g, W = cv._w, H = cv._h;
+  var ML = ST.showProj ? 58 : 46, MR = 16, MT = ST.showProj ? 60 : 26, MB = 42;
+  var x0 = ML, x1 = W - MR, y0 = MT, y1 = H - MB;
+  function X(d) { return x1 - (d - PPM_MIN) / (PPM_MAX - PPM_MIN) * (x1 - x0); }
+  function Y(d) { return y0 + (d - PPM_MIN) / (PPM_MAX - PPM_MIN) * (y1 - y0); }
+
+  g.fillStyle = "#0b0e12"; g.fillRect(x0, y0, x1 - x0, y1 - y0);
+
+  /* 网格与刻度 */
+  for (var d = PPM_MIN; d <= PPM_MAX + 1e-9; d += 0.25) {
+    var big = Math.abs(d - Math.round(d)) < 1e-9;
+    g.strokeStyle = big ? "#262f3a" : "#191f27"; g.lineWidth = 1;
+    g.beginPath(); g.moveTo(X(d) + .5, y0); g.lineTo(X(d) + .5, y1); g.stroke();
+    g.beginPath(); g.moveTo(x0, Y(d) + .5); g.lineTo(x1, Y(d) + .5); g.stroke();
+    if (big) {
+      txt(g, fmt(d, 1), X(d), y1 + 15, "#93a0b0", "10.5px " + MONO, "center");
+      txt(g, fmt(d, 1), x0 - 8, Y(d) + 4, "#93a0b0", "10.5px " + MONO, "right");
+    }
+  }
+  g.strokeStyle = "#303a47"; g.lineWidth = 1; g.strokeRect(x0 + .5, y0 + .5, x1 - x0 - 1, y1 - y0 - 1);
+  txt(g, "F2 / ppm  (δ 向左增大)", (x0 + x1) / 2, H - 6, "#93a0b0", "11px " + SANS, "center");
+  g.save(); g.translate(12, (y0 + y1) / 2); g.rotate(-Math.PI / 2);
+  txt(g, "F1 / ppm  (δ 向下增大)", 0, 0, "#93a0b0", "11px " + SANS, "center"); g.restore();
+
+  /* 选中位点的行/列带状高亮 */
+  if (ST.sel >= 0 && !ST.pair) {
+    g.fillStyle = rgba(SITES[ST.sel].color, 0.07);
+    g.fillRect(X(ST.delta[ST.sel]) , y0, 0, 0);
+    var cx = X(ST.delta[ST.sel]), cy = Y(ST.delta[ST.sel]);
+    g.fillRect(x0, cy - 9, x1 - x0, 18); g.fillRect(cx - 9, y0, 18, y1 - y0);
+  }
+
+  /* 对角线 */
+  if (ST.showDiag) {
+    g.setLineDash([5, 5]); g.strokeStyle = "#3c4756"; g.lineWidth = 1.4;
+    g.beginPath(); g.moveTo(X(PPM_MIN), Y(PPM_MIN)); g.lineTo(X(PPM_MAX), Y(PPM_MAX)); g.stroke();
+    g.setLineDash([]);
+  }
+
+  /* 峰 */
+  var act = activeIdx(), peaks = [], i, j, k;
+  for (var ia = 0; ia < act.length; ia++) {
+    for (var ib = 0; ib < act.length; ib++) {
+      k = act[ia]; j = act[ib];
+      var v = relI(k, j);
+      if (v < ST.thr) continue;
+      var px = X(ST.delta[j]), py = Y(ST.delta[k]);
+      var d = ord(k, j);
+      peaks.push({ k: k, j: j, v: v, x: px, y: py, r: 5 + 21 * Math.sqrt(Math.min(1, v)), o: d });
+    }
+  }
+  cv._peaks = peaks;
+  for (i = 0; i < peaks.length; i++) {
+    var p = peaks[i], col = ORDC[p.o];
+    var selp = ST.pair && ((ST.pair[0] === p.k && ST.pair[1] === p.j) || (ST.pair[0] === p.j && ST.pair[1] === p.k));
+    var sels = !ST.pair && ST.sel >= 0 && (p.k === ST.sel || p.j === ST.sel);
+    g.fillStyle = rgba(col, selp ? 0.22 : (sels ? 0.12 : 0.07));
+    g.beginPath(); g.arc(p.x, p.y, p.r, 0, 6.2832); g.fill();
+    for (var ring = 0; ring < 3; ring++) {
+      g.beginPath(); g.arc(p.x, p.y, p.r * (1 - ring * 0.32), 0, 6.2832);
+      g.strokeStyle = rgba(col, (selp ? 0.95 : 0.55) - ring * 0.13);
+      g.lineWidth = selp ? 2 : 1.2; g.stroke();
+    }
+    if (selp) {
+      g.beginPath(); g.arc(p.x, p.y, p.r + 5, 0, 6.2832);
+      g.strokeStyle = "#ffffff"; g.lineWidth = 1.6; g.setLineDash([3, 3]); g.stroke(); g.setLineDash([]);
+    }
+    if (ST.showLab && p.r >= 9) {
+      txt(g, ORDS[p.o], p.x, p.y + 4, selp ? "#ffffff" : rgba(col, 1), "700 12px " + MONO, "center");
+    }
+  }
+  /* 选中对的十字准线 */
+  if (ST.pair) {
+    var kk = ST.pair[0], jj = ST.pair[1], col2 = ORDC[ord(kk, jj)];
+    g.setLineDash([4, 4]); g.strokeStyle = rgba(col2, 0.8); g.lineWidth = 1.2;
+    g.beginPath(); g.moveTo(X(ST.delta[jj]), Y(ST.delta[kk])); g.lineTo(X(ST.delta[jj]), y1); g.stroke();
+    g.beginPath(); g.moveTo(X(ST.delta[jj]), Y(ST.delta[kk])); g.lineTo(x0, Y(ST.delta[kk])); g.stroke();
+    g.setLineDash([]);
+    var mx = X(ST.delta[jj]), my = Y(ST.delta[kk]);
+    var label = SITES[kk].name + " → " + SITES[jj].name;
+    g.font = "11px " + MONO; var tw = g.measureText(label).width + 12;
+    var bx = clamp(mx - tw / 2, x0 + 2, x1 - tw - 2), by = clamp(my - 34, y0 + 2, y1 - 20);
+    g.fillStyle = "rgba(11,14,18,.9)"; g.fillRect(bx, by, tw, 18);
+    g.strokeStyle = rgba(col2, 0.8); g.lineWidth = 1; g.strokeRect(bx + .5, by + .5, tw - 1, 17);
+    txt(g, label, bx + 6, by + 13, col2, "11px " + MONO);
+  }
+
+  /* 一维投影 */
+  if (ST.showProj) {
+    var all = [], a2, ls, t;
+    for (a2 = 0; a2 < act.length; a2++) {
+      ls = N.multipletLines(siteCouplings(act[a2]));
+      for (t = 0; t < ls.length; t++) all.push({ s: act[a2], hz: ls[t][0], amp: ls[t][1] });
+    }
+    var norm = 1, sumT = 0, maxHz = 0;
+    for (a2 = 0; a2 < act.length; a2++) {
+      var cp = siteCouplings(act[a2]), sn = 0;
+      for (t = 0; t < cp.length; t++) sn += Math.round(cp[t][1]);
+      sumT = Math.pow(2, sn);
+      ls = N.multipletLines(cp);
+      for (t = 0; t < ls.length; t++) {
+        var amp = SITES[act[a2]].nH * ls[t][1] / sumT;
+        if (amp > norm) norm = amp;
+      }
+    }
+    var hTop = MT - 16, hLeft = ML - 18;
+    for (a2 = 0; a2 < all.length; a2++) {
+      var it = all[a2];
+      if (!siteCouplings(it.s).length) continue;
+      var val = it.amp;
+      var cp2 = siteCouplings(it.s), sn2 = 0;
+      for (t = 0; t < cp2.length; t++) sn2 += Math.round(cp2[t][1]);
+      val = SITES[it.s].nH * it.amp / Math.pow(2, sn2) / norm;
+      var ppm = ST.delta[it.s] + it.hz / FIELD;
+      if (ppm < PPM_MIN || ppm > PPM_MAX) continue;
+      var selS = (ST.sel === it.s) || (ST.pair && (ST.pair[0] === it.s || ST.pair[1] === it.s));
+      var cc = selS ? SITES[it.s].color : "#4d9de0";
+      g.strokeStyle = rgba(cc === "#EAE41C" ? "#e8e05a" : cc, selS ? 1 : 0.55); g.lineWidth = selS ? 2 : 1.2;
+      g.beginPath(); g.moveTo(X(ppm), y0 - 2); g.lineTo(X(ppm), y0 - 2 - val * hTop); g.stroke();
+      g.beginPath(); g.moveTo(x0 - 2, Y(ppm)); g.lineTo(x0 - 2 - val * hLeft, Y(ppm)); g.stroke();
+    }
+    g.strokeStyle = "#303a47"; g.lineWidth = 1;
+    g.beginPath(); g.moveTo(x0, y0 - 1.5); g.lineTo(x1, y0 - 1.5); g.stroke();
+    g.beginPath(); g.moveTo(x0 - 1.5, y0); g.lineTo(x0 - 1.5, y1); g.stroke();
+    txt(g, "F2 投影（示意）", x0 + 4, 12, "#4d9de0", "10.5px " + SANS);
+    g.save(); g.translate(12, y0 + 62); g.rotate(-Math.PI / 2);
+    txt(g, "F1 投影", 0, 0, "#4d9de0", "10.5px " + SANS); g.restore();
+  }
+  txt(g, ST.cosy ? "COSY 对照模式（只保留相邻位点相关）" : "TOCSY（全部自旋体系内两两相关）",
+      x0 + 4, y0 + 15, ST.cosy ? "#e2685f" : "#5fd0a8", "600 11.5px " + SANS);
+  txt(g, "示意：峰强由模型算出，非实测谱", x1 - 6, y1 - 6, "#5c6874", "10.5px " + SANS, "right");
+}
+
+/* ---------------- 图 4：转移效率随 tau_m ---------------- */
+function drawBuild() {
+  var cv = setup("cvBuild", clamp(cvW("cv2d") * 0.38, 226, 350));
+  var g = cv._g, W = cv._w, H = cv._h;
+  var ML = 46, MR = (W < 640 ? 96 : 118), MT = 20, MB = 36;
+  var x0 = ML, x1 = W - MR, y0 = MT, y1 = H - MB;
+  function X(ms) { return x0 + ms / TMAX * (x1 - x0); }
+  function Y(v) { return y1 - clamp(v, -0.02, 1.0) * (y1 - y0); }
+  g.fillStyle = "#0b0e12"; g.fillRect(x0, y0, x1 - x0, y1 - y0);
+  for (var v = 0; v <= 1.0001; v += 0.25) {
+    g.strokeStyle = v === 0 ? "#303a47" : "#1e2630"; g.lineWidth = 1;
+    g.beginPath(); g.moveTo(x0, Y(v) + .5); g.lineTo(x1, Y(v) + .5); g.stroke();
+    txt(g, fmt(v, 2), x0 - 6, Y(v) + 4, "#93a0b0", "10px " + MONO, "right");
+  }
+  for (var ms = 0; ms <= TMAX; ms += 20) {
+    g.strokeStyle = "#1e2630"; g.beginPath(); g.moveTo(X(ms) + .5, y0); g.lineTo(X(ms) + .5, y1); g.stroke();
+    txt(g, ms, X(ms), y1 + 14, "#93a0b0", "10px " + MONO, "center");
+  }
+  g.strokeStyle = "#303a47"; g.strokeRect(x0 + .5, y0 + .5, x1 - x0 - 1, y1 - y0 - 1);
+  txt(g, "τ_m / ms", (x0 + x1) / 2, H - 5, "#93a0b0", "10.5px " + SANS, "center");
+  g.save(); g.translate(12, (y0 + y1) / 2); g.rotate(-Math.PI / 2);
+  txt(g, "强度 (M·e^(−τ/T1ρ))", 0, 0, "#93a0b0", "10.5px " + SANS, "center"); g.restore();
+
+  var CC = curves(), pairs = [];
+  for (var cq = 0; cq < CC.pairs.length; cq++) pairs.push([CC.pairs[cq].k, CC.pairs[cq].j]);
+  for (var pi = 0; pi < pairs.length; pi++) {
+    var k = pairs[pi][0], j = pairs[pi][1], col = ORDC[ord(k, j)];
+    var isSel = ST.pair && ((ST.pair[0] === k && ST.pair[1] === j) || (ST.pair[0] === j && ST.pair[1] === k));
+    var touches = !ST.pair && ST.sel >= 0 && (ST.sel === k || ST.sel === j);
+    /* 不含弛豫的 M(tau) */
+    if (ST.showEnv) {
+      g.beginPath();
+      var rvv0 = CC.pairs[pi].raw, gN0 = CC.grid;
+      for (var s = 0; s < gN0; s++) {
+        var tmS = s * TMAX / (gN0 - 1);
+        if (s === 0) g.moveTo(X(tmS), Y(rvv0[s])); else g.lineTo(X(tmS), Y(rvv0[s]));
+      }
+      g.strokeStyle = rgba(col, (isSel || touches) ? 0.55 : 0.28); g.lineWidth = 1;
+      g.setLineDash([2, 3]); g.stroke(); g.setLineDash([]);
+    }
+    g.beginPath();
+    var rvv1 = CC.pairs[pi].rel, gN1 = CC.grid;
+    for (var s2 = 0; s2 < gN1; s2++) {
+      var tmS2 = s2 * TMAX / (gN1 - 1);
+      if (s2 === 0) g.moveTo(X(tmS2), Y(rvv1[s2])); else g.lineTo(X(tmS2), Y(rvv1[s2]));
+    }
+    g.strokeStyle = rgba(col, (isSel || touches) ? 1 : 0.42); g.lineWidth = (isSel ? 2.6 : (touches ? 1.8 : 1.1));
+    g.stroke();
+  }
+  /* 当前 tau 竖线 */
+  g.strokeStyle = "#ffffff"; g.lineWidth = 1.4;
+  g.beginPath(); g.moveTo(X(ST.tau), y0); g.lineTo(X(ST.tau), y1); g.stroke();
+  for (pi = 0; pi < pairs.length; pi++) {
+    var k2 = pairs[pi][0], j2 = pairs[pi][1];
+    var v3 = relI(k2, j2);
+    if (v3 < 0.008) continue;
+    g.beginPath(); g.arc(X(ST.tau), Y(v3), 3.2, 0, 6.2832);
+    g.fillStyle = ORDC[ord(k2, j2)]; g.fill();
+    g.strokeStyle = "#0b0e12"; g.lineWidth = 1; g.stroke();
+  }
+  /* 图例 */
+  var lx = x1 + 10, ly = y0 + 10, lvl = [1, 2, 3];
+  for (var q = 0; q < lvl.length; q++) {
+    g.strokeStyle = ORDC[lvl[q]]; g.lineWidth = 2.4;
+    g.beginPath(); g.moveTo(lx, ly + q * 15 - 3); g.lineTo(lx + 16, ly + q * 15 - 3); g.stroke();
+    txt(g, ORDN[lvl[q]].split("（")[0], lx + 20, ly + q * 15, "#93a0b0", "10.5px " + SANS);
+  }
+  var curPair = ST.pair ? (SITES[ST.pair[0]].name + "→" + SITES[ST.pair[1]].name) : "";
+  txt(g, "τ_m = " + fmt(ST.tau, 0) + " ms", lx, ly + 62, "#ffffff", "600 11.5px " + MONO);
+  if (ST.pair) {
+    var v4 = relI(ST.pair[0], ST.pair[1]);
+    txt(g, curPair, lx, ly + 78, ORDC[ord(ST.pair[0], ST.pair[1])], "10.5px " + MONO);
+    txt(g, "I = " + fmt(v4, 3), lx, ly + 93, "#dde5ef", "10.5px " + MONO);
+  }
+
+  cv._map = { X: X, Y: Y, x0: x0, x1: x1, y0: y0, y1: y1 };
+}
+
+/* ---------------- 曲线缓存（按耦合配置 + T1 缓存，拖动滑块时不重算） ---------------- */
+var CUR = null, CURKEY = "";
+function curves() {
+  var key = EIGKEY + "|" + ST.T1;
+  if (CUR && CURKEY === key) return CUR;
+  var act = activeIdx(), pr = [], a, b, p;
+  for (a = 0; a < act.length; a++) for (b = a + 1; b < act.length; b++) pr.push([act[a], act[b]]);
+  var grid = 181, out = [], eig = curEig();
+  for (p = 0; p < pr.length; p++) {
+    var k = pr[p][0], j = pr[p][1];
+    var raw = new Float64Array(grid), rel = new Float64Array(grid), best = 0, bestT = 0;
+    for (var s = 0; s < grid; s++) {
+      var tms = s * TMAX / (grid - 1), t = tms / 1000;
+      var v = Math.abs(N.transferMat(eig, t)[j][k]);
+      raw[s] = v; rel[s] = v * Math.exp(-tms / ST.T1);
+      if (rel[s] > best) { best = rel[s]; bestT = tms; }
+    }
+    out.push({ k: k, j: j, raw: raw, rel: rel, best: best, bestT: bestT });
+  }
+  CUR = { pairs: out, grid: grid }; CURKEY = key;
+  return CUR;
+}
+
+/* ---------------- 右栏：读数与解释 ---------------- */
+function statusOf(v) { return v >= ST.thr ? "可见" : (v >= ST.thr * 0.5 ? "弱（低于阈值）" : "未画出"); }
+function statusCls(v) { return v >= ST.thr ? "k" : (v >= ST.thr * 0.5 ? "r" : "dm"); }
+
+function explain() {
+  var t = [];
+  if (ST.pair) {
+    var k = ST.pair[0], j = ST.pair[1], d = ord(k, j), v = relI(k, j);
+    if (d === 0) {
+      t.push("<b>对角峰</b>：起始与观测是同一位点，磁化没搬家。它只证明这个位点存在，不提供任何连接信息。");
+    } else {
+      t.push("<b>" + ORDN[d] + "</b>：" + SITES[k].name + " 与 " + SITES[j].name + " 之间" +
+        (d === 1 ? "有一根 H–C–C–H 三键通路，直接耦合。" : "没有直接耦合，磁化要沿链走 " + d + " 跳。"));
+      t.push("当前 τ<sub>m</sub> = " + fmt(ST.tau, 0) + " ms 时转移效率 M = " +
+        "<span class='mono'>" + fmt(curM()[j][k], 4) + "</span>，含弛豫的强度 I = <span class='mono'>" + fmt(v, 4) + "</span> → " +
+        (v >= ST.thr ? "<b class='k'>按当前阈值会画出</b>" : "<b class='dm'>低于阈值，图上不画</b>") + "。");
+      if (d >= 2) t.push("<b>这正是 TOCSY 与 COSY 的分水岭</b>：这对峰在 COSY 里不存在（COSY 只连相邻位点），勾选左栏的 COSY 对照即可看到它消失。");
+    }
+  } else if (ST.sel >= 0) {
+    var i = ST.sel, s = SITES[i];
+    t.push("<b>" + s.name + "</b>（" + s.cn + "，" + s.nH + " 个等价氢），δ ≈ " + fmt(ST.delta[i], 2) + " ppm。");
+    var cop = siteCouplings(i);
+    if (cop.length) {
+      var cp = [];
+      for (var q = 0; q < cop.length; q++) cp.push("J = " + fmt(cop[q][0], 1) + " Hz × " + Math.round(cop[q][1]) + "H");
+      t.push("直接耦合：" + cp.join("、") + " → 多重峰 " + N.multipletLines(cop).length + " 线。");
+    } else t.push("当前没有可观测的标量耦合（–OH 被去耦）。");
+    var list = [];
+    for (var m = 0; m < 4; m++) {
+      if (m === i || !isActive(m)) continue;
+      var vv = relI(i, m);
+      list.push(SITES[m].name + " <span class='mono'>" + fmt(vv, 3) + "</span>" + (vv >= ST.thr ? "" : "<span class='dm'>(未画出)</span>"));
+    }
+    t.push("与其余位点的相关：" + list.join("　"));
+  }
+  return t.map(function (x) { return "<p style='margin:5px 0'>" + x + "</p>"; }).join("");
+}
+
+function whyText() {
+  var act = activeIdx(), nS = act.length, a, b, k, j, v;
+  var vis = [], miss = [];
+  for (a = 0; a < act.length; a++) for (b = a + 1; b < act.length; b++) {
+    k = act[a]; j = act[b]; v = relI(k, j);
+    (v >= ST.thr ? vis : miss).push({ k: k, j: j, d: ord(k, j), v: v });
+  }
+  var h = [];
+  h.push("<p style='margin:5px 0'><b>为什么是这些峰。</b>当前自旋体系有 " + nS + " 个位点，耦合链为 " +
+    act.map(function (x) { return SITES[x].name; }).join(" → ") + "。" +
+    (ST.includeOH ? "链首是 –OH，所以链上 4 个位点两两都在同一体系内。" : "–OH 已被去耦，体系退化成 3 个位点的链。") +
+    "TOCSY 沿这条链搬运磁化，" + (ST.cosy ? "但当前勾选了 COSY 对照，只保留相邻位点的相关。" : "跳数不受限制，因此两两都有交叉峰。") + "</p>");
+  h.push("<p style='margin:5px 0'><b>读数核对。</b>阈值 " + fmt(ST.thr, 2) + " 下可见 <span class='mono k'>" + vis.length +
+    "</span> 对交叉峰（理论 " + (ST.cosy ? "最多 " + act.filter(function (x, i) { return i > 0 && Math.abs(x - act[i - 1]) === 1; }).length + " 对相邻" : "C(" + nS + ",2)=" + (nS * (nS - 1) / 2) + " 对") + "）");
+  if (miss.length) {
+    var mn = miss.slice().sort(function (p, q) { return q.v - p.v; }).slice(0, 3)
+      .map(function (e) { return SITES[e.k].name + "↔" + SITES[e.j].name + " (" + fmt(e.v, 3) + ")"; });
+    h.push("；<span class='rd'>被阈值挡住的 " + miss.length + " 对</span>：" + mn.join("、") +
+      (miss.length > 3 ? " 等" : "") + "。把阈值调小或把 τ<sub>m</sub> 拖到转移效率高的区间就会重新出现。");
+  } else h.push("，即当前全部成对相关都已画出。");
+  h[-1 + h.length] += "</p>";
+  var best = null;
+  for (a = 0; a < act.length; a++) for (b = a + 1; b < act.length; b++) {
+    k = act[a]; j = act[b]; v = relI(k, j);
+    if (!best || v > best.v) best = { k: k, j: j, v: v, d: ord(k, j) };
+  }
+  if (best) h.push("<p style='margin:5px 0'><b>当前最强的交叉峰</b>是 " + SITES[best.k].name + " ↔ " + SITES[best.j].name +
+    "（" + ORDN[best.d] + "，I = <span class='mono'>" + fmt(best.v, 4) + "</span>），出现在 τ<sub>m</sub> = " + fmt(ST.tau, 0) +
+    " ms。拖动 τ<sub>m</sub> 会看到最强的峰在几对之间轮换——这就是转移效率振荡的直接后果。</p>");
+  h.push("<p style='margin:5px 0;color:#93a0b0;font-size:11.5px'>本面板的所有数字都来自演示模型的精确解；δ 用你当前滑块的取值（文献近似）。</p>");
+  return h.join("");
+}
+
+function syncUI() {
+  /* 标题 */
+  var ti = "—", su = "";
+  if (ST.pair) {
+    var k = ST.pair[0], j = ST.pair[1], d = ord(k, j);
+    ti = SITES[k].name + " → " + SITES[j].name;
+    su = ORDN[d] + " · 中继级数 " + d + (d === 0 ? "（对角）" : "");
+  } else if (ST.sel >= 0) {
+    ti = SITES[ST.sel].name;
+    su = SITES[ST.sel].cn + " · " + SITES[ST.sel].nH + " 个等价氢";
+  }
+  $id("roTitle").textContent = ti;
+  $id("roSub").textContent = su;
+
+  /* 选中详情盒 */
+  var box = [];
+  if (ST.pair) {
+    var kk = ST.pair[0], jj = ST.pair[1], dd = ord(kk, jj), vv = relI(kk, jj);
+    box.push(["起始位点 k (F1)", SITES[kk].name + "  δ=" + fmt(ST.delta[kk], 2) + " ppm"]);
+    box.push(["观测位点 j (F2)", SITES[jj].name + "  δ=" + fmt(ST.delta[jj], 2) + " ppm"]);
+    box.push(["峰位置", "F2 = " + fmt(ST.delta[jj], 2) + " , F1 = " + fmt(ST.delta[kk], 2) + " ppm"]);
+    box.push(["中继级数", String(dd) + (dd === 0 ? "（对角）" : "")]);
+    if (dd > 0) {
+      var pathNames = [];
+      for (var x = Math.min(kk, jj); x <= Math.max(kk, jj); x++) pathNames.push(SITES[x].name);
+      box.push(["磁化通路", pathNames.join(" → ")]);
+    }
+    box.push(["M<sub>jk</sub>(τ<sub>m</sub>)", fmt(curM()[jj][kk], 4)]);
+    box.push(["弛豫因子", fmt(Math.exp(-ST.tau / ST.T1), 3) + "  (τ/T<sub>1ρ</sub> = " + fmt(ST.tau / ST.T1, 3) + ")"]);
+    box.push(["强度 I", fmt(vv, 4)]);
+    box.push(["状态", statusOf(vv)]);
+  } else if (ST.sel >= 0) {
+    var i2 = ST.sel;
+    box.push(["位点", SITES[i2].name + "（" + SITES[i2].cn + "）"]);
+    box.push(["δ", fmt(ST.delta[i2], 2) + " ppm（文献近似）"]);
+    box.push(["等价氢数", String(SITES[i2].nH)]);
+    var cop2 = siteCouplings(i2);
+    box.push(["耦合", cop2.length ? cop2.map(function (c) { return fmt(c[0], 1) + " Hz×" + Math.round(c[1]) + "H"; }).join(" + ") : "无（被去耦）"]);
+    box.push(["多重峰线数", String(N.multipletLines(cop2).length)]);
+    var self = relI(i2, i2);
+    box.push(["对角峰强度", fmt(self, 4) + "  (" + statusOf(self) + ")"]);
+    box.push(["原图标记", SITES[i2].inSlide ? "有色块（" + SITES[i2].color + "）" : "未着色（讲解补充）"]);
+  }
+  var bh = "";
+  for (var b2 = 0; b2 < box.length; b2++) {
+    bh += "<div style='display:flex;justify-content:space-between;gap:10px;padding:2px 0;border-bottom:1px solid #222a34;font-size:11.5px'>" +
+          "<span style='color:#93a0b0'>" + box[b2][0] + "</span><span class='mono' style='text-align:right'>" + box[b2][1] + "</span></div>";
+  }
+  $id("roBox").innerHTML = bh || "—";
+  $id("roExplain").innerHTML = explain();
+  $id("roWhy").innerHTML = whyText();
+  $id("roThr").textContent = fmt(ST.thr, 2);
+
+  /* 位点表 */
+  var tb = $id("tblSites").tBodies[0], rows = "";
+  for (var i3 = 0; i3 < 4; i3++) {
+    if (!isActive(i3)) {
+      rows += "<tr style='opacity:.40'><td><span class='chip' style='background:" + SITES[i3].color + "'></span>" + SITES[i3].name + "</td>" +
+              "<td class='n'>" + fmt(ST.delta[i3], 2) + "</td><td class='n'>" + SITES[i3].nH + "</td><td>—（已去耦）</td></tr>";
+      continue;
+    }
+    var partners = [];
+    for (var m2 = 0; m2 < 4; m2++) {
+      if (m2 === i3 || !isActive(m2)) continue;
+      var Jv = (i3 === 0 || m2 === 0) ? ST.JOH : (Math.abs(i3 - m2) === 1 ? (Math.min(i3, m2) === 1 ? ST.J12 : ST.J23) : 0);
+      if (Math.abs(i3 - m2) === 1) partners.push(SITES[m2].name.replace("C1 ", "").replace("C2 ", "").replace("C3 ", "") + " J=" + fmt(Jv, 1));
+    }
+    var sel3 = (ST.sel === i3) || (ST.pair && (ST.pair[0] === i3 || ST.pair[1] === i3));
+    rows += "<tr" + (sel3 ? " style='background:#1f3a30'" : "") + "><td><span class='chip' style='background:" + SITES[i3].color + "'></span>" + SITES[i3].name + "</td>" +
+            "<td class='n'>" + fmt(ST.delta[i3], 2) + "</td><td class='n'>" + SITES[i3].nH + "</td><td>" +
+            (partners.length ? partners.join("　") : "—") + "</td></tr>";
+  }
+  $id("tblSites").tBodies[0].innerHTML = rows;
+
+  /* 转移矩阵表 */
+  var act4 = activeIdx(), hd = "<tr><th>j ↓ / k →</th>";
+  for (var c1 = 0; c1 < act4.length; c1++) hd += "<th>" + SITES[act4[c1]].name + "</th>";
+  hd += "</tr>";
+  var body = "";
+  var M = curM();
+  for (var r1 = 0; r1 < act4.length; r1++) {
+    var j4 = act4[r1];
+    body += "<tr><th>" + SITES[j4].name + "</th>";
+    for (var c2 = 0; c2 < act4.length; c2++) {
+      var k4 = act4[c2], val = M[j4][k4], d4 = ord(k4, j4);
+      var isSelC = ST.pair && ((ST.pair[0] === k4 && ST.pair[1] === j4) || (ST.pair[0] === j4 && ST.pair[1] === k4));
+      var dim = ST.cosy && d4 > 1;
+      var al = 0.08 + 0.84 * clamp(Math.abs(val), 0, 1);
+      var base = ORDC[d4], rgbv = hex2rgb(base);
+      var col = "rgba(" + rgbv[0] + "," + rgbv[1] + "," + rgbv[2] + "," + (dim ? al * 0.18 : al) + ")";
+      var tx = (al > 0.5 && !dim) ? "#0b0e12" : (dim ? "#4a5460" : "#dde5ef");
+      body += "<td class='cell" + (isSelC ? " sel" : "") + (dim ? " dimmed" : "") + "' data-k='" + k4 + "' data-j='" + j4 +
+              "' style='background:" + col + ";color:" + tx + "'>" + fmt(val, 3) + "</td>";
+    }
+    body += "</tr>";
+  }
+  $id("tblM").innerHTML = hd + body;
+
+  /* 计数表 */
+  var nS = act4.length, byOrd = [0, 0, 0, 0], visOrd = [0, 0, 0, 0], visSq = 0, totSq = nS * nS;
+  for (var a3 = 0; a3 < nS; a3++) for (var b3 = a3 + 1; b3 < nS; b3++) {
+    var k5 = act4[a3], j5 = act4[b3], d5 = ord(k5, j5);
+    byOrd[d5]++;
+    if (relI(k5, j5) >= ST.thr) visOrd[d5]++;
+  }
+  for (var a4 = 0; a4 < nS; a4++) for (var b4 = 0; b4 < nS; b4++) if (relI(act4[a4], act4[b4]) >= ST.thr) visSq++;
+  var indep = 0, indepVis = 0;
+  for (var d6 = 0; d6 < 4; d6++) { indep += byOrd[d6]; indepVis += visOrd[d6]; }
+  indep += nS; indepVis += nS;
+  var cr = "";
+  for (var d7 = 0; d7 < 4; d7++) {
+    cr += "<tr><td><span class='chip' style='background:" + ORDC[d7] + "'></span>" + (d7 === 0 ? "对角峰" : ORDN[d7]) + "</td>" +
+          "<td class='n'>" + (d7 === 0 ? nS : byOrd[d7]) + "</td>" +
+          "<td class='n " + (d7 === 0 ? "k" : (visOrd[d7] === byOrd[d7] ? "k" : "r")) + "'>" + (d7 === 0 ? nS : visOrd[d7]) + "</td></tr>";
+  }
+  cr += "<tr><td><b>独立峰合计</b></td><td class='n'><b>" + indep + "</b></td><td class='n k'><b>" + indepVis + "</b></td></tr>";
+  cr += "<tr><td><b>谱图方块数</b>（含镜像）</td><td class='n'><b>" + totSq + "</b></td><td class='n k'><b>" + visSq + "</b></td></tr>";
+  cr += "<tr><td colspan='3' style='color:#93a0b0;font-size:11px;padding-top:5px'>" +
+        (ST.cosy ? "COSY 对照模式下，中继级数 ≥ 2 的峰被规则屏蔽。" : "TOCSY：自旋体系内两两相关，n=" + nS + " 时 C(n,2)+n = " + indep + " 个独立峰。") +
+        "<br>理论方块数 = n² = " + nS + "² = " + totSq + "</td></tr>";
+  $id("tblCount").tBodies[0].innerHTML = cr;
+
+  /* 完整归属表 */
+  var list = [];
+  for (var a5 = 0; a5 < nS; a5++) for (var b5 = 0; b5 < nS; b5++) {
+    var k6 = act4[a5], j6 = act4[b5];
+    list.push({ k: k6, j: j6, d: ord(k6, j6), M: M[j6][k6], I: relI(k6, j6) });
+  }
+  list.sort(function (p, q) { return (p.d - q.d) || (p.k - q.k) || (p.j - q.j); });
+  var ar = "";
+  for (var x2 = 0; x2 < list.length; x2++) {
+    var e2 = list[x2], st = statusOf(e2.I);
+    ar += "<tr><td>" + (x2 + 1) + "</td>" +
+          "<td><span class='chip' style='background:" + ORDC[e2.d] + "'></span>" + (e2.d === 0 ? "对角" : ORDN[e2.d].split("（")[0]) + "</td>" +
+          "<td>" + SITES[e2.k].name + "</td><td>" + SITES[e2.j].name + "</td>" +
+          "<td class='n'>" + fmt(ST.delta[e2.j], 2) + "</td><td class='n'>" + fmt(ST.delta[e2.k], 2) + "</td>" +
+          "<td class='n'>" + e2.d + "</td><td class='n'>" + fmt(e2.M, 4) + "</td><td class='n'>" + fmt(e2.I, 4) + "</td>" +
+          "<td class='" + statusCls(e2.I) + "'>" + st + "</td>" +
+          "<td><span class='bdg b-calc'>计算</span>" + (e2.d >= 2 && !ST.cosy ? " <span class='dm' style='font-size:10px'>COSY 无</span>" : "") + "</td></tr>";
+  }
+  $id("tblAll").tBodies[0].innerHTML = ar;
+}
+
+/* ---------------- 位点按钮 / 位移滑块 ---------------- */
+function buildSiteButtons() {
+  var h = "";
+  for (var i = 0; i < 4; i++) {
+    h += "<button class='btn' data-site='" + i + "' id='sb" + i + "'>" +
+         "<span class='sw' style='background:" + SITES[i].color + (SITES[i].dashed ? ";border-style:dashed" : "") + "'></span>" +
+         "<b>" + ["①","②","③","④"][i] + " " + SITES[i].name + "</b> <span class='sub2'>" + SITES[i].nH + "H · " + fmt(ST.delta[i], 2) + " ppm" +
+         (SITES[i].inSlide ? "" : " · 讲解补充") + "</span></button>";
+  }
+  $id("sitebtns").innerHTML = h;
+  var bs = $id("sitebtns").querySelectorAll("button");
+  for (var q = 0; q < bs.length; q++) {
+    bs[q].addEventListener("click", function () { selectSite(parseInt(this.getAttribute("data-site"), 10)); });
+  }
+}
+function buildDSliders() {
+  var h = "";
+  for (var i = 0; i < 4; i++) {
+    h += "<div class='slid'><div class='lab'><b><span class='chip' style='background:" + SITES[i].color +
+         "'></span>" + SITES[i].name + "</b><span class='val' id='vd" + i + "'>" + fmt(ST.delta[i], 2) + " ppm</span></div>" +
+         "<input type='range' id='sd" + i + "' min='0.2' max='4.6' step='0.01' value='" + ST.delta[i] + "' aria-label='" + SITES[i].name + " 的化学位移，单位 ppm' /></div>";
+  }
+  $id("dsliders").innerHTML = h;
+  for (var q = 0; q < 4; q++) {
+    (function (idx) {
+      $id("sd" + idx).addEventListener("input", function () {
+        ST.delta[idx] = parseFloat(this.value);
+        $id("vd" + idx).textContent = fmt(ST.delta[idx], 2) + " ppm";
+        $id("sb" + idx).querySelector(".sub2").textContent = SITES[idx].nH + "H · " + fmt(ST.delta[idx], 2) + " ppm" + (SITES[idx].inSlide ? "" : " · 讲解补充");
+        markButtons();
+        refreshAll();
+      });
+    })(q);
+  }
+}
+
+/* ---------------- 选择逻辑 ---------------- */
+function selectSite(i) { ST.sel = i; ST.pair = null; refreshAll(); }
+function selectPair(k, j) { ST.pair = [k, j]; ST.sel = -1; refreshAll(); }
+function markButtons() {
+  for (var i = 0; i < 4; i++) {
+    var b = $id("sb" + i); if (!b) continue;
+    var on = (ST.sel === i) || (ST.pair && (ST.pair[0] === i || ST.pair[1] === i));
+    if (on && !isActive(i)) on = false;
+    b.className = "btn" + (on ? " on" : "");
+    b.style.opacity = isActive(i) ? "1" : "0.42";
+  }
+}
+
+/* ---------------- 原图放大 ---------------- */
+var IMGNAT = { w: 1416, h: 872 };
+var ZREG = {
+  page:   { s: 1.0, cx: 0.5,  cy: 0.5 },
+  title:  { s: 2.6, cx: 0.42, cy: 0.10 },
+  text:   { s: 2.4, cx: 0.45, cy: 0.31 },
+  struct: { s: 2.6, cx: 0.60, cy: 0.63 }
+};
+function applyZoom() {
+  var wrap = $id("origwrap"), img = $id("origimg");
+  if (!wrap || !img) return;
+  var ww = wrap.clientWidth, wh = wrap.clientHeight;
+  var baseH = ww * IMGNAT.h / IMGNAT.w;
+  var sc = ST.zoom.s;
+  var sw = ww * sc, sh = baseH * sc;
+  var maxX = Math.max(0, 1 - ww / sw), maxY = Math.max(0, 1 - wh / sh);
+  ST.zoom.x = clamp(ST.zoom.x, 0, maxX);
+  ST.zoom.y = clamp(ST.zoom.y, 0, maxY);
+  img.style.width = sw + "px";
+  img.style.left = (-ST.zoom.x * sw) + "px";
+  img.style.top = (-ST.zoom.y * sh) + "px";
+  var z = $id("vZoom"); if (z) z.textContent = fmt(sc, 1) + "×";
+  var sz = $id("sZoom"); if (sz && Math.abs(parseFloat(sz.value) - sc) > 0.001) sz.value = String(sc);
+}
+function setZoomRegion(name) {
+  var r = ZREG[name] || ZREG.page;
+  ST.zoom.s = r.s;
+  var wrap = $id("origwrap");
+  var ww = wrap.clientWidth, wh = wrap.clientHeight;
+  var baseH = ww * IMGNAT.h / IMGNAT.w, sw = ww * r.s, sh = baseH * r.s;
+  ST.zoom.x = clamp(r.cx - (ww / 2) / sw, 0, Math.max(0, 1 - ww / sw));
+  ST.zoom.y = clamp(r.cy - (wh / 2) / sh, 0, Math.max(0, 1 - wh / sh));
+  applyZoom();
+}
+
+/* ---------------- 统一刷新 ---------------- */
+var rafPend = false;
+function paint() {
+  try {
+    drawStruct(); drawMulti(); draw2D(); drawBuild();
+    syncUI(); markButtons();
+  } catch (e) {
+    var eb = $id("errbar");
+    if (eb) { eb.style.display = "block"; eb.textContent = "绘图错误: " + (e && e.message ? e.message : e); }
+  }
+}
+/* 统一刷新：优先 rAF（拖动时每帧一次），并加定时器兜底
+   —— 后台标签页与无头 dump-dom 环境下 rAF 可能完全不触发。 */
+function refreshAll() {
+  if (rafPend) return;
+  rafPend = true;
+  var fired = false;
+  function go() { if (fired) return; fired = true; rafPend = false; paint(); }
+  if (typeof requestAnimationFrame === "function") requestAnimationFrame(go);
+  setTimeout(go, 40);
+}
+
+/* ---------------- 命中测试 ---------------- */
+function localPt(cv, e) {
+  var r = cv.getBoundingClientRect();
+  return { x: (e.clientX - r.left) * (cv._w / r.width), y: (e.clientY - r.top) * (cv._h / r.height) };
+}
+function bindCanvas() {
+  var cs = $id("cvStruct");
+  cs.addEventListener("pointerdown", function (e) {
+    var p = localPt(cs, e), o = geo(), sq = o.sq * 0.95;
+    for (var i = 0; i < 4; i++) {
+      if (!isActive(i)) continue;
+      var n = o.node[i];
+      if (Math.abs(p.x - n.x) <= sq && Math.abs(p.y - n.y) <= sq) { selectSite(i); return; }
+    }
+  });
+  var c2 = $id("cv2d");
+  c2.addEventListener("pointerdown", function (e) {
+    var p = localPt(c2, e), ps = c2._peaks || [], best = null, bd = 1e9;
+    for (var i = 0; i < ps.length; i++) {
+      var d = Math.hypot(ps[i].x - p.x, ps[i].y - p.y);
+      if (d < Math.max(ps[i].r + 6, 14) && d < bd) { bd = d; best = ps[i]; }
+    }
+    if (best) { if (best.k === best.j) selectSite(best.k); else selectPair(best.k, best.j); }
+  });
+  c2.addEventListener("pointermove", function (e) {
+    var p = localPt(c2, e), ps = c2._peaks || [];
+    for (var i = 0; i < ps.length; i++) {
+      if (Math.hypot(ps[i].x - p.x, ps[i].y - p.y) < Math.max(ps[i].r + 6, 14)) { c2.style.cursor = "pointer"; return; }
+    }
+    c2.style.cursor = "default";
+  });
+  $id("tblM").addEventListener("click", function (e) {
+    var t = e.target;
+    if (t && t.getAttribute && t.getAttribute("data-k") !== null) {
+      var k = parseInt(t.getAttribute("data-k"), 10), j = parseInt(t.getAttribute("data-j"), 10);
+      if (k === j) selectSite(k); else selectPair(k, j);
+    }
+  });
+  var zbtn = document.querySelectorAll("[data-zoom]");
+  for (var i = 0; i < zbtn.length; i++) {
+    zbtn[i].addEventListener("click", function () { setZoomRegion(this.getAttribute("data-zoom")); });
+  }
+  var wrap = $id("origwrap"), drag = null;
+  wrap.addEventListener("pointerdown", function (e) {
+    drag = { x: e.clientX, y: e.clientY, ox: ST.zoom.x, oy: ST.zoom.y };
+    wrap.setPointerCapture(e.pointerId);
+  });
+  wrap.addEventListener("pointermove", function (e) {
+    if (!drag) return;
+    var ww = wrap.clientWidth, baseH = ww * IMGNAT.h / IMGNAT.w;
+    var sw = ww * ST.zoom.s, sh = baseH * ST.zoom.s;
+    ST.zoom.x = drag.ox - (e.clientX - drag.x) / sw;
+    ST.zoom.y = drag.oy - (e.clientY - drag.y) / sh;
+    applyZoom();
+  });
+  wrap.addEventListener("pointerup", function () { drag = null; });
+  wrap.addEventListener("pointercancel", function () { drag = null; });
+  $id("sZoom").addEventListener("input", function () { ST.zoom.s = parseFloat(this.value); applyZoom(); });
+}
+
+/* ---------------- 快捷键 ---------------- */
+function bindKeys() {
+  document.addEventListener("keydown", function (e) {
+    var tag = (e.target && e.target.tagName) || "";
+    if (tag === "INPUT" || tag === "TEXTAREA") {
+      if (tag === "TEXTAREA") return;
+      if (e.key !== "ArrowLeft" && e.key !== "ArrowRight") return;
+    }
+    var k = e.key;
+    if (k >= "1" && k <= "4") { var i = parseInt(k, 10) - 1; if (isActive(i)) { selectSite(i); e.preventDefault(); } return; }
+    if (k === "ArrowLeft" || k === "ArrowRight") {
+      var act = activeIdx(), cur = ST.sel >= 0 ? act.indexOf(ST.sel) : -1;
+      cur = (cur + (k === "ArrowRight" ? 1 : -1) + act.length) % act.length;
+      selectSite(act[cur]); e.preventDefault(); return;
+    }
+    if (k === "ArrowUp" || k === "ArrowDown") {
+      setTau(ST.tau + (k === "ArrowUp" ? 2 : -2)); e.preventDefault(); return;
+    }
+  });
+}
+function setTau(v) {
+  ST.tau = clamp(Math.round(v), 0, TMAX);
+  $id("sTau").value = String(ST.tau);
+  $id("vTau").textContent = ST.tau + " ms";
+  refreshAll();
+}
+
+/* ---------------- 绑定控件 ---------------- */
+function bindControls() {
+  $id("sTau").max = String(TMAX);
+  $id("sTau").addEventListener("input", function () { setTau(parseFloat(this.value)); });
+  $id("bTauFast").addEventListener("click", function () { setTau(25); });
+  $id("bTauFull").addEventListener("click", function () { setTau(80); });
+  $id("cbOH").addEventListener("change", function () {
+    ST.includeOH = this.checked;
+    $id("wrapJOH").style.opacity = this.checked ? "1" : "0.35";
+    if (!ST.includeOH && (ST.sel === 0 || (ST.pair && (ST.pair[0] === 0 || ST.pair[1] === 0)))) { ST.pair = null; ST.sel = 1; }
+    refreshAll();
+  });
+  $id("sJOH").addEventListener("input", function () { ST.JOH = parseFloat(this.value); $id("vJOH").textContent = fmt(ST.JOH, 1) + " Hz"; refreshAll(); });
+  $id("sT1").addEventListener("input", function () { ST.T1 = parseFloat(this.value); $id("vT1").textContent = Math.round(ST.T1) + " ms"; refreshAll(); });
+  $id("sThr").addEventListener("input", function () { ST.thr = parseFloat(this.value); $id("vThr").textContent = fmt(ST.thr, 2); refreshAll(); });
+  $id("cbMode").addEventListener("change", function () { ST.cosy = this.checked; refreshAll(); });
+  $id("cbProj").addEventListener("change", function () { ST.showProj = this.checked; refreshAll(); });
+  $id("cbLabels").addEventListener("change", function () { ST.showLab = this.checked; refreshAll(); });
+  $id("cbDiag").addEventListener("change", function () { ST.showDiag = this.checked; refreshAll(); });
+  $id("cbEnv").addEventListener("change", function () { ST.showEnv = this.checked; refreshAll(); });
+  $id("bResetD").addEventListener("click", function () {
+    for (var i = 0; i < 4; i++) { ST.delta[i] = DEF_D[i]; $id("sd" + i).value = String(DEF_D[i]); $id("vd" + i).textContent = fmt(DEF_D[i], 2) + " ppm"; }
+    buildSiteButtons(); markButtons(); refreshAll();
+  });
+  $id("bScramble").addEventListener("click", function () {
+    var pool = [0.85, 1.28, 2.65, 3.95, 1.05, 3.20, 2.05, 4.40];
+    for (var i = 0; i < 4; i++) {
+      var v = pool[Math.floor(Math.random() * pool.length)] + (Math.random() - 0.5) * 0.3;
+      ST.delta[i] = clamp(Math.round(v * 100) / 100, 0.25, 4.55);
+      $id("sd" + i).value = String(ST.delta[i]); $id("vd" + i).textContent = fmt(ST.delta[i], 2) + " ppm";
+    }
+    buildSiteButtons(); markButtons(); refreshAll();
+  });
+}
+
+/* ---------------- 自检显示 ---------------- */
+function showSelftest() {
+  var r = window.__selftest(), box = $id("selftestBox"), raw = $id("selftestRaw");
+  if (raw) raw.textContent = JSON.stringify(r, null, 1);
+  var checks = [
+    ["零耦合 ⇒ 单位阵", r.zeroCouplingDev, 1e-12],
+    ["τ=0 ⇒ 单位阵", r.t0Dev, 1e-12],
+    ["单自旋 ⇒ 单位阵", r.oneSpinDev, 1e-12],
+    ["磁化守恒 Σ_j M_jk = 1", r.conservationDev, 1e-12],
+    ["矩阵对称 M_jk = M_kj", r.symmetryDev, 1e-12],
+    ["两自旋闭式解 sin²(πJτ)", r.twoSpinDev, 1e-12],
+    ["极大点 τ=1/(2J)=71.43 ms", r.twoSpinDevFromOpt, 0.05],
+    ["与 Python 实现逐元素对拍", r.pythonCrossCheckDev, 1e-5],
+    ["–OH 去耦后泄漏 = 0", r.ohDecoupledLeak, 1e-12]
+  ];
+  var h = "<table class='read'><thead><tr><th>检查项</th><th class='n'>偏差 / 值</th><th class='n'>容差</th><th>结论</th></tr></thead><tbody>";
+  for (var i = 0; i < checks.length; i++) {
+    var ok = checks[i][1] <= checks[i][2];
+    h += "<tr><td>" + checks[i][0] + "</td><td class='n'>" + (checks[i][1] < 1e-4 && checks[i][1] > 0 ? checks[i][1].toExponential(2) : fmt(checks[i][1], 4)) +
+         "</td><td class='n dm'>" + (checks[i][2] < 1e-4 ? checks[i][2].toExponential(0) : fmt(checks[i][2], 2)) +
+         "</td><td class='" + (ok ? "k" : "rd") + "'>" + (ok ? "通过" : "失败") + "</td></tr>";
+  }
+  h += "<tr><td>τ=80 ms 时可见方块数（阈值 0.05）</td><td class='n'>" + r.visibleSquares_80ms_thr05 + " / " + r.expectedSquares +
+       "</td><td class='n dm'>16</td><td class='" + (r.visibleSquares_80ms_thr05 === 16 ? "k" : "rd") + "'>" +
+       (r.visibleSquares_80ms_thr05 === 16 ? "满格" : "缺格") + "</td></tr>";
+  h += "<tr><td>–OH 去耦后可见方块数</td><td class='n'>" + r.visibleSquares_noOH_80ms + " / 9</td><td class='n dm'>9</td><td class='" +
+       (r.visibleSquares_noOH_80ms === 9 ? "k" : "rd") + "'>" + (r.visibleSquares_noOH_80ms === 9 ? "满格" : "缺格") + "</td></tr>";
+  h += "<tr><td>C3 –CH₃ 三重峰线数 / 比例</td><td class='n'>" + r.tripletLines + " 线　" + r.tripletRatio +
+       "</td><td class='n dm'>3 线 1:2:1</td><td class='" + (r.tripletLines === 3 ? "k" : "rd") + "'>" +
+       (r.tripletLines === 3 ? "正确" : "错误") + "</td></tr>";
+  h += "<tr><td><b>总体</b></td><td class='n'></td><td class='n'></td><td class='" + (r.ok ? "k" : "rd") +
+       "'><b>" + (r.ok ? "全部通过" : "有失败项") + "</b></td></tr>";
+  h += "</tbody></table>";
+  box.innerHTML = h;
+}
+
+/* ---------------- 数学排版（静态节点） ---------------- */
+function renderMath() {
+  if (typeof katex === "undefined") return;
+  document.querySelectorAll(".katex-inline").forEach(function (n) {
+    try { katex.render(n.textContent, n, { throwOnError: false, displayMode: false }); } catch (e) {}
+  });
+  document.querySelectorAll(".katex-display-eq").forEach(function (n) {
+    try { katex.render(n.textContent, n, { throwOnError: false, displayMode: true }); } catch (e) {}
+  });
+}
+
+/* ---------------- 初始化 ---------------- */
+if (typeof document === "undefined" || !document.getElementById || !document.getElementById("cv2d")) {
+  /* 无 DOM（Node 自检环境）：只保留数值内核 */
+} else {
+  buildSiteButtons();
+  buildDSliders();
+  bindControls();
+  bindCanvas();
+  bindKeys();
+  var rt = null;
+  window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(refreshAll, 120); });
+  renderMath();
+  try { showSelftest(); } catch (e) {
+    var eb2 = $id("selftestBox"); if (eb2) eb2.textContent = "自检失败: " + (e && e.message ? e.message : e);
+  }
+  setZoomRegion("page");
+  refreshAll();
+}
+})();
+</script>
+</body></html>
