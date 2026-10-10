@@ -19,6 +19,7 @@
       </div>
       <div class="read-first"><strong>读前必读</strong><span>下方彩色轮廓和峰位为原图估读；距离滑块只改变教学模型。原始截图未给出积分、混合时间、NOESY/ROESY 的具体采集条件。</span></div>
       <div class="evidence-key" aria-label="证据层级"><span>原图观测 / 估读</span><span>结构辅助推断</span><span>理论对称计数</span><span>独立演示模型</span></div>
+      <p class="term-hint">带点线的术语可点按或用键盘聚焦查看解释；官能团旁的小图表示其连接方式。</p>
     </header>
 
     <main id="main">
@@ -67,10 +68,14 @@
         <article class="panel pitfalls-panel"><div class="panel-head"><span class="step">08</span><div><h2>常见误区</h2><p>哪些结论不能从这张图直接得到</p></div></div><div class="pitfall"><b>“峰越亮，就能直接读出 Å 数。”</b><p>截图没有积分、参考距离和实验条件。颜色轮廓也可能取决于等高线阈值。</p></div><div class="pitfall"><b>“没看到峰，就一定不近。”</b><p>低信噪比、重叠、零交叉区和实验设置都可能让相关不明显。</p></div><div class="pitfall"><b>“有交叉峰，就一定是直接 NOE。”</b><p>化学交换、间接转移与自旋扩散可能产生或改变相关，需结合实验设计核查。</p></div><div class="pitfall"><b>“NOESY 和 ROESY 可按同一峰相位判读。”</b><p>两种实验的转移与相位判读有区别；本截图没有给出相位说明。</p></div></article>
       </section>
 
-      <section class="panel source-panel"><div class="panel-head"><span class="step">09</span><div><h2>来源与限制</h2><p>原材料可随时展开核对</p></div></div><div class="source-grid"><div><p>上传截图标题为 “NOESY/ROESY - Interpretation”。正文两点分别说：交叉峰提示质子空间接近；NOE 转移随距离的六次反比迅速减弱。右侧有二维谱、投影、颜色标注和香草醛样式结构。</p><p>截图没有原始峰表、采集参数、混合时间、温度、相位说明或积分。网页没有恢复真实实验曲线；重绘坐标只用于帮助定位，距离曲线只用于公式演示。</p><div class="sources"><a href="https://nmr.chem.ucsb.edu/education/part5.html" target="_blank" rel="noopener noreferrer">UCSB NMR Theory：NOESY 与距离依赖 ↗</a><a href="https://pubs.rsc.org/en/content/articlehtml/2020/sc/d0sc02970j" target="_blank" rel="noopener noreferrer">Chemical Science：定量 NOE 分析 ↗</a></div></div><details><summary>展开查看完整原图 <span>▾</span></summary><img src="__ORIGINAL__" alt="用户上传的 NOESY/ROESY Interpretation 完整教学截图"></details></div></section>
+      <section class="panel glossary-panel" id="glossary"><div class="panel-head"><span class="step">09</span><div><h2>术语与官能团速查</h2><p>文中带点线的词汇可点按查看；此处集中复习定义和结构图</p></div></div><div id="glossary-list" class="glossary-list"></div></section>
+
+      <section class="panel source-panel"><div class="panel-head"><span class="step">10</span><div><h2>来源与限制</h2><p>原材料可随时展开核对</p></div></div><div class="source-grid"><div><p>上传截图标题为 “NOESY/ROESY - Interpretation”。正文两点分别说：交叉峰提示质子空间接近；NOE 转移随距离的六次反比迅速减弱。右侧有二维谱、投影、颜色标注和香草醛样式结构。</p><p>原图英文对照：cross peak = 交叉峰；protons = 质子；spatial proximity = 空间邻近；NOE transfer = NOE 转移；inverse sixth power of distance = 距离的负六次方。</p><p>截图没有原始峰表、采集参数、混合时间、温度、相位说明或积分。网页没有恢复真实实验曲线；重绘坐标只用于帮助定位，距离曲线只用于公式演示。</p><div class="sources"><a href="https://nmr.chem.ucsb.edu/education/part5.html" target="_blank" rel="noopener noreferrer">UCSB NMR Theory：NOESY 与距离依赖 ↗</a><a href="https://pubs.rsc.org/en/content/articlehtml/2020/sc/d0sc02970j" target="_blank" rel="noopener noreferrer">Chemical Science：定量 NOE 分析 ↗</a></div></div><details><summary>展开查看完整原图 <span>▾</span></summary><img src="__ORIGINAL__" alt="用户上传的 NOESY/ROESY Interpretation 完整教学截图"></details></div></section>
     </main>
     <footer>NOESY / ROESY · 香草醛截图精读 <span>原图估读 / 结构推断 / 演示模型 已分开标记</span></footer>
   </div>
+  <div id="term-popover" class="term-popover" role="dialog" aria-label="术语注释" hidden><button type="button" id="term-close" class="term-close" aria-label="关闭术语注释">×</button><div id="term-popover-head" class="term-popover-head"></div><p id="term-popover-text"></p><a id="term-popover-link" href="#glossary">在术语表中查看 →</a></div>
+  <script>__TERMS__</script>
   <script>__SCRIPT__</script>
 </body>
 </html>

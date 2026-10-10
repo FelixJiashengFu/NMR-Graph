@@ -12,7 +12,7 @@ for(let r=2;r<=6;r+=0.1) assert(Math.abs(ratio(r)*(r/3)**6-1)<1e-12);
 const ppmToHz=(ppm, MHz)=>ppm*MHz;
 assert.strictEqual(ppmToHz(1,400),400);
 assert(html.includes('data:image/png;base64,') && html.includes('id="spectrum"'));
-assert(!html.includes('__STYLE__') && !html.includes('__SCRIPT__'));
+assert(!html.includes('__STYLE__') && !html.includes('__SCRIPT__') && !html.includes('__TERMS__'));
 assert(!/<(?:script|link|img)\b[^>]+(?:src|href)="(?:https?:)?\/\//i.test(html));
 const checks={reference:'I(3 Å)/I₀ = 1',doubleDistance:'I(6 Å)/I₀ = 1/64',halfDistance:'I(1.5 Å)/I₀ = 64',modelInvariant:'I(r)/I₀ × (r/3 Å)^6 = 1',ppmExample:'1 ppm at 400 MHz = 400 Hz',offlineAssets:'scripts, styles, and screenshot embedded'};
 fs.writeFileSync(path.join(root,'verification.json'),JSON.stringify(checks,null,2)+'\n');

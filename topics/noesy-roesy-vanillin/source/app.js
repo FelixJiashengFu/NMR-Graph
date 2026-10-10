@@ -126,6 +126,8 @@
     $('model-sentence').textContent=`r = ${distance.toFixed(1)} Å 时，(3.0 / ${distance.toFixed(1)})⁶ = ${ratio.toFixed(3)}。该数值不是原图积分。`;
     $('distance').setAttribute('aria-valuetext',distance.toFixed(1)+' 埃');
     renderCurve();
+    window.annotateTerms?.($('model-sentence'));
+    window.annotateTerms?.($('distance-value'));
   }
   function select(id) {
     selected=id;
@@ -140,6 +142,7 @@
     $('pair-count').textContent=id==='aromatic'?'理论 2；图中无法确认':'理论 2；图中约 2';
     $('pair-status').textContent=id==='aromatic'?'原图弱轮廓 · 待确认':'原图估读';
     renderPlot();renderStructure();
+    ['pair-title','pair-summary','pair-explain','structure-caption','x-read','y-read'].forEach(id=>window.annotateTerms?.($(id)));
   }
   document.querySelectorAll('.choice').forEach(b=>b.addEventListener('click',()=>select(b.dataset.pair)));
   $('distance').addEventListener('input',ev=>{distance=Number(ev.target.value);renderModel();});

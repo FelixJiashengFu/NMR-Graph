@@ -3,6 +3,10 @@
   "checks": [
     {
       "name": "desktop",
+      "termCount": 150,
+      "glossaryCount": 43,
+      "iconCount": 15,
+      "termKeyboard": true,
       "selectionChanged": true,
       "plotAndStructureClick": true,
       "keyboardButtons": true,
@@ -20,6 +24,10 @@
     },
     {
       "name": "mobile-390",
+      "termCount": 150,
+      "glossaryCount": 43,
+      "iconCount": 15,
+      "termKeyboard": true,
       "selectionChanged": true,
       "plotAndStructureClick": true,
       "keyboardButtons": true,
@@ -37,6 +45,10 @@
     },
     {
       "name": "mobile-320",
+      "termCount": 150,
+      "glossaryCount": 43,
+      "iconCount": 15,
+      "termKeyboard": true,
       "selectionChanged": true,
       "plotAndStructureClick": true,
       "keyboardButtons": true,

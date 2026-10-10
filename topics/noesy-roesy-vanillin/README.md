@@ -1,6 +1,6 @@
 # NOESY / ROESY：交叉峰怎样提示空间邻近
 
-打开 `index.html` 即可离线使用。页面嵌入原始截图、局部裁切图、样式和脚本。
+打开 `index.html` 即可离线使用。页面嵌入原始截图、局部裁切图、样式和脚本。化学术语带可点按注释，官能团旁绘有结构小图，底部有完整术语表。
 
 ## 来源与边界
 
@@ -13,4 +13,4 @@
 
 ## 编辑与验证
 
-编辑 `source/template.html`、`source/style.css`、`source/app.js` 后，运行 `node source/build.cjs` 重新生成单文件网页。运行 `node source/verify.cjs` 核对模型公式、单位示例与离线资源。`preview.png` 为整页桌面预览。
+编辑 `source/template.html`、`source/style.css`、`source/terms.js`、`source/app.js` 后，运行 `node source/build.cjs` 重新生成单文件网页。运行 `node source/verify.cjs` 核对模型公式、单位示例与离线资源。`preview.png` 为整页桌面预览。
