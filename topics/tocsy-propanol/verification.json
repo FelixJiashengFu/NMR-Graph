@@ -1,0 +1,205 @@
+{
+  "clientDate": "2026-10-09",
+  "browser": "154.0.8037.98",
+  "artifactSHA256": "3cba3f78a355243419ebaadf9a871f55cc52aea701f343859c222e72a39659eb",
+  "numerical": {
+    "checks": 96,
+    "analyticError": 1.1102230246251565e-16,
+    "conservation": 4.440892098500626e-16,
+    "symmetry": 0,
+    "negative": 0,
+    "zeroAndDisconnectedError": 0,
+    "countsOK": true,
+    "hCountOK": true,
+    "ok": true
+  },
+  "tests": [
+    {
+      "name": "96 numerical boundary combinations",
+      "ok": true
+    },
+    {
+      "name": "default full three-site TOCSY answer",
+      "ok": true
+    },
+    {
+      "name": "three formulas rendered without errors",
+      "ok": true
+    },
+    {
+      "name": "peak selection updates all linked readouts",
+      "ok": true
+    },
+    {
+      "name": "group selection updates source and target",
+      "ok": true
+    },
+    {
+      "name": "COSY removes relayed A-C and gives seven centers",
+      "ok": true
+    },
+    {
+      "name": "zero mixing gives identity and three displayed centers",
+      "ok": true
+    },
+    {
+      "name": "process slider changes relayed model weight",
+      "ok": true
+    },
+    {
+      "name": "display threshold hides cross centers without altering topology",
+      "ok": true
+    },
+    {
+      "name": "broken B-C splits systems 2+1",
+      "ok": true
+    },
+    {
+      "name": "both broken edges isolate all three",
+      "ok": true
+    },
+    {
+      "name": "fast exchange gives 3+1 systems and ten centers",
+      "ok": true
+    },
+    {
+      "name": "OH selection shows conditional explanation",
+      "ok": true
+    },
+    {
+      "name": "slow exchange condition joins four groups",
+      "ok": true
+    },
+    {
+      "name": "OH relay has three steps",
+      "ok": true
+    },
+    {
+      "name": "D2O mode removes OH and keeps carbon groups",
+      "ok": true
+    },
+    {
+      "name": "shiftA changes peak coordinates and table while preserving topology",
+      "ok": true
+    },
+    {
+      "name": "shiftB changes peak coordinates and table while preserving topology",
+      "ok": true
+    },
+    {
+      "name": "shiftC changes peak coordinates and table while preserving topology",
+      "ok": true
+    },
+    {
+      "name": "keyboard adjusts range value",
+      "ok": true
+    },
+    {
+      "name": "keyboard selects SVG peak",
+      "ok": true
+    },
+    {
+      "name": "keyboard selects matrix cell",
+      "ok": true
+    },
+    {
+      "name": "quiz incorrect explanation",
+      "ok": true
+    },
+    {
+      "name": "quiz correct explanation",
+      "ok": true
+    },
+    {
+      "name": "embedded full original opens",
+      "ok": true
+    },
+    {
+      "name": "1440 viewport: no page overflow, clipping or formula error",
+      "ok": true
+    },
+    {
+      "name": "1024 viewport: no page overflow, clipping or formula error",
+      "ok": true
+    },
+    {
+      "name": "768 viewport: no page overflow, clipping or formula error",
+      "ok": true
+    },
+    {
+      "name": "390 viewport: no page overflow, clipping or formula error",
+      "ok": true
+    },
+    {
+      "name": "320 viewport: no page overflow, clipping or formula error",
+      "ok": true
+    },
+    {
+      "name": "four-group mobile matrix has no overflow",
+      "ok": true
+    },
+    {
+      "name": "no browser errors",
+      "ok": true
+    },
+    {
+      "name": "zero external requests",
+      "ok": true
+    }
+  ],
+  "layouts": [
+    {
+      "width": 1440,
+      "scrollWidth": 1440,
+      "overflow": false,
+      "mathErrors": 0,
+      "equationOverflow": false,
+      "images": true,
+      "svgClips": [],
+      "height": 5841
+    },
+    {
+      "width": 1024,
+      "scrollWidth": 1024,
+      "overflow": false,
+      "mathErrors": 0,
+      "equationOverflow": false,
+      "images": true,
+      "svgClips": [],
+      "height": 5918
+    },
+    {
+      "width": 768,
+      "scrollWidth": 768,
+      "overflow": false,
+      "mathErrors": 0,
+      "equationOverflow": false,
+      "images": true,
+      "svgClips": [],
+      "height": 8605
+    },
+    {
+      "width": 390,
+      "scrollWidth": 390,
+      "overflow": false,
+      "mathErrors": 0,
+      "equationOverflow": false,
+      "images": true,
+      "svgClips": [],
+      "height": 10726
+    },
+    {
+      "width": 320,
+      "scrollWidth": 320,
+      "overflow": false,
+      "mathErrors": 0,
+      "equationOverflow": false,
+      "images": true,
+      "svgClips": [],
+      "height": 11658
+    }
+  ],
+  "errors": [],
+  "externalRequests": [],
+  "ok": true
+}
