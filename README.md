@@ -11,6 +11,7 @@
 | 碳骨架连接 | ADEQUATE：相邻季碳为何无法关联 | [打开](./topics/adequate-adjacent-quaternary-carbons/index.html) |
 | 碳骨架连接 | ADEQUATE：能否完成全部碳归属？ | [打开](./topics/adequate-carbon-coverage/index.html) |
 | 异核长程相关 | H2BC × HMBC：两键与三键相关判读 | [打开](./topics/h2bc-hmbc/index.html) |
+| 异核长程相关 | ¹H–¹⁵N HMBC：齐拉西酮降解产物教学页 | [打开](./topics/hmbc-ziprasidone-degradation/index.html) |
 | 结构解析 | 苯佐卡因：¹H NMR 与 ¹³C APT 拼结构 | [打开](./topics/benzocaine-structure/index.html) |
 | 异核单键相关 | 3-庚酮：HSQC 与编辑 HSQC 峰归属 | [打开](./topics/hsqc-edited-heptanone/index.html) |
 | 同核相关 | TOCSY × COSY：接力相关与自旋系统 | [打开](./topics/tocsy-spin-systems/index.html) |
@@ -46,6 +47,12 @@ NMR-Graph/
     │   └── verify/                    # 静态与浏览器验证
     ├── h2bc-hmbc/
     │   └── index.html                 # H2BC / HMBC 互动图解
+    ├── hmbc-ziprasidone-degradation/
+    │   ├── index.html                 # ¹H–¹⁵N HMBC 交互教学页
+    │   ├── README.md                  # 页面范围与数据限制
+    │   ├── preview.png                # 整页预览
+    │   ├── src/                       # 源码、构建脚本与原图
+    │   └── verify/                    # 数据及页面核验材料
     ├── hsqc-edited-heptanone/
     │   ├── index.html                 # 3-庚酮 HSQC/编辑 HSQC 离线练习
     │   ├── preview.png                # 整页预览
@@ -107,3 +114,5 @@ NOESY / ROESY 专题以用户上传的香草醛教学截图为来源。页面联
 ADEQUATE 全碳归属专题从课程分子骨架讨论 1,1-ADEQUATE 的观测范围。页面包含原图、逐碳判定与教学模型；无原始谱图，示意峰位和效率不代表实测值。源码及验证记录随专题保存。
 
 DOSY 专题从课程截图估读四种化合物的化学位移与扩散系数，并将原图观测、结构推断和 Stokes–Einstein 演示模型分开标注。原图没有提供原始数据或实验条件；源码、原图和核验记录随专题保存。
+
+¹H–¹⁵N HMBC 专题以齐拉西酮降解产物的课程截图为来源，联动显示估读交叉峰与结构单元。原图未给峰归属或实验条件；页面将观测、结构辅助推断和演示模型分开标注，原图、源码及核验材料随专题保存。

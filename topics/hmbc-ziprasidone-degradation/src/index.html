@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>¹H–¹⁵N HMBC 交互教学 · Additional Nuclei（齐拉西酮降解产物）</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- ===================== 顶栏 ===================== -->
+<header class="top">
+  <div class="kicker">交互教学 · 二维核磁 · 原材料逐项还原</div>
+  <h1>Additional Nuclei —— ¹H–¹⁵N HMBC 怎么看</h1>
+  <p class="goal"><b>一句话目标：</b><span id="goalText"></span></p>
+  <div class="readfirst">
+    <h3>读前必读</h3>
+    <ul>
+      <li>本页<strong>保留原图未作任何改动</strong>；页面里所有"重建图"都是按原图估读坐标重画的示意图，<strong>不是</strong>原始实验数据，也不能当作实验曲线使用。</li>
+      <li>原图纵轴为 <strong>负值</strong>：−320 ppm 在上、−240 ppm 在下，即 δ<sub>N</sub> 向下增大。这是本页最容易读错的地方。</li>
+      <li>原图<strong>没有给出任何峰的归属</strong>，也没有写实验条件。本页凡涉及"这个峰属于哪个氮"的内容，一律标注为<em>结构辅助推断</em>或<em>演示模型</em>，不冒充原材料结论。</li>
+      <li>数值分三类来源，全页用色块标签区分：<span class="badge b-observe">原图观测</span> <span class="badge b-infer">结构辅助推断</span> <span class="badge b-theory">理论计数</span> <span class="badge b-model">演示模型</span>。</li>
+      <li>从位图截图读出的数值一律标 <strong>估读</strong>，不确定度：δ<sub>H</sub> ±0.05 ppm，δ<sub>N</sub> ±1.5 ppm。</li>
+    </ul>
+  </div>
+</header>
+
+<!-- ===================== 1. 主要结论 ===================== -->
+<section class="panel" id="sec-conclusion">
+  <div class="panel-h"><span class="sec-tag">1 主要结论</span><h2>这张图在讲什么</h2></div>
+  <ol class="tick">
+    <li><strong>它是一张二维核磁图。</strong>横轴是氢（δ<sub>H</sub> ≈ 1–8 ppm），纵轴是氮（δ<sub>N</sub> ≈ −240 至 −320 ppm）。图上每一个"点"就是一个 [[cross]]，表示某个氢和某个氮之间存在跨 2–3 根键的耦合。原图文字 "proton nitrogen HMBC" 指的就是 [[HMBC]]。</li>
+    <li><strong>它服务于一个具体问题。</strong>原图文字说这张 ¹H–¹⁵N HMBC "帮助阐明齐拉西酮（Ziprasidone）的一个 [[degradant]]"。齐拉西酮是用于治疗精神障碍的药物。图中给出的分子骨架与齐拉西酮一致。</li>
+    <li><strong>原图圈了三个区域。</strong>红椭圆（δ<sub>H</sub>≈6.86 / δ<sub>N</sub>≈−309 单峰）、蓝色虚线框（芳香区 4 个峰）、紫色实线框（δ<sub>H</sub>≈1.75 / δ<sub>N</sub>≈−271 最强脂肪区峰）。红椭圆是原图作者特别想让人注意的那个峰。</li>
+    <li><strong>图上可辨约 10 个交叉峰</strong>（[[est]]），集中在两个 δ<sub>N</sub> 窄带：≈ −264 至 −278，以及 −309 / −316。</li>
+    <li><strong>这张图能证明什么、不能证明什么。</strong>能证明：分子中氢与氮之间的远程连接关系。不能证明：峰高不能定量、每个 ¹⁵N 峰不等于一个氮原子、单凭这张图无法给出完整结构——原图本身也没给。</li>
+  </ol>
+  <div class="warnbox" style="margin-top:10px">
+    <h3>最重要的一个提醒</h3>
+    <p style="margin:0">纵轴是<strong>负</strong> ppm。把 −309 读成 "+309"，或者以为纵轴数字自上而下递减，都会让整张图读反。原图纵轴：<span class="num">−320</span>（上）→ <span class="num">−240</span>（下）。</p>
+  </div>
+</section>
+
+<!-- ===================== 2. 直观解释（三栏仪表盘） ===================== -->
+<section id="sec-intuition">
+  <div class="panel panel-h" style="margin-bottom:12px">
+    <span class="sec-tag">2 直观解释</span>
+    <h2>交互仪表盘：点对象、拖滑块，看谱图与结构同步变化</h2>
+  </div>
+
+  <div class="dash">
+    <!-- ---------- 左栏：对象选择与参数控制 ---------- -->
+    <div class="col">
+      <div class="panel tight">
+        <div class="panel-h"><h3>对象选择</h3><span class="badge b-infer">结构辅助推断</span></div>
+        <div class="objlist" id="objList" role="group" aria-label="选择结构单元"></div>
+        <p class="hint">点击任一结构单元：右侧读数与解释、中间结构式高亮、重建谱图上的对应区域会一起更新。</p>
+      </div>
+
+      <div class="panel tight">
+        <div class="panel-h"><h3>谱图标注区</h3><span class="badge b-observe">原图观测</span></div>
+        <div class="objlist" id="boxList" role="group" aria-label="选择原图标注区域"></div>
+      </div>
+
+      <div class="panel tight">
+        <div class="panel-h"><h3>参数控制</h3></div>
+
+        <div class="ctrl">
+          <label for="sldH"><span>δ<sub>H</sub> 读取游标（横轴）</span><span class="val" id="vH">6.86 ppm</span></label>
+          <input class="ctrl" type="range" id="sldH" min="1" max="8" step="0.01" value="6.86" aria-describedby="hintH">
+          <p class="hint" id="hintH">范围 1.00 – 8.00 ppm，步长 0.01。数值来自原图横轴刻度（<span class="badge b-observe">原图观测</span>）。</p>
+        </div>
+
+        <div class="ctrl">
+          <label for="sldN"><span>δ<sub>N</sub> 读取游标（纵轴）</span><span class="val" id="vN">−309.0 ppm</span></label>
+          <input class="ctrl" type="range" id="sldN" min="-342.5" max="-232.5" step="0.5" value="-309" aria-describedby="hintN">
+          <p class="hint" id="hintN">范围 −342.5 – −232.5 ppm（覆盖原图绘图框边界）。注意 −342.5 在上、−232.5 在下，滑动条方向已按此设置。</p>
+        </div>
+
+        <div class="ctrl">
+          <label for="sldTh"><span>交叉峰显示阈值</span><span class="val" id="vTh">0 %</span></label>
+          <input class="ctrl" type="range" id="sldTh" min="0" max="100" step="1" value="0" aria-describedby="hintTh">
+          <p class="hint" id="hintTh">按估读相对强度过滤。<span class="badge b-model">演示模型</span> 仅用于显示控制，不改变任何原始读数。</p>
+        </div>
+
+        <div class="ctrl">
+          <label for="sldD"><span>HMBC 演化延迟 Δ₂</span><span class="val" id="vD">111 ms</span></label>
+          <input class="ctrl" type="range" id="sldD" min="20" max="250" step="1" value="111" aria-describedby="hintD">
+          <p class="hint" id="hintD">理论最佳 Δ₂ = 1/(2J)，此处对应 <span class="num" id="vJopt">J ≈ 4.5 Hz</span>。<span class="badge b-model">演示模型</span>：强度按 |sin(π·J·Δ₂)|·exp(−2Δ₂/T₂) 计算，T₂ = 1.0 s 为演示取值，各峰 J 值为演示假设值，<strong>不是</strong>原图数据。</p>
+        </div>
+
+        <div class="row" style="margin-top:8px">
+          <button class="objbtn" id="btnReset" style="width:auto;flex:0 0 auto">恢复默认视图</button>
+          <button class="objbtn" id="btnSnap" style="width:auto;flex:0 0 auto">游标吸附到最近交叉峰</button>
+        </div>
+      </div>
+
+      <div class="panel tight">
+        <div class="panel-h"><h3>视图切换</h3></div>
+        <div class="seg" id="segView" role="group" aria-label="中间视图切换">
+          <button type="button" data-view="recon" aria-pressed="true">估读重建图</button>
+          <button type="button" data-view="orig" aria-pressed="false">原图叠加层</button>
+        </div>
+        <p class="hint">"估读重建图"是按原图估读的峰位重画的示意散点图；"原图叠加层"把游标直接叠在未改动的原图上。两者坐标已按同一标定对齐。</p>
+      </div>
+    </div>
+
+    <!-- ---------- 中栏：交互图形与结构 ---------- -->
+    <div class="col">
+      <div class="panel tight">
+        <div class="panel-h">
+          <h3>¹H–¹⁵N HMBC 视图</h3>
+          <span class="badge" id="viewBadge">估读重建（示意）</span>
+        </div>
+
+        <div id="viewRecon">
+          <div class="scrollx" id="reconScroll">
+            <div id="reconHost"></div>
+          </div>
+          <p class="hint" id="reconHint">谱图较宽：窄屏上可左右滑动查看完整坐标轴。</p>
+        </div>
+
+        <div id="viewOrig" hidden>
+          <div class="imgwrap" id="origHost">
+            <img id="origImg" src="assets/original.png" alt="原材料幻灯片完整截图：标题 Additional Nuclei，右侧上方为齐拉西酮分子结构式，右侧下方为 1H-15N HMBC 二维谱图，谱图上用红椭圆、蓝色虚线框、紫色实线框标出了三个区域。">
+            <svg class="ovl" id="origOvl" viewBox="0 0 1053 811" preserveAspectRatio="none" aria-hidden="true"></svg>
+          </div>
+          <p class="hint">原图未作任何改动，仅在其上叠加了游标与选中标记。原图坐标轴绘图框：横轴像素 662–1025，纵轴像素 408–651。</p>
+        </div>
+
+        <div class="legend" id="legend"></div>
+      </div>
+
+      <div class="panel tight">
+        <div class="panel-h">
+          <h3>分子结构与官能团</h3>
+          <span class="badge b-infer">结构辅助推断</span>
+          <span class="hint" style="margin:0">原子可直接点按 / Tab 聚焦</span>
+        </div>
+        <div class="structbox scrollx" id="structWrap"><div id="structHost"></div></div>
+        <p class="hint">骨架按原图右侧结构式重画（示意图，非原始矢量图）。原子符号与颜色对应原图：<span style="color:#f2d64b">S 黄</span>、<span style="color:#7ab6f5">N 蓝</span>、<span style="color:#e2686a">O 红</span>、<span style="color:#7fd68a">Cl 绿</span>、<span style="color:#8fd8c0">H 青</span>。该骨架与齐拉西酮一致，分子式 <span class="num">C<sub>21</sub>H<sub>21</sub>ClN<sub>4</sub>OS</span>。</p>
+        <div class="row" style="margin-top:6px" id="fgRow"></div>
+        <p class="hint" style="margin-top:6px">上排为分子中出现的官能团结构小图（示意）：从左到右依次是 1,2-苯并异噻唑、哌嗪、氧化吲哚内酰胺、芳基氯。</p>
+      </div>
+    </div>
+
+    <!-- ---------- 右栏：当前读数与解释 ---------- -->
+    <div class="col">
+      <div class="panel tight">
+        <div class="panel-h"><h3>当前读数</h3></div>
+        <div class="readout">
+          <div class="big" id="roMain">δ<sub>H</sub> 6.86 ppm　/　δ<sub>N</sub> −309.0 ppm</div>
+          <div class="sub" id="roSub">距最近交叉峰 P3：Δδ<sub>H</sub> 0.00 ppm，Δδ<sub>N</sub> 0.2 ppm</div>
+        </div>
+        <dl class="kv" id="roKv"></dl>
+        <div id="roSrc" style="margin-top:8px"></div>
+      </div>
+
+      <div class="panel tight">
+        <div class="panel-h"><h3>解释</h3></div>
+        <div id="explain" aria-live="polite"></div>
+      </div>
+
+      <div class="panel tight">
+        <div class="panel-h"><h3>演示模型读数</h3><span class="badge b-model">演示模型</span></div>
+        <div id="modelRead"></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== 3. 局部放大与原图 ===================== -->
+<section class="panel" id="sec-zoom">
+  <div class="panel-h"><span class="sec-tag">3 局部放大</span><h2>原图区域放大</h2></div>
+  <div class="seg" id="segZoom" role="group" aria-label="选择放大区域" style="margin-bottom:8px"></div>
+  <div class="zoomvp" id="zoomVp">
+    <img id="zoomImg" src="assets/original.png" alt="原材料局部放大视图">
+  </div>
+  <p class="hint" id="zoomCap">当前区域：全图。</p>
+
+  <details>
+    <summary>展开查看完整原图（1053 × 811 px，未改动）</summary>
+    <div class="dbody">
+      <div class="imgwrap">
+        <img src="assets/original.png" alt="原材料完整幻灯片截图">
+      </div>
+      <p class="hint">原图文字（英文原句 → 中文对照）：</p>
+      <div class="tblwrap">
+        <table>
+          <thead><tr><th>位置</th><th>英文原文</th><th>中文对照</th></tr></thead>
+          <tbody id="srcTextTbl"></tbody>
+        </table>
+      </div>
+    </div>
+  </details>
+</section>
+
+<!-- ===================== 4. 完整归属表 ===================== -->
+<section class="panel" id="sec-table">
+  <div class="panel-h"><span class="sec-tag">4 完整归属表</span><h2>全部交叉峰逐项列表（估读）</h2></div>
+  <p class="hint">"强度"一列是原图竖直像素高度，只作相对强弱代理，<strong>不是</strong>积分值，也不能用于定量。"归属（原图）"一列只记录原图的手工标注，原图没有给出任何原子级归属。</p>
+  <div class="tblwrap">
+    <table id="peakTbl">
+      <thead><tr>
+        <th>编号</th><th class="n">δ<sub>H</sub> (ppm)</th><th class="n">δ<sub>N</sub> (ppm)</th>
+        <th class="n">估读强度</th><th>原图标注</th><th>来源</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <hr>
+  <h3>原图三个标注区</h3>
+  <div class="tblwrap">
+    <table id="boxTbl">
+      <thead><tr><th>标注</th><th class="n">δ<sub>H</sub> 范围</th><th class="n">δ<sub>N</sub> 范围</th><th>包含交叉峰</th><th>原图说明</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <hr>
+  <h3>顶部一维 ¹H 投影峰位（估读）</h3>
+  <div class="tblwrap">
+    <table id="projTbl">
+      <thead><tr><th class="n">δ<sub>H</sub> (ppm)</th><th class="n">估读高度</th><th>相对强弱</th><th>备注</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <p class="hint">原图一维投影上另有若干极弱峰未能可靠识别，未列入。原图未标注溶剂，因此无法区分样品信号与残余溶剂/杂质信号。</p>
+</section>
+
+<!-- ===================== 5. 分步推理 ===================== -->
+<section class="panel" id="sec-steps">
+  <div class="panel-h"><span class="sec-tag">5 分步推理</span><h2>从一张截图读出结论的 8 步</h2></div>
+  <div id="stepHost"></div>
+</section>
+
+<!-- ===================== 6. 数值核对 ===================== -->
+<section class="panel" id="sec-check">
+  <div class="panel-h"><span class="sec-tag">6 数值核对</span><h2>公式、计数、单位换算与一致性检查</h2></div>
+  <div id="checkHost"></div>
+</section>
+
+<!-- ===================== 7. 常见误区 ===================== -->
+<section class="panel" id="sec-pitfall">
+  <div class="panel-h"><span class="sec-tag">7 常见误区</span><h2>容易读错的地方</h2></div>
+  <div id="pitfallHost"></div>
+</section>
+
+<!-- ===================== 8. 术语表 ===================== -->
+<section class="panel" id="sec-glossary">
+  <div class="panel-h"><span class="sec-tag">8 术语表</span><h2>完整术语表（中英对照）</h2></div>
+  <div class="tblwrap">
+    <table id="glossTbl">
+      <thead><tr><th>中文</th><th>英文</th><th>说明</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ===================== 9. 来源与限制 ===================== -->
+<section class="panel" id="sec-source">
+  <div class="panel-h"><span class="sec-tag">9 来源与限制</span><h2>材料来源、外部背景与无法确认的事项</h2></div>
+
+  <div class="srcbox">
+    <h3>一手材料</h3>
+    <p>用户提供的幻灯片截图，文件名 <code>clipboard-2026-10-11T00-56-02-585Z-7db2ec6a.png</code>，尺寸 <span class="num">1053 × 811</span> px。内容：标题 <em>Additional Nuclei</em>、两行英文要点、右侧上方一张分子结构式、右侧下方一张 ¹H–¹⁵N HMBC 二维谱（含顶部一维投影与三处手工标注）。本页将其完整内嵌并保留原样。</p>
+  </div>
+
+  <div class="srcbox" style="margin-top:10px">
+    <h3>外部背景（<span style="color:var(--warn)">非原图内容</span>，仅用于理解原图语境）</h3>
+    <p class="mono" style="font-size:12.5px;color:var(--muted)" id="citeText"></p>
+    <p>该章节摘要要点（逐条转述）：</p>
+    <ul class="tick" id="refPoints"></ul>
+    <p class="footnote">说明：以上来自公开可检索的章节摘要，用于说明"降解产物 + LC-MS 初判 + NMR 修正"这一背景。原图本身并未引用该文献，本页也不据此推断该降解产物的确切结构。</p>
+  </div>
+
+  <div class="warnbox" style="margin-top:10px">
+    <h3>无法从原材料确认的事项</h3>
+    <ul class="tick" id="unknownList"></ul>
+  </div>
+
+  <div class="okbox" style="margin-top:10px">
+    <h3>本页可以负责地声明的</h3>
+    <ul class="tick">
+      <li>原图坐标轴读数（刻度位置、范围、峰位）——全部由逐像素测量得到，测量与复算方法写在 <code>verify/verify_data.py</code> 中，可独立重跑。</li>
+      <li>分子式 C<sub>21</sub>H<sub>21</sub>ClN<sub>4</sub>OS 与不饱和度 13——由结构式逐原子计数得到，可手工复核。</li>
+      <li>横轴/纵轴刻度线性度——由主刻度间距的极差直接给出。</li>
+      <li>δ<sub>H</sub>≈4.56（P6）与 δ<sub>H</sub>≈2.26（P7）两个交叉峰在一维投影上无对应峰——这是原图上可复现的观测（<code>verify/verify_data.py</code> 的 C7 组检查），不是推测。</li>
+      <li>全部交互行为（术语注释、图形点击、四个滑块、原图展开、键盘操作、三种视口宽度下的溢出与裁切）已由 <code>verify/verify_page.py</code> 在无头 Chromium 中实测通过。</li>
+    </ul>
+  </div>
+</section>
+
+<p class="footnote" style="text-align:center;padding:6px 0 22px">
+  本页为教学用途的交互式解读，不构成任何分析方法的验证报告。原图版权归其原作者所有。
+</p>
+
+</div>
+<script src="data.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
