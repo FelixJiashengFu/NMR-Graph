@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>COSY · 交叉峰从哪来、什么时候会少 —— 交互教学页</title>
+<!--KATEX_CSS-->
+<style>
+:root{
+  --bg:#0e1116; --panel:#151a21; --panel2:#11151b; --line:#303a47; --line2:#232b35;
+  --ink:#e7edf5; --ink2:#aeb9c7; --ink3:#7f8b9b;
+  --acc:#5fd0a8; --acc2:#3f9d7c; --warn:#f0a83c; --bad:#e2645f; --blue:#4d9de0; --violet:#a98bf0;
+  --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"DejaVu Sans Mono",monospace;
+  --sans:-apple-system,BlinkMacSystemFont,"Helvetica Neue","PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;background:var(--bg);color:var(--ink);font-family:var(--sans);
+  -webkit-font-smoothing:antialiased;font-size:14px;line-height:1.55}
+body.preview #bench{height:auto!important}
+body.preview .col{overflow:visible!important;max-height:none!important}
+body.preview details{display:block}
+a{color:var(--blue)}
+h1,h2,h3,h4{margin:0;font-weight:650;line-height:1.3}
+kbd{font-family:var(--mono);font-size:11px;background:#1d242e;border:1px solid var(--line);
+  border-bottom-width:2px;border-radius:4px;padding:1px 5px;color:var(--ink)}
+
+/* ---------- 顶部：压到最矮 ---------- */
+header{padding:8px 14px 7px;border-bottom:1px solid var(--line);background:var(--panel2)}
+.headline{display:flex;flex-wrap:wrap;align-items:baseline;gap:10px}
+.headline h1{font-size:17px;letter-spacing:.2px}
+.headline .goal{color:var(--ink2);font-size:12.5px}
+.headline .goal b{color:var(--acc)}
+.readfirst{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+.readfirst div{font-size:11.5px;color:var(--ink2);background:#141a22;border:1px solid var(--line2);
+  border-radius:20px;padding:2px 9px}
+.readfirst div b{color:var(--acc);font-weight:600}
+.readfirst .k{color:var(--ink3)}
+
+/* ---------- 工作台：三栏各自滚动 ---------- */
+#bench{display:grid;grid-template-columns:322px minmax(0,1fr) 372px;gap:0;
+  height:calc(100vh - 92px);min-height:420px}
+.col{overflow-y:auto;overflow-x:hidden;padding:10px 12px 40px;border-right:1px solid var(--line2);min-width:0}
+.col:last-child{border-right:none;border-left:1px solid var(--line2)}
+.col h2{position:sticky;top:0;z-index:5;margin:-10px -12px 8px;padding:7px 12px;font-size:12px;
+  letter-spacing:.6px;color:var(--ink2);background:linear-gradient(var(--bg) 70%,rgba(14,17,22,.85));
+  border-bottom:1px solid var(--line2);text-transform:uppercase}
+.card{background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:9px 10px;margin-bottom:9px}
+.card h3{font-size:12.5px;color:var(--acc);margin-bottom:6px;letter-spacing:.3px}
+.muted{color:var(--ink3)}
+.small{font-size:11.5px}
+.mono{font-family:var(--mono)}
+
+/* ---------- 表单控件 ---------- */
+.ctl{margin:7px 0 10px}
+.ctl .lab{display:flex;justify-content:space-between;align-items:baseline;gap:8px;font-size:12px}
+.ctl .val{font-family:var(--mono);color:var(--acc);font-size:12.5px}
+.ctl .ends{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;color:var(--ink3);margin-top:-1px}
+input[type=range]{width:100%;height:20px;background:transparent;-webkit-appearance:none;appearance:none;margin:2px 0}
+input[type=range]::-webkit-slider-runnable-track{height:4px;background:#242c37;border-radius:3px}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:14px;height:14px;margin-top:-5px;
+  border-radius:50%;background:var(--acc);border:2px solid #0e1116}
+input[type=range]:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+.btns{display:flex;flex-wrap:wrap;gap:5px}
+button{font-family:var(--sans);font-size:11.5px;color:var(--ink);background:#1b222c;
+  border:1px solid var(--line);border-radius:6px;padding:4px 9px;cursor:pointer}
+button:hover{background:#222b36}
+button[aria-pressed=true]{background:var(--acc);border-color:var(--acc);color:#08201a;font-weight:650}
+button:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+label.chk{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--ink2);cursor:pointer;margin:5px 0}
+input[type=checkbox]{accent-color:var(--acc);width:14px;height:14px}
+.seg{display:flex;gap:4px;flex-wrap:wrap}
+
+/* ---------- 来源徽章 ---------- */
+.bg{font-size:10px;padding:0 5px;border-radius:4px;border:1px solid;white-space:nowrap;
+  font-family:var(--sans);vertical-align:1px}
+.bg-src{color:#f0a83c;border-color:#5a4520;background:#241d10}
+.bg-lit{color:#4d9de0;border-color:#1e3a52;background:#0f1c27}
+.bg-cnt{color:#a98bf0;border-color:#3b2f57;background:#1a1526}
+.bg-par{color:#9fb0c1;border-color:#33404e;background:#171d25}
+.bg-calc{color:#5fd0a8;border-color:#22503f;background:#0f2119}
+
+/* ---------- 步骤引导 ---------- */
+#guide{background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:9px 10px;margin-bottom:9px}
+#guide .ghead{display:flex;justify-content:space-between;align-items:center;gap:6px;margin-bottom:6px}
+#guide .ghead b{font-size:12.5px;color:var(--acc)}
+#guide .gq{font-size:13px;font-weight:600;margin:2px 0 5px}
+#guide .gdo{font-size:11.5px;color:var(--ink2);background:#121820;border-left:3px solid var(--warn);
+  padding:4px 7px;border-radius:0 5px 5px 0}
+#guide .gans{margin-top:6px;font-size:12px;color:var(--ink);background:#0f1a16;border-left:3px solid var(--acc);
+  padding:5px 8px;border-radius:0 5px 5px 0;display:none}
+#guide .gans.on{display:block}
+#guide .gans p{margin:0 0 4px}
+.steps{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:7px}
+.steps button{padding:3px 7px;font-size:11px}
+
+/* ---------- 画布 ---------- */
+.cvwrap{background:var(--panel);border:1px solid var(--line2);border-radius:8px;padding:6px;margin-bottom:9px}
+.cvwrap h3{font-size:12px;color:var(--acc);margin:0 0 4px 2px}
+.cvwrap .cap{font-size:11px;color:var(--ink3);margin:4px 2px 1px}
+canvas{display:block;width:100%;border-radius:5px;cursor:crosshair;touch-action:none}
+canvas:focus-visible{outline:2px solid var(--blue);outline-offset:2px}
+
+/* ---------- 读数 ---------- */
+table.read{width:100%;border-collapse:collapse;font-size:11.5px}
+table.read th,table.read td{padding:3px 5px;border-bottom:1px solid var(--line2);text-align:right;
+  font-family:var(--mono);white-space:nowrap}
+table.read th:first-child,table.read td:first-child{text-align:left;font-family:var(--sans)}
+table.read thead th{color:var(--ink3);font-weight:500}
+table.read tr.hi td{background:#12241d}
+table.read tr.dim td{color:var(--ink3)}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:6px}
+.chip{font-size:11.5px;border:1px solid var(--line);border-radius:20px;padding:2px 8px;background:#1a212b;cursor:pointer}
+.chip[aria-pressed=true]{background:var(--acc);color:#08201a;border-color:var(--acc);font-weight:650}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:2px 8px;font-size:12px}
+.kv .k{color:var(--ink3)}
+.kv .v{font-family:var(--mono);text-align:right}
+.big{font-size:20px;font-family:var(--mono);color:var(--acc)}
+
+/* ---------- 术语悬停 ---------- */
+.t{border-bottom:1px dashed var(--acc2);cursor:help;position:relative}
+.t:hover,.t:focus{background:#16211d;border-bottom-style:solid}
+#tip{position:fixed;z-index:99;max-width:330px;padding:7px 9px;background:#0b1219;border:1px solid var(--acc2);
+  border-radius:7px;font-size:12px;color:var(--ink);box-shadow:0 6px 20px rgba(0,0,0,.5);display:none}
+#tip .en{color:var(--ink3);font-size:11px}
+
+/* ---------- 折叠区 ---------- */
+details.sec{border:1px solid var(--line2);border-radius:8px;background:var(--panel2);margin:0 0 8px}
+details.sec>summary{cursor:pointer;padding:8px 11px;font-size:13px;font-weight:600;color:var(--ink);
+  list-style:none;display:flex;justify-content:space-between;gap:8px}
+details.sec>summary::-webkit-details-marker{display:none}
+details.sec>summary::after{content:"▾";color:var(--ink3)}
+details.sec[open]>summary::after{content:"▴"}
+details.sec>div{padding:2px 12px 12px}
+#bottom{padding:6px 14px 60px;border-top:1px solid var(--line);background:var(--bg)}
+#bottom table.read td,#bottom table.read th{text-align:left}
+#bottom h4{margin:10px 0 4px;font-size:12.5px;color:var(--acc)}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px}
+ul.tight{margin:4px 0 8px;padding-left:18px}
+ul.tight li{margin:2px 0}
+.warn{border-left:3px solid var(--bad);background:#1d1414;padding:6px 9px;border-radius:0 6px 6px 0;margin:5px 0}
+.ok{border-left:3px solid var(--acc);background:#0f1a16;padding:6px 9px;border-radius:0 6px 6px 0;margin:5px 0}
+.legend{display:flex;flex-wrap:wrap;gap:10px;font-size:11.5px;color:var(--ink2);margin-top:5px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;margin-right:4px;vertical-align:-1px}
+.katex{font-size:1.03em}
+.eq{margin:6px 0;overflow-x:auto}
+.termcard{border:1px solid var(--line2);border-radius:7px;padding:7px 9px;background:#12171e;margin:5px 0}
+.termcard b{color:var(--acc);font-size:12.5px}
+.termcard .en{color:var(--ink3);font-size:11px}
+.termcard p{margin:3px 0 0;font-size:11.5px;color:var(--ink2)}
+.issue{border:1px solid var(--line2);border-radius:7px;padding:8px 10px;margin:6px 0;background:#12171e}
+.issue .t1{color:var(--bad);font-weight:650;font-size:12.5px}
+.issue .t2{color:var(--acc);font-weight:650;font-size:12.5px;margin-top:4px}
+
+@media (max-width:1460px){
+  #bench{grid-template-columns:290px minmax(0,1fr) 330px}
+  .col{padding:9px 9px 36px}
+}
+@media (max-width:1240px){
+  #bench{grid-template-columns:262px minmax(0,1fr) 300px}
+}
+@media (max-width:1080px){
+  #bench{display:block;height:auto}
+  .col{overflow:visible;max-height:none;border-right:none;padding:10px 12px}
+  .col:last-child{border-left:none;border-top:1px solid var(--line2)}
+  .col h2{position:static;margin:0 0 8px}
+}
+</style>
+</head>
+<body>
+<div id="err" style="display:none;position:sticky;top:0;z-index:200;background:#5a1a1a;color:#fff;
+  padding:6px 10px;font-family:var(--mono);font-size:12px"></div>
+
+<header>
+  <div class="headline">
+    <h1>COSY · 交叉峰从哪来、什么时候会少</h1>
+    <div class="goal">学完能：<b>自己数出 2D 谱上有几个峰</b>，并说清<b>什么时候会少</b>（100 字内）</div>
+  </div>
+  <div class="readfirst">
+    <div><b>①</b> 原图只有结构式与示意方块，<span class="k">没有</span>任何实测谱数据；本页谱图全部是模型算的，标「示意」</div>
+    <div><b>②</b> 虚线下划线的<span class="k">术语</span>可悬停看解释；画布上的峰与结构都可点</div>
+    <div><b>③</b> 三栏各自滚动，左侧改参数时中栏的图不动位置；<span class="k">≤1080px</span> 自动变纵向</div>
+  </div>
+</header>
+
+<div id="bench">
+  <section class="col" id="colL">
+    <h2>参数与步骤 · Controls</h2>
+    <div id="guide"></div>
+    <div class="card">
+      <h3>演示体系</h3>
+      <div class="seg" id="sysSeg"></div>
+      <div class="small muted" id="sysNote" style="margin-top:5px"></div>
+    </div>
+    <div class="card">
+      <h3>混合时间 τ<sub>m</sub></h3>
+      <div class="ctl">
+        <div class="lab"><span>τ<sub>m</sub> <span class="muted small">混合期长度</span></span><span class="val" id="tauVal">68 ms</span></div>
+        <input type="range" id="tau" min="0" max="160" step="1" value="68" aria-label="混合时间 tau_m，单位毫秒" />
+        <div class="ends"><span>0 ms</span><span>160 ms</span></div>
+      </div>
+      <div class="small muted">交叉峰 ∝ sin(πJτ<sub>m</sub>) <span class="bg bg-calc">计算</span>　对角峰 ∝ cos(πJτ<sub>m</sub>)</div>
+    </div>
+    <div class="card">
+      <h3>其它参数</h3>
+      <div class="ctl">
+        <div class="lab"><span>峰的显示阈值</span><span class="val" id="thVal">0.080</span></div>
+        <input type="range" id="th" min="0.01" max="0.5" step="0.005" value="0.08" aria-label="峰的显示阈值" />
+        <div class="ends"><span>0.010</span><span>0.500</span></div>
+      </div>
+      <div class="ctl">
+        <div class="lab"><span>–OH 交换速率 k<sub>ex</sub></span><span class="val" id="exVal">关</span></div>
+        <input type="range" id="ex" min="0" max="300" step="1" value="0" aria-label="羟基交换速率" />
+        <div class="ends"><span>0 s⁻¹</span><span>300 s⁻¹</span></div>
+      </div>
+      <div class="ctl">
+        <div class="lab"><span>谱仪频率 ν₀</span><span class="val" id="fdVal">400 MHz</span></div>
+        <input type="range" id="fd" min="1" max="5" step="1" value="2" aria-label="谱仪质子频率" />
+        <div class="ends"><span>200</span><span>900 MHz</span></div>
+      </div>
+      <label class="chk"><input type="checkbox" id="ohOn" checked> –OH 参与自旋体系（关掉＝交换太快，看不到它的峰）</label>
+      <label class="chk"><input type="checkbox" id="degOn"> 把 –OH 的位移挪到 C1 上（位移重合）</label>
+      <div class="btns" style="margin-top:6px">
+        <button id="reset">恢复默认</button>
+        <button id="opt">跳到最优 τ<sub>m</sub></button>
+      </div>
+    </div>
+    <div class="card">
+      <h3>键盘</h3>
+      <div class="small muted">
+        <kbd>1</kbd>–<kbd>4</kbd> 直选位点 · <kbd>←</kbd><kbd>→</kbd> 轮换<br>
+        <kbd>↑</kbd><kbd>↓</kbd> τ<sub>m</sub> ±2 ms · <kbd>空格</kbd> 展开本步答案<br>
+        <kbd>Tab</kbd> 走遍所有控件
+      </div>
+    </div>
+  </section>
+
+  <section class="col" id="colM">
+    <h2>图形 · Figures</h2>
+    <div class="cvwrap">
+      <h3>2D ¹H–¹H COSY 图（示意）</h3>
+      <canvas id="cv2d" width="900" height="760" tabindex="0" aria-label="二维 COSY 谱示意图，可点击峰"></canvas>
+      <div class="cap" id="cap2d"></div>
+      <div class="legend" id="leg2d"></div>
+    </div>
+    <div class="cvwrap">
+      <h3>结构式与耦合网络</h3>
+      <canvas id="cvMol" width="900" height="330" tabindex="0" aria-label="分子结构式示意图，可点击位点"></canvas>
+      <div class="cap" id="capMol"></div>
+    </div>
+    <div class="cvwrap">
+      <h3>交叉峰 / 对角峰 随 τ<sub>m</sub> 的变化</h3>
+      <canvas id="cvTau" width="900" height="330" aria-label="峰强随混合时间变化的曲线"></canvas>
+      <div class="cap" id="capTau"></div>
+    </div>
+  </section>
+
+  <section class="col" id="colR">
+    <h2>读数与解释 · Readout</h2>
+    <div class="card" id="readCard"></div>
+    <div class="card" id="pairCard"></div>
+    <div class="card" id="sumCard"></div>
+    <div class="card" id="grpCard"></div>
+  </section>
+</div>
+
+<div id="bottom">
+  <h2 style="font-size:15px;margin:8px 0 8px">详细内容（默认收起）</h2>
+  <div id="detailsHost"></div>
+</div>
+<div id="tip"></div>
+<script id="kernel">
+<!--KERNEL-->
+</script>
+<!--KATEX_JS-->
+</body>
+</html>

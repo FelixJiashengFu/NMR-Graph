@@ -1,0 +1,206 @@
+{
+ "source": "原图-COSY幻灯片.webp",
+ "imageSize": [
+  1488,
+  862
+ ],
+ "calibration": {
+  "px_per_ppm_x": 42.59999999999991,
+  "px_per_ppm_y": 87.0,
+  "x0": 987.7,
+  "ppm_x0": 2.5,
+  "y0": 214.0,
+  "ppm_y0": 2.0,
+  "x2ppm": [
+   42.6,
+   987.7,
+   2.5
+  ],
+  "y2ppm": [
+   87.0,
+   214.0,
+   2.0
+  ]
+ },
+ "peaks": [
+  {
+   "px": 1009.0,
+   "py": 223.0,
+   "f2": 2.0,
+   "f1": 2.103,
+   "onDiagonal": true
+  },
+  {
+   "px": 887.5,
+   "py": 262.0,
+   "f2": 4.852,
+   "f1": 2.552,
+   "onDiagonal": false
+  },
+  {
+   "px": 960.0,
+   "py": 262.0,
+   "f2": 3.15,
+   "f1": 2.552,
+   "onDiagonal": false
+  },
+  {
+   "px": 887.5,
+   "py": 300.0,
+   "f2": 4.852,
+   "f1": 2.989,
+   "onDiagonal": false
+  },
+  {
+   "px": 917.5,
+   "py": 300.0,
+   "f2": 4.148,
+   "f1": 2.989,
+   "onDiagonal": false
+  },
+  {
+   "px": 961.5,
+   "py": 325.0,
+   "f2": 3.115,
+   "f1": 3.276,
+   "onDiagonal": false
+  },
+  {
+   "px": 887.5,
+   "py": 325.5,
+   "f2": 4.852,
+   "f1": 3.282,
+   "onDiagonal": false
+  },
+  {
+   "px": 918.0,
+   "py": 325.5,
+   "f2": 4.136,
+   "f1": 3.282,
+   "onDiagonal": false
+  }
+ ],
+ "shifts": [
+  2.0
+ ],
+ "atoms": [
+  {
+   "el": "C",
+   "x": 1201.8,
+   "y": 235.9,
+   "hex": "#5865EA"
+  },
+  {
+   "el": "C",
+   "x": 1246.6,
+   "y": 235.8,
+   "hex": "#5965EA"
+  },
+  {
+   "el": "C",
+   "x": 1291.4,
+   "y": 235.7,
+   "hex": "#5865EC"
+  },
+  {
+   "el": "C",
+   "x": 1335.4,
+   "y": 235.4,
+   "hex": "#5764EB"
+  },
+  {
+   "el": "O",
+   "x": 1247.5,
+   "y": 201.0,
+   "hex": "#E4566D"
+  },
+  {
+   "el": "N",
+   "x": 1334.4,
+   "y": 278.5,
+   "hex": "#EE59E7"
+  },
+  {
+   "el": "H",
+   "x": 1200.8,
+   "y": 202.4,
+   "hex": "#EBE84E"
+  },
+  {
+   "el": "H",
+   "x": 1165.5,
+   "y": 235.7,
+   "hex": "#E7E44D"
+  },
+  {
+   "el": "H",
+   "x": 1201.4,
+   "y": 267.0,
+   "hex": "#E8E54C"
+  },
+  {
+   "el": "H",
+   "x": 1290.1,
+   "y": 202.5,
+   "hex": "#EEED6B"
+  },
+  {
+   "el": "H",
+   "x": 1290.8,
+   "y": 267.0,
+   "hex": "#EFEC6B"
+  },
+  {
+   "el": "H",
+   "x": 1334.4,
+   "y": 202.5,
+   "hex": "#EFED6B"
+  },
+  {
+   "el": "H",
+   "x": 1369.8,
+   "y": 235.4,
+   "hex": "#EFEC6B"
+  },
+  {
+   "el": "H",
+   "x": 1308.5,
+   "y": 304.1,
+   "hex": "#F0ED6A"
+  },
+  {
+   "el": "H",
+   "x": 1357.9,
+   "y": 307.2,
+   "hex": "#EDEC69"
+  }
+ ],
+ "colors": {
+  "bg": "#FFFFFF",
+  "bgPanel": "#F2F2F2",
+  "carbon": "#5865EA",
+  "oxygen": "#E4566D",
+  "nitrogen": "#EE59E7",
+  "hydrogen": "#EBE84E",
+  "peakFill": "#D77D7E"
+ },
+ "text": {
+  "title": "2-D 1H-1H COSY",
+  "axisX": "1H Chemical Shift (ppm)",
+  "axisY": "1H Chemical Shift (ppm)",
+  "caption": "A liquid-state experiment identifying 1H-1H correlations between neighboring protons.",
+  "bullets": [
+   "Correlation Spectroscopy",
+   "A homonuclear experiment showing coupled spins",
+   "Generally, this tells us which protons are side by side in the structure (vicinal coupling)",
+   "Useful for tracing a coupled system down a carbon chain"
+  ],
+  "labels": [
+   "A",
+   "B",
+   "C",
+   "D"
+  ],
+  "couplingLabel": "3J_HH"
+ }
+}
