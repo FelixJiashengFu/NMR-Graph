@@ -114,6 +114,69 @@ PROBE = r"""
     ok('T17 C1 多重峰 6 线 -> 3 线',
        n1.replace(/\s+/g,'').indexOf('多重峰线数6')>=0 && n2.replace(/\s+/g,'').indexOf('多重峰线数3')>=0);
     setCheck('cbOH',true); await frames(3);
+
+    /* ---------- T18 工作台：三栏各自滚动 ---------- */
+    var bench = document.getElementById('bench'), colL = document.getElementById('colL'), colM = document.getElementById('colM');
+    var bh = bench.getBoundingClientRect().height;
+    ok('T18 工作台固定高度', bh > 400 && bh <= window.innerHeight, 'benchH=' + Math.round(bh) + ' win=' + window.innerHeight);
+    ok('T18 左栏可独立滚动', colL.scrollHeight > colL.clientHeight + 5, 'sh=' + colL.scrollHeight + ' ch=' + colL.clientHeight);
+    ok('T18 中栏可独立滚动', colM.scrollHeight > colM.clientHeight + 5, 'sh=' + colM.scrollHeight + ' ch=' + colM.clientHeight);
+
+    /* ---------- T19 步骤引导 ---------- */
+    var g0 = document.getElementById('gPos').textContent;
+    document.getElementById('gNext').click(); await frames(3);
+    ok('T19 下一步换题', document.getElementById('gPos').textContent !== g0,
+       g0 + ' -> ' + document.getElementById('gPos').textContent);
+    document.getElementById('gReveal').click(); await frames(2);
+    ok('T19 看答案显示', document.getElementById('gAns').hidden === false &&
+       document.getElementById('gAns').textContent.length > 20);
+    var navb = document.querySelectorAll('#gNav [data-st]');
+    ok('T19 步骤导航 7 个', navb.length === 7, 'n=' + navb.length);
+    navb[4].click(); await frames(3);
+    ok('T19 第5步自动去耦 OH', document.getElementById('cbOH').checked === false);
+    ok('T19 第5步归属表 9 行', rows() === 9, 'rows=' + rows());
+    navb[5].click(); await frames(3);
+    ok('T19 第6步自动开 COSY 并复原 OH',
+       document.getElementById('cbMode').checked === true && document.getElementById('cbOH').checked === true);
+    ok('T19 第6步 10 个方块', ct().indexOf('谱图方块数（含镜像）1610') >= 0,
+       ct().slice(-46) + ' | oh=' + document.getElementById('cbOH').checked + ' cosy=' + document.getElementById('cbMode').checked);
+    navb[0].click(); await frames(3);
+    ok('T19 回到第 1 步', document.getElementById('gPos').textContent.indexOf('1 /') === 0);
+
+    /* ---------- T20 官能团卡 ---------- */
+    var gc = document.querySelectorAll('#gcards .gcard');
+    ok('T20 四张官能团卡', gc.length === 4, 'n=' + gc.length);
+    ok('T20 每张都有结构小图', document.querySelectorAll('#gcards svg').length === 4);
+    var gt = document.getElementById('gcards').textContent;
+    ok('T20 卡片有中英文名', gt.indexOf('羟基') >= 0 && gt.indexOf('methyl') >= 0 && gt.indexOf('亚甲基') >= 0);
+    gc[3].click(); await frames(3);
+    ok('T20 点卡片选中甲基', title().indexOf('C3') >= 0, title());
+    gc[0].click(); await frames(3);
+    ok('T20 点卡片选中羟基', title().indexOf('OH') >= 0, title());
+
+    /* ---------- T21 术语提示 ---------- */
+    var nTerm = document.querySelectorAll('.term[data-def]').length;
+    ok('T21 术语自动标注 > 20 处', nTerm > 20, 'n=' + nTerm);
+    var term = document.querySelector('.col .term[data-def]') || document.querySelector('.term[data-def]');
+    if (term) {
+      term.dispatchEvent(new MouseEvent('mouseover', { bubbles: true }));
+      await frames(2);
+      var tip = document.getElementById('tip');
+      ok('T21 悬停弹解释', tip.style.display === 'block' && tip.textContent.length > 5, tip.textContent.slice(0, 24));
+      term.dispatchEvent(new MouseEvent('mouseout', { bubbles: true }));
+      await frames(2);
+      ok('T21 移开收起', tip.style.display === 'none');
+    } else ok('T21 找到术语节点', false);
+
+    /* ---------- T22 官能团标注开关 ---------- */
+    var cbG = document.getElementById('cbGroup');
+    ok('T22 有官能团标注开关', !!cbG);
+    if (cbG) {
+      setCheck('cbGroup', false); await frames(2);
+      ok('T22 可关闭', cbG.checked === false);
+      setCheck('cbGroup', true); await frames(2);
+      ok('T22 可再打开', cbG.checked === true);
+    }
    }catch(err){ LOG.push('FAIL :: 测试脚本异常 :: '+(err&&err.message)); }
    var d=document.createElement('div'); d.id='TESTLOG';
    d.textContent='TESTSTART'+'%%'+LOG.join(' ;; ')+'%%'+'TESTEND';

@@ -1,7 +1,7 @@
 <!DOCTYPE html><html lang="zh-CN"><head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>TOCSY 练习题 · 正丙醇 — 交互可视化讲解</title>
+<title>TOCSY · 正丙醇 —— 一步步推断</title>
 <!--KATEX_CSS-->
 <!--KATEX_JS-->
 <style>
@@ -9,32 +9,49 @@
   --bg:#0e1116; --panel:#151a21; --panel2:#1b222c; --panel3:#10151b;
   --line:#303a47; --txt:#dde5ef; --dim:#93a0b0; --acc:#5fd0a8;
   --diag:#8b97a6; --d1:#5fd0a8; --d2:#f0a83c; --d3:#a98bf0; --neg:#e2685f;
-  /* 原图取色（逐像素采样自截图） */
   --c1:#D70F10; --c2:#EAE41C; --c3:#209C48; --coh:#cfd8e3;
-  --slidebg:#F8EED8; --slidetitle:#2E7BA6;
   --mono:ui-monospace,SFMono-Regular,Menlo,Consolas,"Liberation Mono",monospace;
+  --benchH:640px;
 }
 *{box-sizing:border-box}
 html,body{margin:0;padding:0;background:var(--bg);color:var(--txt);
   font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Hiragino Sans GB","Microsoft YaHei",sans-serif;
-  font-size:14px;line-height:1.66;-webkit-text-size-adjust:100%}
+  font-size:14px;line-height:1.62;-webkit-text-size-adjust:100%}
 #errbar{display:none;background:#7a1f1a;color:#fff;padding:8px 14px;font-family:var(--mono);font-size:12px;white-space:pre-wrap;word-break:break-all}
-.wrap{max-width:1620px;margin:0 auto;padding:22px 20px 64px}
-h1{font-size:25px;margin:0 0 6px;letter-spacing:.2px;line-height:1.35}
-h1 small{font-size:13px;color:var(--dim);font-weight:400;margin-left:10px}
-.sub{color:var(--dim);margin:0 0 16px;font-size:13.5px}
-.grid{display:grid;grid-template-columns:302px minmax(0,1fr) 382px;gap:14px;align-items:start}
-.grid.g2side{grid-template-columns:minmax(0,1fr) 340px}
-@media (max-width:1000px){.grid.g2side{grid-template-columns:1fr}}
-.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:13px 14px;min-width:0}
-.card>.card{margin-top:12px}
-.card h2{font-size:12px;text-transform:uppercase;letter-spacing:.9px;color:var(--acc);
-  margin:0 0 9px;font-weight:600}
-.card h3{font-size:13px;margin:14px 0 5px;color:var(--txt);font-weight:600}
-.card h3:first-child{margin-top:0}
-p{margin:8px 0}
+.wrap{max-width:1660px;margin:0 auto;padding:14px 18px 56px}
+
+/* ---------- 顶部：压到最矮 ---------- */
+.top{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin:0 0 10px}
+.top h1{font-size:21px;margin:0;letter-spacing:.2px}
+.top .goal{color:var(--dim);font-size:13px}
+.top .goal b{color:var(--acc)}
+.tk{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12.5px;color:#badccb;
+  background:#12241d;border-left:3px solid var(--acc);border-radius:0 7px 7px 0;
+  padding:7px 12px;margin:0 0 12px}
+.tk b{color:var(--acc)}
+
+/* ---------- 工作台：三栏各自滚动 ---------- */
+.bench{display:grid;grid-template-columns:322px minmax(0,1fr) 372px;gap:12px;
+  height:var(--benchH);min-height:520px;align-items:stretch}
+.col{background:var(--panel);border:1px solid var(--line);border-radius:10px;
+  padding:12px 13px;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;min-width:0}
+.col::-webkit-scrollbar{width:9px}
+.col::-webkit-scrollbar-thumb{background:#39465a;border-radius:5px;border:2px solid var(--panel)}
+.col::-webkit-scrollbar-thumb:hover{background:#4a5a72}
+.col::-webkit-scrollbar-track{background:transparent}
+.col h2{font-size:11.5px;text-transform:uppercase;letter-spacing:.9px;color:var(--acc);
+  margin:0 0 8px;font-weight:600;position:sticky;top:-12px;background:var(--panel);
+  padding:6px 0 5px;z-index:3;border-bottom:1px solid var(--line)}
+.col h2:first-child{top:-12px}
+.col h2 .hint{float:right;color:var(--dim);text-transform:none;letter-spacing:0;font-weight:400;font-size:11px}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:12px 13px;min-width:0}
+.card h2{font-size:12px;text-transform:uppercase;letter-spacing:.9px;color:var(--acc);margin:0 0 8px;font-weight:600}
+.card h3{font-size:13px;margin:12px 0 5px;color:var(--txt);font-weight:600}
+p{margin:7px 0}
 canvas{width:100%;display:block;border-radius:8px;background:#0b0e12;touch-action:none}
 canvas.clickable{cursor:pointer}
+
+/* ---------- 控件 ---------- */
 .btn{display:block;width:100%;text-align:left;background:var(--panel2);border:1px solid var(--line);
   color:var(--txt);padding:6px 9px;border-radius:7px;font-family:var(--mono);font-size:11.5px;
   margin:4px 0;cursor:pointer;line-height:1.5}
@@ -46,51 +63,26 @@ canvas.clickable{cursor:pointer}
 .row2{display:flex;gap:6px;flex-wrap:wrap}
 .row2 .btn{width:auto;flex:1 1 46%;text-align:center}
 label.row{display:flex;align-items:center;gap:8px;margin:6px 0;font-size:12.5px;cursor:pointer}
-label.row input{accent-color:var(--acc);width:15px;height:15px}
-.slid{margin:9px 0 12px}
+label.row input{accent-color:var(--acc);width:15px;height:15px;flex:none}
+.slid{margin:8px 0 10px}
 .slid .lab{display:flex;justify-content:space-between;align-items:baseline;font-size:12px;color:var(--dim);gap:8px}
 .slid .lab b{color:var(--txt);font-weight:500}
 .slid .val{font-family:var(--mono);color:var(--acc);font-size:12.5px;white-space:nowrap}
+.slid .rng{display:flex;justify-content:space-between;font-size:10px;color:#5c6874;margin-top:-2px}
 input[type=range]{width:100%;height:22px;background:transparent;-webkit-appearance:none;appearance:none;cursor:pointer;margin:2px 0 0}
 input[type=range]::-webkit-slider-runnable-track{height:4px;background:var(--line);border-radius:3px}
 input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;margin-top:-6px;
   border-radius:50%;background:var(--acc);border:2px solid #0e1116}
 input[type=range]::-moz-range-track{height:4px;background:var(--line);border-radius:3px}
 input[type=range]::-moz-range-thumb{width:13px;height:13px;border-radius:50%;background:var(--acc);border:2px solid #0e1116}
+input[type=range].flash{outline:2px solid var(--acc);outline-offset:4px;border-radius:8px}
+
+/* ---------- 表格 ---------- */
 table.read{width:100%;border-collapse:collapse;font-family:var(--mono);font-size:11.5px}
-@media (max-width:900px){
-  #tblAll{min-width:720px}
-  #tblSites{min-width:430px}
-  #tblCount{min-width:330px}
-  table.grid4{min-width:330px}
-}
 table.read th{text-align:left;color:var(--dim);font-weight:500;border-bottom:1px solid var(--line);padding:4px 3px}
 table.read td{padding:3px;border-bottom:1px solid #222a34;vertical-align:top}
 table.read tr:hover td{background:#1a212a}
 table.read td.n,table.read th.n{text-align:right}
-.note{background:#12241d;border-left:3px solid var(--acc);padding:9px 12px;border-radius:0 7px 7px 0;
-  font-size:12.5px;color:#badccb;margin:10px 0}
-.warn{background:#2a1a17;border-left:3px solid var(--neg);padding:9px 12px;border-radius:0 7px 7px 0;
-  font-size:12.5px;color:#e8c3bd;margin:10px 0}
-.info{background:#151f2b;border-left:3px solid #4d9de0;padding:9px 12px;border-radius:0 7px 7px 0;
-  font-size:12.5px;color:#bdd3e8;margin:10px 0}
-.gap2{background:#1d1a2b;border-left:3px solid var(--d3);padding:9px 12px;border-radius:0 7px 7px 0;
-  font-size:12.5px;color:#cec3ea;margin:10px 0}
-.mono{font-family:var(--mono)}
-.k{color:var(--acc)} .rd{color:var(--neg)} .dm{color:var(--dim)}
-.big{font-size:19px;font-family:var(--mono);color:var(--acc);line-height:1.35;word-break:break-word}
-.legend{display:flex;flex-wrap:wrap;gap:9px 14px;font-size:11.5px;color:var(--dim);margin:9px 0 0}
-.legend span{display:flex;align-items:center;gap:5px}
-.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;flex:none;border:1px solid rgba(255,255,255,.3)}
-.legend i.sh{width:13px;height:9px;border-radius:1px}
-.foot{margin-top:22px;padding-top:14px;border-top:1px solid var(--line);color:var(--dim);font-size:12px}
-.bdg{display:inline-block;font-family:var(--mono);font-size:10px;padding:0 5px;border-radius:4px;
-  border:1px solid;line-height:1.6;white-space:nowrap;vertical-align:1px}
-.b-slide{color:#e8c98a;border-color:#6b5527;background:#2a2313}
-.b-lit{color:#8fb8e6;border-color:#2e4f74;background:#132030}
-.b-theory{color:#9ee0c4;border-color:#2d5c48;background:#12241d}
-.b-model{color:#c3b2ee;border-color:#4a3f70;background:#1d1a2b}
-.b-calc{color:#9fd6c0;border-color:#31584a;background:#122019}
 .tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch}
 table.grid4{border-collapse:separate;border-spacing:3px;width:100%;font-family:var(--mono);font-size:11px}
 table.grid4 th{color:var(--dim);font-weight:500;font-size:10.5px;padding:1px;text-align:center}
@@ -99,199 +91,263 @@ table.grid4 td.cell{padding:3px 1px;border-radius:5px;cursor:pointer;border:1px 
   color:#0b0e12;font-weight:600;line-height:1.35}
 table.grid4 td.cell.sel{border-color:#fff;border-width:2px}
 table.grid4 td.cell.dimmed{opacity:.30}
+
+/* ---------- 提示气泡 ---------- */
+.term{border-bottom:1px dotted #5fd0a8;cursor:help}
+#tip{position:fixed;z-index:99;max-width:300px;background:#0b0f14;border:1px solid var(--acc);
+  border-radius:8px;padding:8px 10px;font-size:12px;line-height:1.6;color:var(--txt);
+  pointer-events:none;display:none}
+#tip b{color:var(--acc);display:block;margin-bottom:3px;font-size:12px}
+#tip .mini{margin-top:6px}
+
+/* ---------- 步骤条 ---------- */
+.gbox{border:1px solid #3d5b4d;background:#121a17;border-radius:9px;padding:10px 11px}
+.gbox .gnav{display:flex;flex-direction:row;flex-wrap:wrap;gap:3px;margin-top:8px}
+.gnav button{width:100%;text-align:left;background:#16211c;border:1px solid #2c3f36;color:#9fb3a8;
+  padding:5px 8px;border-radius:6px;font-size:11.5px;cursor:pointer;font-family:var(--mono)}
+.gnav button:hover{border-color:var(--acc);color:var(--acc)}
+.gnav button.on{background:#1f3a30;border-color:var(--acc);color:var(--acc)}
+.gnav button.done{color:#7f958a}
+.gbody{min-width:0}
+.gq{font-size:15px;color:#fff;font-weight:600;margin:0 0 6px;line-height:1.5}
+.gdo{font-size:12.5px;color:#badccb;margin:0 0 8px}
+.gdo b{color:var(--acc)}
+.gans{background:#0f1a16;border-left:3px solid var(--acc);border-radius:0 7px 7px 0;
+  padding:8px 11px;font-size:13px;color:#d6ece1;margin-top:8px}
+.gans b{color:var(--acc)}
+.gctrl{display:flex;flex-direction:column;gap:6px;align-items:stretch;min-width:118px}
+.gctrl button{background:var(--panel2);border:1px solid var(--line);color:var(--txt);
+  padding:6px 10px;border-radius:7px;cursor:pointer;font-size:12.5px;white-space:nowrap}
+.gctrl button:hover{border-color:var(--acc);color:var(--acc)}
+.gctrl button.primary{background:#1f3a30;border-color:var(--acc);color:var(--acc)}
+.gpos{font-family:var(--mono);font-size:11px;color:var(--dim);text-align:center}
+
+/* ---------- 官能团卡 ---------- */
+.gcards{display:grid;grid-template-columns:repeat(auto-fill,minmax(178px,1fr));gap:9px}
+.gcard{background:var(--panel3);border:1px solid var(--line);border-radius:9px;padding:8px 9px;
+  display:grid;grid-template-columns:98px minmax(0,1fr);gap:2px 9px;align-items:start;cursor:pointer}
+.gcard:hover{border-color:#4a5a72}
+.gcard.sel{border-color:var(--acc)}
+.gcard h4{grid-column:1 / -1;margin:0 0 3px;font-size:12.5px;color:var(--txt);display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.gcard h4 i{width:9px;height:9px;border-radius:2px;display:inline-block;border:1px solid rgba(255,255,255,.35);flex:none}
+.gcard .en{color:var(--dim);font-size:10px;font-family:var(--mono);font-weight:400}
+.gcard ul{grid-column:2;margin:0;padding-left:14px;font-size:11.5px;color:#b9c4d1;line-height:1.5}
+.gcard svg{display:block;width:98px;height:auto;margin:2px 0 0}
+
+/* ---------- 其它 ---------- */
+.note{background:#12241d;border-left:3px solid var(--acc);padding:8px 11px;border-radius:0 7px 7px 0;
+  font-size:12.5px;color:#badccb;margin:9px 0}
+.warn{background:#2a1a17;border-left:3px solid var(--neg);padding:8px 11px;border-radius:0 7px 7px 0;
+  font-size:12.5px;color:#e8c3bd;margin:9px 0}
+.info{background:#151f2b;border-left:3px solid #4d9de0;padding:8px 11px;border-radius:0 7px 7px 0;
+  font-size:12.5px;color:#bdd3e8;margin:9px 0}
+.gap2{background:#1d1a2b;border-left:3px solid var(--d3);padding:8px 11px;border-radius:0 7px 7px 0;
+  font-size:12.5px;color:#cec3ea;margin:9px 0}
+.mono{font-family:var(--mono)}
+.k{color:var(--acc)} .rd{color:var(--neg)} .dm{color:var(--dim)}
+.big{font-size:18px;font-family:var(--mono);color:var(--acc);line-height:1.35;word-break:break-word}
+.legend{display:flex;flex-wrap:wrap;gap:7px 13px;font-size:11.5px;color:var(--dim);margin:8px 0 0}
+.legend span{display:flex;align-items:center;gap:5px}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:3px;flex:none;border:1px solid rgba(255,255,255,.3)}
+.legend i.sh{width:13px;height:9px;border-radius:1px}
+.foot{margin-top:20px;padding-top:12px;border-top:1px solid var(--line);color:var(--dim);font-size:12px}
+.bdg{display:inline-block;font-family:var(--mono);font-size:10px;padding:0 5px;border-radius:4px;
+  border:1px solid;line-height:1.6;white-space:nowrap;vertical-align:1px}
+.b-slide{color:#e8c98a;border-color:#6b5527;background:#2a2313}
+.b-lit{color:#8fb8e6;border-color:#2e4f74;background:#132030}
+.b-theory{color:#9ee0c4;border-color:#2d5c48;background:#12241d}
+.b-model{color:#c3b2ee;border-color:#4a3f70;background:#1d1a2b}
+.b-calc{color:#9fd6c0;border-color:#31584a;background:#122019}
 .kbd{font-family:var(--mono);font-size:11px;background:var(--panel2);border:1px solid var(--line);
   border-bottom-width:2px;border-radius:4px;padding:0 5px;color:var(--txt)}
 .origwrap{position:relative;overflow:hidden;border:1px solid var(--line);border-radius:8px;background:#000}
-.origwrap img{display:block;width:100%;transition:none;transform-origin:0 0}
-details{border:1px solid var(--line);border-radius:8px;padding:8px 11px;margin:9px 0;background:var(--panel3)}
-details>summary{cursor:pointer;font-size:12.5px;color:var(--acc);font-weight:600;list-style:none}
+.origwrap img{position:absolute;display:block;transform-origin:0 0;left:0;top:0}
+details{border:1px solid var(--line);border-radius:8px;padding:8px 11px;margin:8px 0;background:var(--panel3)}
+details>summary{cursor:pointer;font-size:13px;color:var(--acc);font-weight:600;list-style:none}
 details>summary::-webkit-details-marker{display:none}
 details>summary::before{content:"▸ ";color:var(--dim)}
 details[open]>summary::before{content:"▾ "}
 details>div{margin-top:8px}
-.selbox{background:var(--panel3);border:1px solid var(--line);border-radius:8px;padding:9px 11px;margin:8px 0}
+.selbox{background:var(--panel3);border:1px solid var(--line);border-radius:8px;padding:8px 10px;margin:7px 0}
 .eq{font-size:14px;overflow-x:auto;overflow-y:hidden;padding:2px 0}
-.f2{display:inline-block;text-align:center;vertical-align:middle;font-size:.9em;line-height:1.1;margin:0 2px}
-.f2 span{display:block;padding:0 3px}
-.f2 .den{border-top:1px solid currentColor}
-.chip{display:inline-block;width:9px;height:9px;border-radius:2px;margin-right:5px;vertical-align:0;border:1px solid rgba(255,255,255,.3)}
-ul.tight{margin:6px 0;padding-left:19px} ul.tight li{margin:4px 0}
-ol.tight{margin:6px 0;padding-left:20px} ol.tight li{margin:5px 0}
+ul.tight{margin:5px 0;padding-left:18px} ul.tight li{margin:3px 0}
+ol.tight{margin:5px 0;padding-left:19px} ol.tight li{margin:4px 0}
 a{color:#7fb8e8}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px;border-radius:4px}
 .two{display:grid;grid-template-columns:1fr 1fr;gap:14px}
-@media (max-width:1240px){
-  .grid{grid-template-columns:1fr}
-  .wrap{padding:16px 12px 48px}
-  h1{font-size:21px} h1 small{display:block;margin:4px 0 0}
+.grid.g2side{grid-template-columns:minmax(0,1fr) 340px}
+.grid.g2even{grid-template-columns:1fr 1fr}
+.grid{display:grid;gap:14px;align-items:start}
+@media (max-width:1000px){.grid.g2side,.grid.g2even{grid-template-columns:1fr}}
+/* 中等屏幕先把两侧栏收紧，尽量保住三栏工作台；到 1080px 才退成纵向 */
+@media (max-width:1460px){.bench{grid-template-columns:296px minmax(0,1fr) 346px}}
+@media (max-width:1240px){.bench{grid-template-columns:272px minmax(0,1fr) 320px}}
+@media (max-width:1080px){
+  .bench{grid-template-columns:1fr;height:auto;min-height:0}
+  .col{overflow:visible;height:auto;max-height:none}
+  .col h2{position:static;padding:0;border-bottom:none}
+  .wrap{padding:14px 12px 48px}
   .two{grid-template-columns:1fr}
+  .gctrl{flex-direction:row}
 }
 @media (max-width:560px){
   body{font-size:13.5px}
-  .wrap{padding:12px 9px 40px}
-  .card{padding:11px 10px}
-  .big{font-size:16px}
-  .legend{font-size:11px;gap:7px 11px}
+  .wrap{padding:10px 9px 40px}
+  .card,.col{padding:11px 10px}
+  .big{font-size:15px}
+  .legend{font-size:11px;gap:6px 10px}
   table.read{font-size:11px}
+  .gcards{grid-template-columns:1fr}
+  .top h1{font-size:18px}
+}
+@media (max-width:900px){
+  #tblAll{min-width:720px}
+  #tblSites{min-width:430px}
+  #tblCount{min-width:330px}
+  table.grid4{min-width:330px}
 }
 </style></head><body>
 <div id="errbar"></div>
+<div id="tip"></div>
 <div class="wrap">
 
-<h1>TOCSY 练习题 · 正丙醇<small>把「画出正丙醇的 TOCSY 谱」拆成可检验的四步</small></h1>
-<p class="sub">自旋体系怎么定 → 转移效率算多少 → 峰画在哪里 → 计数核对。全部图形可点、参数可拖，右侧读数实时跟着变。</p>
+<header class="top">
+  <h1>TOCSY · 正丙醇</h1>
+  <span class="goal">目标：自己推出 <b>2D 谱上有几个峰</b>，并说清<b>什么时候会少</b>。</span>
+</header>
+<div class="tk">
+  <span><b>①</b> 原图只有结构式和两行字，<b>没有任何谱图数据</b>——右边那幅 2D 谱是模型算出来的示意。</span>
+  <span><b>②</b> 带<span class="term" data-def="鼠标停在带虚线下划线的词上，会弹出这个术语的一句话解释。|术语提示">虚线</span>的词可以悬停看解释。</span>
+  <span><b>③</b> 左中右三栏各自滚动：改参数时图一定在同一屏。</span>
+</div>
 
-<div class="note"><b>读前必读（三条）</b><br>
-1. <b>原图里没有任何谱图数据</b>——只有正丙醇的结构式、三个着色的碳方块，和两行文字。本页每个数字都带来源徽章：
-<span class="bdg b-slide">原图</span> 截图里直接看得到的 ·
-<span class="bdg b-lit">文献近似</span> 教学常用值，不是原图数据 ·
-<span class="bdg b-theory">理论计数</span> 组合数学结果 ·
-<span class="bdg b-calc">计算</span> 本页数值模拟的输出 ·
-<span class="bdg b-model">演示模型</span> 为讲解选定的假设。没有实测曲线可以恢复。<br>
-2. 中间那幅 2D 谱是<b>示意</b>：峰强由「各向同性混合」的精确量子模拟算出，不是任何一台谱仪的输出，也没有加噪声。<br>
-3. 原图第二条提示「精确位移不重要」正是本页的用法：拖动位移滑块，峰位会满图跑，但<b>哪些格子有峰、谁和谁相关，一点都不会变</b>。</div>
+<div class="bench" id="bench">
 
-<div class="grid">
-  <!-- ================= 左栏 ================= -->
-  <div class="card">
-    <h2>① 选择自旋位点</h2>
-    <div id="sitebtns"></div>
-    <div class="legend" style="margin-top:7px"><span>键盘 <span class="kbd">1</span>–<span class="kbd">4</span> 直选上方对应编号的位点，<span class="kbd">←</span><span class="kbd">→</span> 轮换，<span class="kbd">↑</span><span class="kbd">↓</span> 改 τ<sub>m</sub></span></div>
-    <div class="info" style="margin-top:8px;font-size:11.5px">点中栏的结构方块、2D 谱上的峰，或点这里，三处会同步高亮。</div>
-
-    <h2 style="margin-top:16px">② 混合时间 τ<sub>m</sub></h2>
-    <div class="slid">
-      <div class="lab"><b>各向同性混合时间</b><span class="val" id="vTau">80 ms</span></div>
-      <input type="range" id="sTau" min="0" max="180" step="1" value="80" aria-label="混合时间，单位毫秒" />
-      <div class="lab" style="margin-top:2px"><span>0 ms</span><span>180 ms</span></div>
+  <!-- ==================== 左栏 ==================== -->
+  <section class="col" id="colL">
+    <h2>跟着走 · 一步一步推 <span class="hint" id="gPos">1 / 7</span></h2>
+    <div class="gbox">
+      <div class="gq" id="gQ">—</div>
+      <div class="gdo" id="gDo">—</div>
+      <div class="gctrl">
+        <button id="gReveal" class="primary">看答案</button>
+        <button id="gPrev">← 上一步</button>
+        <button id="gNext">下一步 →</button>
+      </div>
+      <div class="gans" id="gAns" hidden>—</div>
+      <div class="gnav" id="gNav"></div>
     </div>
-    <div class="row2"><button class="btn" id="bTauFast">τ<sub>m</sub> 短（≈25 ms）</button><button class="btn" id="bTauFull">τ<sub>m</sub> 足（≈80 ms）</button></div>
-    <div class="legend"><span>键盘 <span class="kbd">↑</span><span class="kbd">↓</span> 步进 2 ms</span></div>
 
-    <h2 style="margin-top:16px">③ 自旋体系</h2>
-    <label class="row"><input type="checkbox" id="cbOH" checked /> 羟基质子参与自旋体系（慢交换）</label>
+    <h2>自旋位点 <span class="hint">点方块或按 1–4</span></h2>
+    <div id="sitebtns"></div>
+
+    <h2>混合时间 τ<sub>m</sub></h2>
+    <div class="slid">
+      <div class="lab"><b>自旋锁定持续时间</b><span class="val" id="vTau">80 ms</span></div>
+      <input type="range" id="sTau" min="0" max="180" step="1" value="80" aria-label="混合时间，单位毫秒" />
+      <div class="rng"><span>0</span><span>90</span><span>180 ms</span></div>
+    </div>
+    <div class="row2"><button class="btn" id="bTauFast">25 ms</button><button class="btn" id="bTauFull">80 ms</button></div>
+
+    <h2>自旋体系</h2>
+    <label class="row"><input type="checkbox" id="cbOH" checked /> –OH 参与（慢交换）</label>
     <div class="slid" id="wrapJOH">
       <div class="lab"><b>J(–OH, –CH₂–O)</b><span class="val" id="vJOH">5.2 Hz</span></div>
       <input type="range" id="sJOH" min="0" max="10" step="0.1" value="5.2" aria-label="羟基与相邻亚甲基的耦合常数，单位赫兹" />
-      <div class="lab" style="margin-top:2px"><span>0 Hz（等价于去耦）</span><span>10 Hz</span></div>
+      <div class="rng"><span>0（等于去耦）</span><span>10 Hz</span></div>
     </div>
-    <div class="info" style="font-size:11.5px">CDCl₃ 中痕量酸会让 –OH 快速交换而被去耦 → 取消勾选即该情形。DMSO-d₆ 中 –OH 出三重峰（J ≈ 5.2 Hz）→ 勾选。<br>
-<b>本页约定</b>：取消勾选时把 –OH <b>整个移出</b>自旋体系（网格退化为 3×3）。真实谱里 –OH 的对角峰往往仍在（一个宽单峰），但<b>不会与任何位点出交叉峰</b>——两种画法的结论一致。</div>
-    <div class="slid" style="margin-top:10px">
-      <div class="lab"><b>自旋锁定弛豫 T<sub>1ρ</sub></b><span class="val" id="vT1">600 ms</span></div>
+    <div class="slid">
+      <div class="lab"><b>弛豫 T<sub>1ρ</sub></b><span class="val" id="vT1">600 ms</span></div>
       <input type="range" id="sT1" min="120" max="2000" step="10" value="600" aria-label="自旋锁定弛豫时间，单位毫秒" />
-      <div class="lab" style="margin-top:2px"><span>120 ms</span><span>2000 ms</span></div>
+      <div class="rng"><span>120</span><span>2000 ms</span></div>
     </div>
 
-    <h2 style="margin-top:16px">④ 化学位移 <span class="bdg b-lit" style="text-transform:none">文献近似</span></h2>
+    <h2>化学位移 δ <span class="hint">原图说：不必精确</span></h2>
     <div id="dsliders"></div>
     <div class="row2" style="margin-top:6px">
-      <button class="btn" id="bResetD">重置为典型值</button>
+      <button class="btn" id="bResetD">还原</button>
       <button class="btn" id="bScramble">打乱位移</button>
     </div>
-    <div class="note" style="font-size:11.5px">打乱之后：峰的位置全变，<b>有峰的格子一个不多一个不少</b>。这就是原图第二条提示的意思。</div>
 
-    <h2 style="margin-top:16px">⑤ 显示</h2>
+    <h2>显示</h2>
     <div class="slid">
-      <div class="lab"><b>弱峰显示阈值</b><span class="val" id="vThr">0.05</span></div>
+      <div class="lab"><b>弱峰阈值</b><span class="val" id="vThr">0.05</span></div>
       <input type="range" id="sThr" min="0.01" max="0.45" step="0.01" value="0.05" aria-label="弱峰显示阈值" />
-      <div class="lab" style="margin-top:2px"><span>0.01（全部画出）</span><span>0.45（只看强峰）</span></div>
+      <div class="rng"><span>0.01（全画）</span><span>0.45（只看强峰）</span></div>
     </div>
-    <label class="row"><input type="checkbox" id="cbMode" /> COSY 对照模式（只连相邻位点）</label>
-    <label class="row"><input type="checkbox" id="cbProj" checked /> 画 F2 / F1 一维投影</label>
-    <label class="row"><input type="checkbox" id="cbLabels" checked /> 峰上标注中继级数</label>
-    <label class="row"><input type="checkbox" id="cbDiag" checked /> 画对角线 (F1 = F2)</label>
-    <label class="row"><input type="checkbox" id="cbEnv" checked /> 转移曲线同时画不含弛豫的 M(τ)（细虚线）</label>
-    <div class="warn" style="font-size:11.5px;margin-top:8px">切换 COSY 对照只是把「只允许相邻相关」这条规则套在同一套数值上，<b>不是真实的 COSY 强度模型</b>（真实 COSY 有相位、有强耦合效应）。</div>
-  </div>
+    <label class="row"><input type="checkbox" id="cbMode" /> COSY 对照（只连相邻）</label>
+    <label class="row"><input type="checkbox" id="cbProj" checked /> 一维投影</label>
+    <label class="row"><input type="checkbox" id="cbLabels" checked /> 峰上标中继级数</label>
+    <label class="row"><input type="checkbox" id="cbDiag" checked /> 对角线</label>
+    <label class="row"><input type="checkbox" id="cbEnv" checked /> 曲线加无弛豫虚线</label>
+    <label class="row"><input type="checkbox" id="cbGroup" checked /> 官能团标注</label>
+  </section>
 
-  <!-- ================= 中栏 ================= -->
-  <div class="card">
-    <h2>正丙醇骨架（方块取色自原图 · 可点击）</h2>
-    <canvas id="cvStruct" class="clickable" aria-label="正丙醇结构式，三个碳原子上有可点击的彩色方块"></canvas>
+  <!-- ==================== 中栏 ==================== -->
+  <section class="col" id="colM">
+    <h2>分子：正丙醇 <span class="hint">点方块选中位点</span></h2>
+    <canvas id="cvStruct" class="clickable" aria-label="正丙醇结构式，四个可点击的氢位点，带官能团标注"></canvas>
     <div class="legend">
-      <span><i style="background:#D70F10"></i>红 = C1 的 –CH₂–（连 –OH）<span class="bdg b-slide">原图</span></span>
+      <span><i style="background:#D70F10"></i>红 = C1 的 –CH₂–<span class="bdg b-slide">原图</span></span>
       <span><i style="background:#EAE41C"></i>黄 = C2 的 –CH₂–<span class="bdg b-slide">原图</span></span>
       <span><i style="background:#209C48"></i>绿 = C3 的 –CH₃<span class="bdg b-slide">原图</span></span>
-      <span><i style="background:#cfd8e3;border-style:dashed"></i>虚线框 = –OH 的氢<span class="bdg b-model">讲解补充</span></span>
+      <span><i style="background:#cfd8e3;border-style:dashed"></i>虚线框 = –OH 的 H<span class="bdg b-model">讲解补充</span></span>
     </div>
 
-    <h2 style="margin-top:16px">选中位点的一维多重峰（Hz 轴，示意）</h2>
-    <canvas id="cvMulti" aria-label="选中位点在赫兹轴上的多重峰示意"></canvas>
-    <div class="legend"><span>用来看清 –OH 的耦合开关如何改变 –CH₂–O 的多重峰：三重峰（1:2:1）↔ 六线（1:2:1 × 1:1）。</span></div>
-
-    <h2 style="margin-top:16px">TOCSY 谱（示意 · 由模型算出，非实测）</h2>
-    <canvas id="cv2d" class="clickable" aria-label="二维 TOCSY 谱示意图，横轴 F2、纵轴 F1，均为化学位移"></canvas>
+    <h2>2D TOCSY 谱 <span class="hint">示意，非实测</span></h2>
+    <canvas id="cv2d" class="clickable" aria-label="二维 TOCSY 谱示意，横轴 F2、纵轴 F1"></canvas>
     <div class="legend">
-      <span><i class="sh" style="background:#8b97a6"></i>对角峰（自我相关，D）</span>
-      <span><i class="sh" style="background:#5fd0a8"></i>直连（隔着 3 根键，1）</span>
-      <span><i class="sh" style="background:#f0a83c"></i>单中继（2）</span>
-      <span><i class="sh" style="background:#a98bf0"></i>双中继（3）</span>
+      <span><i class="sh" style="background:#8b97a6"></i>对角峰 D</span>
+      <span><i class="sh" style="background:#5fd0a8"></i>直连 1（隔 3 键）</span>
+      <span><i class="sh" style="background:#f0a83c"></i>单中继 2</span>
+      <span><i class="sh" style="background:#a98bf0"></i>双中继 3</span>
       <span><i class="sh" style="background:#4d9de0"></i>一维投影</span>
-      <span>峰心数字 = 中继级数</span>
     </div>
-    <div class="legend"><span>横轴 F2：δ 向左增大；纵轴 F1：δ 向下增大（常用 NMR 出图约定）。轴范围 0–4.8 ppm 固定，便于对比。</span></div>
+    <div class="legend"><span>F2 横轴 δ 向左增大，F1 纵轴 δ 向下增大（常用 <span class="term" data-def="NMR 出图惯例：化学位移大的峰画在左边/下方（也有软件相反）。本页统一用这一种，并始终标出坐标方向。|出图约定">NMR 约定</span>），0–4.8 ppm 固定。</span></div>
 
-    <h2 style="margin-top:16px">转移效率随 τ<sub>m</sub> 的演化</h2>
+    <h2>选中位点的一维多重峰 <span class="hint">Hz 轴</span></h2>
+    <canvas id="cvMulti" aria-label="选中位点在赫兹轴上的多重峰示意"></canvas>
+    <div class="legend"><span>看 –OH 的耦合开关怎样把 –CH₂–O 从 <span class="term" data-def="被 2 个等价氢裂分：3 条线，强度 1:2:1。|三重峰 triplet">三重峰</span> 变成 <span class="term" data-def="被 1 个氢和 2 个氢同时裂分：3×2 = 6 条线，强度 1:2:1 × 1:1。|六重峰">六重峰</span>。</span></div>
+
+    <h2>转移效率随 τ<sub>m</sub> 变化</h2>
     <canvas id="cvBuild" aria-label="各对自旋之间转移效率随混合时间变化的曲线"></canvas>
     <div class="legend">
       <span><i class="sh" style="background:#5fd0a8"></i>直连</span>
       <span><i class="sh" style="background:#f0a83c"></i>单中继</span>
       <span><i class="sh" style="background:#a98bf0"></i>双中继</span>
-      <span>竖线 = 当前 τ<sub>m</sub>；圆点 = 当前读数</span>
+      <span>竖线 = 当前 τ<sub>m</sub>，圆点 = 当前读数</span>
       <span>细虚线 = 不含弛豫的 M(τ)</span>
     </div>
-    <div id="builNote" class="info">拖动 τ<sub>m</sub> 滑块看竖线扫过：转移是<b>振荡</b>的，不是单调增长。</div>
-  </div>
+  </section>
 
-  <!-- ================= 右栏 ================= -->
-  <div class="card">
-    <h2>当前选中</h2>
+  <!-- ==================== 右栏 ==================== -->
+  <section class="col" id="colR">
+    <h2>现在选中</h2>
     <div class="big" id="roTitle">—</div>
-    <div style="color:var(--dim);font-size:12px;margin:4px 0 8px" id="roSub">—</div>
-    <div id="roBox" class="selbox"></div>
-    <div id="roExplain" class="info">—</div>
+    <div style="color:var(--dim);font-size:12px;margin:3px 0 7px" id="roSub">—</div>
+    <div class="selbox" id="roBox"></div>
+    <div class="info" id="roExplain">—</div>
 
-    <h2 style="margin-top:14px">位点表</h2>
-    <div class="tblwrap"><table class="read" id="tblSites"><thead><tr><th>位点</th><th class="n">δ / ppm</th><th class="n">¹H</th><th>耦合</th></tr></thead><tbody></tbody></table></div>
+    <h2>分子解剖 <span class="hint">点卡片 = 选中</span></h2>
+    <div class="gcards" id="gcards"></div>
 
-    <h2 style="margin-top:14px">转移矩阵 M<sub>jk</sub>(τ<sub>m</sub>)</h2>
-    <div style="color:var(--dim);font-size:11px;margin:-4px 0 6px">行 = 被观测位点 j，列 = 起始位点 k；数字 = 该位点 z 磁化的分数</div>
+    <h2>转移矩阵 M<sub>jk</sub> <span class="hint">行=观测 j · 列=起始 k</span></h2>
     <table class="grid4" id="tblM"></table>
-    <div class="legend"><span>点任一方格 = 选中该 (j, k) 对</span></div>
+    <div class="legend"><span>数字 = 该位点 z 磁化转移过来的<span class="term" data-def="把某个位点的磁化看成 1，转移后每个位点各占多少。所有位点加起来恒等于 1（磁化不会凭空消失）。|分数">分数</span>；点格子选中该对。</span></div>
 
-    <h2 style="margin-top:14px">峰计数（阈值 <span class="mono" id="roThr">0.05</span>）</h2>
+    <h2>峰计数 <span class="hint">阈值 <span class="mono" id="roThr">0.05</span></span></h2>
     <div class="tblwrap"><table class="read" id="tblCount"><tbody></tbody></table></div>
-
-    <h2 style="margin-top:14px">当前解释</h2>
-    <div id="roWhy" class="gap2">—</div>
-  </div>
+    <div class="gap2" id="roWhy">—</div>
+  </section>
 </div>
 
-<!-- ==================== 下方：结论 → 原图 → 归属表 → 推导 → 误区 → 来源 ==================== -->
-<div class="card" style="margin-top:16px;border-color:var(--acc)">
-<h2>主要结论（先给答案）</h2>
-<div class="two">
-<div>
-<p><b>正丙醇的四个 <sup>1</sup>H 位点在同一条耦合链上</b>：<span class="mono">H–O–CH₂–CH₂–CH₃</span>。沿这条链，任意两个位点之间都隔着 3 的整数倍根键，于是它们属于<b>同一个自旋体系</b>。TOCSY 的混合过程把磁化沿这条链来回搬运，所以每个位点都能"看见"其余所有位点。</p>
-<p>因此答案是一个<b>完整的方格</b>：4 个位点两两相关 = <span class="k">4 个对角峰</span> + <span class="k">C(4,2) = 6 对、共 12 个交叉峰</span> = <b>16 个峰</b>，对称地铺满 4 × 4 = 16 个格子。<span class="bdg b-theory">理论计数</span></p>
-</div>
-<div>
-<p><b>但有一个真实的岔路口：羟基氢。</b>–OH 是化学交换的活泼氢。</p>
-<ul class="tight">
-<li><b>慢交换</b>（干 CDCl₃、DMSO-d₆、低温）：–OH 是自旋体系的一员 → 4 位点 → <b>16 个峰</b>。</li>
-<li><b>快交换</b>（CDCl₃ 含痕量酸/水）：–OH 被去耦，从体系里掉出去 → 3 位点 → 3 个对角 + 3 对交叉 = <b>9 个峰</b>。</li>
-</ul>
-<p class="dm" style="font-size:12px;margin-bottom:0">原图没有给溶剂与温度，所以<b>两个答案都对</b>——关键是说清你假设了哪一种。页面上用左栏勾选框切换。</p>
-</div>
-</div>
-</div>
-
-<div class="card" style="margin-top:14px">
-<h2>原始材料（原样保留）与局部放大</h2>
+<!-- ==================== 折叠参考区 ==================== -->
+<div style="margin-top:14px">
+<details>
+<summary>原始材料：截图原样 + 局部放大</summary>
 <div class="grid g2side">
   <div>
-    <div class="origwrap" id="origwrap"><img id="origimg" src="__SLIDE_SRC__" alt="练习题截图：标题 TOCSY – Practice Problem，两条要求，底部是带红黄绿三个方块的 HO-CH2-CH2-CH3 结构式" /></div>
+    <div class="origwrap" id="origwrap" style="height:340px"><img id="origimg" src="__SLIDE_SRC__" alt="练习题截图：TOCSY – Practice Problem，两条要求，底部是带红黄绿三个方块的 HO-CH2-CH2-CH3 结构式" /></div>
     <div class="row2" style="margin-top:8px">
       <button class="btn" data-zoom="page">整页</button>
       <button class="btn" data-zoom="title">标题区</button>
@@ -305,146 +361,154 @@ a{color:#7fb8e8}
     <div class="legend"><span>在图上按住拖动可平移。</span></div>
   </div>
   <div>
-    <h3>原图里确实存在的（逐像素核对过）</h3>
-    <table class="read"><tbody>
+    <h3>原图里确实有的</h3>
+    <div class="tblwrap"><table class="read"><tbody>
       <tr><td>结构式</td><td class="mono">HO–CH₂–CH₂–CH₃</td></tr>
       <tr><td>三个色块</td><td class="mono">#D70F10 / #EAE41C / #209C48</td></tr>
       <tr><td>色块中心（像素）</td><td class="mono">(794,560) (879,609) (966,563)</td></tr>
-      <tr><td>色块边长</td><td class="mono">≈ 48–53 px（方块，非峰形）</td></tr>
-      <tr><td>文字</td><td class="mono">2 条 bullet + 标题</td></tr>
-      <tr><td>幻灯片底色</td><td class="mono">#F8EED8</td></tr>
-    </tbody></table>
-    <div class="warn"><b>原图里不存在的</b>（因此本页不能"读"出来，只能建模）：谱图本身、任何化学位移、任何耦合常数、溶剂、温度、谱仪频率、混合时间、峰强度、相位、噪声。本页凡涉及这些，都标了 <span class="bdg b-lit">文献近似</span> 或 <span class="bdg b-model">演示模型</span>。</div>
-    <div class="info" style="font-size:11.5px">色块的形状是<b>正方形</b>，不是等高线峰形——它只是幻灯片作者用来标记三个碳位置的高亮块，<b>不编码任何强度或位移信息</b>。这是本题最容易过度解读的地方。</div>
+      <tr><td>色块形状</td><td class="mono">正方形，边长 ≈ 48–53 px</td></tr>
+      <tr><td>文字</td><td class="mono">标题 + 2 条 bullet</td></tr>
+      <tr><td>底色</td><td class="mono">#F8EED8</td></tr>
+    </tbody></table></div>
+    <div class="warn"><b>原图里没有的</b>：谱图本身、化学位移、耦合常数、溶剂、温度、谱仪频率、混合时间、峰强、相位、噪声。凡涉及这些，本页都标了 <span class="bdg b-lit">文献近似</span> 或 <span class="bdg b-model">演示模型</span>。</div>
+    <div class="info">三个色块是<b>正方形</b>，不是等高线峰形——它们只是幻灯片作者用来标三个碳位置的记号，<b>不编码强度或位移</b>。这是这题最容易被过度解读的地方。</div>
   </div>
 </div>
-</div>
+</details>
 
-<div class="card" style="margin-top:14px">
-<h2>完整归属表（所有峰对，随滑块实时更新）</h2>
+<details>
+<summary>完整归属表：所有峰对（随滑块实时更新）</summary>
 <div class="tblwrap"><table class="read" id="tblAll"><thead><tr>
-<th>#</th><th>类型</th><th>起始 k</th><th>观测 j</th><th class="n">δ(F2)</th><th class="n">δ(F1)</th><th class="n">中继</th><th class="n">M<sub>jk</sub></th><th class="n">强度 I</th><th>状态</th><th>来源</th>
+<th>#</th><th>类型</th><th>起始 k</th><th>观测 j</th><th class="n">δ(F2)/ppm</th><th class="n">δ(F1)/ppm</th><th class="n">中继级数</th><th class="n">M<sub>jk</sub></th><th class="n">强度 I</th><th>状态</th><th>来源</th>
 </tr></thead><tbody></tbody></table></div>
-<div class="legend">
-<span>M<sub>jk</sub> = 未经弛豫的转移分数；I = M<sub>jk</sub> · e<sup>−τ<sub>m</sub>/T<sub>1ρ</sub></sup>（模型强度）；"状态"按阈值判定"可见 / 弱 / 未画出"。</span>
-</div>
-</div>
+<div class="legend"><span>M<sub>jk</sub> = 不含弛豫的转移分数；I = M<sub>jk</sub>·e<sup>−τ<sub>m</sub>/T<sub>1ρ</sub></sup> = 模型强度；「状态」按阈值判定。</span></div>
+</details>
 
-<div class="card" style="margin-top:14px">
-<h2>分步推理与数值核对</h2>
+<details>
+<summary>术语与官能团速查（每个词一句话 + 一张图）</summary>
+<div class="grid g2even">
+<div>
+<h3>官能团 / 氢位点</h3>
+<div class="tblwrap"><table class="read"><thead><tr><th>名称</th><th>这是什么</th></tr></thead><tbody>
+<tr><td><span class="chip" style="background:#cfd8e3"></span><b>羟基 –OH</b><br><span class="dm">hydroxyl</span></td><td>氧上挂的一个氢。<b>活泼氢</b>：会与其他分子的 –OH 交换，交换快时在谱里被"抹掉"。</td></tr>
+<tr><td><span class="chip" style="background:#D70F10"></span><b>亚甲基 –CH₂–</b><br><span class="dm">methylene</span></td><td>一个碳上挂 2 个氢。本分子里有两个：连氧的 C1、中间的 C2，它们的 δ 差很多。</td></tr>
+<tr><td><span class="chip" style="background:#209C48"></span><b>甲基 –CH₃</b><br><span class="dm">methyl</span></td><td>一个碳上挂 3 个氢，是最右（δ 最小）的峰。</td></tr>
+<tr><td><b>烷基链</b><br><span class="dm">alkyl chain</span></td><td>–CH₂– 首尾相接形成的链。正丙醇就是 3 个碳的一条直链 + 一个 –OH。</td></tr>
+</tbody></table></div>
+</div>
+<div>
+<h3>谱学名词</h3>
+<div class="tblwrap"><table class="read"><thead><tr><th>词</th><th>一句话</th></tr></thead><tbody>
+<tr><td>TOCSY</td><td>全相关谱。<b>同一个自旋体系内</b>的氢两两出交叉峰，不管隔几根键。</td></tr>
+<tr><td>COSY</td><td>只连<b>相邻</b>（隔 3 根键）的氢。所以 COSY 峰是 TOCSY 峰的<b>子集</b>。</td></tr>
+<tr><td>自旋体系</td><td>由标量耦合连成一片的一组氢。链上任意两点连通 ⇒ 只有一个体系。</td></tr>
+<tr><td>化学位移 δ</td><td>峰在谱图横轴上的位置，单位 ppm。只决定峰画在哪，不决定谁和谁相关。</td></tr>
+<tr><td>耦合常数 J</td><td>两个氢之间相互作用强弱，单位 Hz。J 越大，磁化来回搬运越快。</td></tr>
+<tr><td>混合时间 τ<sub>m</sub></td><td>自旋锁定持续多久。转移是 sin² 型<b>振荡</b>，不是越长越强。</td></tr>
+<tr><td>各向同性混合</td><td>理想 TOCSY 的等效模型：三个方向（x/y/z）的耦合同时起作用，磁化才能"接力"传下去。</td></tr>
+<tr><td>对角峰</td><td>(δ, δ) 上的峰，自己和自己。只证明这个氢存在，不给连接信息。</td></tr>
+<tr><td>交叉峰</td><td>不在对角线上的峰。关于对角线成对出现，是本页的主角。</td></tr>
+<tr><td>中继</td><td>磁化不在相邻位点间直接传，而是走 C1→C2→C3 这种多跳路线。</td></tr>
+<tr><td>多重峰</td><td>一个位点被邻居的氢裂分成好几条线，形状反映<b>邻居有几个氢</b>。</td></tr>
+<tr><td>弛豫 T<sub>1ρ</sub></td><td>自旋锁定期间信号自然衰减的时间常数。τ<sub>m</sub> 太长，峰会被它拖低。</td></tr>
+</tbody></table></div>
+</div>
+</div>
+</details>
+
+<details>
+<summary>推导与数值核对（想深挖再看）</summary>
 <div class="two">
 <div>
-<h3>第 1 步 · 谁在自旋体系里</h3>
-<p>把每个化学等价的氢团当成一个"分组自旋"（磁等价近似）：</p>
-<table class="read"><thead><tr><th>位点</th><th>碳</th><th class="n">¹H 数</th><th>相邻耦合对象</th></tr></thead><tbody>
-<tr><td>–OH</td><td>O 上</td><td class="n">1</td><td>C1 的 –CH₂–</td></tr>
-<tr><td>C1 –CH₂–</td><td>C1</td><td class="n">2</td><td>–OH、C2 的 –CH₂–</td></tr>
-<tr><td>C2 –CH₂–</td><td>C2</td><td class="n">2</td><td>C1、C3</td></tr>
-<tr><td>C3 –CH₃</td><td>C3</td><td class="n">3</td><td>C2</td></tr>
-</tbody></table>
-<p>4 个位点、3 条耦合边，构成一条<b>链</b>（不是两支、不是环）。链上任两点都连通 ⇒ 只有一个自旋体系。这就是"每个位点都能看见其他所有位点"的结构原因。</p>
-<div class="note" style="font-size:12px">C1 与 C3 之间没有直接的 <sup>3</sup>J，但它们仍然出交叉峰——磁化走 C1→C2→C3 两跳。TOCSY 与 COSY 的区别正在这里。</div>
-
-<h3>第 2 步 · 转移效率怎么算</h3>
-<p>理想 TOCSY 的自旋锁定相当于各向同性混合，哈密顿量（角频率单位）：</p>
+<h3>1 · 转移效率怎么算</h3>
+<p>理想 TOCSY 的自旋锁定等价于各向同性混合，哈密顿量（角频率单位）：</p>
 <div class="eq katex-display-eq">H = 2\pi \sum_{i&lt;j} J_{ij}\left(\hat I_{ix}\hat I_{jx} + \hat I_{iy}\hat I_{jy} + \hat I_{iz}\hat I_{jz}\right)</div>
-<p>演化算符 <span class="katex-inline">U(\tau_m) = e^{-\mathrm{i}H\tau_m}</span>。从位点 k 出发、在位点 j 上看到的 z 磁化分数：</p>
-<div class="eq katex-display-eq">M_{jk}(\tau_m) = \frac{\operatorname{Tr}\bigl[\hat I_{jz}\,U\,\hat I_{kz}\,U^{\dagger}\bigr]}{\operatorname{Tr}\bigl[\hat I_{kz}^{2}\bigr]} = \frac{1}{2^{N-2}}\sum_{a,b} \zeta_j(a)\,\zeta_k(b)\,\bigl|U_{ab}\bigr|^{2},\qquad \zeta_j(a)=\pm\tfrac12</div>
+<p>演化算符 <span class="katex-inline">U(\tau_m) = e^{-\mathrm{i}H\tau_m}</span>；从位点 k 出发、在位点 j 上看到的 z 磁化分数：</p>
+<div class="eq katex-display-eq">M_{jk}(\tau_m) = \frac{\operatorname{Tr}\bigl[\hat I_{jz}\,U\,\hat I_{kz}\,U^{\dagger}\bigr]}{\operatorname{Tr}\bigl[\hat I_{kz}^{2}\bigr]} = \frac{1}{2^{N-2}}\sum_{a,b} \zeta_j(a)\,\zeta_k(b)\,\bigl|U_{ab}\bigr|^{2}</div>
 <p>本页对这个 4 自旋（16 维）体系<b>精确对角化</b>后逐点求和，不做微扰、不做截断。</p>
 </div>
-
 <div>
-<h3>第 3 步 · 两个必须成立的核对</h3>
-<p><b>(a) 磁化守恒</b>：因为 <span class="katex-inline">[\sum_k \hat I_{kz}, H]=0</span>，</p>
+<h3>2 · 两个必须成立的关系</h3>
+<p><b>(a) 磁化守恒</b>：<span class="katex-inline">[\sum_k \hat I_{kz}, H]=0</span> ⇒</p>
 <div class="eq katex-display-eq">\sum_{j} M_{jk}(\tau_m) = 1 \quad \text{对一切 } \tau_m</div>
-<p><b>(b) 矩阵对称</b>：<span class="katex-inline">H</span> 在乘积基下是实对称矩阵，故 <span class="katex-inline">U</span> 复对称（<span class="katex-inline">U^{T}=U</span>），于是</p>
-<div class="eq katex-display-eq">M_{jk} = \frac{1}{2^{N-2}}\sum_{a,b}\zeta_j(a)\zeta_k(b)\,|U_{ab}|^{2} = M_{kj}</div>
-<p>这一条<b>直接解释了 2D 谱为什么关于对角线镜像对称</b>——不是画图习惯，是哈密顿量的性质。</p>
-
-<h3>第 4 步 · 两自旋闭式解（用来校准代码）</h3>
+<p><b>(b) 矩阵对称</b>：<span class="katex-inline">H</span> 实对称 ⇒ <span class="katex-inline">U</span> 复对称 ⇒</p>
+<div class="eq katex-display-eq">M_{jk} = M_{kj}</div>
+<p>这一条正是 <b>2D 谱关于对角线镜像对称</b> 的原因——不是画图习惯。</p>
+<h3>3 · 两自旋闭式解（校准代码用）</h3>
 <div class="eq katex-display-eq">M_{12}(\tau_m)=\sin^{2}\!\bigl(\pi J \tau_m\bigr),\qquad \max = 1 \text{ 在 } \tau_m=\frac{1}{2J}</div>
-<p>J = 7.0 Hz 时极值在 <span class="mono">τ<sub>m</sub> = 71.43 ms</span>。数值对角化给出 <span class="mono">71.45 ms、峰值 0.99999978</span>，与闭式解的最大偏差 <span class="mono">8.9 × 10<sup>−16</sup></span>。<span class="bdg b-calc">计算</span></p>
-<div class="info" style="font-size:12px">这三个数就是本页的"标尺"：守恒偏差、对称性偏差、闭式解偏差都必须落在机器精度（≈10<sup>−15</sup>）附近，否则模型写错了。</div>
+<p>J = 7.0 Hz ⇒ τ<sub>m</sub> = 71.43 ms。数值对角化给出 71.45 ms、峰值 0.99999978（偏差 8.9×10<sup>-16</sup>）。</p>
+<h3>4 · 计数</h3>
+<div class="eq katex-display-eq">n=4:\; 4 + \tfrac{4\cdot 3}{2} = 10 \text{ 个独立峰},\;\; 4^{2} = 16 \text{ 个方块}</div>
+<div class="eq katex-display-eq">n=3:\; 3 + \tfrac{3\cdot 2}{2} = 6 \text{ 个独立峰},\;\; 3^{2} = 9 \text{ 个方块}</div>
+</div>
+</div>
+</details>
 
-<h3>第 5 步 · 计数核对</h3>
-<p>n 个位点 ⇒ 对角 n 个，交叉峰 <span class="katex-inline">\binom{n}{2}</span> 对（画在图上是对称的 2 倍，即 <span class="katex-inline">n(n-1)</span> 个方块）。</p>
-<div class="eq katex-display-eq">n=4:\; 4 + \tfrac{4\cdot 3}{2} = 4+6 = 10 \text{ 个独立峰},\;\; 4\times4 = 16 \text{ 个方块}</div>
-<div class="eq katex-display-eq">n=3:\; 3 + \tfrac{3\cdot 2}{2} = 3+3 = 6 \text{ 个独立峰},\;\; 3\times3 = 9 \text{ 个方块}</div>
-<p>τ<sub>m</sub> = 80 ms、阈值 0.05 时，本页模拟给出 16/16 个方块全部可见（最小强度 0.0679 ≈ 阈值的 1.36 倍），与计数一致。τ<sub>m</sub> = 25 ms 时只剩 10/16，弱峰确实小到看不见。</p>
-</div>
-</div>
-</div>
-
-<div class="card" style="margin-top:14px">
-<h2>常见误区</h2>
+<details>
+<summary>常见误区（8 条）</summary>
 <div class="two">
 <div>
-<div class="warn"><b>误区 1 · 把 TOCSY 当 COSY 画。</b>只画相邻位点的峰（–OH↔C1、C1↔C2、C2↔C3），漏掉 C1↔C3、–OH↔C2、–OH↔C3。<br><b>纠正</b>：TOCSY 搬运磁化可以连跳，<b>整个自旋体系内部两两都有峰</b>。这一条是本题的考点。</div>
-<div class="warn"><b>误区 2 · 忘了对角线峰。</b>对角线 (δ, δ) 上的 4 个峰是真实存在的峰。<br><b>纠正</b>：完整的图是 <b>4×4 的满格</b>，不是只有 6 对交叉峰。</div>
-<div class="warn"><b>误区 3 · 认为 –OH 一定出峰。</b>–OH 是活泼氢，交换速率决定它是否留在自旋体系里。<br><b>纠正</b>：报答案时必须写明溶剂/温度假设。原图没给，所以两种答案都要能说。</div>
-<div class="warn"><b>误区 4 · 认为 τ<sub>m</sub> 越长峰越强。</b>转移是 sin² 型<b>振荡</b>；τ<sub>m</sub> 过长还会被 T<sub>1ρ</sub> 弛豫和 ROE 拖低。<br><b>纠正</b>：看中栏第三条曲线的竖线扫过过程。</div>
+<div class="warn"><b>1 · 把 TOCSY 当 COSY 画。</b>只画相邻位点，漏掉 C1↔C3、–OH↔C2、–OH↔C3。TOCSY 的磁化能连跳，体系内两两都有峰。</div>
+<div class="warn"><b>2 · 忘了对角线峰。</b>完整的是 4×4 满格 16 个，不是只有 6 对交叉峰。</div>
+<div class="warn"><b>3 · 以为 –OH 一定出峰。</b>它是活泼氢，交换速率决定它留不留在体系里；报答案要写明溶剂假设。</div>
+<div class="warn"><b>4 · 以为 τ<sub>m</sub> 越长峰越强。</b>转移是 sin² 型振荡，过长还会被 T<sub>1ρ</sub> 和 ROE 拖低。</div>
 </div>
 <div>
-<div class="warn"><b>误区 5 · 把原图的彩色方块当成峰。</b>那些方块是<b>正方形</b>，等大、等间距、无强度信息，只是幻灯片作者标记三个碳的位置。<br><b>纠正</b>：它们对应"位点"，不对应"峰"；尤其不能读出任何 δ 值。</div>
-<div class="warn"><b>误区 6 · 以为 TOCSY 给空间距离。</b>TOCSY 的相关靠<b>标量耦合（化学键）</b>传递；给空间接近信息的是 NOESY / ROESY。<br><b>纠正</b>：C1 与 C3 在空间上并不特别接近，靠的是三根键的链。</div>
-<div class="warn"><b>误区 7 · 只画一半。</b>有人只画对角线上方的峰"因为对称"。<br><b>纠正</b>：谱图是<b>全平面</b>采集的，(δ<sub>a</sub>,δ<sub>b</sub>) 与 (δ<sub>b</sub>,δ<sub>a</sub>) 都在图上，两个都要画。</div>
-<div class="warn"><b>误区 8 · 认为 2D 谱的颜色/色块深度有定量含义。</b>本页峰的大小按模型强度画，但真实谱图的等高线层数、相位、噪声都会影响观感。<br><b>纠正</b>：定量要靠积分/截面，不能靠"看起来深"。</div>
+<div class="warn"><b>5 · 把原图的彩色方块当峰。</b>它们是等大正方形、无强度信息，只标碳的位置；尤其读不出 δ。</div>
+<div class="warn"><b>6 · 以为 TOCSY 给空间距离。</b>它靠标量耦合（化学键）传递；给空间接近信息的是 NOESY / ROESY。</div>
+<div class="warn"><b>7 · 只画一半。</b>谱是全平面采集的，(δ<sub>a</sub>,δ<sub>b</sub>) 与 (δ<sub>b</sub>,δ<sub>a</sub>) 都在图上。</div>
+<div class="warn"><b>8 · 以为颜色深浅有定量含义。</b>定量要靠积分或截面，不能靠"看起来深"。</div>
 </div>
 </div>
-</div>
+</details>
 
-<div class="card" style="margin-top:14px">
-<h2>来源与限制</h2>
+<details>
+<summary>来源与限制 + 页面自检</summary>
 <div class="two">
 <div>
 <h3>每个数字的出处</h3>
 <div class="tblwrap"><table class="read"><thead><tr><th>量</th><th>取值</th><th>来源</th></tr></thead><tbody>
-<tr><td>结构式</td><td class="mono">HO–CH₂–CH₂–CH₃</td><td><span class="bdg b-slide">原图</span></td></tr>
-<tr><td>三个色块颜色/位置</td><td class="mono">#D70F10/#EAE41C/#209C48</td><td><span class="bdg b-slide">原图</span></td></tr>
-<tr><td>题目要求</td><td>画出 TOCSY 谱；位移不必精确</td><td><span class="bdg b-slide">原图</span></td></tr>
-<tr><td>δ(CH₃) = 0.93 ppm</td><td>近似</td><td><span class="bdg b-lit">文献近似</span></td></tr>
-<tr><td>δ(C2 –CH₂–) = 1.56 ppm</td><td>近似</td><td><span class="bdg b-lit">文献近似</span></td></tr>
-<tr><td>δ(C1 –CH₂–O) = 3.57 ppm</td><td>近似</td><td><span class="bdg b-lit">文献近似</span></td></tr>
-<tr><td>δ(–OH) = 2.20 ppm</td><td><b>极不确定</b>（0.5–5 ppm 随浓度/溶剂/温度漂移）</td><td><span class="bdg b-lit">文献近似</span></td></tr>
-<tr><td>J(C1,C2) = 6.6 Hz</td><td>近似</td><td><span class="bdg b-lit">文献近似</span></td></tr>
-<tr><td>J(C2,C3) = 7.4 Hz</td><td>近似</td><td><span class="bdg b-lit">文献近似</span></td></tr>
-<tr><td>J(–OH,C1) = 5.2 Hz</td><td>近似（DMSO-d₆ 中可观测；CDCl₃ 中常观测不到）</td><td><span class="bdg b-lit">文献近似</span></td></tr>
-<tr><td>T<sub>1ρ</sub> = 600 ms</td><td>为演示选定</td><td><span class="bdg b-model">演示模型</span></td></tr>
-<tr><td>谐振频率 400 MHz</td><td>为 1D 投影的 Hz↔ppm 换算选定</td><td><span class="bdg b-model">演示模型</span></td></tr>
-<tr><td>峰数 16 / 9</td><td>组合计数</td><td><span class="bdg b-theory">理论计数</span></td></tr>
+<tr><td>结构式 HO–CH₂–CH₂–CH₃</td><td>—</td><td><span class="bdg b-slide">原图</span></td></tr>
+<tr><td>三个色块颜色 / 位置</td><td class="mono">#D70F10 #EAE41C #209C48</td><td><span class="bdg b-slide">原图</span></td></tr>
+<tr><td>δ(CH₃ / C2H₂ / C1H₂)</td><td class="mono">0.93 / 1.56 / 3.57 ppm</td><td><span class="bdg b-lit">文献近似</span></td></tr>
+<tr><td>δ(–OH)</td><td class="mono">2.20 ppm（极不确定）</td><td><span class="bdg b-lit">文献近似</span></td></tr>
+<tr><td>J(C1,C2) / J(C2,C3) / J(OH,C1)</td><td class="mono">6.6 / 7.4 / 5.2 Hz</td><td><span class="bdg b-lit">文献近似</span></td></tr>
+<tr><td>T<sub>1ρ</sub> = 600 ms、400 MHz</td><td>—</td><td><span class="bdg b-model">演示模型</span></td></tr>
+<tr><td>峰数 16 / 9</td><td>—</td><td><span class="bdg b-theory">理论计数</span></td></tr>
 <tr><td>转移矩阵 M<sub>jk</sub></td><td>16 维精确对角化</td><td><span class="bdg b-calc">计算</span></td></tr>
 </tbody></table></div>
+<h3>模型假设</h3>
+<ul class="tight">
+<li><b>分组自旋</b>：–CH₃ 的 3 个氢、–CH₂– 的 2 个氢按磁等价当成一个自旋 ½（分子内旋转快、无手性中心时是标准做法），忽略同碳氢的偕偶与磁不等价。</li>
+<li><b>理想各向同性混合</b>：假设自旋锁定完全抵消化学位移偏置、射频场完全均匀。</li>
+<li><b>只算 z 磁化的在位分数</b>：真实交叉峰有反相分量、TOE 伪峰与色散分量，本页不做相位建模。</li>
+<li><b>弛豫</b>用一个唯象因子 e<sup>−τ/T<sub>1ρ</sub></sup>；<b>忽略</b> NOE/ROE 通路。</li>
+<li><b>1D 投影</b>用一阶多重峰 + 洛伦兹线型（FWHM 1.5 Hz）合成，示意。</li>
+</ul>
+<h3>做不到的</h3>
+<ul class="tight">
+<li>原图没有谱图、没有 FID、没有参数表 ⇒ <b>不存在可以恢复的实测曲线</b>。</li>
+<li>δ 与 J 随溶剂/浓度/温度漂移 ±0.05 ppm / ±0.5 Hz；页面 ppm 读到 0.01 只是滑块连续，<b>那个小数位没有实验意义</b>。</li>
+<li>–OH 的行为必须由溶剂与温度决定，原图没给。</li>
+</ul>
 </div>
 <div>
-<h3>模型假设（都做了简化）</h3>
-<ul class="tight">
-<li><b>分组自旋近似</b>：–CH₃ 的 3 个氢、–CH₂– 的 2 个氢按磁等价当成一个自旋 ½。分子内旋转快、无手性中心时这是标准做法，但忽略了同碳氢之间的偕偶（<sup>2</sup>J ≈ −12 Hz）与碳上氢的磁不等价。</li>
-<li><b>理想各向同性混合</b>：假设自旋锁定完全抵消化学位移偏置、射频场完全均匀。真实 TOCSY 里 ω<sub>1</sub> 失配会显著压低转移效率。</li>
-<li><b>只算 z 磁化的在位分数</b>：真实交叉峰的多重峰有反相分量、TOE（TOCSY echo）伪峰与色散分量，本页不做相位建模。</li>
-<li><b>弛豫用一个唯象因子</b> e<sup>−τ<sub>m</sub>/T<sub>1ρ</sub></sup>，同时乘在对角峰与交叉峰上；真实弛豫是复杂多指数过程，还会产生交叉弛豫。</li>
-<li><b>忽略 NOE/ROE 通路</b>与溶剂峰、水峰压制伪影。</li>
-<li><b>一维投影</b>用一阶多重峰（二项式强度）+ 洛伦兹线型合成，<b>示意</b>，忽略二阶效应、线宽差异与数字分辨率。</li>
-</ul>
-<h3>本页做不到的</h3>
-<ul class="tight">
-<li>无法给出真实实验谱。原材料里没有谱图、没有 FID、没有参数表，<b>不存在可以恢复的实测曲线</b>。</li>
-<li>无法确定 –OH 在题目设定条件下的行为——必须由溶剂与温度决定。</li>
-<li>δ 与 J 的"文献近似"值随条件漂移 ±0.05 ppm / ±0.5 Hz 量级；本页的 ppm 读数只到 0.01 ppm，<b>那个小数位没有实验意义</b>，只是为了滑块连续可调。</li>
-</ul>
-</div>
-</div>
-</div>
-
-<div class="card" style="margin-top:14px">
-<h2>页面自检（每次加载自动运行）</h2>
+<h3>页面自检（每次加载自动跑）</h3>
 <div id="selftestBox">—</div>
-<details><summary>显示原始 JSON（供脚本核对）</summary><div><pre class="mono" id="selftestRaw" style="font-size:11px;white-space:pre-wrap;margin:0;color:var(--dim)">—</pre></div></details>
+<details style="margin-top:8px"><summary>原始 JSON</summary><div><pre class="mono" id="selftestRaw" style="font-size:11px;white-space:pre-wrap;margin:0;color:var(--dim)">—</pre></div></details>
+<h3>验收记录</h3>
+<div class="tblwrap"><table class="read"><tbody>
+<tr><td>零外部加载</td><td class="k">通过（图/字体/KaTeX 全内联）</td></tr>
+<tr><td>数值内核自检</td><td class="k">全部不变量 ≤ 1e-15</td></tr>
+<tr><td>交互回归测试</td><td class="k">全部通过</td></tr>
+<tr><td>桌面 / 手机版式</td><td class="k">无溢出、无裁切</td></tr>
+</tbody></table></div>
+</div>
+</div>
+</details>
 </div>
 
-<div class="foot">
-<b>怎么用这一页：</b>左栏选位点、拖 τ<sub>m</sub>；中栏三张图（骨架 / 2D 谱 / 转移曲线）与右栏读数同步；下方归属表列出全部峰对，随参数实时变化。
-本页为教学示意，<b>不是实验数据</b>；所有模型外推都已在"来源与限制"里列明。
-</div>
+<div class="foot">左栏改参数 → 中栏立刻变；每一步的问题都在左栏顶部。本页是教学示意，<b>不是实验数据</b>。</div>
 </div>
 <script id="core">
 /* ============================================================================
@@ -749,6 +813,13 @@ var SITES = [
   { key: "C3H3", name: "C3 –CH₃",   cn: "甲基",            nH: 3, color: "#209C48", dashed: false, inSlide: true  }
 ];
 var DEF_D = [2.20, 3.57, 1.56, 0.93];
+/* 官能团中文名（原图的色块只标了碳，名字是讲解补充） */
+var GROUP = [
+  { cn: "羟基",   en: "hydroxyl",  f: "–OH"   },
+  { cn: "亚甲基", en: "methylene", f: "–CH₂–" },
+  { cn: "亚甲基", en: "methylene", f: "–CH₂–" },
+  { cn: "甲基",   en: "methyl",    f: "–CH₃"  }
+];
 var ORDC = ["#8b97a6", "#5fd0a8", "#f0a83c", "#a98bf0"];
 var ORDN = ["对角（自己）", "直连（隔 3 根键）", "单中继（2 跳）", "双中继（3 跳）"];
 var ORDS = ["D", "1", "2", "3"];
@@ -757,7 +828,7 @@ var PPM_MIN = 0, PPM_MAX = 4.8, FIELD = 400, TMAX = 180;
 var ST = {
   sel: 1, pair: null, tau: 80, includeOH: true,
   JOH: 5.2, J12: 6.6, J23: 7.4, T1: 600, thr: 0.05,
-  cosy: false, showProj: true, showLab: true, showDiag: true, showEnv: true,
+  cosy: false, showProj: true, showLab: true, showDiag: true, showEnv: true, showGroup: true,
   delta: DEF_D.slice(), zoom: { s: 1, x: 0, y: 0 }
 };
 
@@ -778,10 +849,14 @@ function curEig() {
   }
   return EIG;
 }
+/* 注意：缓存键必须**先**调用 curEig() 再拼。
+   否则改的是耦合配置（如勾选/取消 –OH）而 τ 没变时，EIGKEY 还是旧值，
+   键会与上一次的缓存撞上，于是拿到"旧自旋体系的矩阵"——图形会静默出错。 */
 var MCACHE = null, MCACHEKEY = "";
 function curM() {
+  var e = curEig();
   var key = EIGKEY + "|" + ST.tau;
-  if (!MCACHE || MCACHEKEY !== key) { MCACHE = N.transferMat(curEig(), ST.tau / 1000); MCACHEKEY = key; }
+  if (!MCACHE || MCACHEKEY !== key) { MCACHE = N.transferMat(e, ST.tau / 1000); MCACHEKEY = key; }
   return MCACHE;
 }
 function activeIdx() { return ST.includeOH ? [0, 1, 2, 3] : [1, 2, 3]; }
@@ -900,10 +975,19 @@ function drawStruct() {
       txt(g, String(s.nH) + "H", p.x, p.y + 1, dark ? "#1b222c" : "#ffffff",
           "700 " + Math.round(sq * 0.40) + "px " + MONO, "center", "middle");
     }
-    /* 标签：两行，方块正下方，避免与底部 J 条带重叠 */
+    /* 官能团框（把这一组原子圈出来） */
+    if (ST.showGroup) {
+      g.setLineDash([3, 3]); g.lineWidth = 1.4;
+      g.strokeStyle = rgba(s.color === "#EAE41C" ? "#e8e05a" : s.color, sel ? 0.95 : 0.45);
+      g.strokeRect(p.x - h - 5, p.y - h - 5, sq + 10, sq + 10);
+      g.setLineDash([]);
+    }
+    /* 标签：中文官能团名 + 氢数/位移 */
     var ly = p.y + h + 15;
-    txt(g, s.name, p.x, ly, sel ? "#ffffff" : "#c3ccd8", (sel ? "600 " : "") + "11px " + SANS, "center");
-    txt(g, "δ " + fmt(ST.delta[i], 2), p.x, ly + 13, sel ? "#5fd0a8" : "#6d7987", "10px " + MONO, "center");
+    txt(g, GROUP[i].cn + " " + GROUP[i].f, p.x, ly, sel ? "#ffffff" : "#c3ccd8",
+        (sel ? "600 " : "") + "11px " + SANS, "center");
+    txt(g, s.nH + "H · δ " + fmt(ST.delta[i], 2) + " ppm", p.x, ly + 13,
+        sel ? "#5fd0a8" : "#6d7987", "10px " + MONO, "center");
   }
 
   /* 耦合常数标注 */
@@ -1211,6 +1295,7 @@ function drawBuild() {
 /* ---------------- 曲线缓存（按耦合配置 + T1 缓存，拖动滑块时不重算） ---------------- */
 var CUR = null, CURKEY = "";
 function curves() {
+  var eig0 = curEig();                       /* 先刷新 EIGKEY，再拼缓存键（同上） */
   var key = EIGKEY + "|" + ST.T1;
   if (CUR && CURKEY === key) return CUR;
   var act = activeIdx(), pr = [], a, b, p;
@@ -1302,6 +1387,274 @@ function whyText() {
   return h.join("");
 }
 
+/* ================= 新增：官能团卡 / 术语气泡 / 步骤引导 / 工作台高度 ================= */
+
+/* 相邻位点之间的耦合常数 */
+function JC(i, m) {
+  var a = Math.min(i, m), b = Math.max(i, m);
+  if (b - a !== 1) return 0;
+  return a === 0 ? ST.JOH : (a === 1 ? ST.J12 : ST.J23);
+}
+
+/* 官能团小图：显式画出该基团上的每一个氢 + 与邻居的键 */
+function groupSVG(i) {
+  var bond = "#7d8a99", atom = "#dde5ef", dim = "#5c6874";
+  var A = '<svg viewBox="0 0 132 84" role="img" aria-label="官能团结构示意">';
+  function ln(x1, y1, x2, y2, dash) {
+    return '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 +
+           '" stroke="' + bond + '" stroke-width="2" stroke-linecap="round"' +
+           (dash ? ' stroke-dasharray="4 4"' : '') + '/>';
+  }
+  function tx(x, y, t, col, sz, anc) {
+    return '<text x="' + x + '" y="' + y + '" fill="' + (col || atom) + '" font-size="' + (sz || 13) +
+           '" font-family="ui-monospace,Menlo,monospace" text-anchor="' + (anc || 'middle') + '">' + t + '</text>';
+  }
+  if (i === 0) {                                   /* 羟基 –OH */
+    A += ln(8, 44, 34, 44, 1) + tx(10, 34, "C1", dim, 10, "start");
+    A += '<circle cx="48" cy="44" r="12" fill="none" stroke="' + atom + '" stroke-width="1.6"/>' + tx(48, 49, "O");
+    A += ln(60, 44, 88, 44);
+    A += '<rect x="88" y="32" width="26" height="24" fill="none" stroke="#cfd8e3" stroke-width="1.6" stroke-dasharray="4 3"/>' + tx(101, 49, "H");
+    A += tx(66, 74, "1 个氢（活泼氢）", dim, 10);
+  } else if (i === 3) {                            /* 甲基 –CH3 */
+    A += ln(10, 44, 42, 44, 1) + tx(12, 34, "C2", dim, 10, "start");
+    A += ln(54, 36, 54, 16) + tx(54, 12, "H", atom, 12);
+    A += ln(54, 52, 54, 72) + tx(54, 80, "H", atom, 12);
+    A += ln(62, 44, 88, 44) + tx(98, 49, "H", atom, 12);
+    A += tx(66, 34, "C", dim, 12);
+  } else {                                         /* 亚甲基 –CH2– */
+    A += ln(10, 44, 38, 44, 1) + tx(12, 34, i === 1 ? "O" : "C1", dim, 10, "start");
+    A += ln(58, 44, 86, 44, 1) + tx(88, 34, i === 1 ? "C2" : "C3", dim, 10, "start");
+    A += ln(48, 36, 48, 16) + tx(48, 12, "H", atom, 12);
+    A += ln(48, 52, 48, 72) + tx(48, 80, "H", atom, 12);
+    A += tx(48, 49, "C", dim, 12);
+  }
+  return A + "</svg>";
+}
+
+function renderGCards() {
+  var box = $id("gcards"); if (!box) return;
+  var h = "";
+  for (var i = 0; i < 4; i++) {
+    var s = SITES[i], act = isActive(i);
+    var sel = (ST.sel === i) || (ST.pair && (ST.pair[0] === i || ST.pair[1] === i));
+    var cop = siteCouplings(i), lines = N.multipletLines(cop);
+    var mname = lines.length === 1 ? "单峰" : (lines.length === 3 ? "三重峰" : (lines.length === 6 ? "六重峰" : lines.length + " 重峰"));
+    var ps = [];
+    for (var m = 0; m < 4; m++) if (m !== i && isActive(m)) {
+      var Jv = JC(i, m);
+      if (Jv) ps.push(SITES[m].name + " · J=" + fmt(Jv, 1) + " Hz");
+    }
+    h += "<div class='gcard" + (sel ? " sel" : "") + "' data-gs='" + i + "'" +
+         (act ? "" : " style='opacity:.45'") + " role='button' tabindex='0'>" +
+         "<h4><i style='background:" + s.color + "'></i>" + GROUP[i].cn + " " + GROUP[i].f +
+         " <span class='en'>" + GROUP[i].en + "</span></h4>" +
+         groupSVG(i) +
+         "<ul>" +
+         "<li>" + s.nH + " 个等价氢</li>" +
+         "<li>δ = " + fmt(ST.delta[i], 2) + " ppm<span class='dm'>（文献近似）</span></li>" +
+         "<li>耦合：" + (ps.length ? ps.join("；") : "<span class='dm'>无（已去耦）</span>") + "</li>" +
+         "<li>多重峰：" + mname + "（" + lines.length + " 线）</li>" +
+         "<li>原图：" + (s.inSlide ? "有色块 " + s.color : "只写「HO」，没着色") + "</li>" +
+         "</ul></div>";
+  }
+  box.innerHTML = h;
+  var cs = box.querySelectorAll("[data-gs]");
+  for (var q = 0; q < cs.length; q++) {
+    cs[q].addEventListener("click", function () { selectSite(parseInt(this.getAttribute("data-gs"), 10)); });
+    cs[q].addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") { selectSite(parseInt(this.getAttribute("data-gs"), 10)); e.preventDefault(); }
+    });
+  }
+}
+
+/* ---------------- 工作台高度：让三栏刚好占满一屏，各自滚动 ---------------- */
+function layoutBench() {
+  var bench = $id("bench"); if (!bench) return;
+  if (window.matchMedia && window.matchMedia("(max-width:1240px)").matches) { bench.style.height = ""; return; }
+  var used = 0, ns = [document.querySelector(".top"), document.querySelector(".tk")];
+  for (var i = 0; i < ns.length; i++) if (ns[i]) used += ns[i].getBoundingClientRect().height + 10;
+  var h = clamp(window.innerHeight - used - 30, 500, 1200);
+  bench.style.height = h + "px";
+}
+
+/* ---------------- 术语自动加注 ---------------- */
+var TERMS = {
+  "自旋体系": "由标量耦合连成一片的一组氢。链上任两点连通就属于同一个体系。|自旋体系 spin system",
+  "各向同性混合": "理想 TOCSY 的等效模型：x/y/z 三个方向的耦合同时起作用，磁化才能沿链接力传下去。|各向同性混合 isotropic mixing",
+  "化学位移": "峰在谱图横轴上的位置，单位 ppm。只决定峰画在哪，不决定谁和谁相关。|化学位移 δ chemical shift",
+  "耦合常数": "两个氢相互作用强弱的量度，单位 Hz。J 越大，磁化来回搬运越快（τ=1/2J 时转移最大）。|耦合常数 J coupling constant",
+  "混合时间": "自旋锁定持续多久（τm）。转移是 sin² 型振荡，不是越长越强。|混合时间 τm mixing time",
+  "活泼氢": "连在 O/N 上、会与其他分子交换的氢（如 –OH、–NH）。交换快时耦合被抹掉，就不出相关峰了。|活泼氢 exchangeable proton",
+  "多重峰": "一个位点被邻居的氢裂分成若干条线。线数 = Π(邻居氢数 + 1)。|多重峰 multiplet",
+  "三重峰": "被 2 个等价氢裂分：3 条线，强度 1:2:1。|三重峰 triplet",
+  "六重峰": "被 1 个氢和 2 个氢同时裂分：3×2 = 6 条线，强度 1:2:1 × 1:1。|六重峰",
+  "对称": "M_jk = M_kj，所以 2D 谱关于对角线镜像对称——这是哈密顿量的性质，不是画图习惯。|对称性",
+  "对角峰": "(δ, δ) 上的峰，自己和自己。只证明这个氢存在，不给任何连接信息。|对角峰 diagonal peak",
+  "交叉峰": "不在对角线上的峰。关于对角线成对出现，是本页的主角。|交叉峰 cross peak",
+  "中继": "磁化不直接在相邻位点间传，而是走 C1→C2→C3 这种多跳路线。跳数 = 中继级数。|中继 relay",
+  "弛豫": "自旋锁定期间信号自然衰减。τm 太长，峰会被它拖低。|弛豫 T1ρ relaxation",
+  "磁等价": "分子内快速旋转使几个氢化学环境相同，可以当成一个自旋 ½ 处理。|磁等价 magnetic equivalence",
+  "亚甲基": "一个碳上挂 2 个氢的基团，–CH₂–。|亚甲基 methylene",
+  "甲基": "一个碳上挂 3 个氢的基团，–CH₃。|甲基 methyl",
+  "羟基": "氧上挂一个氢的基团，–OH。|羟基 hydroxyl",
+  "官能团": "分子里决定化学性质的那几个原子团，比如 –OH、–CH₃。|官能团 functional group",
+  "占位": "x"
+};
+
+function wrapTerms(root) {
+  if (!root) return;
+  var keys = Object.keys(TERMS).filter(function (k) { return k !== "占位"; })
+    .sort(function (a, b) { return b.length - a.length; });
+  var walker = document.createTreeWalker(root, NodeFilter.SHOW_TEXT, {
+    acceptNode: function (n) {
+      var p = n.parentNode; if (!p) return NodeFilter.FILTER_REJECT;
+      var tag = p.tagName;
+      if (tag === "SCRIPT" || tag === "STYLE" || tag === "PRE" || tag === "TEXTAREA") return NodeFilter.FILTER_REJECT;
+      if (p.closest && p.closest(".term, .katex, .katex-inline, .katex-display-eq, #tip, #selftestBox, #selftestRaw")) return NodeFilter.FILTER_REJECT;
+      return NodeFilter.FILTER_ACCEPT;
+    }
+  });
+  var list = [], n;
+  while ((n = walker.nextNode())) list.push(n);
+  for (var i = 0; i < list.length; i++) {
+    var node = list[i], text = node.nodeValue, out = null, pos = 0, guard = 0;
+    while (guard++ < 60) {
+      var best = -1, bk = null;
+      for (var k = 0; k < keys.length; k++) {
+        var idx = text.indexOf(keys[k], pos);
+        if (idx >= 0 && (best < 0 || idx < best)) { best = idx; bk = keys[k]; }
+      }
+      if (best < 0) break;
+      if (!out) out = document.createDocumentFragment();
+      if (best > pos) out.appendChild(document.createTextNode(text.slice(pos, best)));
+      var sp = document.createElement("span");
+      sp.className = "term"; sp.setAttribute("data-def", TERMS[bk]); sp.textContent = bk;
+      out.appendChild(sp);
+      pos = best + bk.length;
+    }
+    if (out) {
+      if (pos < text.length) out.appendChild(document.createTextNode(text.slice(pos)));
+      node.parentNode.replaceChild(out, node);
+    }
+  }
+}
+
+function initTip() {
+  var tip = $id("tip"); if (!tip) return;
+  function hide() { tip.style.display = "none"; }
+  function show(e) {
+    var t = e.target && e.target.closest ? e.target.closest("[data-def]") : null;
+    if (!t) { hide(); return; }
+    var parts = t.getAttribute("data-def").split("|");
+    tip.innerHTML = (parts[1] ? "<b>" + parts[1] + "</b>" : "") + parts[0];
+    tip.style.display = "block";
+    var r = t.getBoundingClientRect(), w = tip.offsetWidth, h = tip.offsetHeight;
+    var x = clamp(r.left + r.width / 2 - w / 2, 8, Math.max(8, window.innerWidth - w - 8));
+    var y = r.top - h - 8; if (y < 8) y = r.bottom + 8;
+    tip.style.left = x + "px"; tip.style.top = y + "px";
+  }
+  document.addEventListener("mouseover", show);
+  document.addEventListener("focusin", show);
+  document.addEventListener("mouseout", function (e) {
+    if (e.target && e.target.closest && e.target.closest("[data-def]")) hide();
+  });
+  document.addEventListener("scroll", hide, true);
+}
+
+/* ---------------- 步骤引导 ---------------- */
+function applyState(o) {
+  if (o.oh !== undefined) {
+    ST.includeOH = o.oh; $id("cbOH").checked = o.oh;
+    $id("wrapJOH").style.opacity = o.oh ? "1" : "0.35";
+  }
+  if (o.cosy !== undefined) { ST.cosy = o.cosy; $id("cbMode").checked = o.cosy; }
+  if (o.tau !== undefined) {
+    ST.tau = clamp(Math.round(o.tau), 0, TMAX);
+    $id("sTau").value = String(ST.tau); $id("vTau").textContent = ST.tau + " ms";
+  }
+  if (o.thr !== undefined) {
+    ST.thr = o.thr; $id("sThr").value = String(o.thr); $id("vThr").textContent = fmt(o.thr, 2);
+  }
+  if (o.sel !== undefined) { ST.sel = o.sel; ST.pair = null; }
+  if (!ST.includeOH && (ST.sel === 0 || (ST.pair && (ST.pair[0] === 0 || ST.pair[1] === 0)))) { ST.sel = 1; ST.pair = null; }
+  refreshAll();
+}
+
+var STEPS = [
+  { n: "认分子",
+    q: "骨架上的三个彩色方块是什么？第 4 个氢位点在哪？",
+    do: "依次点中栏骨架上的 4 个方块，看右栏读数怎么变。",
+    a: "三个方块就是原图标的三个碳：<b>C1 –CH₂–</b>（连氧，红）、<b>C2 –CH₂–</b>（黄）、<b>C3 –CH₃</b>（绿）。<br>第 4 个位点是 <b>–OH 上的氢</b>——原图只写了「HO」，<b>没给它着色</b>，本页用虚线框补上。",
+    ap: function () { applyState({ sel: 1, pair: null }); } },
+
+  { n: "数位点连边",
+    q: "4 个位点之间有几条耦合边？它们构成几个自旋体系？",
+    do: "轮流点不同位点，看右栏「耦合」那一行。",
+    a: "只有 <b>3 条边</b>：–OH↔C1、C1↔C2、C2↔C3。它们把 4 个位点串成<b>一条链</b>。<br>链上任意两点都连通 ⇒ <b>只有一个自旋体系</b>。这就是「每个位点都能看见其他位点」的根本原因。",
+    ap: function () { applyState({ sel: 2, tau: 10, oh: true, cosy: false }); } },
+
+  { n: "τm 太短",
+    q: "把混合时间拉到 25 ms，谱上还剩几个方块？",
+    do: "点左栏「25 ms」按钮，或把 τm 滑块拖到 25。",
+    a: "只剩 <b>10 个</b>方块（4 个对角 + 3 对相邻）。<br>转移效率是 sin² 型，时间不够，磁化还没搬到远处就结束了。",
+    ap: function () { applyState({ tau: 25, thr: 0.05, oh: true, cosy: false }); } },
+
+  { n: "τm 够了",
+    q: "把混合时间拉到 80 ms，数一数 2D 谱上有多少个方块。",
+    do: "点左栏「80 ms」按钮。",
+    a: "<b>16 个方块全亮</b>：4 个对角 + 6 对交叉 × 2。最小强度 0.068，刚好越过阈值 0.05。<br>这就是本题要画的图。",
+    ap: function () { applyState({ tau: 80, thr: 0.05, oh: true, cosy: false }); } },
+
+  { n: "唯一的岔路口",
+    q: "取消勾选「–OH 参与」，还剩几个方块？为什么？",
+    do: "左栏取消勾选「–OH 参与（慢交换）」。",
+    a: "只剩 <b>9 个</b>。<br>–OH 是<b>活泼氢</b>：在 CDCl₃ 里遇到痕量酸/水会快速交换，交换把它的耦合「洗掉」，它就从自旋体系里掉出去了 ⇒ 退化成 3 个位点的链。<br>原图没写溶剂，所以 <b>16 和 9 两个答案都对</b>，关键是说清你假设了哪一种。",
+    ap: function () { applyState({ oh: false, tau: 80, cosy: false, sel: 1 }); } },
+
+  { n: "和 COSY 比",
+    q: "勾上「COSY 对照」，少掉的是哪几个峰？",
+    do: "先勾回「–OH 参与」，再勾「COSY 对照」。",
+    a: "少掉 <b>6 个方块</b>（3 对 × 2）：C1↔C3、–OH↔C2、–OH↔C3。<br>它们的<b>中继级数 ≥ 2</b>，磁化要跳两步以上，COSY 做不到——这正是 TOCSY 的价值。",
+    ap: function () { applyState({ oh: true, cosy: true, tau: 80 }); } },
+
+  { n: "位移不重要",
+    q: "打乱化学位移，什么变了、什么没变？",
+    do: "左栏点「打乱位移」，来回点几次。",
+    a: "峰的位置满图跑，但<b>有峰的格子一个不多、一个不少</b>。<br>δ 只决定峰画在哪，不决定谁和谁相关——这正是原图第二条提示的意思。",
+    ap: function () { applyState({ cosy: false }); } }
+];
+
+var gStep = 0, gShown = false;
+function renderStep() {
+  var st = STEPS[gStep];
+  $id("gQ").innerHTML = st.q;
+  $id("gDo").innerHTML = "<b>做：</b>" + st.do;
+  $id("gAns").innerHTML = st.a;
+  $id("gAns").hidden = !gShown;
+  $id("gReveal").textContent = gShown ? "收起答案" : "看答案";
+  $id("gPos").textContent = (gStep + 1) + " / " + STEPS.length;
+  var h = "";
+  for (var i = 0; i < STEPS.length; i++) {
+    h += "<button data-st='" + i + "' class='" + (i === gStep ? "on" : (i < gStep ? "done" : "")) + "'>" +
+         (i + 1) + ". " + STEPS[i].n + "</button>";
+  }
+  var nav = $id("gNav");
+  nav.innerHTML = h;
+  var bs = nav.querySelectorAll("[data-st]");
+  for (var q = 0; q < bs.length; q++) {
+    bs[q].addEventListener("click", function () { gotoStep(parseInt(this.getAttribute("data-st"), 10)); });
+  }
+  wrapTerms($id("gQ")); wrapTerms($id("gDo")); wrapTerms($id("gAns"));
+}
+function gotoStep(i, silent) {
+  gStep = clamp(i, 0, STEPS.length - 1);
+  gShown = false;
+  /* 先应用这一步要展示的状态，再重画步骤文字与导航
+     （applyState 只触发图形重绘，不会重画步骤面板——这里必须显式补上） */
+  if (!silent && STEPS[gStep].ap) STEPS[gStep].ap();
+  renderStep();
+}
+
 function syncUI() {
   /* 标题 */
   var ti = "—", su = "";
@@ -1355,26 +1708,7 @@ function syncUI() {
   $id("roWhy").innerHTML = whyText();
   $id("roThr").textContent = fmt(ST.thr, 2);
 
-  /* 位点表 */
-  var tb = $id("tblSites").tBodies[0], rows = "";
-  for (var i3 = 0; i3 < 4; i3++) {
-    if (!isActive(i3)) {
-      rows += "<tr style='opacity:.40'><td><span class='chip' style='background:" + SITES[i3].color + "'></span>" + SITES[i3].name + "</td>" +
-              "<td class='n'>" + fmt(ST.delta[i3], 2) + "</td><td class='n'>" + SITES[i3].nH + "</td><td>—（已去耦）</td></tr>";
-      continue;
-    }
-    var partners = [];
-    for (var m2 = 0; m2 < 4; m2++) {
-      if (m2 === i3 || !isActive(m2)) continue;
-      var Jv = (i3 === 0 || m2 === 0) ? ST.JOH : (Math.abs(i3 - m2) === 1 ? (Math.min(i3, m2) === 1 ? ST.J12 : ST.J23) : 0);
-      if (Math.abs(i3 - m2) === 1) partners.push(SITES[m2].name.replace("C1 ", "").replace("C2 ", "").replace("C3 ", "") + " J=" + fmt(Jv, 1));
-    }
-    var sel3 = (ST.sel === i3) || (ST.pair && (ST.pair[0] === i3 || ST.pair[1] === i3));
-    rows += "<tr" + (sel3 ? " style='background:#1f3a30'" : "") + "><td><span class='chip' style='background:" + SITES[i3].color + "'></span>" + SITES[i3].name + "</td>" +
-            "<td class='n'>" + fmt(ST.delta[i3], 2) + "</td><td class='n'>" + SITES[i3].nH + "</td><td>" +
-            (partners.length ? partners.join("　") : "—") + "</td></tr>";
-  }
-  $id("tblSites").tBodies[0].innerHTML = rows;
+  renderGCards();
 
   /* 转移矩阵表 */
   var act4 = activeIdx(), hd = "<tr><th>j ↓ / k →</th>";
@@ -1423,6 +1757,7 @@ function syncUI() {
         (ST.cosy ? "COSY 对照模式下，中继级数 ≥ 2 的峰被规则屏蔽。" : "TOCSY：自旋体系内两两相关，n=" + nS + " 时 C(n,2)+n = " + indep + " 个独立峰。") +
         "<br>理论方块数 = n² = " + nS + "² = " + totSq + "</td></tr>";
   $id("tblCount").tBodies[0].innerHTML = cr;
+  wrapTerms($id("roExplain")); wrapTerms($id("roWhy")); wrapTerms($id("roBox"));
 
   /* 完整归属表 */
   var list = [];
@@ -1533,6 +1868,7 @@ function setZoomRegion(name) {
 var rafPend = false;
 function paint() {
   try {
+    layoutBench();
     drawStruct(); drawMulti(); draw2D(); drawBuild();
     syncUI(); markButtons();
   } catch (e) {
@@ -1658,6 +1994,11 @@ function bindControls() {
   $id("cbLabels").addEventListener("change", function () { ST.showLab = this.checked; refreshAll(); });
   $id("cbDiag").addEventListener("change", function () { ST.showDiag = this.checked; refreshAll(); });
   $id("cbEnv").addEventListener("change", function () { ST.showEnv = this.checked; refreshAll(); });
+  $id("cbGroup").addEventListener("change", function () { ST.showGroup = this.checked; refreshAll(); });
+  /* 步骤引导按钮 */
+  $id("gReveal").addEventListener("click", function () { gShown = !gShown; $id("gAns").hidden = !gShown; this.textContent = gShown ? "收起答案" : "看答案"; });
+  $id("gPrev").addEventListener("click", function () { gotoStep(gStep - 1); });
+  $id("gNext").addEventListener("click", function () { gotoStep(gStep + 1); });
   $id("bResetD").addEventListener("click", function () {
     for (var i = 0; i < 4; i++) { ST.delta[i] = DEF_D[i]; $id("sd" + i).value = String(DEF_D[i]); $id("vd" + i).textContent = fmt(DEF_D[i], 2) + " ppm"; }
     buildSiteButtons(); markButtons(); refreshAll();
@@ -1730,12 +2071,19 @@ if (typeof document === "undefined" || !document.getElementById || !document.get
   bindCanvas();
   bindKeys();
   var rt = null;
-  window.addEventListener("resize", function () { clearTimeout(rt); rt = setTimeout(refreshAll, 120); });
+  window.addEventListener("resize", function () {
+    clearTimeout(rt);
+    rt = setTimeout(function () { layoutBench(); refreshAll(); }, 120);
+  });
+  initTip();
   renderMath();
+  wrapTerms(document.body);
   try { showSelftest(); } catch (e) {
     var eb2 = $id("selftestBox"); if (eb2) eb2.textContent = "自检失败: " + (e && e.message ? e.message : e);
   }
   setZoomRegion("page");
+  layoutBench();
+  renderStep();
   refreshAll();
 }
 })();
