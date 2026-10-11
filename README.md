@@ -8,6 +8,7 @@
 | --- | --- | --- |
 | 碳骨架连接 | INADEQUATE：1-辛醇碳峰归属练习 | [打开](./topics/inadequate-octanol/index.html) |
 | 碳骨架连接 | 1,1-ADEQUATE：4-甲基伞形酮交叉峰判读 | [打开](./topics/adequate-methylumbelliferone/index.html) |
+| 碳骨架连接 | ADEQUATE：相邻季碳为何无法关联 | [打开](./topics/adequate-adjacent-quaternary-carbons/index.html) |
 | 异核长程相关 | H2BC × HMBC：两键与三键相关判读 | [打开](./topics/h2bc-hmbc/index.html) |
 | 结构解析 | 苯佐卡因：¹H NMR 与 ¹³C APT 拼结构 | [打开](./topics/benzocaine-structure/index.html) |
 | 异核单键相关 | 3-庚酮：HSQC 与编辑 HSQC 峰归属 | [打开](./topics/hsqc-edited-heptanone/index.html) |
@@ -30,6 +31,11 @@ NMR-Graph/
     ├── adequate-methylumbelliferone/
     │   ├── index.html                 # ADEQUATE 交互示意与判读讲解
     │   └── README.md                  # 本专题的范围与来源
+    ├── adequate-adjacent-quaternary-carbons/
+    │   ├── index.html                 # 相邻季碳的 ADEQUATE 局限
+    │   ├── preview.png                # 桌面整页预览
+    │   ├── preview-mobile.png         # 手机整页预览
+    │   └── source/                    # 原图与浏览器验证脚本
     ├── h2bc-hmbc/
     │   └── index.html                 # H2BC / HMBC 互动图解
     ├── hsqc-edited-heptanone/
