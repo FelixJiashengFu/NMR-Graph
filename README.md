@@ -19,6 +19,7 @@
 | 同核相关 | 正丙醇 TOCSY：三个氢组的接力相关 | [打开](./topics/tocsy-propanol/index.html) |
 | 同核相关 | 正丙醇 TOCSY：自旋混合模型与画谱练习 | [打开](./topics/tocsy-propanol-spin-dynamics/index.html) |
 | 空间相关 | NOESY / ROESY：交叉峰怎样提示空间邻近 | [打开](./topics/noesy-roesy-vanillin/index.html) |
+| 扩散排序 | DOSY：四种化合物的扩散排序 | [打开](./topics/dosy-four-compounds/index.html) |
 
 ## 仓库结构
 
@@ -69,6 +70,13 @@ NMR-Graph/
     │   ├── index.html                 # 单文件离线教学网页
     │   ├── preview.png                # 整页预览
     │   └── source/                    # 可编辑源码、原图与局部放大
+    ├── dosy-four-compounds/
+    │   ├── index.html                 # DOSY 四种化合物交互教学页
+    │   ├── README.md                  # 页面范围与数据限制
+    │   ├── preview.png                # 整页预览
+    │   ├── assets/                    # 原始幻灯片截图
+    │   ├── src/                       # 可编辑源码与核验脚本
+    │   └── verify/                    # 数据、核验报告与截图
     └── benzocaine-structure/
         └── index.html                 # 苯佐卡因氢谱与 APT 结构解析
 ```
@@ -97,3 +105,5 @@ TOCSY 专题使用用户课程截图：ppm 仅为估读，峰强为图扩散类�
 NOESY / ROESY 专题以用户上传的香草醛教学截图为来源。页面联动选中交叉峰、结构位置与估读值；芳香区具体归属无法凭截图独立确认。距离曲线只展示归一化 r⁻⁶ 模型，不对应截图实测峰强。原图、局部裁切、可编辑源码、数值检查和整页预览随专题保存。
 
 ADEQUATE 全碳归属专题从课程分子骨架讨论 1,1-ADEQUATE 的观测范围。页面包含原图、逐碳判定与教学模型；无原始谱图，示意峰位和效率不代表实测值。源码及验证记录随专题保存。
+
+DOSY 专题从课程截图估读四种化合物的化学位移与扩散系数，并将原图观测、结构推断和 Stokes–Einstein 演示模型分开标注。原图没有提供原始数据或实验条件；源码、原图和核验记录随专题保存。

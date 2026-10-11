@@ -1,0 +1,74 @@
+[PASS] 页面无 JS 运行时错误
+[PASS] 控制台无 error
+[PASS] 无外部资源请求失败（离线自包含）
+[PASS] 无外部依赖（全部内联）
+[PASS] 九个章节齐备且顺序正确
+[PASS] 章节顺序 = 主要结论→直观解释→…→来源与限制  :: conclusions>intuition>zoom>table>steps>check>myths>glossary>sources
+[PASS] 原图内联且尺寸 1038×782 未被改动
+[PASS] 11 个数据点与 Python 提取结果逐点一致
+[PASS] 总点数 = 11  :: 11
+[PASS] 页面内嵌数据 == Python 从原图重新提取的数据
+[PASS] 标定参数一致（66.64 px/ppm, 10.26 px/D 单位）  :: 66.64 / 10.26
+[PASS] 默认缩放因子 = 1.000  :: 1.000000
+[PASS] Stokes–Einstein: r=0.30 nm → D ≈ 6.62  :: 6.618
+[PASS] 水的流体力学半径 ≈ 0.125 nm  :: 0.1249
+[PASS] TSP 的流体力学半径 ≈ 0.441 nm  :: 0.4412
+[PASS] 半径顺序 水 < 丙酮 < 胆碱 < TSP  :: 0.125 < 0.229 < 0.304 < 0.441
+[PASS] D ∝ T：升温 → 缩放因子 > 1  :: 1.0833
+[PASS] D ∝ 1/η：增黏 → 缩放因子 < 1  :: 0.6875
+[PASS] D ∝ 1/r：半径减小 → D 增大  :: 19.85 > 1.99
+[PASS] 选中「blue」→ 按钮/结构/表格/读数/参考线/高亮点 全部同步  :: pressed=true struct=1 rows=6 guide=1 pts=6
+[PASS] 选中「green」→ 按钮/结构/表格/读数/参考线/高亮点 全部同步  :: pressed=true struct=1 rows=3 guide=1 pts=3
+[PASS] 选中「red」→ 按钮/结构/表格/读数/参考线/高亮点 全部同步  :: pressed=true struct=1 rows=1 guide=1 pts=1
+[PASS] 选中「black」→ 按钮/结构/表格/读数/参考线/高亮点 全部同步  :: pressed=true struct=1 rows=1 guide=1 pts=1
+[PASS] 切回「全部」→ 取消高亮、取消参考线
+[PASS] 温度滑块 → 标签显示单位 K（两位小数）  :: 323.15 K
+[PASS] 温度滑块 → 图形发生变化（预测星标移动）
+[PASS] 温度滑块 → 缩放因子 = 323.15/298.15 = 1.084  :: 1.083850
+[PASS] 温度滑块 → 缩放因子写入提示文字  :: 示模型缩放因子 = (T/298.15) × (1.10/η) = 1.084。
+[PASS] 温度滑块 → 验算框同步更新
+[PASS] 黏度滑块 → 标签显示单位 mPa·s  :: 0.60 mPa·s
+[PASS] 黏度滑块 → 图形发生变化
+[PASS] 黏度滑块 → 缩放因子 = 1.10/0.60 = 1.833（D ∝ 1/η）  :: 1.833333
+[PASS] 半径滑块 → 标签显示单位 nm  :: 1.00 nm
+[PASS] 滑块可精确复位到默认值 298.15 K / 1.10 mPa·s / 0.30 nm  :: 298.15 / 1.1 / 0.3
+[PASS] 复位后缩放因子精确 = 1.000  :: 1.000000
+[PASS] 一维谱开关 → 谱线条带显隐  :: 1 → 0
+[PASS] 演示模型开关 → 预测线与模型点显隐  :: 1 → 0
+[PASS] 正文含 ≥10 处可点按术语注释  :: 22
+[PASS] 每处术语都有对应定义
+[PASS] 点击术语 → 气泡显示且含中文注释  :: DOSY（扩散排序谱）Diffusion-Ordered Spectroscop
+[PASS] 气泡不超出视口右边
+[PASS] Escape 关闭气泡
+[PASS] 键盘 Enter 打开术语气泡  :: Stokes–Einstein 方程Stokes–Einst
+[PASS] 切换放大区域 → 背景位置改变  :: 50% 50% → -2352.43px -2168.65px
+[PASS] 放大镜使用内联原图作为背景
+[PASS] 放大镜说明含像素范围与显示比例  :: 横轴刻度　区域像素 x[640–1010] y[590–660]（370×70 px）　显示比例 3.68×（1 个原图
+[PASS] 放大倍率滑块 → 背景尺寸改变  :: 3815.35px 2874.38px → 11446.1px 8623.13px
+[PASS] 原图可展开且以原始尺寸显示  :: 显示宽 1038 / 原始 1038
+[PASS] 存在大量可聚焦控件  :: 61
+[PASS] 图上的点可被聚焦
+[PASS] 聚焦图上的点 → 显示该点 δH 与 D  :: 当前指向：丙酮 第 1 点　δH = 2.22 ppm　D = 8.66 ×10⁻¹⁰ m²·s⁻¹（原图估读值）
+[PASS] 每个数据点都带原生悬停提示  :: 11
+[PASS] 键盘 Enter 选中图上的点
+[PASS] Tab 键可在控件间移动  :: obj-btn
+[PASS] 结构式「blue」画出原子与连接键（13 条键）  :: H₃C,H₃C,CH₃,Si,D,D,D,D,O,O⁻,Na⁺
+[PASS] 结构式「green」画出原子与连接键（6 条键）  :: CH₃,H₃C,H₃C,N⁺,Cl⁻,OH
+[PASS] 结构式「red」画出原子与连接键（4 条键）  :: O,CH₃,CH₃
+[PASS] 结构式「black」画出原子与连接键（2 条键）  :: O,H,H
+[PASS] 化学式/单位使用 sub、sup 渲染  :: 74
+[PASS] 桌面 1440：无横向溢出  :: scrollWidth 超出 0px;
+[PASS] 桌面 1440：主要容器未被裁切（表格另在可横向滚动的容器内）
+[PASS] 桌面 1440：宽表格均置于可横向滚动容器内
+[PASS] 手机 414 (iPhone 11 Pro Max)：无横向溢出  :: scrollWidth 超出 0px;
+[PASS] 手机 414 (iPhone 11 Pro Max)：主要容器未被裁切（表格另在可横向滚动的容器内）
+[PASS] 手机 414 (iPhone 11 Pro Max)：宽表格均置于可横向滚动容器内
+[PASS] 手机 375 (iPhone SE/8)：无横向溢出  :: scrollWidth 超出 0px;
+[PASS] 手机 375 (iPhone SE/8)：主要容器未被裁切（表格另在可横向滚动的容器内）
+[PASS] 手机 375 (iPhone SE/8)：宽表格均置于可横向滚动容器内
+[PASS] 手机端三栏纵向排列（不重叠）  :: {"n":3,"sameX":true,"stacked":true}
+[PASS] 手机端术语气泡不溢出  :: [8..348] vw=375
+[PASS] 手机端结构小图不溢出
+
+================ 汇总 ================
+通过 71/71，失败 0
