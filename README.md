@@ -15,6 +15,7 @@
 | 结构解析 | 苯佐卡因：¹H NMR 与 ¹³C APT 拼结构 | [打开](./topics/benzocaine-structure/index.html) |
 | 异核单键相关 | 3-庚酮：HSQC 与编辑 HSQC 峰归属 | [打开](./topics/hsqc-edited-heptanone/index.html) |
 | 同核相关 | COSY：交叉峰从哪来、什么时候会少 | [打开](./topics/cosy-cross-peaks/index.html) |
+| 同核相关 | COSY 解读：从幻灯片核对 14 个峰 | [打开](./topics/cosy-interpretation/index.html) |
 | 同核相关 | TOCSY × COSY：接力相关与自旋系统 | [打开](./topics/tocsy-spin-systems/index.html) |
 | 同核相关 | 蔗糖 TOCSY：H1′ 的近邻耦合中断 | [打开](./topics/tocsy-sucrose/index.html) |
 | 同核相关 | 3-庚酮：TOCSY 与 COSY 对照 | [打开](./topics/tocsy-cosy-heptanone/index.html) |
@@ -59,6 +60,10 @@ NMR-Graph/
     │   ├── index.html                 # 3-庚酮 HSQC/编辑 HSQC 离线练习
     │   ├── preview.png                # 整页预览
     │   └── source/                    # 原图、源码、构建与验证脚本
+    ├── cosy-interpretation/
+    │   ├── index.html                 # COSY 幻灯片读谱与峰数核对
+    │   ├── preview.png                # 整页预览
+    │   └── source/                    # 原图、像素测量、源码与核验
     ├── cosy-cross-peaks/
     │   ├── index.html                 # COSY 交叉峰原理与峰数变化
     │   ├── preview.png                # 整页预览
@@ -109,6 +114,8 @@ NMR-Graph/
 4. 在专题页面注明真实实验数据与教学示意的区别，并列出必要来源。
 
 原有的 INADEQUATE 练习已从仓库根目录移至 `topics/inadequate-octanol/`，内容保留。该练习的谱图和相关关系根据题目截图重绘；ppm 为估读值，不宜作为精确化学位移参考。H2BC / HMBC 页面中的相关峰为概念示意，不对应原始苯乙烯实验峰位或峰强。
+
+COSY 解读专题核对用户幻灯片上的六个对角峰与四对交叉峰，共 14 个峰位。标题文字提及乙基和丙基，但图中骨架与峰数支持乙基和丁基；页面保留这项矛盾。ppm 为像素估读，J、峰形和可见性为文献近似或教学模型，不能视为实测谱数据。原图、像素核对图、源码和验证脚本随专题保存。
 
 COSY 交叉峰专题使用用户提供的幻灯片作为原图材料。原图色块是位置标记，不提供实测谱数据、可靠化学位移或实验参数；页面中的正丙醇谱图、峰强与 OH 交换均为教学模型，峰位使用示意或近似值。单文件包含公式字体，可离线打开；源码、原图和数值核验材料保存在专题目录。
 
