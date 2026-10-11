@@ -21,6 +21,7 @@
 | 同核相关 | 正丙醇 TOCSY：自旋混合模型与画谱练习 | [打开](./topics/tocsy-propanol-spin-dynamics/index.html) |
 | 空间相关 | NOESY / ROESY：交叉峰怎样提示空间邻近 | [打开](./topics/noesy-roesy-vanillin/index.html) |
 | 扩散排序 | DOSY：四种化合物的扩散排序 | [打开](./topics/dosy-four-compounds/index.html) |
+| ¹⁵N 二维核磁 | ¹H–¹⁵N HMBC 与 HSQC：小分子氮环境和蛋白磷酸化 | [打开](./topics/nmr-15n-hmbc-hsqc/index.html) |
 
 ## 仓库结构
 
@@ -84,8 +85,15 @@ NMR-Graph/
     │   ├── assets/                    # 原始幻灯片截图
     │   ├── src/                       # 可编辑源码与核验脚本
     │   └── verify/                    # 数据、核验报告与截图
-    └── benzocaine-structure/
-        └── index.html                 # 苯佐卡因氢谱与 APT 结构解析
+    ├── benzocaine-structure/
+    │   └── index.html                 # 苯佐卡因氢谱与 APT 结构解析
+    └── nmr-15n-hmbc-hsqc/
+        ├── index.html                 # ¹H–¹⁵N HMBC / HSQC 交互教学页
+        ├── README.md                  # 页面范围与数据限制
+        ├── preview.png                # 整页预览
+        ├── assets/                    # 两张课程原图
+        ├── src/                       # 可编辑源码与构建脚本
+        └── verify/                    # 图像测量及页面核验材料
 ```
 
 ## 今后新增专题
@@ -116,3 +124,5 @@ ADEQUATE 全碳归属专题从课程分子骨架讨论 1,1-ADEQUATE 的观测范
 DOSY 专题从课程截图估读四种化合物的化学位移与扩散系数，并将原图观测、结构推断和 Stokes–Einstein 演示模型分开标注。原图没有提供原始数据或实验条件；源码、原图和核验记录随专题保存。
 
 ¹H–¹⁵N HMBC 专题以齐拉西酮降解产物的课程截图为来源，联动显示估读交叉峰与结构单元。原图未给峰归属或实验条件；页面将观测、结构辅助推断和演示模型分开标注，原图、源码及核验材料随专题保存。
+
+¹H–¹⁵N HMBC / HSQC 专题同时解读齐拉西酮降解产物的氮相关与磷酸化蛋白的谱图变化，使用两张课程截图。原图没有提供原始数据或完整实验条件；页面区分截图观测、坐标估读、结构推断和演示模型，并说明两图的 ¹⁵N 参考标度可能不同。原图、源码、预览和核验材料随专题保存。

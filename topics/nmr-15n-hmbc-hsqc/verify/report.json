@@ -1,0 +1,59 @@
+{
+  "total": 106,
+  "passed": 106,
+  "failed": 0,
+  "groups": {
+    "像素换算": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0
+    },
+    "坐标轴": {
+      "total": 9,
+      "passed": 9,
+      "failed": 0
+    },
+    "单位换算": {
+      "total": 12,
+      "passed": 12,
+      "failed": 0
+    },
+    "计数": {
+      "total": 13,
+      "passed": 13,
+      "failed": 0
+    },
+    "强度": {
+      "total": 4,
+      "passed": 4,
+      "failed": 0
+    },
+    "演示模型": {
+      "total": 14,
+      "passed": 14,
+      "failed": 0
+    },
+    "光标匹配": {
+      "total": 8,
+      "passed": 8,
+      "failed": 0
+    },
+    "归属": {
+      "total": 5,
+      "passed": 5,
+      "failed": 0
+    },
+    "术语表": {
+      "total": 6,
+      "passed": 6,
+      "failed": 0
+    },
+    "静态检查": {
+      "total": 31,
+      "passed": 31,
+      "failed": 0
+    }
+  },
+  "fails": [],
+  "time": "2026-10-11 01:56:26 UTC"
+}

@@ -1,0 +1,386 @@
+{
+  "total": 75,
+  "passed": 75,
+  "failed": 0,
+  "consoleErrors": [],
+  "pageErrors": [],
+  "failedRequests": [],
+  "results": [
+    {
+      "desc": "页面标题正确",
+      "ok": true,
+      "detail": "额外核素：¹H–¹⁵N 二维核磁教学页（HMBC 与 HSQC）"
+    },
+    {
+      "desc": "无控制台错误",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "无未捕获异常",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "无失败的网络请求",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "桌面为三栏布局",
+      "ok": true,
+      "detail": "292px 758px 330px"
+    },
+    {
+      "desc": "桌面无横向溢出（scrollWidth ≤ clientWidth）",
+      "ok": true,
+      "detail": "scrollW=1440 clientW=1440"
+    },
+    {
+      "desc": "桌面无元素超出视口",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "desc": "两张原图成功解码（1034×807 / 1043×704）",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "谱图区标注“示意重绘”",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "默认标题为 HMBC",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "HMBC 图形渲染 9 个交叉峰",
+      "ok": true,
+      "detail": "9"
+    },
+    {
+      "desc": "HMBC 渲染 3 个原图标注框",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "HMBC 图形内标签无重叠",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "desc": "点击峰 B1 后读数出现 B1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "点击峰 B1 后解释同步更新",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "光标同步到 δH 1.75",
+      "ok": true,
+      "detail": "δH 1.75"
+    },
+    {
+      "desc": "结构图渲染 5 个可交互氮位点",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "点击羟吲哚 N 后读数显示该位点",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "被选位点带高亮类 on",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "正文含 ≥14 个术语按钮",
+      "ok": true,
+      "detail": "24"
+    },
+    {
+      "desc": "点击术语后弹出注释",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "注释内容为中文解释且含英文对照",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "注释框未超出视口右边界",
+      "ok": true,
+      "detail": "{\"x\":255.09375,\"y\":467.640625,\"width\":340,\"height\":152.375}"
+    },
+    {
+      "desc": "Esc 关闭注释",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "峰可通过 Tab/程序聚焦",
+      "ok": true,
+      "detail": "D1"
+    },
+    {
+      "desc": "Enter 选中峰 D1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "滑块可用方向键调节",
+      "ok": true,
+      "detail": "7.37 → 7.38"
+    },
+    {
+      "desc": "对象按钮可用 Enter 切换",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "HSQC 渲染 9 个峰",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "HSQC 图形内标签无重叠",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "desc": "p=100% 时 pSer3 蓝峰与 Ser3 黑峰水平分离 > 100px",
+      "ok": true,
+      "detail": "Δcx=179.4"
+    },
+    {
+      "desc": "p=0% 时 pSer3 蓝峰与 Ser3 黑峰重合（|Δcx| < 1px）",
+      "ok": true,
+      "detail": "Δcx=0.00"
+    },
+    {
+      "desc": "不变量：改变磷酸化程度时 (a) 黑峰位置完全不变",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "读数显示磷酸化程度 55%",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "HSQC 光标滑块更新读数",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "渲染 7 张局部放大图",
+      "ok": true,
+      "detail": "7"
+    },
+    {
+      "desc": "放大图按原像素缩放（图宽 > 视口宽）",
+      "ok": true,
+      "detail": "{\"vw\":341,\"vh\":397.828125,\"iw\":5876.5625,\"ih\":4586.4375,\"l\":-3853.296875,\"t\":-2477.890625}"
+    },
+    {
+      "desc": "放大图定位为负偏移（裁剪左上角外）",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "点击原图后灯箱打开",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "灯箱显示的原图为完整 1034×807",
+      "ok": true,
+      "detail": "{\"w\":1034,\"h\":807}"
+    },
+    {
+      "desc": "Esc 关闭灯箱",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "术语表渲染 ≥20 条",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "中英对照表渲染 ≥10 行",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "HMBC 归属表渲染 9 行",
+      "ok": true,
+      "detail": "9"
+    },
+    {
+      "desc": "HSQC 归属表渲染 6 行（残基分组）",
+      "ok": true,
+      "detail": "6"
+    },
+    {
+      "desc": "点击峰后归属表对应行高亮",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "页脚显示验证摘要",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "preview.png 已生成",
+      "ok": true,
+      "detail": "1467.2 KB"
+    },
+    {
+      "desc": "iPhone 12 (390×844)：纵向单列布局",
+      "ok": true,
+      "detail": "370px"
+    },
+    {
+      "desc": "iPhone 12 (390×844)：无横向溢出",
+      "ok": true,
+      "detail": "scrollW=390 clientW=390"
+    },
+    {
+      "desc": "iPhone 12 (390×844)：无元素超出视口",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "desc": "iPhone 12 (390×844)：无 JS 异常",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "iPhone 12 (390×844)：谱图标签无重叠",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "desc": "iPhone 12 (390×844)：谱图保持 viewBox 宽高比",
+      "ok": true,
+      "detail": "{\"w\":344,\"h\":248.4375,\"ar\":1.3846540880503144,\"var\":1.3846153846153846}"
+    },
+    {
+      "desc": "iPhone 12 (390×844)：术语注释不溢出视口",
+      "ok": true,
+      "detail": "{\"x\":41.71875,\"y\":438.078125,\"width\":320,\"height\":131.578125}"
+    },
+    {
+      "desc": "iPhone 12 (390×844)：正文结构小图不溢出",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "iPhone 12 (390×844)：阈值滑块生效（60% 时可见峰减少）",
+      "ok": true,
+      "detail": "3"
+    },
+    {
+      "desc": "窄屏 (360×740)：纵向单列布局",
+      "ok": true,
+      "detail": "340px"
+    },
+    {
+      "desc": "窄屏 (360×740)：无横向溢出",
+      "ok": true,
+      "detail": "scrollW=360 clientW=360"
+    },
+    {
+      "desc": "窄屏 (360×740)：无元素超出视口",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "desc": "窄屏 (360×740)：无 JS 异常",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "窄屏 (360×740)：谱图标签无重叠",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "desc": "窄屏 (360×740)：谱图保持 viewBox 宽高比",
+      "ok": true,
+      "detail": "{\"w\":314,\"h\":226.765625,\"ar\":1.3846895886446635,\"var\":1.3846153846153846}"
+    },
+    {
+      "desc": "窄屏 (360×740)：术语注释不溢出视口",
+      "ok": true,
+      "detail": "{\"x\":30,\"y\":385.75,\"width\":320,\"height\":131.578125}"
+    },
+    {
+      "desc": "窄屏 (360×740)：正文结构小图不溢出",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "窄屏 (360×740)：阈值滑块生效（60% 时可见峰减少）",
+      "ok": true,
+      "detail": "3"
+    },
+    {
+      "desc": "iPhone SE (320×568)：纵向单列布局",
+      "ok": true,
+      "detail": "300px"
+    },
+    {
+      "desc": "iPhone SE (320×568)：无横向溢出",
+      "ok": true,
+      "detail": "scrollW=320 clientW=320"
+    },
+    {
+      "desc": "iPhone SE (320×568)：无元素超出视口",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "desc": "iPhone SE (320×568)：无 JS 异常",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "iPhone SE (320×568)：谱图标签无重叠",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "desc": "iPhone SE (320×568)：谱图保持 viewBox 宽高比",
+      "ok": true,
+      "detail": "{\"w\":274,\"h\":197.875,\"ar\":1.3847125710675932,\"var\":1.3846153846153846}"
+    },
+    {
+      "desc": "iPhone SE (320×568)：术语注释不溢出视口",
+      "ok": true,
+      "detail": "{\"x\":14,\"y\":300.171875,\"width\":296,\"height\":131.578125}"
+    },
+    {
+      "desc": "iPhone SE (320×568)：正文结构小图不溢出",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "desc": "iPhone SE (320×568)：阈值滑块生效（60% 时可见峰减少）",
+      "ok": true,
+      "detail": "3"
+    }
+  ],
+  "time": "2026-10-11 01:56:47 UTC"
+}

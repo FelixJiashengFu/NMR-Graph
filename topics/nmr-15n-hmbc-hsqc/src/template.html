@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>额外核素：¹H–¹⁵N 二维核磁教学页（HMBC 与 HSQC）</title>
+<meta name="description" content="基于两张教学幻灯片截图制作的中文交互教学网页：解读 ¹H–¹⁵N HMBC 与 ¹⁵N HSQC，区分原图观测、坐标估读、结构推断与演示模型。">
+<style>
+{{CSS}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="inner">
+    <h1 class="title">额外核素：¹H–¹⁵N 二维核磁的应用
+      <span class="sub">Additional Nuclei —— 从齐拉西酮降解产物的 HMBC 到磷酸化蛋白的 HSQC</span>
+    </h1>
+
+    <p class="goal">
+      <b>一句话目标：</b>看懂两件事 —— ① ¹H–¹⁵N HMBC 的交叉峰如何帮助定位小分子（齐拉西酮降解产物）中的氮环境；
+      ② ¹⁵N HSQC 中磷酸化如何把丝氨酸的峰“推”向低场，以及为什么两张图的 ¹⁵N 数值不能直接比较。
+    </p>
+
+    <details class="preread" open>
+      <summary>读前必读（数据来源与可信边界）</summary>
+      <div class="body">
+        <ul>
+          <li><b>原材料：</b>两张标题同为 “Additional Nuclei” 的教学幻灯片截图。除此之外没有提供原始数据文件、脉冲序列、谱仪参数或实验条件。</li>
+          <li><b>本页的 4 类信息必须分开看：</b>
+            <span class="srcbadge src-obs">原图观测</span> 原图文字与标注中直接可见；
+            <span class="srcbadge src-read">坐标估读</span> 按原图坐标轴刻度估读，附不确定度；
+            <span class="srcbadge src-infer">结构推断</span> 由化学结构或理论关系推出的<b>候选</b>解释；
+            <span class="srcbadge src-demo">演示模型</span> 为教学构造的插值/阈值模型，<b>不是原始数据</b>。</li>
+          <li><b>估读精度：</b>图 1 的 δH 刻度 1 ppm ≈ 51.8 像素，δN 刻度 10 ppm ≈ 22.2 像素；图 2 的 ¹H 刻度 0.5 ppm ≈ 131 像素，δN 刻度 2 ppm ≈ 66 像素。据此给出的估读不确定度约为 <b>±0.02 ppm（¹H）</b> 与 <b>±0.3 ppm（¹⁵N）</b>。</li>
+          <li><b>重绘图均为“示意”：</b>页面中所有交互谱图与化学结构都是按原图坐标轴/化学名重绘的示意图，<b>不是</b>恢复了真实实验曲线；原图本身以图片形式原样保留，未做任何修改。</li>
+          <li><b>无法确认的内容：</b>两图的磁场强度、溶剂、温度、¹⁵N 参考物、样品浓度、脉冲序列参数、蛋白序列，以及每一个交叉峰的具体归属 —— 原图均未给出，本页不作编造。</li>
+          <li><b>阅读方式：</b>点击左侧“对象”切换两张谱图；拖动滑块移动光标或改变演示参数；点击峰或结构上的氮原子查看读数；正文中的彩色术语可点按查看注释；键盘可用 Tab / Enter / 方向键操作全部控件。</li>
+        </ul>
+      </div>
+    </details>
+  </div>
+</header>
+
+<div class="wrap">
+
+<!-- ======================= 主要结论 ======================= -->
+<div class="sec-title"><h2>主要结论</h2><span class="tag">先看这里</span></div>
+<div class="concl">
+  <div class="card">
+    <h3>1. 两张图讲的是同一件事的两面</h3>
+    <p><button type="button" class="term" data-term="¹⁵N 天然丰度">¹⁵N</button> 是 ¹H 之外最常用的“额外核素”。
+      <button type="button" class="term" data-term="HMBC">HMBC</button> 用 2–3 键远程相关把碎片连起来（小分子、降解产物）；
+      <button type="button" class="term" data-term="HSQC">HSQC</button> 用单键相关给出蛋白质主链的“指纹”（残基级别的信号）。</p>
+  </div>
+  <div class="card">
+    <h3>2. 图 1 的氮信号分成两簇</h3>
+    <p>原图共 3 处标注。红圈峰的 <span class="num">δN ≈ −309</span>，其余 7 个峰集中在 <span class="num">δN ≈ −270</span>，两簇相差约 <span class="num">39 ppm</span>。
+      红圈之外，右上角还有一个更弱、也更负的峰（<span class="num">δN ≈ −317</span>）。</p>
+  </div>
+  <div class="card">
+    <h3>3. <button type="button" class="term" data-term="磷酸化">磷酸化</button>主要动 ¹H，几乎不动 ¹⁵N</h3>
+    <p>图 2 中 Ser3 → pSer3 的 ¹H 位移约 <span class="num">+0.32 ppm</span>（<button type="button" class="term" data-term="向低场位移">向低场</button>），
+      而 ¹⁵N 位移约 <span class="num">−0.03 ppm</span>。原图用一支水平箭头强调了这个方向。</p>
+  </div>
+  <div class="card">
+    <h3>4. 两张图的 ¹⁵N 数值不可直接比较</h3>
+    <p>图 1 纵轴为 <span class="num">−233 ～ −342 ppm</span>，图 2 为 <span class="num">+108 ～ +117 ppm</span>。这很可能来自不同的
+      <button type="button" class="term" data-term="参考物">参考物</button>约定。
+      把图 1 的 <span class="num">−271 ppm</span> 换算到液氨标度得 <span class="num">+109.4 ppm</span>，正好落在图 2 的观测区间内。</p>
+  </div>
+</div>
+
+<!-- ======================= 直观解释（三栏交互） ======================= -->
+<div class="sec-title"><h2>直观解释 · 交互仪表盘</h2><span class="tag">点击 · 拖动 · 键盘可达</span></div>
+
+<div class="grid3">
+
+  <!-- 左栏 -->
+  <div class="col col-left">
+    <div class="panel">
+      <div class="card-h">教学对象</div>
+      <button type="button" class="obj-btn" data-obj="hmbc" aria-pressed="true">
+        ① 齐拉西酮降解产物<span class="s">¹H–¹⁵N HMBC（小分子，图 1）</span>
+      </button>
+      <button type="button" class="obj-btn" data-obj="hsqc" aria-pressed="false">
+        ② 磷酸化蛋白<span class="s">¹⁵N HSQC（蛋白主链，图 2）</span>
+      </button>
+      <p class="hint">点击对象后，中间的图形、结构位置、右侧读数与解释会同步更新。</p>
+    </div>
+
+    <div class="panel">
+      <div class="card-h">参数控制</div>
+      <div id="ctl-dynamic"></div>
+    </div>
+
+    <div class="panel">
+      <div class="card-h">读数来源</div>
+      <p class="hint" style="margin:0">
+        <b>来自原图：</b>坐标轴刻度范围、峰的位置与标注框、残基名称、图例 (a)/(b)、箭头方向。<br>
+        <b>来自重绘（示意）：</b>所有线条、颜色与图形样式。<br>
+        <b>来自演示模型：</b>强度阈值过滤、磷酸化程度插值、光标匹配容差。
+      </p>
+    </div>
+  </div>
+
+  <!-- 中栏 -->
+  <div class="col col-mid">
+    <div class="panel">
+      <div class="card-h" id="obj-title">齐拉西酮降解产物 · ¹H–¹⁵N HMBC</div>
+      <div class="hint" style="margin:-4px 0 8px" id="obj-sub">原图：Additional Nuclei（第 1 张幻灯片）</div>
+      <div id="obj-badge" style="margin-bottom:8px"></div>
+      <div class="plotwrap">
+        <div id="plot" role="region" aria-label="交互谱图区" aria-live="polite"></div>
+        <span class="svg-note">示意重绘</span>
+      </div>
+      <div class="legendrow" id="obj-legend"></div>
+      <p class="hint">键盘操作：用 Tab 依次聚焦每个峰，按 Enter 或空格选中；也可直接点击图形空白处移动光标。</p>
+    </div>
+
+    <div class="panel">
+      <div class="card-h">化学结构</div>
+      <div id="struct"></div>
+    </div>
+  </div>
+
+  <!-- 右栏 -->
+  <div class="col col-right">
+    <div class="col">
+      <div class="panel">
+        <div class="card-h">当前读数</div>
+        <div id="readout" aria-live="polite"></div>
+        <div class="card-h" style="margin-top:12px">快速选择峰</div>
+        <div class="pk-list" id="pk-list" role="group" aria-label="峰列表"></div>
+      </div>
+
+      <div class="panel">
+        <div class="card-h">解释</div>
+        <div id="explain" aria-live="polite"></div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- ======================= 局部放大 + 原图 ======================= -->
+<div class="sec-title"><h2>局部放大与完整原图</h2><span class="tag">原图未改动</span></div>
+
+<div class="panel" style="margin-bottom:12px">
+  <p class="hint" style="margin:0">
+    下面的放大图是<strong>直接按原始像素裁剪</strong>得到的（未做插值重采样），用于读取小字号刻度与细条带。
+    原始幻灯片图片在更下方完整保留，点击可全屏展开。
+  </p>
+</div>
+
+<div class="card-h" style="margin-top:0">图 1 · 齐拉西酮降解产物 ¹H–¹⁵N HMBC</div>
+<div class="zoomgrid" id="zoom-hmbc"></div>
+
+<div class="card-h" style="margin-top:16px">图 2 · 磷酸化蛋白 ¹⁵N HSQC</div>
+<div class="zoomgrid" id="zoom-hsqc"></div>
+
+<div class="card-h" style="margin-top:16px">完整原图（点击展开）</div>
+<div class="origgrid">
+  <div class="origcard">
+    <img id="orig-img-hmbc" src="{{IMG_HMBC}}" alt="原图 1：Additional Nuclei 幻灯片，含齐拉西酮结构与 ¹H–¹⁵N HMBC 谱图">
+    <div class="cap"><b>图 1</b> —— 标题 “Additional Nuclei”。正文说明这是 ¹H–¹⁵N HMBC，用于解析齐拉西酮（一种治疗精神疾病的药物）的降解产物；右上为分子结构，右下为二维谱，含红圈、蓝虚线框、蓝实线框三处标注。原图尺寸 1034 × 807 像素。</div>
+  </div>
+  <div class="origcard">
+    <img id="orig-img-hsqc" src="{{IMG_HSQC}}" alt="原图 2：Additional Nuclei 幻灯片，含 ¹⁵N HSQC 谱图与磷酸化位移箭头">
+    <div class="cap"><b>图 2</b> —— 标题 “Additional Nuclei”。正文说明 ¹⁵N 是常见核素，氮 HSQC 常用于蛋白质研究，本谱显示磷酸化的效应；右侧为 ¹⁵N HSQC，标注 Gly1/Gly2/Gly4/Gly5、Ser3、pSer3，并有 Ser3 → pSer3 的箭头。原图尺寸 1043 × 704 像素。</div>
+  </div>
+</div>
+
+<!-- ======================= 完整归属表 ======================= -->
+<div class="sec-title"><h2>完整归属表</h2><span class="tag">逐峰数据</span></div>
+<div id="table-main"></div>
+<p class="hint">切换左侧“教学对象”可查看另一张谱图的对应表。</p>
+
+<!-- ======================= 分步推理 ======================= -->
+<div class="sec-title"><h2>分步推理</h2><span class="tag">从观察到结论</span></div>
+<div class="steps">
+  <div class="st">
+    <h4>识别核素对：为什么是 ¹H 与 ¹⁵N</h4>
+    <p><button type="button" class="term" data-term="核素">核素</button> ¹H 与 ¹⁵N 的自旋量子数都是 <span class="srcbadge src-infer">结构推断</span> I = 1/2，没有四极矩展宽，谱线尖锐，适合高分辨二维核磁。
+      代价是 <button type="button" class="term" data-term="¹⁵N 天然丰度">¹⁵N 的天然丰度</button>仅约 0.37%，所以蛋白质实验通常需要 ¹⁵N 标记样品；这也是原图把氮称为 “another common nucleus” 但实际使用需富集的原因。</p>
+  </div>
+  <div class="st">
+    <h4>区分两种实验：HMBC 与 HSQC 的相干路径不同</h4>
+    <p><button type="button" class="term" data-term="HMBC">HMBC</button> 检测 <button type="button" class="term" data-term="自旋-自旋耦合 J">²J、³J</button>（相隔 2–3 根键）的远程相关，因此能把不直接相连的 ¹H 与 ¹⁵N 连起来 —— 这正是“解析降解产物骨架”所需要的。
+      <button type="button" class="term" data-term="HSQC">HSQC</button> 检测 ¹J（单键）相关，每个峰对应一个 N–H 基团；蛋白质主链每个残基（除脯氨酸）都有一个
+      <button type="button" class="term" data-term="内酰胺">酰胺</button> N–H，因此谱图呈“指纹”状。</p>
+    <span class="minifig" data-mini="amide"></span>
+  </div>
+  <div class="st">
+    <h4>读图 1 的坐标轴</h4>
+    <p>横轴 δH 从左到右由 <b>7 → 1 ppm</b> 递减；纵轴 δN 自上而下由 <b>−320 → −240 ppm</b> 递增（注意：都是数值增大的方向与直觉相反/相同需逐图确认）。
+      用像素测量可把刻度换算成线性映射：<code>δH = 7 − (x − 698)/51.833</code>，<code>δN = −320 + (y − 445.5)/2.219</code>。 <span class="srcbadge src-read">坐标估读</span></p>
+  </div>
+  <div class="st">
+    <h4>定位 3 处标注并数出交叉峰</h4>
+    <p>红圈内 <b>1 个</b>峰（δH 6.86 / δN −309.4）；蓝虚线框内 <b>4 个</b>峰（δH 7.37、7.18、6.76、6.59，δN 均在 −270 附近）；
+      蓝实线框内 <b>1 个</b>主峰（δH 1.75 / δN −271.1），框右侧另有 1 个较弱峰（δH 1.45 / δN −277.6）；另有 1 个孤立峰（δH 4.56）与右上角 1 个弱峰（δN −316.6）。全图合计 <b>9 个</b>可分辨交叉峰。
+      按 δN 可分成两簇：<b>7 个</b>集中在 −270 ± 4 ppm，<b>2 个</b>明显更负（−309.4 与 −316.6）。 <span class="srcbadge src-read">坐标估读</span></p>
+  </div>
+  <div class="st">
+    <h4>把峰位与结构对应起来（这一步是推断）</h4>
+    <p>齐拉西酮含 4 类氮环境：<button type="button" class="term" data-term="苯并异噻唑">苯并异噻唑</button>的环内氮、
+      <button type="button" class="term" data-term="哌嗪">哌嗪</button>的两个氮、<button type="button" class="term" data-term="羟吲哚 / 2-吲哚酮">羟吲哚</button>的
+      <button type="button" class="term" data-term="内酰胺">内酰胺</button> N–H。
+      芳香/杂环区（δH 6.6–7.4）的 4 个峰与苯并异噻唑芳环上的质子相关；脂肪区（δH 1.4–2.0）的峰与哌嗪/乙基链相关；
+      δN ≈ −270 这一簇与常见的芳胺/内酰胺氮位置相符。
+      而 δN ≈ −309 的红圈峰明显偏离该簇，提示一个<b>不同的</b>氮环境（例如降解产物中新生成或新暴露的氮）。 <span class="srcbadge src-infer">结构推断</span>
+      <b>但原图并未给出任何逐峰归属</b>，以上只能作为候选。</p>
+    <span class="minifig" data-mini="benzisothiazole"></span>
+    <span class="minifig" data-mini="piperazine"></span>
+    <span class="minifig" data-mini="oxindole"></span>
+  </div>
+  <div class="st">
+    <h4>读图 2 的坐标轴与峰对</h4>
+    <p>横轴 ¹H 由 <b>9.0 → 8.0 ppm</b> 递减，纵轴 δN 由上而下由 <b>110 → 116 ppm</b> 递增。换算为 <code>δH = 9.0 − (x − 639)/262.5</code>，<code>δN = 110 + (y − 179)/33.083</code>。
+      图中黑色与蓝色各一套峰：Gly4、Gly5、Gly1 出现黑蓝成对（位移很小），Gly2 只有黑峰，而 Ser3 与 pSer3 之间出现最大的水平位移。 <span class="srcbadge src-read">坐标估读</span></p>
+  </div>
+  <div class="st">
+    <h4>解释磷酸化的方向性</h4>
+    <p>磷酸基（–PO₃H₂）是强吸电子基，接到丝氨酸侧链羟基后，使侧链及主链酰胺周围的电子云密度下降，酰胺 ¹H 的化学位移增大（<button type="button" class="term" data-term="向低场位移">向低场</button>、峰向左移）。
+      ¹⁵N 对该取代的响应弱得多，因此谱图上表现为<b>几乎水平的箭头</b>：ΔδH ≈ +0.32 ppm，ΔδN ≈ −0.03 ppm。 <span class="srcbadge src-read">坐标估读</span></p>
+    <span class="minifig" data-mini="phosphoser"></span>
+    <span class="minifig" data-mini="serine"></span>
+  </div>
+  <div class="st">
+    <h4>把两张图放到同一个参照系里（这一步是理论换算）</h4>
+    <p>¹⁵N 常用两种参考物：液氨 NH₃（IUPAC 推荐，0 ppm）与硝基甲烷 CH₃NO₂，两者标度相差约 <b>380.5 ppm</b>。
+      若图 1 用 CH₃NO₂、图 2 用 NH₃，则图 1 的 −271.1 ppm 换算后约为 <b>+109.4 ppm</b>，恰好落在图 2 观测到的酰胺氮区间（108.9–115.9 ppm）内 —— 两图在物理上是一致的。
+      而红圈峰 −309.4 ppm 换算后约 <b>+71.1 ppm</b>，明显低于酰胺区，与它“偏离常规氮簇”的观测特征互相印证。
+      <span class="srcbadge src-infer">结构推断</span>（原图未声明所用参考物，此结论以该假设为前提。）</p>
+  </div>
+</div>
+
+<!-- ======================= 数值核对 ======================= -->
+<div class="sec-title"><h2>数值核对</h2><span class="tag">公式 · 单位 · 边界 · 不变量</span></div>
+<div class="check" id="checklist">
+  <div class="c"><span class="q">① 坐标轴跨度：图 1 的 δH 与 δN 各跨多少？</span><span class="a">δH：8.0 − 1.0 = 7.0 ppm；δN：−233 − (−342) = 109 ppm。（按原图坐标框像素边界换算）</span></div>
+  <div class="c"><span class="q">② 坐标轴跨度：图 2 的 ¹H 与 δN 各跨多少？</span><span class="a">¹H：9.0 − 8.0 = 1.0 ppm；δN：117.1 − 108.1 = 9.0 ppm。</span></div>
+  <div class="c"><span class="q">③ 单位换算：1 ppm 在 600 MHz 谱仪上等于多少 Hz？</span><span class="a">¹H：1 ppm × 600 MHz = 600 Hz；¹⁵N 在 600 MHz ¹H 谱仪上约 60.8 MHz，故 1 ppm ≈ 60.8 Hz。<br>（本页所有位移差都可以用这个系数换成 Hz，例如 ΔδH = 0.318 ppm ≈ 191 Hz。）</span></div>
+  <div class="c"><span class="q">④ 参考物换算：δ(CH₃NO₂) = −271.1 ppm 换成 NH₃ 标度是多少？</span><span class="a">−271.1 + 380.5 = +109.4 ppm。</span></div>
+  <div class="c"><span class="q">⑤ 参考物换算的反向检查（应回到原值）</span><span class="a">+109.4 − 380.5 = −271.1 ppm ✓（换算函数可逆）</span></div>
+  <div class="c"><span class="q">⑥ 简单情形：磷酸化程度 0% 时蓝峰应在哪里？</span><span class="a">应与 (a) 组黑峰完全重合，ΔδH = 0、ΔδN = 0。演示模型的插值函数在 p = 0 时返回 (a) 位置 ✓</span></div>
+  <div class="c"><span class="q">⑦ 边界情形：磷酸化程度 100% 时蓝峰应在哪里？</span><span class="a">应等于原图观测的 (b) 组位置（如 pSer3 δH 8.710 / δN 115.85）。插值函数在 p = 1 时返回观测值 ✓</span></div>
+  <div class="c"><span class="q">⑧ 不变量：拖动“磷酸化程度”时，(a) 组黑峰应如何变化？</span><span class="a">完全不变。黑峰是原图 (a) 组的观测值，不受演示参数影响 —— 这是本页刻意保持的不变量 ✓</span></div>
+  <div class="c"><span class="q">⑨ 不变量：拖动光标滑块时，峰的真实位置应如何变化？</span><span class="a">不变。光标只改变高亮与命中判断，不修改任何峰的坐标 ✓</span></div>
+  <div class="c"><span class="q">⑩ 计数核对：图 1 交叉峰个数与各标注框内个数</span><span class="a">合计 9 个 = 红圈 1 + 蓝虚线框 4 + 蓝实线框 1 + 框外弱峰 1 + 孤立峰 1 + 右上弱峰 1 ✓（与像素扫描结果一致）</span></div>
+  <div class="c"><span class="q">⑪ 计数核对：图 2 峰个数</span><span class="a">(a) 黑峰 5 个（Gly2、Gly4、Gly5、Gly1、Ser3）＋ (b) 蓝峰 4 个（Gly4、Gly5、Gly1、pSer3）= 9 个 ✓</span></div>
+  <div class="c"><span class="q">⑫ 最大值核对：图 1 红圈峰与常规氮簇的 δN 差值</span><span class="a">|−309.4| − |−270.0| = 39.4 ppm ≈ 39 ppm。红圈峰是三个标注框中最“负”的信号；全图最负的是右上角弱峰 T1（−316.6）✓</span></div>
+  <div class="c"><span class="q">⑬ 相对强度归一：最强峰 B1 高 43 像素，其余峰占多少？</span><span class="a">D2 = 30/43 ≈ 70%，D1 = 29/43 ≈ 67%，D3 = 22/43 ≈ 51%，R1 = 21/43 ≈ 49%，D4/S1 = 18/43 ≈ 42%，B2 = 10/43 ≈ 23%，T1 = 9/43 ≈ 21%。</span></div>
+  <div class="c"><span class="q">⑭ 换算自检：图 2 中 Ser3 → pSer3 的 ΔδH 换成 Hz</span><span class="a">0.318 ppm × 600 MHz ≈ 191 Hz（按 600 MHz ¹H 频率估算；原图未给出磁场强度，故为条件性换算）。</span></div>
+  <div class="c"><span class="q">⑮ 一致性：两图纵轴符号相反是否可能来自同一核素？</span><span class="a">可能。¹⁵N 的两种常用参考物相差约 380.5 ppm，足以让同一核素在两图中分别落在负值与正值区间 ✓</span></div>
+  <div class="c"><span class="q">⑯ 换算分层核对：图 1 的 9 个峰换算到 NH₃ 标度后落在哪里？</span><span class="a">常规氮簇（δN −270 ± 4）→ +106 ～ +114 ppm，全部落在图 2 的酰胺氮观测区间内；红圈峰与右上角弱峰 → +71.1 与 +63.9 ppm，明显低于该区间 ✓</span></div>
+  <div class="c"><span class="q">⑰ 计数一致性：图 1 按 δN 分簇的结果</span><span class="a">9 个峰 = 常规簇 7 个（δN −270 ± 4）+ 异常簇 2 个（−309.4、−316.6）✓</span></div>
+</div>
+<p class="hint">以上核对项由 <code>verify/verify.mjs</code> 与 <code>verify/verify.py</code> 脚本自动复算，结果见页脚。</p>
+
+<!-- ======================= 常见误区 ======================= -->
+<div class="sec-title"><h2>常见误区</h2><span class="tag">容易读错的地方</span></div>
+<div class="myth">
+  <div class="m">
+    <div class="bad">误区 1：把两张图的 ¹⁵N 数值直接比较，认为“降解产物的氮在 −270，蛋白的氮在 +110，所以完全不同”。</div>
+    <div class="fix"><b>正确理解：</b>两图纵轴符号相反，很可能是<button type="button" class="term" data-term="参考物">参考物</button>/符号约定不同（NH₃ 与 CH₃NO₂ 相差约 380.5 ppm）。换算到同一标度后，两者落在相近区间。比较不同文献的 ¹⁵N 数据前，必须先确认参考物。</div>
+  </div>
+  <div class="m">
+    <div class="bad">误区 2：把二维<button type="button" class="term" data-term="交叉峰">交叉峰</button>的横坐标当成“这个峰的一维位置”，忽略了纵坐标。</div>
+    <div class="fix"><b>正确理解：</b>一个交叉峰是 (δH, δN) 的<b>一对</b>坐标。只读横坐标会丢掉全部氮信息，而氮信息正是这两张图的核心。</div>
+  </div>
+  <div class="m">
+    <div class="bad">误区 3：用交叉峰的高度/大小直接比较不同氮位点的含量。</div>
+    <div class="fix"><b>正确理解：</b>交叉峰强度同时取决于 ¹⁵N 丰度、<button type="button" class="term" data-term="自旋-自旋耦合 J">J 耦合常数</button>、弛豫时间、采样参数与处理参数。只有当这些条件一致时，强度才可以作相对比较。</div>
+  </div>
+  <div class="m">
+    <div class="bad">误区 4：认为<button type="button" class="term" data-term="磷酸化">磷酸化</button>一定会同时显著改变 ¹H 和 ¹⁵N 的化学位移。</div>
+    <div class="fix"><b>正确理解：</b>图 2 显示 Ser3 的 ¹H 位移约 +0.32 ppm，而 ¹⁵N 位移仅约 −0.03 ppm。不同核素对同一结构变化的敏感度差异很大。</div>
+  </div>
+  <div class="m">
+    <div class="bad">误区 5：把本页的交互图形当作原始实验曲线。</div>
+    <div class="fix"><b>正确理解：</b>本页所有谱图与结构都是<b>按原图坐标轴重绘的示意</b>（页面已标“示意重绘”），只保留了可估读的峰位与标注位置。原图在“完整原图”区域原样保留。</div>
+  </div>
+  <div class="m">
+    <div class="bad">误区 6：认为做 ¹⁵N 实验和做 ¹H 实验一样方便。</div>
+    <div class="fix"><b>正确理解：</b><button type="button" class="term" data-term="¹⁵N 天然丰度">¹⁵N 天然丰度</button>仅约 0.37%，且旋磁比低、灵敏度低。蛋白质 ¹⁵N HSQC 几乎都需要 ¹⁵N 标记（富集）样品；小分子 ¹⁵N HMBC 则需要更长的采样时间或更高的浓度。</div>
+  </div>
+  <div class="m">
+    <div class="bad">误区 7：把红圈峰直接当作“已确认的新结构证据”。</div>
+    <div class="fix"><b>正确理解：</b>原图只说明该谱“帮助解析（helping elucidate）”降解产物，并未给出该峰的<button type="button" class="term" data-term="归属">归属</button>。红圈峰 δN 明显偏低（≈ −309）是一个值得注意的<b>观测事实</b>，但要确认结构还需要其他实验（如完整 HMBC 全谱、MS、对照实验）互相印证。</div>
+  </div>
+  <div class="m">
+    <div class="bad">误区 8：认为纵轴数值增大方向一定“向上”。</div>
+    <div class="fix"><b>正确理解：</b>两图的纵轴都是<b>向下递增</b>（图 1 由 −320 到 −240，图 2 由 110 到 116），横轴都是<b>向左递增</b>（图 1 由 1 到 7，图 2 由 8.0 到 9.0）。读图前先看刻度方向。</div>
+  </div>
+  <div class="m">
+    <div class="bad">误区 9：把“演示模型”的中间取值当作真实实验观测。</div>
+    <div class="fix"><b>正确理解：</b>“磷酸化程度”滑块在 0% 与 100% 两端对应原图的 (a)/(b) 两组真实观测；<b>中间任意取值都是线性插值出来的演示状态</b>，原图并没有提供这些中间态的数据。</div>
+  </div>
+</div>
+
+<!-- ======================= 术语表 ======================= -->
+<div class="sec-title"><h2>术语表</h2><span class="tag">正文中彩色词条可点按</span></div>
+<div class="panel">
+  <p class="hint" style="margin-top:0">正文中带下划虚线的彩色词条，点击或按 Tab 聚焦后按 Enter 即可查看注释；也可在下方完整列表中查阅。</p>
+  <div class="gl" id="glossary-list"></div>
+</div>
+
+<!-- ======================= 中英对照 ======================= -->
+<div class="sec-title"><h2>原图英文专业词 · 中英对照</h2><span class="tag">原图语言为英文</span></div>
+<div class="tbl-scroll">
+  <table>
+    <caption class="sr-only">原图英文专业词中英对照表</caption>
+    <thead><tr><th>英文（原图用词）</th><th>中文</th><th>出现位置</th></tr></thead>
+    <tbody id="enzh-body"></tbody>
+  </table>
+</div>
+
+<!-- ======================= 来源与限制 ======================= -->
+<div class="sec-title"><h2>来源与限制</h2><span class="tag">数据边界</span></div>
+<div class="panel">
+  <h3 style="font-size:15px;margin-bottom:6px">来源</h3>
+  <ul style="margin:0 0 14px;padding-left:20px;font-size:13.5px;color:var(--text-dim)">
+    <li>原材料：用户提供的两张教学幻灯片截图，标题均为 “Additional Nuclei”。</li>
+    <li>图 1 含齐拉西酮（Ziprasidone）结构式与一张 ¹H–¹⁵N HMBC 谱图（1034 × 807 px）。</li>
+    <li>图 2 含一张 ¹⁵N HSQC 谱图，展示磷酸化效应（1043 × 704 px）。</li>
+    <li>坐标轴范围、刻度值、峰位、标注框与箭头均由上述两张图片测量得到；测量脚本见 <code>verify/analyze_images.py</code>。</li>
+  </ul>
+
+  <h3 style="font-size:15px;margin-bottom:6px">原图未提供、因而本页无法确认的内容</h3>
+  <ul style="margin:0 0 14px;padding-left:20px;font-size:13.5px;color:var(--text-dim)">
+    <li>谱仪磁场强度、观测频率、溶剂、温度、样品浓度、内标与 ¹⁵N 参考物。</li>
+    <li>脉冲序列细节（HMBC 的演化延迟、HSQC 的相干选择方式）、采样点数、处理参数（窗函数、线性预测、基线校正）。</li>
+    <li>图 2 的蛋白名称与序列；Gly1/2/4/5、Ser3 所属的具体肽段。</li>
+    <li>图 1 中降解产物的完整结构；原图只给出原料药齐拉西酮的结构。</li>
+    <li>每一个交叉峰的具体归属；原图未提供归属表。</li>
+    <li>两张图的 (a)/(b) 两组数据各自对应的具体样品（图 2 图例只标了 (a)、(b)）。</li>
+  </ul>
+
+  <h3 style="font-size:15px;margin-bottom:6px">本页结论的可信度分级</h3>
+  <ul style="margin:0;padding-left:20px;font-size:13.5px;color:var(--text-dim)">
+    <li><span class="srcbadge src-obs">原图观测</span> 高可信：两张图的标题、正文、坐标轴标签、残基名称、图例、箭头、3 处标注框的位置。</li>
+    <li><span class="srcbadge src-read">坐标估读</span> 中等可信：各交叉峰与标注框的 ppm 数值。已给出换算公式与 ±0.02 / ±0.3 ppm 的不确定度；如需精确值请回原图复核。</li>
+    <li><span class="srcbadge src-infer">结构推断</span> 低—中可信：氮位点与交叉峰的候选对应、参考物换算、磷酸化位移方向的化学解释。</li>
+    <li><span class="srcbadge src-demo">演示模型</span> 仅用于教学：磷酸化程度的线性插值、强度阈值过滤、光标匹配容差。这些<b>不是</b>原始数据，不能用于定量结论。</li>
+  </ul>
+</div>
+
+<footer>
+  <p style="margin:0 0 6px">
+    <b>文件构成：</b><code>index.html</code>（自包含交付件，样式/脚本/图片全部内嵌，可离线直接打开）、
+    <code>preview.png</code>（整页预览）、<code>src/</code>（可编辑源码）、<code>verify/</code>（测量与验证脚本）、
+    <code>assets/</code>（两张原图，未改动）。
+  </p>
+  <p id="verify-summary" style="margin:0">验证结果：<span class="srcbadge src-obs">待运行</span></p>
+</footer>
+
+</div>
+
+<script>
+{{DATA}}
+</script>
+<script>
+{{APP}}
+</script>
+<script>
+/* ---------- 静态内容填充（术语表 / 中英对照 / 页脚验证摘要） ---------- */
+(function () {
+  'use strict';
+  var gl = document.getElementById('glossary-list');
+  if (gl && typeof GLOSSARY !== 'undefined') {
+    gl.innerHTML = GLOSSARY.map(function (g) {
+      return '<dl class="item"><dt>' + g.k + '<span class="en">' + g.en + '</span></dt><dd>' + g.zh + '</dd></dl>';
+    }).join('');
+  }
+  var eb = document.getElementById('enzh-body');
+  if (eb && typeof EN_ZH !== 'undefined') {
+    eb.innerHTML = EN_ZH.map(function (r) {
+      return '<tr><td class="mono">' + r.en + '</td><td>' + r.zh + '</td><td>' + r.where + '</td></tr>';
+    }).join('');
+  }
+})();
+</script>
+</body>
+</html>

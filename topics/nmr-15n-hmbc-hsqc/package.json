@@ -1,0 +1,13 @@
+{
+  "name": "nmr-15n-teaching",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "¹H–¹⁵N 二维核磁（HMBC / HSQC）中文交互教学网页 —— 数据、构建与验证脚本",
+  "scripts": {
+    "build": "node src/build.mjs",
+    "verify": "node verify/verify.mjs",
+    "measure": "python verify/analyze_images.py",
+    "all": "node src/build.mjs && node verify/verify.mjs && node src/build.mjs"
+  }
+}
