@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ADEQUATE 能否完成全部碳归属？· 交互教学</title>
+<meta name="description" content="从一张 NMR 幻灯片出发，判定 1,1-ADEQUATE 能否归属该化合物中的全部碳原子。">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<div class="wrap">
+
+<!-- ============================ 顶部 ============================ -->
+<header class="top">
+  <div class="kicker">NMR 结构解析 · 交互教学</div>
+  <h1>ADEQUATE 能否完成全部碳归属？</h1>
+  <p class="goal">
+    <b>一句话目标：</b>给定幻灯片上的一个对位取代苯衍生物，判定
+    <button class="term" data-t="adequate" aria-expanded="false">ADEQUATE</button>
+    能否像
+    <button class="term" data-t="inadequate" aria-expanded="false">INADEQUATE</button>
+    那样把每一个碳都归属出来；如果不能，指出是哪些碳、为什么，以及要用什么实验补。
+  </p>
+
+  <div class="preread">
+    <h3>读前必读</h3>
+    <ul>
+      <li><b>原始材料只有一张截图</b>：一个标题（<i>ADEQUATE</i>）、两句英文问题、一个分子骨架。
+          原图<b>没有</b>任何谱图、峰位、化学位移或实验条件（溶剂、磁场、浓度、扫描次数）。</li>
+      <li>因此本页把信息分成四层，正文中随时用标签标出：
+          <span class="tag tag-src">原图观测</span>
+          <span class="tag tag-inf">结构辅助推断</span>
+          <span class="tag tag-cnt">理论计数</span>
+          <span class="tag tag-mod">演示模型</span></li>
+      <li><b>所有化学位移数值、示意谱、转移效率、灵敏度指数都属于"演示模型"</b>：它们使用文献典型值，
+          只为演示峰的大致位置与变化趋势，<b>不是</b>本化合物的实测数据，不得作为实验依据引用。</li>
+      <li>颜色不是唯一信息载体：每个状态同时用<b>文字</b>（"出现 / 不出现"）、<b>形状</b>（实线 / 虚线）和<b>图例</b>表达。</li>
+      <li>本页所有交互都支持键盘：<kbd>Tab</kbd> 移动焦点，<kbd>Enter</kbd> / <kbd>空格</kbd> 激活，
+          <kbd>方向键</kbd> 在分子图的碳原子间移动，<kbd>Esc</kbd> 关闭注释。</li>
+    </ul>
+  </div>
+</header>
+
+<!-- ============================ 主要结论 ============================ -->
+<section class="concl" id="conclusion">
+  <div class="sec-h">
+    <span class="sec-n">01</span>
+    <h2>主要结论</h2>
+    <span class="sec-sub">先给答案，再看推导</span>
+  </div>
+
+  <p class="verdict">
+    不能仅用 ADEQUATE 完成全部碳归属：有 <b>2 个碳</b>（C13、C15）不会出现在 ADEQUATE 的 ¹³C 维，
+    另有 <b>4 个环碳</b>因对称性化学等价、无法彼此区分。
+  </p>
+
+  <ol>
+    <li><b>原图的结论性文字只有两句问题</b><span class="tag tag-src">原图观测</span>：
+        <i>"We could assign this compound using INADEQUATE, is the same possible with ADEQUATE?"</i> 与
+        <i>"Are all the carbons in this compound assignable using ADEQUATE?"</i>。原图并未给出答案。</li>
+    <li><b>两类实验给出同一类信息，但入口不同。</b>INADEQUATE 直接在 ¹³C 通道检测，
+        只要两个碳直接相连就能形成<button class="term" data-t="dq" aria-expanded="false">双量子</button>相关，<b>不要求</b>带氢；
+        ADEQUATE 是 ¹H 检测，相关对中<b>至少有一个碳要带氢</b>，代价是
+        <button class="term" data-t="natab" aria-expanded="false">天然丰度</button>下仍需两个相邻 ¹³C，但灵敏度高得多。</li>
+    <li><b>本分子恰好踩到两个盲区</b><span class="tag tag-cnt">理论计数</span>：
+        C15（甲氧基）被氧隔断，<b>没有任何 C–C 键</b>，INADEQUATE 和 ADEQUATE 都拿不到它的 C–C 相关；
+        C13（苄位 CH₂）两侧的 C4、C14 <b>都是<button class="term" data-t="quat" aria-expanded="false">季碳</button></b>，
+        没有<button class="term" data-t="jch" aria-expanded="false">¹J(CH)</button> 可用，
+        因此在 1,1-ADEQUATE 的 ¹³C 维不出现。</li>
+    <li><b>对称性限制与实验无关</b><span class="tag tag-inf">结构辅助推断</span>：对位二取代苯环存在一个包含两个取代基的
+        <button class="term" data-t="symmetry" aria-expanded="false">对称面</button>，
+        使 C2≡C6、C3≡C5 成为
+        <button class="term" data-t="equiv" aria-expanded="false">化学等价</button>碳：
+        4 个环 CH 只给 2 个信号，任何实验都无法把它们分开。</li>
+    <li><b>要"全部归属"，必须联用。</b>用 <button class="term" data-t="hsqc" aria-expanded="false">HSQC</button>
+        补齐 C13、C15 的碳位移，用 <button class="term" data-t="hmbc" aria-expanded="false">HMBC</button>
+        的 ³J 相关确认 OCH₃ 与羰基的连接。
+        ADEQUATE 的价值在于<b>确定碳骨架的连接顺序</b>（14 根 C–C 键全部可见），而不是独自包办所有碳。</li>
+  </ol>
+</section>
+
+<!-- ============================ 直观解释 ============================ -->
+<section id="intuition">
+  <div class="sec-h">
+    <span class="sec-n">02</span>
+    <h2>直观解释：一个可操作的仪表盘</h2>
+    <span class="sec-sub">点对象、切实验、拉滑块，中间的分子图和右侧读数会同步变化</span>
+  </div>
+  <p class="lead">
+    左侧选择"看哪个片段"和"做哪种实验"，中间是重绘的分子骨架与 ¹³C 信号示意，
+    右侧给出当前对象的碳数、质子化情况与判定依据。
+    分子图中<b>实线加粗</b>表示该 C–C 键在当前实验下能给出交叉峰，<b>红色虚线</b>表示不能；
+    碳原子的圆环颜色表示它是否出现在 ¹³C 维。
+  </p>
+
+  <div class="dash">
+
+    <!-- ---------- 左：对象与参数 ---------- -->
+    <div class="col">
+      <h3>对象选择</h3>
+      <div class="ctl">
+        <div class="ctl-label"><span>化合物片段</span></div>
+        <div class="chips" id="groups"></div>
+        <div class="ctl-hint">再次点击可取消选择。也可直接点击中间结构里的碳原子。</div>
+      </div>
+
+      <h3 style="margin-top:16px">参数控制</h3>
+      <div class="ctl">
+        <div class="ctl-label"><span>实验类型</span></div>
+        <div class="seg" id="exps"></div>
+      </div>
+
+      <div class="ctl">
+        <div class="ctl-label">
+          <span>¹³C 富集度</span>
+          <span class="ctl-val" id="enrich-v">1.1 %</span>
+        </div>
+        <input type="range" id="enrich" min="1.1" max="100" step="0.1" value="1.1"
+               aria-label="¹³C 富集度，单位百分比">
+        <div class="ctl-hint">
+          天然丰度约 1.1%。需要两个相邻 ¹³C 的实验，成对概率 ≈ (富集度)²。
+          <span class="tag tag-mod">演示模型</span>
+        </div>
+      </div>
+
+      <div class="ctl">
+        <div class="ctl-label">
+          <span>¹J(CC) 设定值</span>
+          <span class="ctl-val" id="jset-v">55 Hz</span>
+        </div>
+        <input type="range" id="jset" min="30" max="80" step="1" value="55"
+               aria-label="一键碳碳耦合常数设定值，单位赫兹">
+        <div class="ctl-hint">
+          延迟 Δ = 1/(4J)。分子内不同键型的真实 ¹J(CC) 并不相同（芳环约 57 Hz，sp³–sp³ 约 34 Hz），
+          单一设定值无法同时兼顾，因此键会变暗。<span class="tag tag-mod">演示模型</span>
+        </div>
+      </div>
+
+      <div class="ctl">
+        <div class="ctl-label"><span>显示选项</span></div>
+        <div class="switches">
+          <label><input type="checkbox" id="sw-num" checked> 显示碳编号</label>
+          <label><input type="checkbox" id="sw-quat"> 用虚线描出季碳</label>
+        </div>
+      </div>
+    </div>
+
+    <!-- ---------- 中：图形 ---------- -->
+    <div class="col">
+      <h3>分子结构与检测示意</h3>
+
+      <div class="stage">
+        <svg id="mol" viewBox="118 66 470 312" role="img"
+             aria-label="对位二取代苯衍生物的示意骨架，含 15 个可点击的碳原子">
+        </svg>
+      </div>
+      <div class="legend">
+        <span><i class="swatch sw-obs"></i>该键能给出交叉峰</span>
+        <span><i class="swatch sw-miss"></i>该键不能</span>
+        <span><i class="swatch sw-plain"></i>C–O 键（不参与 ¹J(CC)）</span>
+      </div>
+      <p class="figcap">
+        <b>示意图</b>（本页按原图连接关系重绘，非原图像素描摹）。原图中的英文标注已保留其含义，
+        另见下方"原图核对"。碳环颜色：<b>绿</b> = 在所选实验的 ¹³C 维出现；<b>红虚线</b> = 不出现。
+      </p>
+
+      <div class="sigwrap">
+        <div class="ctl-label" style="margin-bottom:6px">
+          <span>13 个独立 ¹³C 信号的检测示意</span>
+          <span class="ctl-val" id="sigcount"></span>
+        </div>
+        <div id="siglist"></div>
+        <p class="figcap">
+          横条长度 = 该碳最强 C–C 键的转移效率 <span class="tag tag-mod">演示模型</span>；
+          δC 数值为文献典型值，仅示意峰位。
+        </p>
+      </div>
+    </div>
+
+    <!-- ---------- 右：读数与解释 ---------- -->
+    <div class="col">
+      <h3>当前读数与解释</h3>
+      <div id="readout"></div>
+      <h3 style="margin-top:14px">判定依据</h3>
+      <div id="detail"></div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ============================ 原图核对 ============================ -->
+<section id="origin">
+  <div class="sec-h">
+    <span class="sec-n">03</span>
+    <h2>原图核对与局部放大</h2>
+    <span class="sec-sub">完整原图保留不改动</span>
+  </div>
+  <p class="lead">
+    下面左栏是<b>未经任何修改的原始截图</b>。点击图上任意位置可把该点移到视野中央，
+    用滑块调整放大倍数，或使用预设区域按钮。右栏是三个可展开的放大区域，用于逐项核对文字与结构。
+  </p>
+
+  <div class="zoomgrid">
+    <div>
+      <div class="zoombtns" id="zoombtns">
+        <button type="button" data-r="full" aria-pressed="true">全图</button>
+        <button type="button" data-r="title" aria-pressed="false">标题区</button>
+        <button type="button" data-r="text" aria-pressed="false">问题文字区</button>
+        <button type="button" data-r="mol" aria-pressed="false">分子结构区</button>
+      </div>
+      <div class="zoomer" id="zoomer" role="img"
+           aria-label="原始幻灯片截图，点击可平移视野"></div>
+      <div class="ctl" style="margin-top:9px">
+        <div class="ctl-label"><span>放大倍数</span><span class="ctl-val" id="zoom-v">1.0×</span></div>
+        <input type="range" id="zoomrange" min="1" max="4" step="0.1" value="1"
+               aria-label="原图放大倍数">
+      </div>
+      <p class="figcap">
+        原图尺寸 1046 × 619 像素。图片以数据内嵌方式保留，缩放只改变显示窗口，<b>不修改原图本身</b>。
+      </p>
+    </div>
+
+    <div>
+      <details class="acc" open>
+        <summary>标题区 · 可确认什么</summary>
+        <div class="acc-body">
+          <div class="zoomer zoomer2" data-z="3" data-cx="0.197" data-cy="0.129"
+               role="img" aria-label="原图标题区放大"></div>
+          <p><span class="tag tag-src">原图观测</span> 标题为蓝色衬线体大写单词 <b>ADEQUATE</b>，
+             可逐字母辨认。除此之外该区域无其他文字。</p>
+        </div>
+      </details>
+
+      <details class="acc">
+        <summary>问题文字区 · 逐字转录</summary>
+        <div class="acc-body">
+          <div class="zoomer zoomer2" data-z="2.4" data-cx="0.296" data-cy="0.485"
+               role="img" aria-label="原图问题文字区放大"></div>
+          <p><span class="tag tag-src">原图观测</span> 两句英文问题：</p>
+          <p style="color:var(--text)">
+            ① "We could assign this compound using INADEQUATE, is the same possible with ADEQUATE?"<br>
+            ② "Are all the carbons in this compound assignable using ADEQUATE?"
+          </p>
+          <p>两句均清晰可辨，无模糊字符，<b>没有</b>需要标"估读"的数值。</p>
+        </div>
+      </details>
+
+      <details class="acc">
+        <summary>分子结构区 · 逐键核对</summary>
+        <div class="acc-body">
+          <div class="zoomer zoomer2" data-z="2.4" data-cx="0.760" data-cy="0.525"
+               role="img" aria-label="原图分子结构区放大"></div>
+          <p><span class="tag tag-src">原图观测</span> 骨架中的原子标注为
+             <span class="num">H₃C—</span>、<span class="num">CH₃</span>（两处）、
+             <span class="num">OH</span>、<span class="num">O</span>（两处）。</p>
+          <p><span class="tag tag-inf">结构辅助推断</span> 苯环两个取代基分别位于
+             左上顶点与右下顶点，即彼此处于对位（1,4-二取代）；环内画有交替双键，
+             为标准的凯库勒式芳香表示。</p>
+          <p>原图<b>未给出</b>：化合物名称、分子式、任何化学位移数值、谱图或实验条件。</p>
+        </div>
+      </details>
+
+      <div class="origframe" style="margin-top:10px">
+        <img src="../assets/original.png" alt="原始幻灯片截图：标题 ADEQUATE、两句英文问题与一个分子骨架">
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============================ 分步推理 ============================ -->
+<section id="steps">
+  <div class="sec-h">
+    <span class="sec-n">04</span>
+    <h2>分步推理</h2>
+    <span class="sec-sub">从结构到结论的六步</span>
+  </div>
+
+  <ol class="steps">
+    <li>
+      <h4>读骨架：确定取代模式与连接顺序 <span class="tag tag-src">原图观测</span></h4>
+      <p>苯环为 1,4-二取代。上取代基（连 C1）为 –CH(CH₂OH)–CH₂–CH(CH₃)–CH₃；
+         下取代基（连 C4）为 –CH₂–C(=O)–O–CH₃。两个取代基所连的环碳 C1、C4 是
+         <button class="term" data-t="ipso" aria-expanded="false">ipso 碳</button>。
+         逐键读出的连接关系是本页一切推理的起点。</p>
+    </li>
+    <li>
+      <h4>数碳并分类 <span class="tag tag-cnt">理论计数</span></h4>
+      <p>共 <b>15 个碳</b>：CH₃ 3 个（C11、C12、C15）、CH₂ 3 个（C7、C9、C13）、
+         CH 6 个（C2、C3、C5、C6、C8、C10）、季碳 3 个（C1、C4、C14）。
+         校验：3 + 3 + 6 + 3 = 15。实测中这一分类可直接由
+         <button class="term" data-t="dept" aria-expanded="false">DEPT</button> 给出。</p>
+    </li>
+    <li>
+      <h4>找对称性，合并等价碳 <span class="tag tag-inf">结构辅助推断</span></h4>
+      <p>对位二取代苯环有一个包含 C1–C4 轴与两个取代基的镜面，交换 C2↔C6、C3↔C5。
+         故 4 个环 CH 碳只给出 2 个信号。独立 ¹³C 信号数 = 15 − 2 = <b>13</b>。</p>
+    </li>
+    <li>
+      <h4>列出全部 C–C 键 <span class="tag tag-cnt">理论计数</span></h4>
+      <p>芳环内 6 根，侧链 6 根（C1–C8、C8–C7、C8–C9、C9–C10、C10–C11、C10–C12），
+         酯端 2 根（C4–C13、C13–C14），合计 <b>14 根 C–C 键</b>。
+         另有 4 根 C–O 键（C7–O1、C14=O2、C14–O3、O3–C15）不参与 ¹J(CC)。</p>
+    </li>
+    <li>
+      <h4>按实验规则逐碳判定 <span class="tag tag-cnt">理论计数</span></h4>
+      <p><b>INADEQUATE</b>：只要该碳有 C–C 键就出现在 ¹³C 维 → 只有 C15 不出现。</p>
+      <p><b>1,1-ADEQUATE</b>：该碳要有一个"带氢的邻接碳"才作为被相关碳出现。</p>
+      <p>逐碳检查：C1（邻 C2/C6/C8，均带氢）✓；C4（邻 C3/C5/C13）✓；C14（邻 C13）✓；
+         C13（邻 C4、C14，<b>均为季碳</b>）✗；C15（<b>无 C–C 键</b>）✗。其余皆 ✓。</p>
+    </li>
+    <li>
+      <h4>汇总并回答原图两问 <span class="tag tag-cnt">理论计数</span></h4>
+      <p><b>问 1</b>（ADEQUATE 能否像 INADEQUATE 一样归属）：<b>不能完全等同</b>。
+         INADEQUATE 的 ¹³C 维含 14 个碳，1,1-ADEQUATE 只含 13 个，差额正是 C13。</p>
+      <p><b>问 2</b>（是否所有碳都可归属）：<b>否</b>。C15 对两种实验都不可见；
+         C13 在 ADEQUATE 中不出现；C2/C6 与 C3/C5 因等价无法区分。
+         完成全部<button class="term" data-t="assignment" aria-expanded="false">归属</button>需 HSQC + HMBC 配合。</p>
+    </li>
+  </ol>
+</section>
+
+<!-- ============================ 完整归属表 ============================ -->
+<section id="table">
+  <div class="sec-h">
+    <span class="sec-n">05</span>
+    <h2>完整归属表</h2>
+    <span class="sec-sub">15 个碳原子的逐项判定</span>
+  </div>
+  <p class="lead">
+    点击任意一行会同步高亮分子图中的对应碳原子。δC 一列为<b>文献典型值</b>，
+    只用于示意峰位，<b>不是</b>实测数据 <span class="tag tag-mod">演示模型</span>。
+  </p>
+  <div class="tw">
+    <table class="data" id="asg">
+      <caption>表 1 · 对位二取代苯衍生物的 ¹³C 归属判定（示意骨架，碳编号为本页自定）</caption>
+      <thead>
+        <tr>
+          <th>碳</th><th>类型</th><th>直接连氢</th><th>所属片段</th>
+          <th>结构说明 <span class="tag tag-inf">推断</span></th>
+          <th>δC 示意</th><th>等价于</th>
+          <th>INADEQUATE<br>¹³C 维</th><th>1,1-ADEQUATE<br>¹³C 维</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ============================ 数值核对 ============================ -->
+<section id="numbers">
+  <div class="sec-h">
+    <span class="sec-n">06</span>
+    <h2>数值核对</h2>
+    <span class="sec-sub">把关键计数、单位换算与模型公式逐条验算</span>
+  </div>
+
+  <h3 style="font-size:15px;margin-bottom:8px">6.1 计数自检 <span class="tag tag-cnt">理论计数</span></h3>
+  <div class="grid3" style="margin-bottom:10px">
+    <div class="read"><div class="r-k">碳原子总数</div><div class="r-v" id="chk-c">—</div></div>
+    <div class="read"><div class="r-k">季碳数</div><div class="r-v" id="chk-q">—</div></div>
+    <div class="read"><div class="r-k">质子化碳数</div><div class="r-v" id="chk-p">—</div></div>
+    <div class="read"><div class="r-k">独立 ¹³C 信号</div><div class="r-v" id="chk-s">—</div></div>
+    <div class="read"><div class="r-k">C–C 键数</div><div class="r-v" id="chk-cc">—</div></div>
+    <div class="read"><div class="r-k">化学等价对</div><div class="r-v">2</div></div>
+  </div>
+  <p style="font-size:13.4px;color:var(--muted)">
+    自检关系：质子化碳 + 季碳 = 碳原子总数（12 + 3 = 15）；
+    独立信号 = 碳原子总数 − 等价重复（15 − 2 = 13）；
+    C–C 键数 = 环内 6 + 侧链 6 + 酯端 2 = 14。
+  </p>
+
+  <h3 style="font-size:15px;margin:16px 0 8px">6.2 分子式与不饱和度 <span class="tag tag-cnt">理论计数</span></h3>
+  <p style="font-size:13.4px;color:var(--muted)">
+    按骨架推得的分子式为 <b>C₁₅H₂₂O₃</b>（氢数逐碳相加：2+2+3+1+2+1+3+3+2+3 = 22）。
+  </p>
+  <div class="formula">
+    Ω = (2C + 2 + N − H − X) / 2 = (2×15 + 2 + 0 − 22 − 0) / 2 = 10 / 2 = <b>5</b>
+    <span class="cm">// 苯环 4 + 羰基 1 = 5 ✓</span>
+  </div>
+  <div class="formula">
+    M = 15×12.011 + 22×1.008 + 3×15.999 = 180.165 + 22.176 + 47.997 ≈ <b>250.34 g·mol⁻¹</b>
+  </div>
+  <p style="font-size:13.4px;color:var(--muted)">
+    注意：分子式由本页从骨架推出，原图并未给出，属
+    <span class="tag tag-inf">结构辅助推断</span>；若原图另有说明，应以原图为准。
+  </p>
+
+  <h3 style="font-size:15px;margin:16px 0 8px">6.3 天然丰度与成对概率 <span class="tag tag-cnt">理论计数</span></h3>
+  <p style="font-size:13.4px;color:var(--muted)">
+    ¹³C 天然丰度 a ≈ 1.1%。需要两个相邻 ¹³C 的实验，成对概率为：
+  </p>
+  <div class="formula">
+    P = a² = (0.011)² = 1.21 × 10⁻⁴ ≈ <b>1 / 8 300</b>
+    <span class="cm">// 若富集到 10%，P = 1% ；富集到 100%，P = 1</span>
+  </div>
+  <p style="font-size:13.4px;color:var(--muted)">
+    这正是 INADEQUATE 需要近乎纯样品、而 ADEQUATE 靠 ¹H 检测把门槛降到数十毫克量级的原因。
+    拖动左侧"¹³C 富集度"滑块可看到该概率的平方级变化。
+  </p>
+
+  <h3 style="font-size:15px;margin:16px 0 8px">6.4 转移效率模型 <span class="tag tag-mod">演示模型</span></h3>
+  <p style="font-size:13.4px;color:var(--muted)">
+    实验的固定延迟 Δ 按设定的 <button class="term" data-t="jcc" aria-expanded="false">¹J(CC)</button>
+    值调谐：Δ = 1/(4·J_set)。对真实耦合为 J_actual 的键，双量子激发效率按正弦平方变化：
+  </p>
+  <div class="formula">
+    E(J_actual) = sin²( π · J_actual · Δ ) ， Δ = 1 / (4 · J_set)
+  </div>
+  <p style="font-size:13.4px;color:var(--muted)">
+    当 J_set = 55 Hz 时：芳环键（57 Hz）E ≈ 50%；sp³–sp³ 键（34 Hz）E ≈ 22%。
+    也就是说，<b>单一 J_set 无法同时兼顾芳环与烷基链</b>，链上相关峰会明显偏弱。
+    把滑块拉到 34 Hz，烷基链变亮、芳环变暗，可直观看到这一权衡。
+  </p>
+
+  <h3 style="font-size:15px;margin:16px 0 8px">6.5 边界与不变关系</h3>
+  <ul style="font-size:13.4px;color:var(--muted)">
+    <li><b>简单情形</b>：若分子中所有碳都带氢且不含杂原子，则 INADEQUATE 与 1,1-ADEQUATE 的
+        ¹³C 维包含完全相同的碳集合，信息等价。</li>
+    <li><b>边界情形 1</b>：把 ¹³C 富集度设为 100%，成对概率 P = 1，灵敏度不再是瓶颈，
+        此时"看不见某个碳"就<b>纯粹</b>是连接性问题（C13、C15），而非统计问题。</li>
+    <li><b>边界情形 2</b>：把 J_set 设成该键的真实 ¹J(CC)，该键效率达到模型最大值 50%；
+        偏离越远效率越低，但<b>不会</b>改变"该碳是否出现在 ¹³C 维"这一连接性判定。</li>
+    <li><b>应保持不变的关系</b>：无论怎么调滑块、切实验，以下三项都不应改变 ——
+        碳原子总数 15、季碳数 3、独立信号数 13。它们只由结构决定。</li>
+  </ul>
+</section>
+
+<!-- ============================ 常见误区 ============================ -->
+<section id="myths">
+  <div class="sec-h">
+    <span class="sec-n">07</span>
+    <h2>常见误区</h2>
+    <span class="sec-sub">五条最容易踩的坑</span>
+  </div>
+
+  <div class="myth">
+    <div class="m-x">✗ 误区 1：ADEQUATE 是 ¹H 检测，所以完全看不到季碳。</div>
+    <div class="m-v">✓ 准确说法：相关对中只要有一个碳带氢即可。</div>
+    <p>1,1-ADEQUATE 关联的是"直接相连的两个碳 + 其中一个碳上的氢"。因此季碳只要邻接带氢碳，
+      仍然会出现在 ¹³C 维。本分子中 C1、C4、C14 三个季碳都能出现，正是因为它们分别邻接 C2/C6/C8、
+      C3/C5/C13、C13。</p>
+  </div>
+
+  <div class="myth">
+    <div class="m-x">✗ 误区 2：ADEQUATE 与 INADEQUATE 完全等价，可以互相替代。</div>
+    <div class="m-v">✓ 准确说法：信息类型相同，但覆盖范围可以不同。</div>
+    <p>二者都给"相邻碳连接"，但在"两侧都没有氢"的碳上 ADEQUATE 会丢失信息。
+      本分子的 C13 就是例子：它与 C4、C14 之间的键在 INADEQUATE 里看得见，在 1,1-ADEQUATE 里看不到。</p>
+  </div>
+
+  <div class="myth">
+    <div class="m-x">✗ 误区 3：只要实验做得够久，所有碳最终都能被 ADEQUATE 看到。</div>
+    <div class="m-v">✓ 准确说法：连接性盲区靠延长时间无法弥补。</div>
+    <p>C15 被氧与碳骨架隔断，根本没有 ¹J(CC) 可用；再多的扫描次数也不会凭空产生一根不存在的键。
+      这类碳必须换实验（HSQC 读位移、HMBC 读 ²J/³J 连接）。这正是
+      <button class="term" data-t="crews" aria-expanded="false">Crews 规则</button>
+      所描述的情形。</p>
+  </div>
+
+  <div class="myth">
+    <div class="m-x">✗ 误区 4：对位苯环的四个 CH 碳可以分别归属。</div>
+    <div class="m-v">✓ 准确说法：C2≡C6、C3≡C5 化学等价，任何实验都分不开。</div>
+    <p>这是分子对称性造成的，与用哪种脉冲序列无关。归属报告中应写成
+      "δ 129.0（C2/C6）"这样的<b>合并归属</b>，而不是硬分给某一个碳。</p>
+  </div>
+
+  <div class="myth">
+    <div class="m-x">✗ 误区 5：本页的谱图与化学位移来自原图。</div>
+    <div class="m-v">✓ 准确说法：原图没有任何谱图数据，全部为演示模型。</div>
+    <p>本页的 δC 数值取自文献典型值，示意谱、效率曲线与灵敏度指数均为教学演示，
+      <b>不得</b>作为该化合物的实验数据引用。</p>
+  </div>
+</section>
+
+<!-- ============================ 术语表 ============================ -->
+<section id="glossary">
+  <div class="sec-h">
+    <span class="sec-n">08</span>
+    <h2>术语表与官能团</h2>
+    <span class="sec-sub">正文中的绿色虚线词均可点按查看</span>
+  </div>
+
+  <h3 style="font-size:15px;margin-bottom:8px">8.1 官能团小结构</h3>
+  <p class="lead" style="margin-bottom:6px">
+    下列小图明确画出原子与连接键，用于对照正文中的官能团名称。
+  </p>
+  <div class="fgrow">
+
+    <div class="fg">
+      <svg viewBox="0 0 220 120" role="img" aria-label="苯环结构：六元碳环，六个碳顶点各标 C，环内圆圈表示芳香性">
+        <polygon points="94,28 126,28 142,56 126,84 94,84 78,56"
+                 fill="none" stroke="#5b6a7c" stroke-width="2"/>
+        <circle cx="110" cy="56" r="17" fill="none" stroke="#5b6a7c" stroke-width="1.6"/>
+        <circle cx="94" cy="28" r="2.8" fill="#5fd0a8"/>
+        <circle cx="126" cy="28" r="2.8" fill="#5fd0a8"/>
+        <circle cx="142" cy="56" r="2.8" fill="#5fd0a8"/>
+        <circle cx="126" cy="84" r="2.8" fill="#5fd0a8"/>
+        <circle cx="94" cy="84" r="2.8" fill="#5fd0a8"/>
+        <circle cx="78" cy="56" r="2.8" fill="#5fd0a8"/>
+        <text x="88" y="15" class="atomlabel" style="font-size:10px">C</text>
+        <text x="132" y="15" class="atomlabel" style="font-size:10px">C</text>
+        <text x="157" y="56" class="atomlabel" style="font-size:10px">C</text>
+        <text x="132" y="97" class="atomlabel" style="font-size:10px">C</text>
+        <text x="88" y="97" class="atomlabel" style="font-size:10px">C</text>
+        <text x="63" y="56" class="atomlabel" style="font-size:10px">C</text>
+      </svg>
+      <div class="fgcap"><b>苯环</b> <em>C₆H₅–</em><br>本分子中为 1,4-二取代，环上 6 个碳、4 个氢。</div>
+    </div>
+
+    <div class="fg">
+      <svg viewBox="0 0 220 120" role="img" aria-label="羟甲基结构：碳连接两个氢和一个氧，氧再连接一个氢，碳的第四根键连向骨架">
+        <line x1="22" y1="62" x2="52" y2="62" stroke="#5b6a7c" stroke-width="2"/>
+        <line x1="62" y1="62" x2="40" y2="36" stroke="#5b6a7c" stroke-width="2"/>
+        <line x1="62" y1="62" x2="40" y2="88" stroke="#5b6a7c" stroke-width="2"/>
+        <line x1="72" y1="62" x2="118" y2="62" stroke="#5b6a7c" stroke-width="2"/>
+        <line x1="138" y1="62" x2="164" y2="46" stroke="#5b6a7c" stroke-width="2"/>
+        <circle cx="62" cy="62" r="10" fill="#10151b"/>
+        <text x="62" y="62" class="atomlabel">C</text>
+        <circle cx="36" cy="32" r="9" fill="#10151b"/>
+        <text x="36" y="32" class="atomlabel">H</text>
+        <circle cx="36" cy="92" r="9" fill="#10151b"/>
+        <text x="36" y="92" class="atomlabel">H</text>
+        <circle cx="128" cy="62" r="10" fill="#10151b"/>
+        <text x="128" y="62" class="atomlabel het">O</text>
+        <circle cx="170" cy="42" r="9" fill="#10151b"/>
+        <text x="170" y="42" class="atomlabel">H</text>
+      </svg>
+      <div class="fgcap"><b>羟甲基</b> <em>–CH₂OH</em><br>本分子中对应 C7 + O1；C7 与 C8 相邻，两者都带氢。</div>
+    </div>
+
+    <div class="fg">
+      <svg viewBox="0 0 220 120" role="img" aria-label="酯基结构：碳与氧双键相连，另与一个氧单键相连，该氧再连接甲基">
+        <line x1="16" y1="62" x2="50" y2="62" stroke="#5b6a7c" stroke-width="2"/>
+        <line x1="62" y1="64" x2="97" y2="31" stroke="#5b6a7c" stroke-width="2"/>
+        <line x1="58" y1="60" x2="93" y2="27" stroke="#5b6a7c" stroke-width="2"/>
+        <line x1="66" y1="68" x2="94" y2="96" stroke="#5b6a7c" stroke-width="2"/>
+        <line x1="110" y1="102" x2="142" y2="102" stroke="#5b6a7c" stroke-width="2"/>
+        <line x1="162" y1="102" x2="186" y2="102" stroke="#5b6a7c" stroke-width="2"/>
+        <circle cx="60" cy="62" r="10" fill="#10151b"/>
+        <text x="60" y="62" class="atomlabel">C</text>
+        <circle cx="100" cy="28" r="10" fill="#10151b"/>
+        <text x="100" y="28" class="atomlabel het">O</text>
+        <circle cx="100" cy="102" r="10" fill="#10151b"/>
+        <text x="100" y="102" class="atomlabel het">O</text>
+        <circle cx="152" cy="102" r="10" fill="#10151b"/>
+        <text x="152" y="102" class="atomlabel">C</text>
+        <circle cx="197" cy="102" r="13" fill="#10151b"/>
+        <text x="197" y="102" class="atomlabel">H₃</text>
+      </svg>
+      <div class="fgcap"><b>酯基</b> <em>–CO₂CH₃</em><br>本分子中对应 C13、C14、O2、O3、C15。
+        羰基碳 C14 是季碳。</div>
+    </div>
+
+    <div class="fg">
+      <svg viewBox="0 0 220 120" role="img" aria-label="甲氧基结构：氧一端连向羰基，另一端连接甲基">
+        <line x1="16" y1="60" x2="56" y2="60" stroke="#5b6a7c" stroke-width="2"/>
+        <line x1="82" y1="60" x2="118" y2="60" stroke="#5b6a7c" stroke-width="2"/>
+        <line x1="140" y1="60" x2="174" y2="60" stroke="#5b6a7c" stroke-width="2"/>
+        <circle cx="69" cy="60" r="11" fill="#10151b"/>
+        <text x="69" y="60" class="atomlabel het">O</text>
+        <circle cx="129" cy="60" r="10" fill="#10151b"/>
+        <text x="129" y="60" class="atomlabel">C</text>
+        <circle cx="186" cy="60" r="13" fill="#10151b"/>
+        <text x="186" y="60" class="atomlabel">H₃</text>
+      </svg>
+      <div class="fgcap"><b>甲氧基</b> <em>–OCH₃</em><br>C15 与氧相连、没有 C–C 键，
+        因此在 ADEQUATE / INADEQUATE 中都不出现。</div>
+    </div>
+
+  </div>
+
+  <h3 style="font-size:15px;margin:18px 0 8px">8.2 完整术语表</h3>
+  <div class="gloss" id="glossary-list"></div>
+</section>
+
+<!-- ============================ 来源与限制 ============================ -->
+<section id="sources">
+  <div class="sec-h">
+    <span class="sec-n">09</span>
+    <h2>来源与限制</h2>
+    <span class="sec-sub">哪些有依据，哪些不能确认</span>
+  </div>
+
+  <h3 style="font-size:15px;margin-bottom:8px">9.1 原图提供的与未提供的</h3>
+  <ul style="font-size:13.5px;color:var(--muted)">
+    <li><b>可确认</b>：标题 "ADEQUATE"；两句英文问题（逐字见第 3 节）；分子骨架的连接关系、
+        原子标注（H₃C、CH₃、OH、O）与苯环的凯库勒式画法。</li>
+    <li><b>无法确认</b>：化合物名称、分子式、任何化学位移数值、谱图、峰位、
+        以及实验条件（溶剂、磁场强度、探头、浓度、扫描次数、¹J(CC) 设定值）。</li>
+    <li><b>因此</b>：本页所有 δC 数值、示意谱与效率曲线均标注为"演示模型"，
+        采用文献典型值，不代表该化合物的实测结果。</li>
+  </ul>
+
+  <h3 style="font-size:15px;margin:16px 0 8px">9.2 理论依据</h3>
+  <ul class="srcs">
+    <li><b>Columbia University NMR Core Facility · ADEQUATE</b>
+        —— "1,1-ADEQUATE correlates two directly bonded carbons with a proton directly bonded to one of the carbons"，
+        并说明天然丰度下仅约 0.01% 的分子被观测到。
+        <span class="u">https://nmr.chem.columbia.edu/content/adequate</span></li>
+    <li><b>UCL NMR · ADEQUATE</b>
+        —— m,n-ADEQUATE 经 mJ(CH) 与 nJ(CC) 给出碳–氢化学位移相关；
+        "the observation of all 1,1-ADEQUATE cross-peaks provides the same type of information as INADEQUATE"；
+        并提示杂原子过多时需注意 Crews 规则。
+        <span class="u">https://www.ucl.ac.uk/nmr/nmr-experiments/adequate</span></li>
+    <li><b>Hebrew University (HUJI) · 2D ADEQUATE</b>
+        —— 脉冲序列延迟 Δ = 1/(4J(CH))、1/(4J(CC))；
+        ¹J(CC) 单键约 35–45 Hz、双键约 65 Hz；F1 维为两个相关碳的双量子频率之和。
+        <span class="u">https://chem.ch.huji.ac.il/nmr/techniques/2d/adequate/adequate.html</span></li>
+    <li><b>New variants of the ADEQUATE experiments</b>（Saurí 等，Elsevier）
+        —— 天然丰度下两个 ¹³C 同时出现的概率约 1:10 000；ADEQUATE 可给出与季碳相关的信息，
+        常与 HMBC/LR-HSQMBC 互补使用。
+        <span class="u">https://www.sciencedirect.com/science/article/pii/S0066410319300122</span></li>
+  </ul>
+
+  <div class="limits">
+    <h4>使用限制与免责说明</h4>
+    <ul>
+      <li>本页是<b>教学演示</b>，不是结构鉴定报告；不得据本页数值做化合物身份判定。</li>
+      <li>碳编号为本页自定义，非 IUPAC 编号；δC 数值为文献典型值区间内的取整示意。</li>
+      <li>1,n-ADEQUATE 的判定采用"3 根 C–C 键内可达带氢碳"的简化规则；
+        实际谱中长程相关峰常因灵敏度不足而缺失，判定结果应结合实测信噪比。</li>
+      <li>转移效率模型 E = sin²(π·J·Δ) 为教学用简化式，忽略弛豫、脉冲误差、
+        ¹³C–¹³C 同位素位移等效应，仅用于说明"单一 J 设定无法兼顾所有键型"这一趋势。</li>
+      <li>原图版权归原作者/课程所有，本页仅作教学引用，并以数据内嵌方式原样保留、未作任何修改。</li>
+    </ul>
+  </div>
+</section>
+
+<p class="foot">
+  离线单文件教学页 · 原图未作任何修改 · 所有示意数值均为演示模型，非实测数据
+</p>
+
+</div>
+
+<div id="popover" hidden role="dialog" aria-live="polite"></div>
+<div id="tip" hidden></div>
+
+<script src="app.js"></script>
+</body>
+</html>

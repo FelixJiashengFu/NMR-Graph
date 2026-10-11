@@ -1,0 +1,386 @@
+{
+  "passed": 76,
+  "total": 76,
+  "results": [
+    {
+      "name": "页面标题正确",
+      "ok": true,
+      "detail": "ADEQUATE 能否完成全部碳归属？· 交互教学"
+    },
+    {
+      "name": "无控制台错误",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "无未捕获异常",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "无外部网络请求（可离线）",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "分子图含 15 个可点击碳原子",
+      "ok": true,
+      "detail": "实际 15"
+    },
+    {
+      "name": "分子图含键线（≥18 条）",
+      "ok": true,
+      "detail": "实际 22"
+    },
+    {
+      "name": "信号示意含 13 行",
+      "ok": true,
+      "detail": "实际 13"
+    },
+    {
+      "name": "归属表含 15 行",
+      "ok": true,
+      "detail": "实际 15"
+    },
+    {
+      "name": "术语表条目 ≥ 15",
+      "ok": true,
+      "detail": "实际 17"
+    },
+    {
+      "name": "正文术语注释按钮 ≥ 8",
+      "ok": true,
+      "detail": "实际 15"
+    },
+    {
+      "name": "顶部读前必读存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "原图完整保留（img 元素）",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "原图以内嵌 data URI 呈现",
+      "ok": true,
+      "detail": "data:image/png;base64,iVBORw0KGgoAAAANSU"
+    },
+    {
+      "name": "分子图 viewBox 已收紧留白",
+      "ok": true,
+      "detail": "118 66 470 312"
+    },
+    {
+      "name": "碳原子总数 = 15",
+      "ok": true,
+      "detail": "15"
+    },
+    {
+      "name": "季碳数 = 3",
+      "ok": true,
+      "detail": "3"
+    },
+    {
+      "name": "质子化碳数 = 12",
+      "ok": true,
+      "detail": "12"
+    },
+    {
+      "name": "质子化 + 季碳 = 总数",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "独立信号数 = 13",
+      "ok": true,
+      "detail": "13"
+    },
+    {
+      "name": "C–C 键数 = 14",
+      "ok": true,
+      "detail": "14"
+    },
+    {
+      "name": "INADEQUATE: C13 出现",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "INADEQUATE: C15 不出现",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "1,1-ADEQUATE: C13 不出现",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "1,1-ADEQUATE: C15 不出现",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "1,1-ADEQUATE: 三个季碳均出现 (C1/C4/C14)",
+      "ok": true,
+      "detail": "C1=True C4=True C14=True"
+    },
+    {
+      "name": "1,1-ADEQUATE 可见碳数 = 13",
+      "ok": true,
+      "detail": "13"
+    },
+    {
+      "name": "INADEQUATE 可见碳数 = 14",
+      "ok": true,
+      "detail": "14"
+    },
+    {
+      "name": "1,n-ADEQUATE: C13 出现、C15 不出现",
+      "ok": true,
+      "detail": "C13=True C15=False"
+    },
+    {
+      "name": "效率模型 J=34,Jset=55 约 0.218",
+      "ok": true,
+      "detail": "0.2178"
+    },
+    {
+      "name": "效率模型 J=Jset 时为 0.5",
+      "ok": true,
+      "detail": "0.5"
+    },
+    {
+      "name": "天然丰度成对概率 ≈ 1.21e-4",
+      "ok": true,
+      "detail": "0.00012100000000000003"
+    },
+    {
+      "name": "芳环 ¹J(CC) = 57 Hz",
+      "ok": true,
+      "detail": "57"
+    },
+    {
+      "name": "sp³–sp³ ¹J(CC) = 34 Hz",
+      "ok": true,
+      "detail": "34"
+    },
+    {
+      "name": "点击 C13 → 右侧显示其判定",
+      "ok": true,
+      "detail": "选中：C13 结构辅助推断 苄位 CH2（两侧均为季碳）  碳类型\tCH₂（CH2） 直接连氢数\t2 所属片段\t酯基 –"
+    },
+    {
+      "name": "点击 C13 → 分子图出现选中态",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "选择苯环片段 → 按钮按下态",
+      "ok": true,
+      "detail": "true"
+    },
+    {
+      "name": "选择苯环 → 明细列出 6 个碳",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "选择苯环 → 归属表高亮 6 行",
+      "ok": true,
+      "detail": "6"
+    },
+    {
+      "name": "再次点击可取消选择",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "切到 INADEQUATE → C13 变为出现",
+      "ok": true,
+      "detail": "obs"
+    },
+    {
+      "name": "切到 INADEQUATE → 读数更新为 14/15",
+      "ok": true,
+      "detail": "当前实验 INADEQUATE ¹³C 维可见碳 14 / 15 可见独立信号 12 / 13 相邻"
+    },
+    {
+      "name": "切到 INADEQUATE → C13 信号行显示出现",
+      "ok": true,
+      "detail": "C13 40.5 出现"
+    },
+    {
+      "name": "切回 1,1-ADEQUATE → C13 变回不出现",
+      "ok": true,
+      "detail": "miss"
+    },
+    {
+      "name": "富集度滑块 → 数值标签更新",
+      "ok": true,
+      "detail": "100.0 %"
+    },
+    {
+      "name": "富集度 100% → 读数发生变化",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "富集度 100% → 成对概率显示 100%",
+      "ok": true,
+      "detail": "当前实验 1,1-ADEQUATE ¹³C 维可见碳 13 / 15 可见独立信号 11 / 13 相邻 ¹³C 对概率 100.0% ¹J"
+    },
+    {
+      "name": "J 滑块 → 数值标签更新",
+      "ok": true,
+      "detail": "34 Hz"
+    },
+    {
+      "name": "改变 J 设定 → 平均效率读数变化",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "信号条宽度随效率变化",
+      "ok": true,
+      "detail": "width:27%"
+    },
+    {
+      "name": "点击术语 → 弹出中文注释",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "注释含中文释义",
+      "ok": true,
+      "detail": "ADEQUATE ADequate DoublE QUAntum Transfe"
+    },
+    {
+      "name": "注释按钮 aria-expanded=true",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "Esc 关闭注释",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "点击预设区域 → 放大倍数变化",
+      "ok": true,
+      "detail": "1 → 2.4"
+    },
+    {
+      "name": "放大倍数标签同步",
+      "ok": true,
+      "detail": "2.4×"
+    },
+    {
+      "name": "缩放滑块生效",
+      "ok": true,
+      "detail": "3.5×"
+    },
+    {
+      "name": "可展开原图区域能打开",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "含 3 个可展开放大区域",
+      "ok": true,
+      "detail": "3"
+    },
+    {
+      "name": "碳原子可被聚焦",
+      "ok": true,
+      "detail": "7"
+    },
+    {
+      "name": "Enter 激活碳原子选择",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "方向键在碳原子间移动",
+      "ok": true,
+      "detail": "8"
+    },
+    {
+      "name": "键盘可打开术语注释",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "滑块可获得焦点",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "桌面 1440: 无横向溢出",
+      "ok": true,
+      "detail": "scrollW=1440 clientW=1440"
+    },
+    {
+      "name": "桌面 1440: 无元素越界",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "桌面 1440: 分子图宽度自适应",
+      "ok": true,
+      "detail": "650"
+    },
+    {
+      "name": "桌面 1440: 三栏布局",
+      "ok": true,
+      "detail": "3"
+    },
+    {
+      "name": "手机 390: 无横向溢出",
+      "ok": true,
+      "detail": "scrollW=390 clientW=390"
+    },
+    {
+      "name": "手机 390: 无元素越界",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "手机 390: 分子图宽度自适应",
+      "ok": true,
+      "detail": "304"
+    },
+    {
+      "name": "手机 390: 单栏纵向布局",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "手机 360: 无横向溢出",
+      "ok": true,
+      "detail": "scrollW=360 clientW=360"
+    },
+    {
+      "name": "手机 360: 无元素越界",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "手机 360: 分子图宽度自适应",
+      "ok": true,
+      "detail": "274"
+    },
+    {
+      "name": "手机 360: 单栏纵向布局",
+      "ok": true,
+      "detail": "1"
+    },
+    {
+      "name": "整页截图已生成",
+      "ok": true,
+      "detail": "2558383 字节"
+    }
+  ]
+}

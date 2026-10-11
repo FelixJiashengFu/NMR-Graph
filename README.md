@@ -9,6 +9,7 @@
 | 碳骨架连接 | INADEQUATE：1-辛醇碳峰归属练习 | [打开](./topics/inadequate-octanol/index.html) |
 | 碳骨架连接 | 1,1-ADEQUATE：4-甲基伞形酮交叉峰判读 | [打开](./topics/adequate-methylumbelliferone/index.html) |
 | 碳骨架连接 | ADEQUATE：相邻季碳为何无法关联 | [打开](./topics/adequate-adjacent-quaternary-carbons/index.html) |
+| 碳骨架连接 | ADEQUATE：能否完成全部碳归属？ | [打开](./topics/adequate-carbon-coverage/index.html) |
 | 异核长程相关 | H2BC × HMBC：两键与三键相关判读 | [打开](./topics/h2bc-hmbc/index.html) |
 | 结构解析 | 苯佐卡因：¹H NMR 与 ¹³C APT 拼结构 | [打开](./topics/benzocaine-structure/index.html) |
 | 异核单键相关 | 3-庚酮：HSQC 与编辑 HSQC 峰归属 | [打开](./topics/hsqc-edited-heptanone/index.html) |
@@ -36,6 +37,12 @@ NMR-Graph/
     │   ├── preview.png                # 桌面整页预览
     │   ├── preview-mobile.png         # 手机整页预览
     │   └── source/                    # 原图与浏览器验证脚本
+    ├── adequate-carbon-coverage/
+    │   ├── index.html                 # ADEQUATE 全碳归属交互教学页
+    │   ├── README.md                  # 逐碳结论、操作与来源说明
+    │   ├── assets/                    # 课程原图
+    │   ├── src/                       # 可编辑源码与构建脚本
+    │   └── verify/                    # 静态与浏览器验证
     ├── h2bc-hmbc/
     │   └── index.html                 # H2BC / HMBC 互动图解
     ├── hsqc-edited-heptanone/
@@ -88,3 +95,5 @@ TOCSY 专题使用用户课程截图：ppm 仅为估读，峰强为图扩散类�
 正丙醇 TOCSY 自旋混合专题保留另一份独立教学实现，使用理想各向同性混合模型显示四组质子（含可选 OH）的磁化转移。默认化学位移、J、混合时间与峰强均属教学模型或文献近似；原练习截图不含实测谱图。
 
 NOESY / ROESY 专题以用户上传的香草醛教学截图为来源。页面联动选中交叉峰、结构位置与估读值；芳香区具体归属无法凭截图独立确认。距离曲线只展示归一化 r⁻⁶ 模型，不对应截图实测峰强。原图、局部裁切、可编辑源码、数值检查和整页预览随专题保存。
+
+ADEQUATE 全碳归属专题从课程分子骨架讨论 1,1-ADEQUATE 的观测范围。页面包含原图、逐碳判定与教学模型；无原始谱图，示意峰位和效率不代表实测值。源码及验证记录随专题保存。

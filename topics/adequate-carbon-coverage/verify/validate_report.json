@@ -1,0 +1,521 @@
+{
+  "passed": 103,
+  "total": 103,
+  "results": [
+    {
+      "name": "无任何外部 src/href 引用",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "无外链样式表",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "无外链脚本",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "含内联 <style>",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "含内联 <script>",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "无 http(s) 资源加载",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "找到内嵌 PNG",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "内嵌图片与 assets/original.png 完全一致",
+      "ok": true,
+      "detail": "内嵌 106448 B / 源 106448 B"
+    },
+    {
+      "name": "内嵌图片 sha256 一致",
+      "ok": true,
+      "detail": "fefaf3b35350c64b"
+    },
+    {
+      "name": "PNG 魔数正确",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "原图被引用 2 处（img + CSS 背景）",
+      "ok": true,
+      "detail": "2"
+    },
+    {
+      "name": "包含：标题 ADEQUATE",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：读前必读",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：原图问题 1",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：原图问题 2",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：标签-原图观测",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：标签-结构辅助推断",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：标签-理论计数",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：标签-演示模型",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：主要结论",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：C13 盲区说明",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：C15 盲区说明",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：对称性说明",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：示意声明",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：常见误区",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：术语表",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：来源与限制",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：官能团-羟甲基",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：官能团-酯基",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：官能团-甲氧基",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：官能团-苯环",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：公式-不饱和度",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：公式-成对概率",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "包含：公式-转移效率",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "碳原子总数 = 15",
+      "ok": true,
+      "detail": "15"
+    },
+    {
+      "name": "季碳数 = 3",
+      "ok": true,
+      "detail": "3"
+    },
+    {
+      "name": "质子化碳数 = 12",
+      "ok": true,
+      "detail": "12"
+    },
+    {
+      "name": "CH3/CH2/CH = 3/3/6",
+      "ok": true,
+      "detail": "3/3/6"
+    },
+    {
+      "name": "分类求和 = 总数",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "C–C 键数 = 14",
+      "ok": true,
+      "detail": "14"
+    },
+    {
+      "name": "C–O 键数 = 4",
+      "ok": true,
+      "detail": "4"
+    },
+    {
+      "name": "等价对 = 2，独立信号 = 13",
+      "ok": true,
+      "detail": "13"
+    },
+    {
+      "name": "碳上氢数 = 21",
+      "ok": true,
+      "detail": "21"
+    },
+    {
+      "name": "氢原子总数（含羟基）= 22",
+      "ok": true,
+      "detail": "22"
+    },
+    {
+      "name": "分子式 C15H22O3",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "不饱和度 = 5",
+      "ok": true,
+      "detail": "5.0"
+    },
+    {
+      "name": "相对分子质量 ≈ 250.34",
+      "ok": true,
+      "detail": "250.338"
+    },
+    {
+      "name": "INADEQUATE 可见 = 14 个碳",
+      "ok": true,
+      "detail": "14"
+    },
+    {
+      "name": "INADEQUATE 唯一盲区是 C15",
+      "ok": true,
+      "detail": "[15]"
+    },
+    {
+      "name": "1,1-ADEQUATE 可见 = 13 个碳",
+      "ok": true,
+      "detail": "13"
+    },
+    {
+      "name": "1,1-ADEQUATE 盲区 = {13, 15}",
+      "ok": true,
+      "detail": "[13, 15]"
+    },
+    {
+      "name": "三个季碳在 1,1-ADEQUATE 中均可见",
+      "ok": true,
+      "detail": "[1, 4, 14]"
+    },
+    {
+      "name": "C13 邻接碳均为季碳（盲区成因）",
+      "ok": true,
+      "detail": "邻接 [4, 14]"
+    },
+    {
+      "name": "C15 无任何 C–C 键（盲区成因）",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "1,n-ADEQUATE 可见 = 14 个碳",
+      "ok": true,
+      "detail": "14"
+    },
+    {
+      "name": "1,n-ADEQUATE 盲区 = {15}",
+      "ok": true,
+      "detail": "[15]"
+    },
+    {
+      "name": "1,n-ADEQUATE 可经 2 键找回 C13",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "页面含自检占位 chk-c",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "页面含自检占位 chk-q",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "页面含自检占位 chk-p",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "页面含自检占位 chk-s",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "页面含自检占位 chk-cc",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "页面声明分子式 C₁₅H₂₂O₃",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "页面声明 M ≈ 250.34",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "页面声明 Ω = 5",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "页面声明成对概率 ≈ 1 / 8 300",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "TERMS 定义数 ≥ 15",
+      "ok": true,
+      "detail": "17"
+    },
+    {
+      "name": "正文术语按钮数 ≥ 8",
+      "ok": true,
+      "detail": "15"
+    },
+    {
+      "name": "所有 data-t 都能在 TERMS 中找到",
+      "ok": true,
+      "detail": "[]"
+    },
+    {
+      "name": "术语表中无孤立条目（仅需存在于术语表）",
+      "ok": true,
+      "detail": "仅术语表：2 条"
+    },
+    {
+      "name": "章节 #conclusion 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "章节 #intuition 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "章节 #origin 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "章节 #steps 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "章节 #table 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "章节 #numbers 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "章节 #myths 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "章节 #glossary 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "章节 #sources 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "控件 id=\"mol\" 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "控件 id=\"siglist\" 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "控件 id=\"readout\" 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "控件 id=\"detail\" 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "控件 id=\"zoomer\" 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "控件 id=\"asg\" 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "控件 id=\"glossary-list\" 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "控件 id=\"popover\" 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "控件 id=\"groups\" 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "控件 id=\"exps\" 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "控件 id=\"enrich\" 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "控件 id=\"jset\" 存在",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "分子图带 role=img 与 aria-label",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "术语按钮均带 aria-expanded",
+      "ok": true,
+      "detail": "15 / 15"
+    },
+    {
+      "name": "三个滑块均带 aria-label",
+      "ok": true,
+      "detail": "3"
+    },
+    {
+      "name": "键盘说明已写入读前必读",
+      "ok": true,
+      "detail": ""
+    },
+    {
+      "name": "<section> 标签配对",
+      "ok": true,
+      "detail": "9 开 / 9 闭"
+    },
+    {
+      "name": "<div> 标签配对",
+      "ok": true,
+      "detail": "133 开 / 133 闭"
+    },
+    {
+      "name": "<table> 标签配对",
+      "ok": true,
+      "detail": "3 开 / 3 闭"
+    },
+    {
+      "name": "<tbody> 标签配对",
+      "ok": true,
+      "detail": "3 开 / 3 闭"
+    },
+    {
+      "name": "<details> 标签配对",
+      "ok": true,
+      "detail": "3 开 / 3 闭"
+    },
+    {
+      "name": "<svg> 标签配对",
+      "ok": true,
+      "detail": "5 开 / 5 闭"
+    },
+    {
+      "name": "<dl> 标签配对",
+      "ok": true,
+      "detail": "0 开 / 0 闭"
+    },
+    {
+      "name": "无中文直角引号误用为代码引号",
+      "ok": true,
+      "detail": ""
+    }
+  ]
+}
