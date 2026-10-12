@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="水墨风格讲解：HSQC 怎样分开同一个碳上的两个不等价氢，以及碳的化学位移为什么不像氢那样守规矩。根据课程幻灯片截图重绘。">
+<title>一行两点 · HSQC 里同碳的两个氢</title>
+<style data-inline="ink.css">
+/*__CSS__*/
+.lk { font: inherit; color: var(--cinnabar); background: none; border: 0; border-bottom: 1px dotted var(--cinnabar); padding: 0; cursor: pointer; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<div class="scroll">
+
+<header class="top">
+  <div class="crumbs"><a href="../../index.html">NMR Graph</a><span>／</span><span>异核单键相关</span></div>
+  <div class="eyebrow">HSQC · INTERPRETATION AND USE CASES</div>
+  <h1>一行两点</h1>
+  <p class="lede">课件这一页说了 HSQC 的两件事：它能分开连在同一个碳上、位移却不同的两个氢；还有，碳的化学位移不像氢那样守“规矩”。下面把课件上的那张谱重画出来，五个点一个一个看。</p>
+</header>
+
+<section aria-labelledby="h-fig">
+  <div class="head"><span class="seal" aria-hidden="true">观</span><h2 id="h-fig">五个点，落在三行上</h2></div>
+  <p>HSQC 的一个点只说一件事：<strong>这个氢直接连在这个碳上</strong>。横坐标是氢的位移，纵坐标是碳的位移。所以落在同一行的点，属于同一个碳。</p>
+  <div class="stage">
+    <div class="plot">
+      <div class="plot-bar">
+        <span class="plot-title">课件谱图重绘 · <sup>1</sup>H–<sup>13</sup>C HSQC · 坐标由截图估读</span>
+        <span class="plot-btns">
+          <button type="button" class="toggle" id="play">从一维展开</button>
+          <button type="button" class="toggle" id="zoom" aria-pressed="false">放大 50 ppm 一带</button>
+        </span>
+      </div>
+      <div class="hsqc" id="spec"></div>
+      <div class="unfold"><label><span>一维</span><input type="range" id="unfold" min="0" max="100" value="100" aria-label="碳维展开程度"><span>二维</span></label></div>
+      <div class="chips" id="chips" aria-label="选交叉峰"></div>
+      <p class="hint">顶上那条曲线是一维氢谱，2.8–3.0 ppm 挤着三个氢。点“从一维展开”，看它们被碳维一个个拉开；拖滑块可以停在半路。墨圈的大小是固定的，不代表峰形和强度。</p>
+    </div>
+    <aside class="panel" id="panel" aria-live="polite"></aside>
+  </div>
+  <div class="legend" aria-label="证据标签">
+    <span><span class="ev">估读</span>从课件截图的像素量出来的</span>
+    <span><span class="ev k2">推断</span>按谱图推出来的，课件没有说</span>
+    <span><span class="ev k3">示意</span>为了讲解画的，不是数据</span>
+    <span><span class="ev k4">文献</span>教科书上的数值</span>
+  </div>
+  <details>
+    <summary>五个点的估读值和课件原图</summary>
+    <div class="two">
+      <div>
+        <div id="table"></div>
+        <p class="hint">点氢的位移可在谱中选中。估读不确定度约 <sup>1</sup>H ±0.02 ppm、<sup>13</sup>C ±0.3 ppm，不是实测化学位移。</p>
+      </div>
+      <figure class="orig">
+        <img src="/*__ORIGINAL__*/" alt="课件原图：标题 HSQC – interpretation and use cases，左侧两条要点，右侧一张 HSQC 谱，有五个交叉峰" width="1770" height="920" loading="lazy">
+        <figcaption>课件原图，未改动。右上的谱图横轴是 F2（<sup>1</sup>H），纵轴是 F1（<sup>13</sup>C）。</figcaption>
+      </figure>
+    </div>
+  </details>
+</section>
+
+<section aria-labelledby="h-read">
+  <div class="head"><span class="seal" aria-hidden="true">读</span><h2 id="h-read">一行、一列，各说明什么</h2></div>
+  <div class="cards">
+    <div class="card">
+      <div class="mini"><svg viewBox="0 0 160 92" role="img" aria-label="示意：同一行上有两个点">
+        <rect class="bx" x="10" y="8" width="140" height="74"/><line class="ax" x1="10" y1="82" x2="150" y2="82"/>
+        <line class="g" x1="10" y1="46" x2="150" y2="46"/>
+        <ellipse class="d r" cx="52" cy="46" rx="13" ry="5"/><ellipse class="c r" cx="52" cy="46" rx="3" ry="1.5"/>
+        <ellipse class="d r" cx="110" cy="46" rx="13" ry="5"/><ellipse class="c r" cx="110" cy="46" rx="3" ry="1.5"/>
+      </svg></div>
+      <h3>一行两个点</h3>
+      <p>同一个碳，带着两个位移不同的氢。这只能是 CH<sub>2</sub>：甲基的三个氢转得飞快，几乎总是等价，只出一个点。</p>
+      <p>这张谱里有两行是这样：<button type="button" class="lk" data-sel="a">碳甲</button>和<button type="button" class="lk" data-sel="c">碳乙</button>。</p>
+    </div>
+    <div class="card">
+      <div class="mini"><svg viewBox="0 0 160 92" role="img" aria-label="示意：一行上只有一个点">
+        <rect class="bx" x="10" y="8" width="140" height="74"/><line class="ax" x1="10" y1="82" x2="150" y2="82"/>
+        <line class="g" x1="10" y1="46" x2="150" y2="46"/>
+        <ellipse class="d" cx="80" cy="46" rx="13" ry="5"/><ellipse class="c" cx="80" cy="46" rx="3" ry="1.5"/>
+      </svg></div>
+      <h3>一行一个点</h3>
+      <p>这个碳上的氢位移相同。可能是 CH，可能是 CH<sub>3</sub>，也可能是两个氢恰好等价的 CH<sub>2</sub>，光看这一个点分不出来。</p>
+      <p><button type="button" class="lk" data-sel="e">碳丙</button>就是这种情况。要分清，看氢谱积分，或者用<a href="../hsqc-edited-heptanone/index.html">编辑 HSQC</a>。</p>
+    </div>
+    <div class="card">
+      <div class="mini"><svg viewBox="0 0 160 92" role="img" aria-label="示意：同一列上有两个点">
+        <rect class="bx" x="10" y="8" width="140" height="74"/><line class="ax" x1="10" y1="82" x2="150" y2="82"/>
+        <line class="g" x1="80" y1="8" x2="80" y2="82"/>
+        <ellipse class="d" cx="80" cy="28" rx="13" ry="5"/><ellipse class="c" cx="80" cy="28" rx="3" ry="1.5"/>
+        <ellipse class="d" cx="80" cy="62" rx="13" ry="5"/><ellipse class="c" cx="80" cy="62" rx="3" ry="1.5"/>
+      </svg></div>
+      <h3>一列两个点</h3>
+      <p>两个不同的碳，各带一个氢，氢的位移碰巧一样。氢谱里它们叠成一个峰，碳维把它们分到两行。</p>
+      <p>这张谱里没有完全同列的点，但 2.94、2.88、2.82 三个氢已经近到在氢谱里连成一团。</p>
+    </div>
+    <div class="card">
+      <div class="mini"><svg viewBox="0 0 160 92" role="img" aria-label="示意：一行上没有点">
+        <rect class="bx" x="10" y="8" width="140" height="74"/><line class="ax" x1="10" y1="82" x2="150" y2="82"/>
+        <line class="g" x1="10" y1="46" x2="150" y2="46"/>
+        <ellipse class="no" cx="80" cy="46" rx="13" ry="5"/>
+      </svg></div>
+      <h3>没有点</h3>
+      <p>不带氢的碳（季碳、羰基碳）在 HSQC 里不出峰。反过来，连在 O、N 上的氢不连碳，也没有点。</p>
+      <p>所以 HSQC 上的点数，是“带氢的碳”和“碳上不等价的氢”的数目，不是全部的碳。</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-why">
+  <div class="head"><span class="seal" aria-hidden="true">异</span><h2 id="h-why">同一个碳上的两个氢，为什么会不同</h2></div>
+  <div class="two">
+    <div>
+      <ol class="steps">
+        <li><span><strong>换一换，看得到什么。</strong>把 CH<sub>2</sub> 的两个氢轮流换成氘。如果换出来的两个分子互为非对映异构体，这两个氢就叫<strong>非对映异位氢</strong>（diastereotopic）。</span></li>
+        <li><span><strong>它们没法互换。</strong>分子里找不到任何对称操作能把一个氢搬到另一个的位置。两个氢看到的周围不一样，化学位移原则上就不一样。</span></li>
+        <li><span><strong>什么时候会遇到。</strong>CH<sub>2</sub> 旁边有手性中心；或者 CH<sub>2</sub> 在一个翻不动的环上，一个氢竖着，一个氢横着。</span></li>
+        <li><span><strong>氢谱里很难认。</strong>两个氢互相裂分（同碳耦合，常见 10–15 Hz），又各自被邻位的氢裂分，峰形复杂，还常和别的氢叠在一起。</span></li>
+        <li><span><strong>HSQC 不看峰形。</strong>两个点落在同一行，就是一家。</span></li>
+      </ol>
+      <p>这张谱里，<button type="button" class="lk" data-sel="a">碳甲</button>的两个氢相隔 0.58 ppm，<button type="button" class="lk" data-sel="c">碳乙</button>的两个氢相隔 0.13 ppm。<span class="ev">估读</span>同是不等价，差多差少要看各自的环境。课件没有给出结构，所以说不出哪个氢朝哪边。</p>
+    </div>
+    <div>
+      <h3>一个例子：椅式环上的 CH<sub>2</sub> <span class="ev k3">示意</span></h3>
+      <div class="mol">
+        <svg viewBox="0 0 330 215" role="img" aria-label="椅式六元环，一个碳上的两个氢分别是直立和平伏，邻位有取代基 R">
+          <polygon class="bond" points="248,68 176,69 78,49 52,122 124,121 222,141"/>
+          <path class="bond" d="M248 68 L286 76"/>
+          <text x="292" y="82">R</text>
+          <path class="hb" d="M222 141 L222 184"/>
+          <path class="hb" d="M222 141 L264 141"/>
+          <circle class="dot" cx="222" cy="141" r="4.500"/>
+          <text class="c" x="222" y="203" text-anchor="middle">H 直立</text>
+          <text class="c" x="270" y="146">H 平伏</text>
+          <text class="pale" x="166" y="160" text-anchor="middle">同一个碳</text>
+        </svg>
+      </div>
+      <p>环翻不过来时，同一个碳上的直立氢和平伏氢各在各的位置。冷到环翻转停下来的环己烷就是这样：直立氢约 1.1 ppm，平伏氢约 1.6 ppm，差约 0.5 ppm。<span class="ev k4">文献</span></p>
+      <p>室温下环己烷的环翻得很快，两种氢来回互换，谱上只剩一个平均的峰。环被取代基或并环锁住时，两个氢才各出各的峰。</p>
+    </div>
+  </div>
+</section>
+
+<section aria-labelledby="h-rule">
+  <div class="head"><span class="seal" aria-hidden="true">矩</span><h2 id="h-rule">碳不那么守规矩</h2></div>
+  <div class="two">
+    <div>
+      <h3>这张谱里：线交叉了</h3>
+      <div class="slope" id="slope"></div>
+      <p>左边按氢的位移排，右边按碳的位移排，每个氢连到它所在的碳。如果碳和氢按同一套规矩走，氢的位移越大，它的碳位移也该越大，连线就不会交叉。</p>
+      <p>实际上，位移最大的氢（<button type="button" class="lk" data-sel="a" data-stay>3.47</button>）在碳甲上，只有 49.7；位移最大的碳（<button type="button" class="lk" data-sel="e" data-stay>碳丙</button>，59.8）带的氢却只有 2.94。两条线交叉。<span class="ev">估读</span></p>
+      <p>碳丙比另两个碳高出约 10 ppm，一个可能的原因是它多连了一两个碳。这对碳的位移影响很大，对它上面的氢影响很小。课件没给结构，这只是猜测。<span class="ev k2">推断</span></p>
+    </div>
+    <div>
+      <h3>教科书上的例子：卤代甲烷 <span class="ev k4">文献</span></h3>
+      <div class="bars" id="halide"></div>
+      <p>氢老老实实跟着电负性走：F、Cl、Br、I 依次降下来，而且都比甲烷高。碳走到碘就翻了：<span data-f>CH3I</span> 的碳在 −21 ppm 上下，比甲烷还低。碘的大电子云把碳屏蔽了回去（重原子效应），电负性这条规矩管不住它。</p>
+      <p>两种核的位移来源不同。氢只有 1s 电子，位移主要看身边的电子被拉走多少，再加上附近 π 体系的影响，全程十来个 ppm。碳有 p 电子，位移跨两百多 ppm，对杂化方式、连了几个碳、空间拥挤和重原子都敏感。</p>
+      <p>连碳数的影响尤其大：碳上每多连一个碳，或隔一位多一个碳，位移各加约 9 ppm；再隔一位（γ 位）多一个碳，反而减约 2.5 ppm。<span class="ev k4">文献</span></p>
+    </div>
+  </div>
+  <p class="boxed">所以别拿氢的顺序去猜碳的顺序。哪个氢在哪个碳上，让 HSQC 直接告诉你。</p>
+</section>
+
+<section aria-labelledby="h-use">
+  <div class="head"><span class="seal" aria-hidden="true">用</span><h2 id="h-use">用在哪里</h2></div>
+  <div class="cards">
+    <div class="card">
+      <h3>拆开重叠的氢</h3>
+      <p>2.8–3.0 ppm 那一团在氢谱里数不清。到了 HSQC，三个氢分到三个碳上：<button type="button" class="lk" data-sel="e">2.94</button> 在碳丙，<button type="button" class="lk" data-sel="b">2.88</button> 在碳甲，<button type="button" class="lk" data-sel="c">2.82</button> 在碳乙。</p>
+    </div>
+    <div class="card">
+      <h3>认出同碳的一对</h3>
+      <p>一行两点，就是一个 CH<sub>2</sub> 的两个氢。它们在 COSY 里会有很强的交叉峰，那是同碳耦合（隔两根键），不是相邻碳之间的耦合。</p>
+      <p>先用 HSQC 把这样的对子标出来，COSY 里剩下的交叉峰才能放心拿来接碳链。</p>
+    </div>
+    <div class="card">
+      <h3>数出 CH<sub>2</sub></h3>
+      <p>这张谱至少有两个 CH<sub>2</sub>（碳甲、碳乙），各带一对不等价的氢。<span class="ev k2">推断</span></p>
+      <p>一行只有一个点的碳（碳丙）不能这样下结论，要看积分或<a href="../hsqc-edited-heptanone/index.html">编辑 HSQC</a>。</p>
+    </div>
+    <div class="card">
+      <h3>让氢替碳说话</h3>
+      <p>碳谱的峰很难只凭位移归属，前一节已经说了原因。HSQC 把每个带氢的碳和它的氢绑在一起：氢归属清楚了，碳也就跟着定了。</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><strong>来源</strong>：用户上传的课程幻灯片截图，标题“HSQC – interpretation and use cases”。两句要点是 “Can also tell apart different protons that are bound to the same carbon” 和 “Carbons do not follow chemical shift ‘rules’ as well as proton”。课件没有给出化合物、溶剂和场强。</p>
+  <p><span class="ev">估读</span>五个点的坐标、顶上和左侧两条曲线，由 <code>source/measure.py</code> 从截图像素量出：用带数字的刻度做直线定标，取每个等高线小圈的重心。不确定度约 <sup>1</sup>H ±0.02 ppm、<sup>13</sup>C ±0.3 ppm，不是实测化学位移。</p>
+  <p><span class="ev k2">推断</span>哪两个点同在一个碳上：甲（49.7）、乙（50.2）两行只差约 0.4 ppm（截图上约 4 个像素），依据是两对点各自齐平；左侧曲线在 50 ppm 处的峰也比 60 ppm 处的峰宽出约 0.4 ppm，像是两个碳叠在一起。碳丙带几个氢、它为什么位移大，以及“碳不守规矩”一节对课件那句话的解释，都是制作者的理解，不是课件原文。</p>
+  <p><span class="ev k3">示意</span>墨圈的大小和圈数固定；“从一维展开”的动画只是把同一组点从一行移到各自的碳行；椅式环是不等价氢的一个例子，不是课件里的分子。</p>
+  <p><span class="ev k4">文献</span>环己烷低温位移、甲烷和卤代甲烷的位移是常见教科书数值，已取整（Pretsch 等《Structure Determination of Organic Compounds》）；取代参数出自 Grant &amp; Paul, <em>J. Am. Chem. Soc.</em> 1964, 86, 2984。</p>
+  <p>页面是单文件，样式、脚本和原图都已内嵌。两种字体从 Google Fonts 加载，断网时退回系统的楷体和宋体，内容不受影响。</p>
+</footer>
+</div>
+
+<script data-inline="hsqc.js">
+/*__JS__*/
+</script>
+<script>
+const M = /*__MEASURE__*/null;   // 由 build.py 从 measure.json 写入
+const P = M.peaks;               // 按氢位移从大到小：3.47、2.94、2.88、2.82、2.69
+const dc = (i, j) => Math.abs(P[i].c - P[j].c).toFixed(2);
+InkHSQC.mount({
+  el: '#spec', panel: '#panel', chips: '#chips', slider: '#unfold', play: '#play', zoom: '#zoom', table: '#table',
+  title: '课件 HSQC 谱图的重绘：五个交叉峰', topNote: '一维氢谱 · 描自截图',
+  h: M.h, c: [34, 67], zoomC: [47.45, 52.45], zoomFocus: 'b', start: 'a',
+  top: M.top, left: M.left,
+  carbons: [
+    { key: '甲', c: M.rows.甲.c, cs: M.rows.甲.cs, side: -1, pair: `两个点的纵坐标只差 ${dc(0, 2)} ppm，在估读误差之内。` },
+    { key: '乙', c: M.rows.乙.c, cs: M.rows.乙.cs, side: 1, pair: `两个点的纵坐标只差 ${dc(3, 4)} ppm，在估读误差之内。` },
+    { key: '丙', c: M.rows.丙.c, cs: M.rows.丙.cs, side: -1 },
+  ],
+  peaks: [
+    { ...P[0], id: 'a', carbon: '甲', mate: 'b',
+      name: '碳甲的两个氢里，位移大的那个',
+      note: '<span class="ev">估读</span>全图最靠左的点。顺着这一行往右看，2.88 处还有一个点，纵坐标相同：两个氢连在同一个碳上，位移却差了 0.58 ppm。',
+      solo: '独占一处，离另外四个氢都远，一眼就能看见。但光看氢谱，看不出它和 2.88 那个氢是同一个 CH<sub>2</sub> 上的一对。' },
+    { ...P[1], id: 'e', carbon: '丙',
+      name: '碳丙上的氢，这一行只有它一个点',
+      note: '<span class="ev">估读</span>碳的位移比另两个碳高出约 10 ppm，氢的位移却夹在中间，只排第二。<span class="ev k2">推断</span>一行只有一个点，说明这个碳上的氢位移相同：可能是 CH，也可能是 CH<sub>3</sub>，或两个氢恰好等价的 CH<sub>2</sub>。只凭这张谱定不下来。',
+      solo: '是 2.8–3.0 那一团最左边的一个尖。氢谱上它和 2.88、2.82 挤在一起，到了碳维却远远落在下面一行。' },
+    { ...P[2], id: 'b', carbon: '甲', mate: 'a',
+      name: '碳甲的两个氢里，位移小的那个',
+      note: '<span class="ev">估读</span>和右边 2.82 的点只隔 0.07 ppm，两个墨圈连在了一起。<span class="ev k2">推断</span>它在图上比 2.82 那个点略高（碳位移小约 0.4 ppm，截图上约 4 个像素），正好和 3.47 的点齐平，所以归到碳甲。点“放大 50 ppm 一带”看得更清楚。',
+      solo: '埋在 2.8–3.0 那一团里。那一团有三个氢（2.94、2.88、2.82），峰挨着峰，数不清，也分不出谁和谁是一家。' },
+    { ...P[3], id: 'c', carbon: '乙', mate: 'd',
+      name: '碳乙的两个氢里，位移大的那个',
+      note: '<span class="ev">估读</span>和 2.88 的点连在一起，但在图上略低一点，和右边 2.69 的点齐平。<span class="ev k2">推断</span>所以它和 2.69 是一对，同在碳乙上，相隔 0.13 ppm。',
+      solo: '也埋在 2.8–3.0 那一团里，和 2.88 只差 0.07 ppm。氢谱上这两个氢几乎分不开，可它们并不在同一个碳上。' },
+    { ...P[4], id: 'd', carbon: '乙', mate: 'c',
+      name: '碳乙的两个氢里，位移小的那个',
+      note: '<span class="ev">估读</span>全图最靠右的点。它的同伴 2.82 离得不远，只差 0.13 ppm。同是一个碳上的两个氢，碳乙这一对比碳甲那一对（0.58 ppm）靠得近得多。',
+      solo: '在氢谱里单独成峰，能看见。可它的同伴 2.82 陷在中间那一团里，氢谱上找不到。' },
+  ],
+});
+InkHSQC.slope('#slope', '#spec');
+InkHSQC.halides('#halide', [
+  { f: 'CH4', h: 0.23, c: -2.3 },
+  { f: 'CH3F', h: 4.26, c: 75 },
+  { f: 'CH3Cl', h: 3.05, c: 25 },
+  { f: 'CH3Br', h: 2.68, c: 10 },
+  { f: 'CH3I', h: 2.16, c: -21 },
+]);
+InkHSQC.decorate();
+</script>
+</body>
+</html>

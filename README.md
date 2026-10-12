@@ -14,6 +14,7 @@
 | 异核长程相关 | ¹H–¹⁵N HMBC：齐拉西酮降解产物教学页 | [打开](./topics/hmbc-ziprasidone-degradation/index.html) |
 | 结构解析 | 苯佐卡因：¹H NMR 与 ¹³C APT 拼结构 | [打开](./topics/benzocaine-structure/index.html) |
 | 异核单键相关 | 3-庚酮：HSQC 与编辑 HSQC 峰归属 | [打开](./topics/hsqc-edited-heptanone/index.html) |
+| 异核单键相关 | HSQC：一行两点（同碳的两个氢，和不守规矩的碳） | [打开](./topics/hsqc-diastereotopic-protons/index.html) |
 | 同核相关 | COSY：交叉峰从哪来、什么时候会少 | [打开](./topics/cosy-cross-peaks/index.html) |
 | 同核相关 | COSY 解读：从幻灯片核对 14 个峰 | [打开](./topics/cosy-interpretation/index.html) |
 | 同核相关 | TOCSY × COSY：接力相关与自旋系统 | [打开](./topics/tocsy-spin-systems/index.html) |
@@ -65,6 +66,11 @@ NMR-Graph/
     │   ├── numerical-verification.json # 数值核对记录
     │   ├── package.json               # 构建与验证依赖（Node 或 Deno）
     │   └── source/                    # 原图、像素估读、源码、构建与验证脚本
+    ├── hsqc-diastereotopic-protons/
+    │   ├── index.html                 # 水墨风格 HSQC 讲解页（单文件；字体联网加载，断网回退）
+    │   ├── README.md                  # 页面范围、估读方法、推断与数据限制
+    │   ├── preview.png                # 桌面整页预览（另有 500 px 窄屏预览）
+    │   └── source/                    # 原图、像素估读、样式、脚本与构建脚本
     ├── cosy-interpretation/
     │   ├── index.html                 # COSY 幻灯片读谱与峰数核对
     │   ├── preview.png                # 整页预览
@@ -137,6 +143,8 @@ TOCSY 专题使用用户课程截图：ppm 仅为估读，峰强为图扩散类�
 正丙醇 TOCSY 专题以用户练习截图为来源，默认展示 3 个碳上氢组与 9 个理想相关峰中心；可比较 COSY、耦合断路及 OH 条件。ppm、峰形与图扩散权重均为示意，OH 是否接入未由原图确认。单文件嵌入原图、脚本及公式字体；源码、手机预览和验证记录保存在专题目录。
 
 3-庚酮 HSQC 专题以用户课程截图为来源（2026-10 重做）：七个碳位与结构、常规和编辑 HSQC 重绘示意、读数、归属表及原图局部放大联动；正文术语可点按查看中文注释，官能团附小结构图。ppm 由脚本按截图像素估读（¹H 约 ±0.03、¹³C 约 ±0.5 ppm）；C2/C4、C5/C6、C1/C7 的细分是结构辅助推断；“编辑延迟”和“一级裂分”两个滑块模型的 J、Δ、场强均为假设值，不代表原始实验。原图、估读与构建脚本、数值和浏览器验收记录及预览随专题保存。
+
+HSQC “一行两点”专题以用户课程截图 “HSQC – interpretation and use cases” 为来源，水墨风格。五个交叉峰的坐标和两条一维曲线由脚本按截图像素估读（¹H 约 ±0.02、¹³C 约 ±0.3 ppm），不是实测化学位移。哪两个点同在一个碳上是推断：两行只差约 0.4 ppm（约 4 个像素），依据是两对点各自齐平。课件没有给出结构；“碳不守规矩”一节的连线图、卤代甲烷例子和解释是制作者的理解，墨圈大小、展开动画和椅式环均为示意。原图、估读与构建脚本及预览随专题保存。
 
 正丙醇 TOCSY 自旋混合专题保留另一份独立教学实现，使用理想各向同性混合模型显示四组质子（含可选 OH）的磁化转移。默认化学位移、J、混合时间与峰强均属教学模型或文献近似；原练习截图不含实测谱图。
 
