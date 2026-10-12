@@ -1,0 +1,19 @@
+{
+  "name": "hsqc-edited-heptanone",
+  "version": "2.0.0",
+  "private": true,
+  "type": "module",
+  "description": "3-庚酮 HSQC / 编辑 HSQC 中文交互教学网页：像素估读、构建与验证脚本（Node ≥ 18 或 Deno ≥ 2 均可运行）",
+  "scripts": {
+    "measure": "node source/measure.mjs",
+    "verify:numbers": "node source/verify-numbers.mjs",
+    "build": "node source/build.mjs",
+    "verify:browser": "node source/qa-browser.mjs",
+    "all": "node source/measure.mjs && node source/verify-numbers.mjs && node source/build.mjs && node source/qa-browser.mjs"
+  },
+  "devDependencies": {
+    "katex": "0.16.11",
+    "playwright-core": "1.49.1",
+    "pngjs": "7.0.0"
+  }
+}

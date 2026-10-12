@@ -1,18 +1,601 @@
 {
   "status": "passed",
-  "counts": {
-    "carbon": 7,
-    "hydrogen": 14,
-    "oxygen": 1,
-    "protonated_carbons": 6,
-    "methyl_sites": 2,
-    "methylene_sites": 4,
-    "carbonyl_carbons": 1,
-    "DBE": 1
+  "total": 69,
+  "passed": 69,
+  "keyNumbers": {
+    "formula": "C7H14O",
+    "counts": {
+      "carbons": 7,
+      "hydrogens": 14,
+      "ch3": 2,
+      "ch2": 4,
+      "ch": 0,
+      "noH": 1,
+      "protonated": 6,
+      "expectedHsqcPeaks": 6
+    },
+    "dbe": 1,
+    "estimates": [
+      {
+        "site": "C1",
+        "dH": 1.06,
+        "dC": 8.2,
+        "editedColor": "black"
+      },
+      {
+        "site": "C7",
+        "dH": 0.91,
+        "dC": 14.3,
+        "editedColor": "black"
+      },
+      {
+        "site": "C6",
+        "dH": 1.32,
+        "dC": 22.5,
+        "editedColor": "red"
+      },
+      {
+        "site": "C5",
+        "dH": 1.57,
+        "dC": 26.4,
+        "editedColor": "red"
+      },
+      {
+        "site": "C2",
+        "dH": 2.42,
+        "dC": 36.3,
+        "editedColor": "red"
+      },
+      {
+        "site": "C4",
+        "dH": 2.4,
+        "dC": 42.7,
+        "editedColor": "red"
+      }
+    ],
+    "spread": {
+      "maxPanelDiffH": 0.013,
+      "maxPanelDiffC": 0.6,
+      "maxCaptureDiffH": 0.002,
+      "maxCaptureDiffC": 0.12,
+      "onePixelH": 0.0077,
+      "onePixelC": 0.155
+    },
+    "c2c4": {
+      "deltaH_ppm": 0.02,
+      "deltaC_ppm": 6.4,
+      "at400MHz_Hz": {
+        "h": 8,
+        "c": 644
+      },
+      "incrementEstimate_ppm": 43.2
+    },
+    "editModel": {
+      "matchedDelayMs_125Hz": 8,
+      "matchedDelayMs_145Hz": 6.9,
+      "mismatch": {
+        "f2": 0.824,
+        "f3": -0.748
+      }
+    }
   },
-  "approximate_visual_pair": {
-    "C2_C4_delta_H_ppm": 0.03,
-    "C2_C4_delta_C_ppm": 7
-  },
-  "precision_warning": "All ppm values are visual estimates from the screenshot."
+  "precisionWarning": "全部 ppm 都是截图像素估读（¹H 约 ±0.03、¹³C 约 ±0.5），不是原始谱数据；J、场强、Δ 属于演示模型的假设值。",
+  "checks": [
+    {
+      "group": "理论计数",
+      "name": "碳数 = 7",
+      "pass": true,
+      "detail": 7
+    },
+    {
+      "group": "理论计数",
+      "name": "氢数 2×3 + 4×2 = 14，等于分子式 H 数",
+      "pass": true,
+      "detail": 14
+    },
+    {
+      "group": "理论计数",
+      "name": "CH₃ 2 个、CH₂ 4 个、CH 0 个、无氢碳 1 个",
+      "pass": true,
+      "detail": {
+        "carbons": 7,
+        "hydrogens": 14,
+        "ch3": 2,
+        "ch2": 4,
+        "ch": 0,
+        "noH": 1,
+        "protonated": 6,
+        "expectedHsqcPeaks": 6
+      }
+    },
+    {
+      "group": "理论计数",
+      "name": "带氢碳 = 7 − 1 = 6 = 预期 HSQC 交叉峰数",
+      "pass": true,
+      "detail": 6
+    },
+    {
+      "group": "理论计数",
+      "name": "各类碳之和等于总碳数（不变量）",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "理论计数",
+      "name": "不饱和度 (2×7 + 2 − 14)/2 = 1",
+      "pass": true,
+      "detail": 1
+    },
+    {
+      "group": "理论计数",
+      "name": "简单情形：乙烷 0、丙酮 1、苯 4",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "理论计数",
+      "name": "边界情形：空结构全部为 0",
+      "pass": true,
+      "detail": {
+        "carbons": 0,
+        "hydrogens": 0,
+        "ch3": 0,
+        "ch2": 0,
+        "ch": 0,
+        "noH": 0,
+        "protonated": 0,
+        "expectedHsqcPeaks": 0
+      }
+    },
+    {
+      "group": "理论计数",
+      "name": "只有季碳的结构预期 0 个 HSQC 峰",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "结构关系",
+      "name": "C2 的 α/β/γ 位碳数 = 2/1/1",
+      "pass": true,
+      "detail": {
+        "alpha": 2,
+        "beta": 1,
+        "gamma": 1
+      }
+    },
+    {
+      "group": "结构关系",
+      "name": "C4 的 α/β/γ 位碳数 = 2/2/2",
+      "pass": true,
+      "detail": {
+        "alpha": 2,
+        "beta": 2,
+        "gamma": 2
+      }
+    },
+    {
+      "group": "结构关系",
+      "name": "键距对称：d(C1,C7) = d(C7,C1) = 6，d(C3,C3) = 0",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "结构关系",
+      "name": "C4 比 C2 多 1 个 β、1 个 γ 位碳 → 经验增量 9.4 − 2.5 = +6.9 ppm",
+      "pass": true,
+      "detail": 6.9
+    },
+    {
+      "group": "结构关系",
+      "name": "经验估算 δC(C4) ≈ δC(C2) + 6.9 与估读值相差 < 1.5 ppm",
+      "pass": true,
+      "detail": {
+        "predicted": 43.2,
+        "estimated": 42.7,
+        "diff": 0.5
+      }
+    },
+    {
+      "group": "原图观测",
+      "name": "常规 HSQC 面板恰好 6 个峰",
+      "pass": true,
+      "detail": 6
+    },
+    {
+      "group": "原图观测",
+      "name": "编辑 HSQC 面板恰好 6 个峰",
+      "pass": true,
+      "detail": 6
+    },
+    {
+      "group": "原图观测",
+      "name": "常规 HSQC 的峰全部为黑色",
+      "pass": true,
+      "detail": [
+        "black",
+        "black",
+        "black",
+        "black",
+        "black",
+        "black"
+      ]
+    },
+    {
+      "group": "原图观测",
+      "name": "编辑 HSQC：2 黑 4 红",
+      "pass": true,
+      "detail": [
+        "black",
+        "black",
+        "red",
+        "red",
+        "red",
+        "red"
+      ]
+    },
+    {
+      "group": "原图观测",
+      "name": "编辑 HSQC：¹³C 最低的两个峰是黑色，其余四个是红色",
+      "pass": true,
+      "detail": [
+        "black",
+        "black",
+        "red",
+        "red",
+        "red",
+        "red"
+      ]
+    },
+    {
+      "group": "原图观测",
+      "name": "黑/红个数与理论 CH₃/CH₂ 个数一致（2/4）",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "坐标定标",
+      "name": "HSQC：¹H 五个主刻度线性残差 ≤ 0.01 ppm",
+      "pass": true,
+      "detail": 0.0053
+    },
+    {
+      "group": "坐标定标",
+      "name": "HSQC：¹³C 四点拟合残差 ≤ 0.2 ppm",
+      "pass": true,
+      "detail": 0.047
+    },
+    {
+      "group": "坐标定标",
+      "name": "HSQC：边框左/右 ≈ 3.0 / 0.5 ppm（±0.02）",
+      "pass": true,
+      "detail": [
+        3.002,
+        0.491
+      ]
+    },
+    {
+      "group": "坐标定标",
+      "name": "HSQC：边框上/下 ≈ 0 / 50 ppm（±0.5）",
+      "pass": true,
+      "detail": [
+        0.23,
+        49.92
+      ]
+    },
+    {
+      "group": "坐标定标",
+      "name": "HSQC：向右 ¹H 变小、向下 ¹³C 变大（斜率符号）",
+      "pass": true,
+      "detail": [
+        -0.007678905375669415,
+        0.15527800549742007
+      ]
+    },
+    {
+      "group": "坐标定标",
+      "name": "HSQC：用斜率与截距重算每个峰，与记录值一致",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "坐标定标",
+      "name": "HSQC：主刻度像素换回 ppm 得到 3.0/2.5/2.0/1.5/1.0",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "坐标定标",
+      "name": "Edited HSQC：¹H 五个主刻度线性残差 ≤ 0.01 ppm",
+      "pass": true,
+      "detail": 0.005
+    },
+    {
+      "group": "坐标定标",
+      "name": "Edited HSQC：¹³C 四点拟合残差 ≤ 0.2 ppm",
+      "pass": true,
+      "detail": 0.117
+    },
+    {
+      "group": "坐标定标",
+      "name": "Edited HSQC：边框左/右 ≈ 3.0 / 0.5 ppm（±0.02）",
+      "pass": true,
+      "detail": [
+        3.006,
+        0.502
+      ]
+    },
+    {
+      "group": "坐标定标",
+      "name": "Edited HSQC：边框上/下 ≈ 0 / 50 ppm（±0.5）",
+      "pass": true,
+      "detail": [
+        -0.12,
+        50.01
+      ]
+    },
+    {
+      "group": "坐标定标",
+      "name": "Edited HSQC：向右 ¹H 变小、向下 ¹³C 变大（斜率符号）",
+      "pass": true,
+      "detail": [
+        -0.007655425293464718,
+        0.15713851107917418
+      ]
+    },
+    {
+      "group": "坐标定标",
+      "name": "Edited HSQC：用斜率与截距重算每个峰，与记录值一致",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "坐标定标",
+      "name": "Edited HSQC：主刻度像素换回 ppm 得到 3.0/2.5/2.0/1.5/1.0",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "估读一致性",
+      "name": "两个面板的 ¹H 估读相差 ≤ 0.02 ppm",
+      "pass": true,
+      "detail": 0.013
+    },
+    {
+      "group": "估读一致性",
+      "name": "两个面板的 ¹³C 估读相差 ≤ 0.8 ppm",
+      "pass": true,
+      "detail": 0.6
+    },
+    {
+      "group": "估读一致性",
+      "name": "与早期截图相比 ¹H 相差 ≤ 0.01 ppm",
+      "pass": true,
+      "detail": 0.002
+    },
+    {
+      "group": "估读一致性",
+      "name": "与早期截图相比 ¹³C 相差 ≤ 0.3 ppm",
+      "pass": true,
+      "detail": 0.12
+    },
+    {
+      "group": "估读一致性",
+      "name": "页面采用值 = 两面板平均后取整（¹H 0.01，¹³C 0.1）",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "估读一致性",
+      "name": "页面声明的不确定度（¹H ±0.03、¹³C ±0.5）覆盖面板间差异的一半",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "归属合理性",
+      "name": "丁基链上离羰基越远 ¹H 越小：C4 > C5 > C6 > C7",
+      "pass": true,
+      "detail": [
+        2.4,
+        1.57,
+        1.32,
+        0.91
+      ]
+    },
+    {
+      "group": "归属合理性",
+      "name": "乙基一侧 C2 > C1（¹H）",
+      "pass": true,
+      "detail": [
+        2.42,
+        1.06
+      ]
+    },
+    {
+      "group": "归属合理性",
+      "name": "两个 α-CH₂：¹H 相差 ≤ 0.05 ppm，¹³C 相差 > 5 ppm",
+      "pass": true,
+      "detail": {
+        "dH": 0.02,
+        "dC": 6.4
+      }
+    },
+    {
+      "group": "归属合理性",
+      "name": "六个峰的 (δH, δC) 两两不同",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "编辑延迟模型",
+      "name": "Δ = 0：CH、CH₂、CH₃ 因子都是 +1（退化为不编辑）",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "编辑延迟模型",
+      "name": "Δ = 1/(2J)：三类因子都为 0",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "编辑延迟模型",
+      "name": "Δ = 1/J：因子 = (−1)ⁿ → CH −1、CH₂ +1、CH₃ −1",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "编辑延迟模型",
+      "name": "|因子| ≤ 1",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "编辑延迟模型",
+      "name": "CH₂ 因子 cos² 永不为负",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "编辑延迟模型",
+      "name": "CH 与 CH₃ 始终同号",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "编辑延迟模型",
+      "name": "周期性：Δ 增加 2/J 后因子不变",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "编辑延迟模型",
+      "name": "状态判定：Δ=1/J 反号、Δ=0 同号、Δ=1/(2J) 接近零",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "编辑延迟模型",
+      "name": "失配示例：实际 J = 125 Hz、Δ 按 145 Hz 设定 → CH₂ +0.82、CH₃ −0.75，仍然反号",
+      "pass": true,
+      "detail": {
+        "f2": 0.824,
+        "f3": -0.748
+      }
+    },
+    {
+      "group": "单位换算",
+      "name": "1/(125 Hz) = 8.00 ms；1/(145 Hz) = 6.90 ms",
+      "pass": true,
+      "detail": [
+        8,
+        6.897
+      ]
+    },
+    {
+      "group": "单位换算",
+      "name": "1/(2 × 125 Hz) = 4.00 ms",
+      "pass": true,
+      "detail": 4
+    },
+    {
+      "group": "单位换算",
+      "name": "0.02 ppm × 400 MHz = 8 Hz",
+      "pass": true,
+      "detail": 8
+    },
+    {
+      "group": "单位换算",
+      "name": "ppm → Hz → ppm 往返不变",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "单位换算",
+      "name": "¹H 400 MHz 时 ¹³C 频率 ≈ 100.6 MHz",
+      "pass": true,
+      "detail": 100.58
+    },
+    {
+      "group": "单位换算",
+      "name": "C2/C4：¹H 相差约 8 Hz，¹³C 相差约 640 Hz（假设 400 MHz）",
+      "pass": true,
+      "detail": {
+        "hz1H": 8,
+        "hz13C": 644,
+        "ratio": 80
+      }
+    },
+    {
+      "group": "单位换算",
+      "name": "原图 1 像素 ≈ 0.008 ppm（¹H）、≈ 0.16 ppm（¹³C）",
+      "pass": true,
+      "detail": [
+        0.0077,
+        0.155
+      ]
+    },
+    {
+      "group": "裂分模型",
+      "name": "n = 0 → 单线，位于中心",
+      "pass": true,
+      "detail": [
+        {
+          "ppm": 1,
+          "offsetHz": 0,
+          "weight": 1
+        }
+      ]
+    },
+    {
+      "group": "裂分模型",
+      "name": "三重峰 1:2:1、四重峰 1:3:3:1",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "裂分模型",
+      "name": "强度之和 = 1，重心 = 中心位移",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "裂分模型",
+      "name": "相邻线间距 = J = 7.4 Hz = 0.0185 ppm（400 MHz）",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "裂分模型",
+      "name": "换场强：Hz 间距不变，ppm 间距与频率成反比",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "裂分模型",
+      "name": "四重峰跨度 3J = 22.2 Hz，三重峰跨度 2J = 14.8 Hz",
+      "pass": true,
+      "detail": null
+    },
+    {
+      "group": "裂分模型",
+      "name": "400 MHz 时两组范围交叠 10.5 Hz；1000 MHz 时分开 1.5 Hz",
+      "pass": true,
+      "detail": [
+        10.5,
+        -1.5
+      ]
+    },
+    {
+      "group": "裂分模型",
+      "name": "刚好分开所需频率 = 18.5 Hz / 0.02 ppm = 925 MHz",
+      "pass": true,
+      "detail": 925
+    },
+    {
+      "group": "裂分模型",
+      "name": "交叠量随场强单调减小",
+      "pass": true,
+      "detail": null
+    }
+  ]
 }

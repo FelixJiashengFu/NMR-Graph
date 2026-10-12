@@ -1,71 +1,1146 @@
 {
-  "selftest": {
-    "count": true,
-    "unique": true,
-    "types": true,
-    "hydrogens": true,
-    "carbonylAbsent": true,
-    "closePair": true,
-    "zeroThresholdNoDistinctPairs": true,
-    "wideThresholdIncludesPair": true,
-    "ok": true
-  },
-  "interactions": [
-    "select C1",
-    "select C2",
-    "select C4",
-    "select C5",
-    "select C6",
-    "select C7",
-    "keyboard structure",
-    "keyboard spectrum",
-    "assignment table",
-    "zoom slider",
-    "threshold boundaries",
-    "original image",
-    "original new window",
-    "repository directory link"
+  "status": "passed",
+  "total": 205,
+  "passed": 205,
+  "browser": "Chromium 153.0.8010.12 (chrome-headless-shell.exe)",
+  "browsersPassed": [
+    "Chromium 154.0.8037.98 (chrome.exe)",
+    "Chromium 153.0.8010.12 (chrome-headless-shell.exe)"
   ],
+  "pageSha256": "6dbcc4d0d903e740fcd5e4a50f3ec7bd18cd6e3303a6221456c06eda61a23d40",
+  "viewportsTested": [
+    1440,
+    1100,
+    900,
+    390,
+    320
+  ],
+  "originalSha256": "348eca4fd5bb1bfb120cd0a487e504fc4d5b846a74ab0c7b19e6822a1100fedc",
+  "selftest": {
+    "ok": true,
+    "list": [
+      {
+        "name": "碳 7、氢 14；2 个 CH₃ + 4 个 CH₂ + 1 个无氢碳",
+        "pass": true
+      },
+      {
+        "name": "预期 HSQC 峰数 = 7 − 1 = 6",
+        "pass": true
+      },
+      {
+        "name": "不饱和度 = 1",
+        "pass": true
+      },
+      {
+        "name": "原图两个面板各测到 6 个峰",
+        "pass": true
+      },
+      {
+        "name": "编辑谱：2 黑 4 红，黑峰的 ¹³C 最低",
+        "pass": true
+      },
+      {
+        "name": "边框对应 3.0 → 0.5 ppm 与 0 → 50 ppm",
+        "pass": true
+      },
+      {
+        "name": "两个面板估读差：¹H ≤ 0.02、¹³C ≤ 0.8 ppm",
+        "pass": true
+      },
+      {
+        "name": "¹H 递减：C4 > C5 > C6 > C7，且 C2 > C1",
+        "pass": true
+      },
+      {
+        "name": "C2/C4：¹H 差 ≤ 0.05，¹³C 差 > 5 ppm",
+        "pass": true
+      },
+      {
+        "name": "经验加和 36.3 + 6.9 与估读 42.7 相差 < 1.5",
+        "pass": true
+      },
+      {
+        "name": "模型：Δ = 1/J 时因子为 −1、+1、−1",
+        "pass": true
+      },
+      {
+        "name": "模型：Δ = 0 全为 +1；Δ = 1/(2J) 全为 0",
+        "pass": true
+      },
+      {
+        "name": "换算：1/125 Hz = 8.00 ms；0.02 ppm × 400 MHz = 8 Hz",
+        "pass": true
+      },
+      {
+        "name": "裂分：1:3:3:1 与 1:2:1，925 MHz 以上才分开",
+        "pass": true
+      }
+    ]
+  },
   "layouts": [
     {
-      "viewport": 1440,
-      "scroll": 1440,
-      "structure": 766,
-      "structureViewBox": "0 0 690 165",
-      "zoomViewBox": "0 0 780 265",
-      "charts": [
-        353,
-        353
-      ],
-      "images": true
+      "width": 1440,
+      "scrollWidth": 1440,
+      "structure": "wide",
+      "controls": "left",
+      "pageHeight": 12042
     },
     {
-      "viewport": 390,
-      "scroll": 390,
-      "structure": 336,
-      "structureViewBox": "0 0 285 380",
-      "zoomViewBox": "0 0 410 265",
-      "charts": [
-        312,
-        312
-      ],
-      "images": true
+      "width": 1100,
+      "scrollWidth": 1100,
+      "structure": "wide",
+      "controls": "left",
+      "pageHeight": 14015
     },
     {
-      "viewport": 320,
-      "scroll": 320,
-      "structure": 266,
-      "structureViewBox": "0 0 285 380",
-      "zoomViewBox": "0 0 410 265",
-      "charts": [
-        242,
-        242
-      ],
-      "images": true
+      "width": 900,
+      "scrollWidth": 900,
+      "structure": "narrow",
+      "controls": "left",
+      "pageHeight": 15158
+    },
+    {
+      "width": 390,
+      "scrollWidth": 390,
+      "structure": "narrow",
+      "controls": "inline",
+      "pageHeight": 29431
+    },
+    {
+      "width": 320,
+      "scrollWidth": 320,
+      "structure": "narrow",
+      "controls": "inline",
+      "pageHeight": 32674
     }
   ],
   "errors": [],
   "external": [],
-  "ok": true,
-  "browser": "154.0.8037.98"
+  "results": [
+    {
+      "group": "加载与默认状态",
+      "name": "页面就绪且默认选中 C2",
+      "pass": true
+    },
+    {
+      "group": "加载与默认状态",
+      "name": "页面内自检 14 项全部通过",
+      "pass": true
+    },
+    {
+      "group": "加载与默认状态",
+      "name": "自检结果已显示在页面上",
+      "pass": true
+    },
+    {
+      "group": "加载与默认状态",
+      "name": "十一个内容区块都在",
+      "pass": true
+    },
+    {
+      "group": "加载与默认状态",
+      "name": "内容顺序：结论 → 解释 → 推理 → 核对 → 误区 → 来源",
+      "pass": true
+    },
+    {
+      "group": "加载与默认状态",
+      "name": "标题、一句话目标、读前必读在顶部",
+      "pass": true
+    },
+    {
+      "group": "加载与默认状态",
+      "name": "四种证据标签都出现，且带形状符号",
+      "pass": true
+    },
+    {
+      "group": "加载与默认状态",
+      "name": "重绘图形都标了“示意”或“演示模型”",
+      "pass": true
+    },
+    {
+      "group": "加载与默认状态",
+      "name": "三栏布局：左（选择 + 参数）、中（结构 + 谱图）、右（读数 + 解释）",
+      "pass": true
+    },
+    {
+      "group": "加载与默认状态",
+      "name": "配色：背景 #0e1116、面板 #151a21、边界 #303a47、强调 #5fd0a8",
+      "pass": true
+    },
+    {
+      "group": "加载与默认状态",
+      "name": "没有渐变、阴影和动画",
+      "pass": true
+    },
+    {
+      "group": "公式与字体",
+      "name": "8 处公式都已渲染，且各有 MathML 备份",
+      "pass": true
+    },
+    {
+      "group": "公式与字体",
+      "name": "内嵌公式字体没有加载失败",
+      "pass": true
+    },
+    {
+      "group": "公式与字体",
+      "name": "公式实际使用的 KaTeX 字体都已加载",
+      "pass": true
+    },
+    {
+      "group": "对象选择联动",
+      "name": "选 C1：列表、结构、两张谱、读数、解释、表格、原图定位圈同步",
+      "pass": true
+    },
+    {
+      "group": "对象选择联动",
+      "name": "选 C2：列表、结构、两张谱、读数、解释、表格、原图定位圈同步",
+      "pass": true
+    },
+    {
+      "group": "对象选择联动",
+      "name": "选 C3：各处同步显示“无交叉峰”，谱图不画选中圈",
+      "pass": true
+    },
+    {
+      "group": "对象选择联动",
+      "name": "选 C4：列表、结构、两张谱、读数、解释、表格、原图定位圈同步",
+      "pass": true
+    },
+    {
+      "group": "对象选择联动",
+      "name": "选 C5：列表、结构、两张谱、读数、解释、表格、原图定位圈同步",
+      "pass": true
+    },
+    {
+      "group": "对象选择联动",
+      "name": "选 C6：列表、结构、两张谱、读数、解释、表格、原图定位圈同步",
+      "pass": true
+    },
+    {
+      "group": "对象选择联动",
+      "name": "选 C7：列表、结构、两张谱、读数、解释、表格、原图定位圈同步",
+      "pass": true
+    },
+    {
+      "group": "对象选择联动",
+      "name": "七个对象的解释各不相同",
+      "pass": true
+    },
+    {
+      "group": "对象选择联动",
+      "name": "点结构上的 C5 → 选中 C5",
+      "pass": true
+    },
+    {
+      "group": "对象选择联动",
+      "name": "点编辑谱上的 C7 峰 → 选中 C7",
+      "pass": true
+    },
+    {
+      "group": "对象选择联动",
+      "name": "点常规谱上的 C1 峰 → 选中 C1",
+      "pass": true
+    },
+    {
+      "group": "对象选择联动",
+      "name": "点归属表 C6 行 → 选中 C6",
+      "pass": true
+    },
+    {
+      "group": "对象选择联动",
+      "name": "点模型符号条 C4 → 选中 C4",
+      "pass": true
+    },
+    {
+      "group": "对象选择联动",
+      "name": "编辑谱：2 个菱形黑峰 + 4 个圆圈红峰；常规谱 6 个同样的实心点",
+      "pass": true
+    },
+    {
+      "group": "对象选择联动",
+      "name": "重绘峰位与估读坐标一致（由图上像素反算）",
+      "pass": true
+    },
+    {
+      "group": "键盘操作",
+      "name": "结构原子：聚焦后按 Enter 选中",
+      "pass": true
+    },
+    {
+      "group": "键盘操作",
+      "name": "谱图峰：聚焦后按空格选中",
+      "pass": true
+    },
+    {
+      "group": "键盘操作",
+      "name": "选中后焦点仍留在原来的峰上（图形没有被整体重建）",
+      "pass": true
+    },
+    {
+      "group": "键盘操作",
+      "name": "表格行：聚焦后按 Enter 选中",
+      "pass": true
+    },
+    {
+      "group": "键盘操作",
+      "name": "对象列表：↓ 移到下一个并保持焦点",
+      "pass": true
+    },
+    {
+      "group": "键盘操作",
+      "name": "对象列表：↑ 可以往回",
+      "pass": true
+    },
+    {
+      "group": "键盘操作",
+      "name": "对象列表：到头后循环到 C7",
+      "pass": true
+    },
+    {
+      "group": "键盘操作",
+      "name": "所有交互对象都能用 Tab 到达",
+      "pass": true
+    },
+    {
+      "group": "键盘操作",
+      "name": "“跳到交互区”链接在获得焦点时可见",
+      "pass": true
+    },
+    {
+      "group": "键盘操作",
+      "name": "滑块：方向键每次改变一个步长，读数同步",
+      "pass": true
+    },
+    {
+      "group": "键盘操作",
+      "name": "焦点样式可见（2px 轮廓）",
+      "pass": true
+    },
+    {
+      "group": "滑块与演示模型",
+      "name": "默认 Δ = 8.0 ms、J = 125 Hz：CH₂ +1.00、CH₃ −1.00，状态为“反号”",
+      "pass": true
+    },
+    {
+      "group": "滑块与演示模型",
+      "name": "滑块读数带单位",
+      "pass": true
+    },
+    {
+      "group": "滑块与演示模型",
+      "name": "Δ = 0（边界）：全部 +1.00，状态“同号”，图形改变",
+      "pass": true
+    },
+    {
+      "group": "滑块与演示模型",
+      "name": "Δ = 4.0 ms = 1/(2J)：全部 0.00，状态“接近零点”",
+      "pass": true
+    },
+    {
+      "group": "滑块与演示模型",
+      "name": "Δ = 12 ms（上限）：显示值等于 cosⁿ(π·J·Δ)",
+      "pass": true
+    },
+    {
+      "group": "滑块与演示模型",
+      "name": "失配：Δ = 6.9 ms、J = 125 Hz → CH₂ +0.82、CH₃ −0.75，仍“反号”并提示强度下降",
+      "pass": true
+    },
+    {
+      "group": "滑块与演示模型",
+      "name": "J = 170 Hz：匹配延迟显示 5.88 ms，曲线与读数随之改变",
+      "pass": true
+    },
+    {
+      "group": "滑块与演示模型",
+      "name": "J = 110 Hz（下限）：匹配延迟 9.09 ms",
+      "pass": true
+    },
+    {
+      "group": "滑块与演示模型",
+      "name": "改 Δ 和 J 不影响“模型 ②”，也不改变估读峰位和归属表",
+      "pass": true
+    },
+    {
+      "group": "滑块与演示模型",
+      "name": "场强 100 MHz（下限）：氢维 2.0 Hz，两组裂分交叠",
+      "pass": true
+    },
+    {
+      "group": "滑块与演示模型",
+      "name": "场强 1000 MHz（上限）：氢维 20.0 Hz，刚好分开 1.5 Hz",
+      "pass": true
+    },
+    {
+      "group": "滑块与演示模型",
+      "name": "棒图：四重峰 4 条线、三重峰 3 条线",
+      "pass": true
+    },
+    {
+      "group": "滑块与演示模型",
+      "name": "改场强不影响“模型 ①”，也不改变估读峰位",
+      "pass": true
+    },
+    {
+      "group": "滑块与演示模型",
+      "name": "“恢复默认参数”还原三个模型滑块和所有图形",
+      "pass": true
+    },
+    {
+      "group": "滑块与演示模型",
+      "name": "每个滑块旁都写明它改变的是演示模型还是原图显示",
+      "pass": true
+    },
+    {
+      "group": "原图局部放大",
+      "name": "局部放大用的是同一张原图（1888 × 935）",
+      "pass": true
+    },
+    {
+      "group": "原图局部放大",
+      "name": "1×：显示整个面板区域（含投影与刻度）",
+      "pass": true
+    },
+    {
+      "group": "原图局部放大",
+      "name": "8×：视野缩小为 1/8，并以所选峰为中心",
+      "pass": true
+    },
+    {
+      "group": "原图局部放大",
+      "name": "切到“编辑 HSQC 面板”：区域与定位随之改变，并报告原图颜色",
+      "pass": true
+    },
+    {
+      "group": "原图局部放大",
+      "name": "切到“结构式”：定位圈落在原图骨架式的对应顶点",
+      "pass": true
+    },
+    {
+      "group": "原图局部放大",
+      "name": "取消“显示定位圈”后原图上没有任何叠加标记",
+      "pass": true
+    },
+    {
+      "group": "原图局部放大",
+      "name": "放大与切换不改变估读数值",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "正文中有 200 处可点术语，覆盖 43 个不同术语",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "术语表完整（43 条），正文里每个术语都能在表中找到",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "点按术语：弹出中文注释，aria-expanded 变为 true",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "Esc 关闭注释并把焦点还给术语",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "键盘：术语上按 Enter 打开注释，焦点进入注释框",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "注释框内 Tab 可到“关闭”和“在术语表中查看”",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "继续 Tab 离开注释框：自动关闭并回到术语",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "点注释框外的空白处关闭",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "甲基的注释里附带结构小图：1 个 C、3 个 H、4 根键",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "“在术语表中查看”跳到对应条目",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "点表格行里的术语只打开注释，不改变选中的对象",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "键盘打开表格行里的术语同样不改变选中对象",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "读数区每次重写后术语仍可点（动态内容重新加注释）",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "官能团小结构图共 27 处，每张都画出原子和键，并有文字说明",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "小结构图的原子与键数正确：甲基 5/4、亚甲基 5/4、羰基 4/3（含 1 根双键）、乙基 8/7、丁基 14/13",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "结构图：7 个碳、14 个氢、1 个氧，6 根碳–碳键和 1 根双键都画出",
+      "pass": true
+    },
+    {
+      "group": "术语注释与官能团小图",
+      "name": "中英文对照表 12 行，原图英文逐条对应中文",
+      "pass": true
+    },
+    {
+      "group": "原图保留与展开",
+      "name": "内嵌原图与 source/original.png 逐字节相同（未改动）",
+      "pass": true
+    },
+    {
+      "group": "原图保留与展开",
+      "name": "原图只内嵌一份（其余位置在运行时复用）",
+      "pass": true
+    },
+    {
+      "group": "原图保留与展开",
+      "name": "完整原图默认可见，等比例显示",
+      "pass": true
+    },
+    {
+      "group": "原图保留与展开",
+      "name": "键盘展开“按原始尺寸查看”：原图 1888 px 宽，在框内滚动",
+      "pass": true
+    },
+    {
+      "group": "原图保留与展开",
+      "name": "“在新窗口打开原图”可用",
+      "pass": true
+    },
+    {
+      "group": "原图保留与展开",
+      "name": "再次点击可以收起",
+      "pass": true
+    },
+    {
+      "group": "原图保留与展开",
+      "name": "外部链接只在点击时访问（都是普通 <a>，新标签打开）",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "选 C2：页面无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "选 C2：图中文字没有被裁切",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "选 C2：图中文字互不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "选 C2：图中文字不小于 9.5 px",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "官能团小图完整显示、没有被压缩",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "公式不超出容器",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "图片全部加载",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "选 C7：页面无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "选 C7：图中文字没有被裁切",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "选 C7：图中文字互不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "选 C7：图中文字不小于 9.5 px",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "选 C3：页面无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "选 C3：图中文字没有被裁切",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "选 C3：图中文字互不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "选 C3：图中文字不小于 9.5 px",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "滑块取 {\"sDelay\":\"0\",\"sJ\":\"110\",\"sField\":\"100\"} 时图中文字不裁切、不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "滑块取 {\"sDelay\":\"5.9\",\"sJ\":\"170\",\"sField\":\"1000\"} 时图中文字不裁切、不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "结构排布与可用宽度匹配（不足 640 px 时竖排，且竖排不超过 400 px 宽）",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "模型滑块在左栏参数面板内",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "桌面 / 平板：粘性面板内容没有被视口截断（900 px 高）",
+      "pass": true
+    },
+    {
+      "group": "布局 1440 px",
+      "name": "已生成整页预览 preview.png",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "选 C2：页面无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "选 C2：图中文字没有被裁切",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "选 C2：图中文字互不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "选 C2：图中文字不小于 9.5 px",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "官能团小图完整显示、没有被压缩",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "公式不超出容器",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "图片全部加载",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "选 C7：页面无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "选 C7：图中文字没有被裁切",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "选 C7：图中文字互不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "选 C7：图中文字不小于 9.5 px",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "选 C3：页面无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "选 C3：图中文字没有被裁切",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "选 C3：图中文字互不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "选 C3：图中文字不小于 9.5 px",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "滑块取 {\"sDelay\":\"0\",\"sJ\":\"110\",\"sField\":\"100\"} 时图中文字不裁切、不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "滑块取 {\"sDelay\":\"5.9\",\"sJ\":\"170\",\"sField\":\"1000\"} 时图中文字不裁切、不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "结构排布与可用宽度匹配（不足 640 px 时竖排，且竖排不超过 400 px 宽）",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "模型滑块在左栏参数面板内",
+      "pass": true
+    },
+    {
+      "group": "布局 1100 px",
+      "name": "桌面 / 平板：粘性面板内容没有被视口截断（900 px 高）",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "选 C2：页面无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "选 C2：图中文字没有被裁切",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "选 C2：图中文字互不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "选 C2：图中文字不小于 9.5 px",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "官能团小图完整显示、没有被压缩",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "公式不超出容器",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "图片全部加载",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "选 C7：页面无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "选 C7：图中文字没有被裁切",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "选 C7：图中文字互不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "选 C7：图中文字不小于 9.5 px",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "选 C3：页面无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "选 C3：图中文字没有被裁切",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "选 C3：图中文字互不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "选 C3：图中文字不小于 9.5 px",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "滑块取 {\"sDelay\":\"0\",\"sJ\":\"110\",\"sField\":\"100\"} 时图中文字不裁切、不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "滑块取 {\"sDelay\":\"5.9\",\"sJ\":\"170\",\"sField\":\"1000\"} 时图中文字不裁切、不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "结构排布与可用宽度匹配（不足 640 px 时竖排，且竖排不超过 400 px 宽）",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "模型滑块在左栏参数面板内",
+      "pass": true
+    },
+    {
+      "group": "布局 900 px",
+      "name": "桌面 / 平板：粘性面板内容没有被视口截断（900 px 高）",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "选 C2：页面无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "选 C2：图中文字没有被裁切",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "选 C2：图中文字互不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "选 C2：图中文字不小于 9.5 px",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "官能团小图完整显示、没有被压缩",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "公式不超出容器",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "图片全部加载",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "选 C7：页面无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "选 C7：图中文字没有被裁切",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "选 C7：图中文字互不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "选 C7：图中文字不小于 9.5 px",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "选 C3：页面无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "选 C3：图中文字没有被裁切",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "选 C3：图中文字互不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "选 C3：图中文字不小于 9.5 px",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "滑块取 {\"sDelay\":\"0\",\"sJ\":\"110\",\"sField\":\"100\"} 时图中文字不裁切、不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "滑块取 {\"sDelay\":\"5.9\",\"sJ\":\"170\",\"sField\":\"1000\"} 时图中文字不裁切、不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "手机：单列纵向排列，结构改为竖排",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "手机：模型滑块移到对应图形上方，仍可操作",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "手机：移动后的滑块仍然驱动模型",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "手机：顶部“当前对象”条可用 ‹ › 切换",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "手机：归属表改为卡片，每个单元格带栏目名",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "手机：靠近屏幕右缘的术语，其注释框完整留在屏幕内",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "手机：带结构小图的注释（α 位）清晰且不溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "手机：展开原始尺寸原图后页面仍无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "手机：原图局部放大可用",
+      "pass": true
+    },
+    {
+      "group": "布局 390 px",
+      "name": "已生成整页预览 preview-390.png",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "选 C2：页面无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "选 C2：图中文字没有被裁切",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "选 C2：图中文字互不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "选 C2：图中文字不小于 9.5 px",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "官能团小图完整显示、没有被压缩",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "公式不超出容器",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "图片全部加载",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "选 C7：页面无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "选 C7：图中文字没有被裁切",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "选 C7：图中文字互不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "选 C7：图中文字不小于 9.5 px",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "选 C3：页面无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "选 C3：图中文字没有被裁切",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "选 C3：图中文字互不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "选 C3：图中文字不小于 9.5 px",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "滑块取 {\"sDelay\":\"0\",\"sJ\":\"110\",\"sField\":\"100\"} 时图中文字不裁切、不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "滑块取 {\"sDelay\":\"5.9\",\"sJ\":\"170\",\"sField\":\"1000\"} 时图中文字不裁切、不重叠",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "手机：单列纵向排列，结构改为竖排",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "手机：模型滑块移到对应图形上方，仍可操作",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "手机：移动后的滑块仍然驱动模型",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "手机：顶部“当前对象”条可用 ‹ › 切换",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "手机：归属表改为卡片，每个单元格带栏目名",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "手机：靠近屏幕右缘的术语，其注释框完整留在屏幕内",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "手机：带结构小图的注释（α 位）清晰且不溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "手机：展开原始尺寸原图后页面仍无横向溢出",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "手机：原图局部放大可用",
+      "pass": true
+    },
+    {
+      "group": "布局 320 px",
+      "name": "已生成整页预览 preview-320.png",
+      "pass": true
+    },
+    {
+      "group": "仓库目录",
+      "name": "仓库目录页链接到本专题",
+      "pass": true
+    },
+    {
+      "group": "仓库目录",
+      "name": "从目录页点进来能打开本页",
+      "pass": true
+    },
+    {
+      "group": "全程",
+      "name": "没有脚本错误或控制台警告",
+      "pass": true
+    },
+    {
+      "group": "全程",
+      "name": "没有任何网络请求（完全离线）",
+      "pass": true
+    }
+  ]
 }

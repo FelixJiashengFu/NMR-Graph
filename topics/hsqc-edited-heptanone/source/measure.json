@@ -1,0 +1,1073 @@
+{
+  "generatedBy": "source/measure.mjs",
+  "warning": "全部数值为截图像素估读，不是原始谱数据；纵轴只有 20 与 40 两个带数字的刻度。",
+  "images": {
+    "original": {
+      "file": "original.png",
+      "note": "本专题页面内嵌的原图（用户上传截图，1888 × 935）",
+      "width": 1888,
+      "height": 935,
+      "panels": [
+        {
+          "name": "HSQC",
+          "background": 255,
+          "frame": {
+            "left": 892,
+            "right": 1219,
+            "top": 528,
+            "bottom": 848,
+            "width": 327,
+            "height": 320
+          },
+          "hAxis": {
+            "majorTicksPx": [
+              892.01,
+              958,
+              1022,
+              1087.14,
+              1153
+            ],
+            "labels": [
+              3,
+              2.5,
+              2,
+              1.5,
+              1
+            ],
+            "pxPerPpm": 130.227,
+            "maxResidualPpm": 0.0053,
+            "minorTickCount": 20,
+            "atLeft": 3.002,
+            "atRight": 0.491,
+            "slope": -0.007678905375669415,
+            "intercept": 9.85113759350419
+          },
+          "cAxis": {
+            "majorTicksPx": [
+              655,
+              784
+            ],
+            "labels": [
+              20,
+              40
+            ],
+            "pxPerPpm": 6.44,
+            "minorTicksPx": [
+              591,
+              720
+            ],
+            "minorTicksPpm": [
+              10.02,
+              30.05
+            ],
+            "fitPoints": [
+              {
+                "px": 655,
+                "ppm": 20
+              },
+              {
+                "px": 784,
+                "ppm": 40
+              },
+              {
+                "px": 591,
+                "ppm": 10
+              },
+              {
+                "px": 720,
+                "ppm": 30
+              }
+            ],
+            "maxResidualPpm": 0.047,
+            "twoPointSlopePxPerPpm": 6.45,
+            "atTop": 0.23,
+            "atBottom": 49.92,
+            "slope": 0.15527800549742007,
+            "intercept": -81.7536287794763
+          },
+          "peaks": [
+            {
+              "px": 1145.07,
+              "py": 581.09,
+              "bbox": [
+                1141,
+                576,
+                1149,
+                588
+              ],
+              "area": 74,
+              "redness": 0,
+              "color": "black",
+              "dH": 1.058,
+              "dC": 8.48
+            },
+            {
+              "px": 1164.65,
+              "py": 619.82,
+              "bbox": [
+                1160,
+                613,
+                1169,
+                627
+              ],
+              "area": 99,
+              "redness": 0,
+              "color": "black",
+              "dH": 0.908,
+              "dC": 14.49
+            },
+            {
+              "px": 1111.75,
+              "py": 673.28,
+              "bbox": [
+                1107,
+                668,
+                1115,
+                677
+              ],
+              "area": 55,
+              "redness": 0,
+              "color": "black",
+              "dH": 1.314,
+              "dC": 22.79
+            },
+            {
+              "px": 1079.3,
+              "py": 697.89,
+              "bbox": [
+                1075,
+                695,
+                1082,
+                701
+              ],
+              "area": 26,
+              "redness": 0,
+              "color": "black",
+              "dH": 1.563,
+              "dC": 26.61
+            },
+            {
+              "px": 967.3,
+              "py": 759.86,
+              "bbox": [
+                963,
+                754,
+                971,
+                765
+              ],
+              "area": 70,
+              "redness": 0,
+              "color": "black",
+              "dH": 2.423,
+              "dC": 36.24
+            },
+            {
+              "px": 970.28,
+              "py": 801.05,
+              "bbox": [
+                966,
+                795,
+                975,
+                806
+              ],
+              "area": 86,
+              "redness": 0,
+              "color": "black",
+              "dH": 2.4,
+              "dC": 42.63
+            }
+          ],
+          "projection1H": [
+            {
+              "px": 972.6,
+              "height": 28,
+              "dH": 2.383
+            },
+            {
+              "px": 1007,
+              "height": 3,
+              "dH": 2.118
+            },
+            {
+              "px": 1058.5,
+              "height": 4,
+              "dH": 1.723
+            },
+            {
+              "px": 1083.4,
+              "height": 15,
+              "dH": 1.532
+            },
+            {
+              "px": 1115.8,
+              "height": 14,
+              "dH": 1.283
+            },
+            {
+              "px": 1149.3,
+              "height": 76,
+              "dH": 1.026
+            },
+            {
+              "px": 1169.4,
+              "height": 33,
+              "dH": 0.872
+            }
+          ]
+        },
+        {
+          "name": "Edited HSQC",
+          "background": 255,
+          "frame": {
+            "left": 1349,
+            "right": 1676,
+            "top": 532,
+            "bottom": 851,
+            "width": 327,
+            "height": 319
+          },
+          "hAxis": {
+            "majorTicksPx": [
+              1349.34,
+              1415,
+              1481,
+              1546,
+              1610.4
+            ],
+            "labels": [
+              3,
+              2.5,
+              2,
+              1.5,
+              1
+            ],
+            "pxPerPpm": 130.626,
+            "maxResidualPpm": 0.005,
+            "minorTickCount": 20,
+            "atLeft": 3.006,
+            "atRight": 0.502,
+            "slope": -0.007655425293464718,
+            "intercept": 13.33269953977505
+          },
+          "cAxis": {
+            "majorTicksPx": [
+              660.79,
+              787.24
+            ],
+            "labels": [
+              20,
+              40
+            ],
+            "pxPerPpm": 6.364,
+            "minorTicksPx": [
+              596,
+              723.42
+            ],
+            "minorTicksPpm": [
+              9.94,
+              29.96
+            ],
+            "fitPoints": [
+              {
+                "px": 660.79,
+                "ppm": 20
+              },
+              {
+                "px": 787.24,
+                "ppm": 40
+              },
+              {
+                "px": 596,
+                "ppm": 10
+              },
+              {
+                "px": 723.42,
+                "ppm": 30
+              }
+            ],
+            "maxResidualPpm": 0.117,
+            "twoPointSlopePxPerPpm": 6.323,
+            "atTop": -0.12,
+            "atBottom": 50.01,
+            "slope": 0.15713851107917418,
+            "intercept": -83.71825540614766
+          },
+          "peaks": [
+            {
+              "px": 1603.39,
+              "py": 582.9,
+              "bbox": [
+                1600,
+                576,
+                1608,
+                589
+              ],
+              "area": 65,
+              "redness": 0,
+              "color": "black",
+              "dH": 1.058,
+              "dC": 7.88
+            },
+            {
+              "px": 1621.82,
+              "py": 622.18,
+              "bbox": [
+                1619,
+                618,
+                1625,
+                627
+              ],
+              "area": 45,
+              "redness": 0,
+              "color": "black",
+              "dH": 0.917,
+              "dC": 14.05
+            },
+            {
+              "px": 1568.26,
+              "py": 674.49,
+              "bbox": [
+                1565,
+                671,
+                1571,
+                678
+              ],
+              "area": 46,
+              "redness": 101.7,
+              "color": "red",
+              "dH": 1.327,
+              "dC": 22.27
+            },
+            {
+              "px": 1536.34,
+              "py": 699.24,
+              "bbox": [
+                1533,
+                694,
+                1539,
+                704
+              ],
+              "area": 44,
+              "redness": 105.9,
+              "color": "red",
+              "dH": 1.571,
+              "dC": 26.16
+            },
+            {
+              "px": 1425.24,
+              "py": 763.92,
+              "bbox": [
+                1422,
+                758,
+                1428,
+                768
+              ],
+              "area": 42,
+              "redness": 96,
+              "color": "red",
+              "dH": 2.422,
+              "dC": 36.32
+            },
+            {
+              "px": 1427.42,
+              "py": 804.53,
+              "bbox": [
+                1424,
+                798,
+                1431,
+                811
+              ],
+              "area": 73,
+              "redness": 117.7,
+              "color": "red",
+              "dH": 2.405,
+              "dC": 42.7
+            }
+          ],
+          "projection1H": [
+            {
+              "px": 1430.6,
+              "height": 26,
+              "dH": 2.381
+            },
+            {
+              "px": 1515,
+              "height": 3,
+              "dH": 1.735
+            },
+            {
+              "px": 1542.1,
+              "height": 14,
+              "dH": 1.527
+            },
+            {
+              "px": 1573.9,
+              "height": 13,
+              "dH": 1.284
+            },
+            {
+              "px": 1607.2,
+              "height": 39,
+              "dH": 1.029
+            },
+            {
+              "px": 1626.4,
+              "height": 66,
+              "dH": 0.882
+            }
+          ]
+        }
+      ]
+    },
+    "earlier": {
+      "file": "earlier-capture.png",
+      "note": "同一张幻灯片的早期截图（2218 × 1398，底色偏黄），只用于交叉核对估读是否稳定",
+      "width": 2218,
+      "height": 1398,
+      "panels": [
+        {
+          "name": "HSQC",
+          "background": 238.7,
+          "frame": {
+            "left": 1055,
+            "right": 1480,
+            "top": 720,
+            "bottom": 1128,
+            "width": 425,
+            "height": 408
+          },
+          "hAxis": {
+            "majorTicksPx": [
+              1065.41,
+              1148.4,
+              1230.01,
+              1313.25,
+              1396.42
+            ],
+            "labels": [
+              3,
+              2.5,
+              2,
+              1.5,
+              1
+            ],
+            "pxPerPpm": 165.374,
+            "maxResidualPpm": 0.0042,
+            "minorTickCount": 25,
+            "atLeft": 3.062,
+            "atRight": 0.492,
+            "slope": -0.006046893412265432,
+            "intercept": 9.441884359564105
+          },
+          "cAxis": {
+            "majorTicksPx": [
+              882.05,
+              1045.59
+            ],
+            "labels": [
+              20,
+              40
+            ],
+            "pxPerPpm": 8.169,
+            "minorTicksPx": [
+              800.6,
+              963.97
+            ],
+            "minorTicksPpm": [
+              10.01,
+              30.01
+            ],
+            "fitPoints": [
+              {
+                "px": 882.05,
+                "ppm": 20
+              },
+              {
+                "px": 1045.59,
+                "ppm": 40
+              },
+              {
+                "px": 800.6,
+                "ppm": 10
+              },
+              {
+                "px": 963.97,
+                "ppm": 30
+              }
+            ],
+            "maxResidualPpm": 0.02,
+            "twoPointSlopePxPerPpm": 8.177,
+            "atTop": 0.14,
+            "atBottom": 50.09,
+            "slope": 0.12241422216230259,
+            "intercept": -87.99471773296295
+          },
+          "peaks": [
+            {
+              "px": 1386.04,
+              "py": 788.12,
+              "bbox": [
+                1380,
+                780,
+                1392,
+                798
+              ],
+              "area": 166,
+              "redness": 2.4,
+              "color": "black",
+              "dH": 1.061,
+              "dC": 8.48
+            },
+            {
+              "px": 1410.82,
+              "py": 836.9,
+              "bbox": [
+                1405,
+                828,
+                1417,
+                846
+              ],
+              "area": 178,
+              "redness": 3.6,
+              "color": "black",
+              "dH": 0.911,
+              "dC": 14.45
+            },
+            {
+              "px": 1343.63,
+              "py": 904.48,
+              "bbox": [
+                1337,
+                897,
+                1349,
+                910
+              ],
+              "area": 133,
+              "redness": 5,
+              "color": "black",
+              "dH": 1.317,
+              "dC": 22.73
+            },
+            {
+              "px": 1303.08,
+              "py": 935.52,
+              "bbox": [
+                1297,
+                929,
+                1309,
+                942
+              ],
+              "area": 124,
+              "redness": 6.9,
+              "color": "black",
+              "dH": 1.562,
+              "dC": 26.53
+            },
+            {
+              "px": 1160.65,
+              "py": 1014.72,
+              "bbox": [
+                1154,
+                1007,
+                1167,
+                1023
+              ],
+              "area": 168,
+              "redness": 4.3,
+              "color": "black",
+              "dH": 2.424,
+              "dC": 36.22
+            },
+            {
+              "px": 1164.21,
+              "py": 1066.32,
+              "bbox": [
+                1159,
+                1059,
+                1170,
+                1074
+              ],
+              "area": 173,
+              "redness": 4,
+              "color": "black",
+              "dH": 2.402,
+              "dC": 42.54
+            }
+          ],
+          "projection1H": [
+            {
+              "px": 1167.5,
+              "height": 36,
+              "dH": 2.382
+            },
+            {
+              "px": 1210.6,
+              "height": 4,
+              "dH": 2.122
+            },
+            {
+              "px": 1276.3,
+              "height": 5,
+              "dH": 1.724
+            },
+            {
+              "px": 1308.6,
+              "height": 19,
+              "dH": 1.529
+            },
+            {
+              "px": 1349.2,
+              "height": 18,
+              "dH": 1.284
+            },
+            {
+              "px": 1391.6,
+              "height": 98,
+              "dH": 1.027
+            },
+            {
+              "px": 1416.5,
+              "height": 84,
+              "dH": 0.877
+            }
+          ]
+        },
+        {
+          "name": "Edited HSQC",
+          "background": 238.7,
+          "frame": {
+            "left": 1635,
+            "right": 2059,
+            "top": 725,
+            "bottom": 1131,
+            "width": 424,
+            "height": 406
+          },
+          "hAxis": {
+            "majorTicksPx": [
+              1644.22,
+              1727.31,
+              1812.04,
+              1893.56,
+              1975.24
+            ],
+            "labels": [
+              3,
+              2.5,
+              2,
+              1.5,
+              1
+            ],
+            "pxPerPpm": 165.668,
+            "maxResidualPpm": 0.0095,
+            "minorTickCount": 21,
+            "atLeft": 3.059,
+            "atRight": 0.5,
+            "slope": -0.006036184157089315,
+            "intercept": 12.928350176542866
+          },
+          "cAxis": {
+            "majorTicksPx": [
+              888.51,
+              1050.2
+            ],
+            "labels": [
+              20,
+              40
+            ],
+            "pxPerPpm": 8.1,
+            "minorTicksPx": [
+              806.96,
+              812.71,
+              968.78
+            ],
+            "minorTicksPpm": [
+              9.98,
+              10.69,
+              29.96
+            ],
+            "fitPoints": [
+              {
+                "px": 888.51,
+                "ppm": 20
+              },
+              {
+                "px": 1050.2,
+                "ppm": 40
+              },
+              {
+                "px": 806.96,
+                "ppm": 10
+              },
+              {
+                "px": 968.78,
+                "ppm": 30
+              }
+            ],
+            "maxResidualPpm": 0.049,
+            "twoPointSlopePxPerPpm": 8.085,
+            "atTop": -0.14,
+            "atBottom": 49.99,
+            "slope": 0.12345762062394527,
+            "intercept": -89.64472443894604
+          },
+          "peaks": [
+            {
+              "px": 1966.69,
+              "py": 790.42,
+              "bbox": [
+                1962,
+                780,
+                1973,
+                800
+              ],
+              "area": 142,
+              "redness": 4.7,
+              "color": "black",
+              "dH": 1.057,
+              "dC": 7.94
+            },
+            {
+              "px": 1989.54,
+              "py": 840.07,
+              "bbox": [
+                1986,
+                833,
+                1993,
+                848
+              ],
+              "area": 92,
+              "redness": 5.7,
+              "color": "black",
+              "dH": 0.919,
+              "dC": 14.07
+            },
+            {
+              "px": 1921.79,
+              "py": 906.3,
+              "bbox": [
+                1917,
+                900,
+                1926,
+                912
+              ],
+              "area": 102,
+              "redness": 60.3,
+              "color": "red",
+              "dH": 1.328,
+              "dC": 22.25
+            },
+            {
+              "px": 1881.15,
+              "py": 937.76,
+              "bbox": [
+                1875,
+                931,
+                1886,
+                946
+              ],
+              "area": 136,
+              "redness": 58.9,
+              "color": "red",
+              "dH": 1.573,
+              "dC": 26.13
+            },
+            {
+              "px": 1740.4,
+              "py": 1020.04,
+              "bbox": [
+                1735,
+                1011,
+                1746,
+                1027
+              ],
+              "area": 149,
+              "redness": 54.3,
+              "color": "red",
+              "dH": 2.423,
+              "dC": 36.29
+            },
+            {
+              "px": 1743.13,
+              "py": 1070.89,
+              "bbox": [
+                1738,
+                1062,
+                1749,
+                1081
+              ],
+              "area": 184,
+              "redness": 67.9,
+              "color": "red",
+              "dH": 2.407,
+              "dC": 42.56
+            }
+          ],
+          "projection1H": [
+            {
+              "px": 1746.6,
+              "height": 34,
+              "dH": 2.385
+            },
+            {
+              "px": 1791.8,
+              "height": 4,
+              "dH": 2.112
+            },
+            {
+              "px": 1855.4,
+              "height": 6,
+              "dH": 1.729
+            },
+            {
+              "px": 1887.2,
+              "height": 19,
+              "dH": 1.537
+            },
+            {
+              "px": 1928.9,
+              "height": 19,
+              "dH": 1.285
+            },
+            {
+              "px": 1971.7,
+              "height": 97,
+              "dH": 1.027
+            },
+            {
+              "px": 1995.4,
+              "height": 84,
+              "dH": 0.884
+            }
+          ]
+        }
+      ]
+    }
+  },
+  "summary": [
+    {
+      "site": "C1",
+      "dH": 1.06,
+      "dC": 8.2,
+      "hsqc": {
+        "dH": 1.058,
+        "dC": 8.48,
+        "px": [
+          1145.07,
+          581.09
+        ],
+        "color": "black"
+      },
+      "edited": {
+        "dH": 1.058,
+        "dC": 7.88,
+        "px": [
+          1603.39,
+          582.9
+        ],
+        "color": "black"
+      },
+      "panelDiff": {
+        "dH": 0,
+        "dC": 0.6
+      },
+      "earlierCapture": {
+        "dH": 1.059,
+        "dC": 8.21,
+        "color": "black",
+        "diffFromOriginal": {
+          "dH": 0.001,
+          "dC": 0.03
+        }
+      }
+    },
+    {
+      "site": "C7",
+      "dH": 0.91,
+      "dC": 14.3,
+      "hsqc": {
+        "dH": 0.908,
+        "dC": 14.49,
+        "px": [
+          1164.65,
+          619.82
+        ],
+        "color": "black"
+      },
+      "edited": {
+        "dH": 0.917,
+        "dC": 14.05,
+        "px": [
+          1621.82,
+          622.18
+        ],
+        "color": "black"
+      },
+      "panelDiff": {
+        "dH": 0.009,
+        "dC": 0.44
+      },
+      "earlierCapture": {
+        "dH": 0.915,
+        "dC": 14.26,
+        "color": "black",
+        "diffFromOriginal": {
+          "dH": 0.002,
+          "dC": 0.01
+        }
+      }
+    },
+    {
+      "site": "C6",
+      "dH": 1.32,
+      "dC": 22.5,
+      "hsqc": {
+        "dH": 1.314,
+        "dC": 22.79,
+        "px": [
+          1111.75,
+          673.28
+        ],
+        "color": "black"
+      },
+      "edited": {
+        "dH": 1.327,
+        "dC": 22.27,
+        "px": [
+          1568.26,
+          674.49
+        ],
+        "color": "red"
+      },
+      "panelDiff": {
+        "dH": 0.013,
+        "dC": 0.52
+      },
+      "earlierCapture": {
+        "dH": 1.323,
+        "dC": 22.49,
+        "color": "red",
+        "diffFromOriginal": {
+          "dH": 0.002,
+          "dC": 0.04
+        }
+      }
+    },
+    {
+      "site": "C5",
+      "dH": 1.57,
+      "dC": 26.4,
+      "hsqc": {
+        "dH": 1.563,
+        "dC": 26.61,
+        "px": [
+          1079.3,
+          697.89
+        ],
+        "color": "black"
+      },
+      "edited": {
+        "dH": 1.571,
+        "dC": 26.16,
+        "px": [
+          1536.34,
+          699.24
+        ],
+        "color": "red"
+      },
+      "panelDiff": {
+        "dH": 0.008,
+        "dC": 0.45
+      },
+      "earlierCapture": {
+        "dH": 1.567,
+        "dC": 26.33,
+        "color": "red",
+        "diffFromOriginal": {
+          "dH": 0,
+          "dC": 0.05
+        }
+      }
+    },
+    {
+      "site": "C2",
+      "dH": 2.42,
+      "dC": 36.3,
+      "hsqc": {
+        "dH": 2.423,
+        "dC": 36.24,
+        "px": [
+          967.3,
+          759.86
+        ],
+        "color": "black"
+      },
+      "edited": {
+        "dH": 2.422,
+        "dC": 36.32,
+        "px": [
+          1425.24,
+          763.92
+        ],
+        "color": "red"
+      },
+      "panelDiff": {
+        "dH": 0.001,
+        "dC": 0.08
+      },
+      "earlierCapture": {
+        "dH": 2.423,
+        "dC": 36.25,
+        "color": "red",
+        "diffFromOriginal": {
+          "dH": 0.001,
+          "dC": 0.03
+        }
+      }
+    },
+    {
+      "site": "C4",
+      "dH": 2.4,
+      "dC": 42.7,
+      "hsqc": {
+        "dH": 2.4,
+        "dC": 42.63,
+        "px": [
+          970.28,
+          801.05
+        ],
+        "color": "black"
+      },
+      "edited": {
+        "dH": 2.405,
+        "dC": 42.7,
+        "px": [
+          1427.42,
+          804.53
+        ],
+        "color": "red"
+      },
+      "panelDiff": {
+        "dH": 0.005,
+        "dC": 0.07
+      },
+      "earlierCapture": {
+        "dH": 2.405,
+        "dC": 42.55,
+        "color": "red",
+        "diffFromOriginal": {
+          "dH": 0.002,
+          "dC": 0.12
+        }
+      }
+    }
+  ],
+  "spread": {
+    "maxPanelDiffH": 0.013,
+    "maxPanelDiffC": 0.6,
+    "maxCaptureDiffH": 0.002,
+    "maxCaptureDiffC": 0.12,
+    "onePixelH": 0.0077,
+    "onePixelC": 0.155
+  }
+}

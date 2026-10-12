@@ -1,59 +1,463 @@
 <!doctype html>
-<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="color-scheme" content="dark">
-<title>3‑庚酮 · HSQC 与编辑 HSQC 峰归属</title>
-<style>
-:root{--bg:#0e1116;--panel:#151a21;--line:#303a47;--ink:#eef4f7;--muted:#b6c5cf;--acc:#5fd0a8;--red:#f08b83;--gold:#f1c875;--blue:#8fc4f2}
-*{box-sizing:border-box}html{font-family:Inter,"Noto Sans SC","PingFang SC",system-ui,sans-serif;scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);line-height:1.6;min-width:300px}button,input{font:inherit}button{cursor:pointer}a{color:var(--acc)}a:focus-visible,button:focus-visible,input:focus-visible,[role=button]:focus-visible{outline:3px solid var(--gold);outline-offset:3px}h1,h2,h3,p{margin-top:0}h1{font-size:clamp(30px,3.6vw,51px);line-height:1.16;letter-spacing:-.035em;margin-bottom:10px}h2{font-size:21px;margin-bottom:14px}h3{font-size:16px;margin-bottom:9px}.shell{width:min(1560px,calc(100% - 38px));margin:auto}.eyebrow{color:var(--acc);font-size:12px;font-weight:750;letter-spacing:.14em;text-transform:uppercase}.muted,.subtle{color:var(--muted)}.subtle{font-size:13px}.mono{font-variant-numeric:tabular-nums;font-family:ui-monospace,SFMono-Regular,Menlo,monospace}.pill{display:inline-block;border:1px solid var(--line);padding:3px 9px;border-radius:99px;font-size:12px;color:var(--muted)}header{padding:35px 0 23px;border-bottom:1px solid var(--line)}header .lede{max-width:920px;font-size:17px;color:#d9e5e9;margin:0 0 18px}.notice{border:1px solid #427461;border-left:5px solid var(--acc);background:#17241f;padding:14px 17px;border-radius:8px}.notice strong{color:var(--acc)}main{padding:24px 0 70px}.takeaway{display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center;padding:18px 21px;border:1px solid var(--line);border-radius:10px;background:var(--panel);margin-bottom:16px}.takeaway p{margin:0}.big-number{font-size:22px;color:var(--acc);font-weight:750;white-space:nowrap}.workspace{display:grid;grid-template-columns:minmax(220px,270px) minmax(0,1fr) minmax(245px,300px);gap:14px;align-items:start}.panel{border:1px solid var(--line);background:var(--panel);border-radius:10px;padding:18px;min-width:0}.panel + .panel{margin-top:14px}.control-list{display:grid;gap:7px}.pick{display:flex;align-items:center;gap:11px;width:100%;text-align:left;color:var(--ink);background:#1c242d;border:1px solid var(--line);border-radius:7px;padding:9px 10px}.pick:hover,.pick.active{border-color:var(--acc);background:#20342e}.pick.active{box-shadow:inset 4px 0 0 var(--acc)}.pick .id{display:grid;place-items:center;width:30px;height:30px;border-radius:5px;border:1px solid currentColor;flex:none;font-weight:750}.pick .small{display:block;color:var(--muted);font-size:12px}.control{margin-top:19px}.control label{font-weight:700;display:block;margin-bottom:5px}.control output{color:var(--acc);font-weight:750}.control input{width:100%;accent-color:var(--acc)}.control .subtle{margin:5px 0 0}.key{display:inline-flex;align-items:center;gap:6px;margin:3px 12px 3px 0;font-size:12px;color:var(--muted)}.dot{width:11px;height:11px;border-radius:50%;background:var(--gold);display:inline-block}.dot.red{background:var(--red)}.shape{font-size:17px;color:var(--gold);font-weight:bold}.shape.red{color:var(--red)}.central .panel{margin:0 0 14px}.structure-wrap{overflow:hidden}.structure{width:100%;height:auto;display:block}.bond{stroke:#91a9b5;stroke-width:3;stroke-linecap:round}.atom{fill:#202b32;stroke:#58717f;stroke-width:1.5;cursor:pointer}.atom.selected{fill:#1b483b;stroke:var(--acc);stroke-width:3}.atomtext{fill:var(--ink);font-size:13px;font-weight:700;pointer-events:none}.atomtype{fill:#bed0d7;font-size:12px;pointer-events:none}.atom-group:focus-visible .atom{stroke:var(--gold);stroke-width:4}.atom-group{cursor:pointer}.chart-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}.chart-card{border:1px solid var(--line);border-radius:8px;padding:11px;background:#111820;min-width:0}.chart-title{display:flex;justify-content:space-between;gap:7px;align-items:baseline;font-weight:750}.chart-title small{font-weight:400;color:var(--muted)}svg.plot{width:100%;height:auto;display:block;overflow:visible}.gridline{stroke:#34414d;stroke-width:1}.axis{stroke:#a8bdc7;stroke-width:1.4}.tick{fill:#b8c8d0;font-size:14px}.axislabel{fill:#d6e4e9;font-size:14px}.peak{cursor:pointer}.peak ellipse{fill:none;stroke:var(--gold);stroke-width:2.4}.peak.ch2 ellipse{stroke:var(--red)}.peak.selected ellipse{stroke:var(--acc);stroke-width:4}.peak text{fill:var(--ink);font-size:14px;font-weight:bold;pointer-events:none}.peak:focus-visible ellipse{stroke:var(--gold);stroke-width:5}.halo{fill:none;stroke:var(--acc);stroke-width:1.2;stroke-dasharray:4 3;opacity:.64;pointer-events:none}.chart-note{font-size:12px;color:var(--muted);margin:5px 0 0}.readout{display:grid;grid-template-columns:1fr auto;gap:8px;padding:9px 0;border-bottom:1px solid var(--line);font-size:14px}.readout b{text-align:right}.em{color:var(--acc)}.redtext{color:var(--red)}.infer{border-left:3px solid var(--acc);padding:10px 12px;background:#1a2b26;margin:14px 0 0}.infer p:last-child{margin-bottom:0}.logic{margin:12px 0 0;padding-left:22px}.logic li{margin:7px 0}.bottom{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,.8fr);gap:14px;margin-top:14px}.bottom .panel{margin:0}.wide{grid-column:1/-1}.zoom-canvas{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:7px;background:#101820}.data-table{width:100%;border-collapse:collapse;font-size:13px}.data-table th,.data-table td{text-align:left;border-bottom:1px solid var(--line);padding:9px 8px;vertical-align:top}.data-table th{color:#d6e5e8;font-size:12px}.data-table tr{cursor:pointer}.data-table tr:hover,.data-table tr.active{background:#20342e}.data-table tr:focus-visible{outline:3px solid var(--gold);outline-offset:-3px}.scroll-table{overflow-x:auto}.steps{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}.step{padding:13px;border:1px solid var(--line);border-radius:7px;background:#1c242d}.step strong{color:var(--acc)}.step p{margin:7px 0 0;font-size:13px}.check-list{margin:0;padding-left:20px}.check-list li{margin:6px 0}.warn{border-left:3px solid var(--red);padding:8px 12px;margin:10px 0;background:#302321}.source-img{width:100%;max-width:100%;height:auto;border-radius:5px}.orig-actions{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:8px 0}.plain-btn{border:1px solid var(--line);background:#202a33;color:var(--ink);border-radius:6px;padding:6px 11px}.plain-btn:hover{border-color:var(--acc)}.original-crop{width:100%;height:auto;display:block;border:1px solid var(--line);border-radius:6px}.sources{font-size:13px}.sources li{margin:5px 0}.footer{border-top:1px solid var(--line);padding:25px 0;color:var(--muted);font-size:12px}@media(max-width:1120px){.workspace{grid-template-columns:220px minmax(0,1fr)}.right{grid-column:1/-1;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}.right .panel{margin:0}}@media(max-width:750px){.shell{width:calc(100% - 24px)}header{padding:23px 0}.takeaway{grid-template-columns:1fr}.workspace,.bottom,.right{display:block}.workspace>.panel,.central>.panel,.right>.panel,.bottom>.panel{margin:0 0 12px}.chart-grid{grid-template-columns:1fr}.steps{grid-template-columns:1fr}.panel{padding:14px}.control-list{grid-template-columns:repeat(2,minmax(0,1fr))}.pick{padding:7px}.original-crop{height:auto}}@media(max-width:390px){.control-list{grid-template-columns:1fr}.data-table{min-width:620px}.chart-title{font-size:13px}}
-@media(max-width:750px){.scroll-table{overflow:visible}.data-table{min-width:0!important}.data-table thead{position:absolute;clip-path:inset(50%);width:1px;height:1px;overflow:hidden}.data-table tbody{display:grid;gap:9px}.data-table tr{display:block;border:1px solid var(--line);border-radius:7px;padding:6px}.data-table td{display:grid;grid-template-columns:minmax(82px,32%) minmax(0,1fr);gap:8px;border:0;padding:5px 7px;overflow-wrap:anywhere}.data-table td::before{font-weight:700;color:var(--muted)}.data-table td:nth-child(1)::before{content:"位点"}.data-table td:nth-child(2)::before{content:"¹H / ppm"}.data-table td:nth-child(3)::before{content:"¹³C / ppm"}.data-table td:nth-child(4)::before{content:"原图相位"}.data-table td:nth-child(5)::before{content:"结构类别"}.data-table td:nth-child(6)::before{content:"依据与边界"}}
-</style></head><body>
-<header><div class="shell"><div class="eyebrow">NMR GRAPH / 异核单键相关 · 截图精读</div><h1>3‑庚酮：HSQC 与编辑 HSQC</h1><p class="lede">点击一个交叉峰，把二维位置、碳链位点和相位证据连起来；再检查两组几乎重叠的羰基邻位 CH₂。</p><div class="notice"><strong>读前必读</strong>　这是一张课程练习截图。¹H／¹³C ppm 均为像素估读，不能作为精确实验数据；交互谱图是依据可见峰中心重绘的示意。编辑谱原图黑峰与红峰代表相反相位，黑＝CH₃、红＝CH₂ 的解释结合给定结构作出。</div></div></header>
-<main class="shell"><section class="takeaway" aria-label="主要结论"><div><span class="eyebrow">主要结论</span><p><strong>6 个可见交叉峰对应 6 个带氢碳：</strong>约 2.4 ppm 的两个 ¹H 峰，在 ¹³C 维度分别约为 36 与 43 ppm。结构给出 2 个 CH₃、4 个 CH₂；编辑谱的 2 黑＋4 红与此匹配。</p></div><div class="big-number">2 CH₃ · 4 CH₂</div></section>
-<div class="workspace"><aside class="panel"><h2>01　选择与参数</h2><p class="subtle">选碳位、结构圆点、任一谱图峰或归属表行，整页同步。</p><div id="pickList" class="control-list"></div><div class="control"><label for="zoom">局部放大：¹H 半宽 <output id="zoomValue">±0.35 ppm</output></label><input id="zoom" type="range" min="0.12" max="0.75" step="0.01" value="0.35"><p class="subtle">仅改变下方局部图的显示窗口，不改变估读峰位。</p></div><div class="control"><label for="threshold">氢峰接近阈值 <output id="thresholdValue">0.08 ppm</output></label><input id="threshold" type="range" min="0" max="0.35" step="0.01" value="0.08"><p class="subtle">示意判定：用 |Δδ¹H| ≤ 阈值给接近的峰加虚线圈；不是仪器分辨率或真实误差。</p></div><div style="margin-top:14px"><span class="key"><span class="shape">◇</span> 原图黑峰／CH₃</span><span class="key"><span class="shape red">○</span> 原图红峰／CH₂</span><span class="key">粗绿圈＝选中</span></div></aside>
-<div class="central"><section class="panel"><h2>02　结构位置 <span class="pill">示意</span></h2><p class="subtle">编号从靠近羰基的短乙基端开始；C3 为羰基碳，无直接连接的氢，因此不期待普通 HSQC 交叉峰。</p><div class="structure-wrap"><svg id="structure" class="structure" viewBox="0 0 690 165" role="img" aria-label="3-庚酮七个碳位的结构示意"></svg></div></section><section class="panel"><h2>03　同一组峰，两种读法 <span class="pill">坐标估读 · 峰形示意</span></h2><div class="chart-grid"><div class="chart-card"><div class="chart-title">常规 HSQC <small>位置相关</small></div><svg id="hsqc" class="plot" viewBox="0 0 410 330" role="img" aria-label="HSQC 六个交叉峰示意图"></svg><p class="chart-note">每个斑点：一个直接相连的 H–C 位点。仅凭普通 HSQC 不直接读出 CH₂／CH₃ 类别。</p></div><div class="chart-card"><div class="chart-title">编辑 HSQC <small>位置＋相位</small></div><svg id="edited" class="plot" viewBox="0 0 410 330" role="img" aria-label="编辑 HSQC 六个交叉峰示意图"></svg><p class="chart-note">◇ 黑色类对应 CH₃；○ 红色类对应 CH₂。这里用形状和配色共同表达，真实相位仍需看原图。</p></div></div></section></div>
-<aside class="right"><section class="panel"><h2>04　当前读数</h2><div id="readouts"></div><div class="infer"><strong>怎样归属</strong><p id="reason"></p></div></section><section class="panel"><h2>直观解释</h2><ol class="logic"><li><strong>横坐标</strong>是 ¹H 化学位移，向右 ppm 变小。</li><li><strong>纵坐标</strong>是 ¹³C 化学位移，向下 ppm 变大。</li><li><strong>编辑相位</strong>把 CH₂ 与 CH／CH₃ 分成两类；本结构没有 CH，因此黑类归 CH₃。</li><li><strong>同氢位移</strong>可能对应不同碳，先看二维坐标，再用结构约束细分。</li></ol></section></aside></div>
-<div class="bottom"><section class="panel"><h2>05　局部放大与重叠判断</h2><p class="subtle">围绕当前峰显示 ¹H 横向窗口；图中每一行是对应的 ¹³C 坐标，颜色沿用编辑谱归属。调节左侧半宽或阈值，观察窗口和近邻提示变化。</p><svg id="zoomPlot" class="zoom-canvas" viewBox="0 0 780 265" role="img" aria-label="当前氢峰附近交叉峰的局部放大示意"></svg><p id="overlapText" class="subtle"></p></section><section class="panel"><h2>原图局部</h2><p class="subtle">截图右侧的两个二维谱；先看真实像素，再对照重绘。裁切预览只为阅读，完整原图在下方展开。</p><img class="original-crop" src="__SPECTRA_CROP__" alt="课程截图中普通与编辑 HSQC 谱图局部"></section>
-<section class="panel wide"><h2>06　完整归属表</h2><div class="scroll-table"><table class="data-table"><thead><tr><th>位点</th><th>¹H / ppm</th><th>¹³C / ppm</th><th>原图编辑相位</th><th>结构理论类别</th><th>归属依据与边界</th></tr></thead><tbody id="assignmentRows"></tbody></table></div><p class="subtle">所有数值均约为截图估读；小数位只是操作和相对位置的显示精度，不代表原始采集精度。峰强、积分、J 值与具体裂分在截图中无法可靠读出。</p></section>
-<section class="panel wide"><h2>07　分步推理与数值核对</h2><div class="steps"><div class="step"><strong>① 从给定结构计数</strong><p>CH₃–CH₂–C(=O)–CH₂–CH₂–CH₂–CH₃：7 C、14 H、1 O；C3 无氢。其余 6 个碳位＝2 个 CH₃＋4 个 CH₂，共 6 个一键 H–C 环境。</p></div><div class="step"><strong>② 对照图中观测</strong><p>普通谱约 6 个峰中心；编辑谱约 2 个黑峰、4 个红峰。位置配对在两张图中基本保持。黑／红是原图颜色，正负相位本身需要原图的相位约定。</p></div><div class="step"><strong>③ 细分相近峰</strong><p>C2 与 C4 的 ¹H 都约 2.4 ppm，横坐标相近；其 ¹³C 约 36 与 43 ppm，可以分成两处。把 36 归 C2、43 归 C4 属于结合碳链环境的推断。</p></div></div><p style="margin:14px 0 0"><strong>独立核对：</strong>2×3＋4×2＝14 H；2＋4＝6 个带氢碳；再加 1 个 C3 羰基碳＝7 C。分子式 C₇H₁₄O 的不饱和度 (2×7＋2－14)/2＝1，对应一个羰基。</p></section>
-<section class="panel"><h2>08　常见误区</h2><div class="warn"><strong>把黑／红当成化学位移：</strong>颜色表示编辑相位类别；横、纵坐标才是 ppm。</div><div class="warn"><strong>把 2.4 ppm 的两点合并：</strong>¹H 接近不等于同一个碳；¹³C 维度相差约 7 ppm。</div><div class="warn"><strong>把 CH₃ 的裂分与编辑相位混淆：</strong>“甲基／亚甲基”是碳上氢数；一维峰的 t/q 等裂分来自邻近氢耦合，截图不足以逐峰确认。</div><div class="warn"><strong>把重绘图当成原始数据：</strong>峰圈尺寸和局部放大是教学示意，没有模拟实验线形或强度。</div></section><section class="panel"><h2>09　来源与限制</h2><p>原始材料：本次上传的单张课程截图，标题为 “HSQC – Practice Problem”，图中含 3‑庚酮结构、常规 HSQC、编辑 HSQC；未提供独立 PDF、峰表、原始 FID、采集参数或课件出处。</p><p>机制核对：常见 multiplicity-edited HSQC 以相反相位区分 CH₂ 和 CH／CH₃，相关说明见 <a href="https://u-of-o-nmr-facility.blogspot.com/2007/11/hsqc-and-edited-hsqc-spectra.html" target="_blank" rel="noopener">渥太华大学 NMR 设施说明</a>、<a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC6057795/" target="_blank" rel="noopener">原始研究论文</a>；分子式参考 <a href="https://pubchem.ncbi.nlm.nih.gov/compound/7802" target="_blank" rel="noopener">PubChem 3‑庚酮</a>。链接仅在点击时访问网络。</p><p class="subtle">尚不能由这张图单独验证具体绝对相位、精确峰位、溶剂条件或立体化学。C2/C4 的细分归属为结构辅助推断，并非图中直接标注。</p></section>
-<section class="panel wide"><h2>完整原图</h2><details><summary>展开 2218 × 1398 像素课程截图</summary><div class="orig-actions"><button type="button" class="plain-btn" id="openOriginal">新窗口查看原图</button><span class="subtle">可用浏览器缩放功能检查原图刻度。</span></div><img id="originalImage" class="source-img" src="__ORIGINAL_IMAGE__" alt="完整课程截图：HSQC practice problem、3-庚酮结构、HSQC 和编辑 HSQC"></details></section></div>
-</main><footer class="footer"><div class="shell">NMR Graph · 原图保留 · 页内脚本、样式与图片均内嵌 · 键盘 Tab 选择对象，Enter／空格激活，方向键调整滑块</div></footer>
-<script>
-// verified independently: C7H14O; 2 CH3 + 4 CH2 = 14 H; 6 protonated C + 1 carbonyl C = 7 C; DBE=1.
-// ppm values below are approximate visual readings from the user's low-resolution screenshot, not raw spectrometer data.
-const peaks=[
- {id:1,h:1.06,c:8.5,type:'CH₃',phase:'黑',pos:'短乙基端甲基',basis:'黑类＋最上方低碳位移；位于 C2 邻位的终端甲基。',x:60,y:75},
- {id:2,h:2.43,c:36,type:'CH₂',phase:'红',pos:'羰基左侧 α-CH₂',basis:'红类；与 C4 的氢位移几乎重合，但碳位移较低。C2/C4 的区别为结构辅助推断。',x:155,y:104},
- {id:4,h:2.40,c:43,type:'CH₂',phase:'红',pos:'羰基右侧 α-CH₂',basis:'红类；约 43 ppm 的碳维度使它与 C2 分开。C2/C4 的区别为结构辅助推断。',x:345,y:104},
- {id:5,h:1.56,c:26.5,type:'CH₂',phase:'红',pos:'右链 β-CH₂',basis:'红类；按给定碳链从羰基沿右端依次归属。',x:440,y:75},
- {id:6,h:1.32,c:22.5,type:'CH₂',phase:'红',pos:'右链 γ-CH₂',basis:'红类；与 C5 的碳位置和氢位置均不同。',x:535,y:104},
- {id:7,h:0.91,c:14.5,type:'CH₃',phase:'黑',pos:'长丁基端甲基',basis:'黑类＋约 0.9 ppm 的末端氢；与 C1 甲基区分。',x:630,y:75}
-];
-const byId=Object.fromEntries(peaks.map(p=>[p.id,p]));let selected=2;
-const E=(id)=>document.getElementById(id);const fmt=(v,d=2)=>Number(v).toFixed(d);const X=(h)=>46+(3.0-h)/(3.0-.5)*332;const Y=(c)=>24+c/50*265;
-function selftest(){const ids=new Set(peaks.map(p=>p.id));const near=(a,b,t)=>Math.abs(a.h-b.h)<=t+1e-12;return {count:peaks.length===6,unique:ids.size===6,types:peaks.filter(p=>p.type==='CH₃').length===2&&peaks.filter(p=>p.type==='CH₂').length===4,hydrogens:peaks.reduce((s,p)=>s+(p.type==='CH₃'?3:2),0)===14,carbonylAbsent:!ids.has(3),closePair:near(byId[2],byId[4],.08),zeroThresholdNoDistinctPairs:peaks.every((p,i)=>peaks.slice(i+1).every(q=>!near(p,q,0))),wideThresholdIncludesPair:near(byId[2],byId[4],.35)};}window.__selftest=()=>{const r=selftest();return {...r,ok:Object.values(r).every(Boolean)}};
-function select(id){selected=Number(id);renderAll();}
-function keyboardSelect(ev,id){if(ev.key==='Enter'||ev.key===' '){ev.preventDefault();select(id)}}
-function buildStructure(){const s=E('structure'),mobile=innerWidth<751;let bonds='';const coords=mobile?[{x:58,y:42},{x:217,y:92},{x:58,y:142},{x:217,y:192},{x:58,y:242},{x:217,y:292},{x:58,y:342}]:[{x:60,y:75},{x:155,y:104},{x:250,y:75},{x:345,y:104},{x:440,y:75},{x:535,y:104},{x:630,y:75}];s.setAttribute('viewBox',mobile?'0 0 285 380':'0 0 690 165');for(let i=0;i<6;i++){const a=coords[i],b=coords[i+1],dx=b.x-a.x,dy=b.y-a.y,d=Math.hypot(dx,dy),ux=dx/d,uy=dy/d;bonds+=`<line class="bond" x1="${a.x+ux*22}" y1="${a.y+uy*22}" x2="${b.x-ux*22}" y2="${b.y-uy*22}"/>`;}bonds+=mobile?'<line class="bond" x1="37" y1="139" x2="10" y2="139"/><line class="bond" x1="37" y1="145" x2="10" y2="145"/><text x="6" y="131" fill="#eef4f7" font-size="16">O</text>':'<line class="bond" x1="246" y1="58" x2="246" y2="18"/><line class="bond" x1="254" y1="58" x2="254" y2="18"/><text x="250" y="16" text-anchor="middle" fill="#eef4f7" font-size="17">O</text>';
- for(let id=1;id<=7;id++){const a=coords[id-1],p=byId[id],name=id===3?'C3 羰基碳':`C${id} ${p.type}`,r=mobile?20:24,tx=mobile?a.x+26:a.x,ty=mobile?a.y+4:a.y+42;bonds+=`<g class="atom-group" data-id="${id}" ${p?`tabindex="0" role="button" aria-label="选择 ${name}"`:'aria-label="C3 羰基碳，无直接相连氢"'}><circle class="atom ${selected===id?'selected':''}" cx="${a.x}" cy="${a.y}" r="${r}"/><text class="atomtext" x="${a.x}" y="${a.y+4}" text-anchor="middle">C${id}</text><text class="atomtype" x="${tx}" y="${ty}" text-anchor="${mobile?'start':'middle'}">${id===3?'C=O':p.type}</text></g>`;}s.innerHTML=bonds;s.querySelectorAll('.atom-group[data-id]').forEach(g=>{g.addEventListener('click',()=>select(g.dataset.id));g.addEventListener('keydown',e=>keyboardSelect(e,g.dataset.id))});}
-function plot(id,edited){const s=E(id),t=Number(E('threshold').value),base=[];for(let h=3;h>=.5;h-=.5){const x=X(h);base.push(`<line class="gridline" x1="${x}" x2="${x}" y1="24" y2="289"/><text class="tick" x="${x}" y="307" text-anchor="middle">${fmt(h,1)}</text>`)}for(let c=0;c<=50;c+=10){const y=Y(c);base.push(`<line class="gridline" x1="46" x2="378" y1="${y}" y2="${y}"/><text class="tick" x="39" y="${y+4}" text-anchor="end">${c}</text>`)}base.push('<line class="axis" x1="46" y1="24" x2="46" y2="289"/><line class="axis" x1="46" y1="289" x2="378" y2="289"/><text class="axislabel" x="210" y="326" text-anchor="middle">δ ¹H / ppm ← 增大</text><text class="axislabel" x="12" y="167" transform="rotate(-90 12 167)" text-anchor="middle">δ ¹³C / ppm ↓ 增大</text>');
- for(const p of peaks){const x=X(p.h),y=Y(p.c),close=peaks.some(q=>q.id!==p.id&&Math.abs(q.h-p.h)<=t+1e-12);if(close)base.push(`<ellipse class="halo" cx="${x}" cy="${y}" rx="${Math.max(11,t*332/2.5)}" ry="10"/>`);base.push(`<g class="peak ${edited&&p.type==='CH₂'?'ch2':''} ${p.id===selected?'selected':''}" data-id="${p.id}" tabindex="0" role="button" aria-label="选择 C${p.id}，氢 ${fmt(p.h)} ppm，碳 ${fmt(p.c,1)} ppm"><ellipse cx="${x}" cy="${y}" rx="${p.id===selected?9:7}" ry="${p.id===selected?7:5}"/>${edited&&p.type==='CH₃'?`<path d="M${x} ${y-6} l6 6 -6 6 -6 -6 Z" fill="none" stroke="#f1c875" stroke-width="1.4"/>`:`<circle cx="${x}" cy="${y}" r="2" fill="${edited&&p.type==='CH₂'?'#f08b83':'#f1c875'}"/>`}<text x="${x+12}" y="${y-8}">${p.id}</text></g>`)}s.innerHTML=base.join('');s.querySelectorAll('.peak').forEach(g=>{g.addEventListener('click',()=>select(g.dataset.id));g.addEventListener('keydown',e=>keyboardSelect(e,g.dataset.id))});}
-function zoom(){
- const p=byId[selected],span=Number(E('zoom').value),t=Number(E('threshold').value),lo=p.h-span,hi=p.h+span;
- const mobile=innerWidth<751, svgWidth=mobile?410:780, left=mobile?39:50, right=mobile?385:740,W=right-left;
- E('zoomPlot').setAttribute('viewBox',`0 0 ${svgWidth} 265`);
- const at=h=>left+(hi-h)/(hi-lo)*W,rows=[...peaks].sort((a,b)=>a.c-b.c),z=[];
- for(let i=0;i<=4;i++){const h=hi-i*span/2,x=at(h);z.push(`<line class="gridline" x1="${x}" x2="${x}" y1="34" y2="223"/><text class="tick" x="${x}" y="244" text-anchor="middle">${fmt(h)}</text>`)}
- z.push(`<text class="axislabel" x="${svgWidth/2}" y="261" text-anchor="middle">δ ¹H / ppm（横轴反向）</text>`);
- rows.forEach((q,i)=>{const y=52+i*31;z.push(`<text class="tick" x="6" y="${y+4}">C${q.id}</text><line class="gridline" x1="${left}" x2="${right}" y1="${y}" y2="${y}"/>`);
-  if(q.h>=lo&&q.h<=hi){const x=at(q.h),near=peaks.some(r=>r.id!==q.id&&Math.abs(r.h-q.h)<=t+1e-12);
-   if(near)z.push(`<ellipse class="halo" cx="${x}" cy="${y}" rx="${Math.max(6,t*W/(2*span))}" ry="11"/>`);
-   const end=x>right-(mobile?85:100),labelX=end?x-12:x+13;
-   z.push(`<g class="peak ${q.type==='CH₂'?'ch2':''} ${q.id===selected?'selected':''}" data-id="${q.id}" tabindex="0" role="button" aria-label="选择 C${q.id}"><ellipse cx="${x}" cy="${y}" rx="8" ry="6"/><text x="${labelX}" y="${y-7}" text-anchor="${end?'end':'start'}">${fmt(q.h)} / ${fmt(q.c,1)}</text></g>`)
-  }
- });
- E('zoomPlot').innerHTML=z.join('');E('zoomPlot').querySelectorAll('.peak').forEach(g=>{g.addEventListener('click',()=>select(g.dataset.id));g.addEventListener('keydown',e=>keyboardSelect(e,g.dataset.id))});
- const mates=peaks.filter(q=>q.id!==p.id&&Math.abs(q.h-p.h)<=t+1e-12);E('overlapText').textContent=mates.length?`示意阈值内：C${selected} 与 ${mates.map(q=>'C'+q.id).join('、')} 的氢位移相近；¹³C 坐标仍不同。`:`当前阈值下，C${selected} 没有其他峰被标为“氢位移接近”。`;
-}
-function renderAll(){const p=byId[selected];E('pickList').innerHTML=peaks.map(q=>`<button type="button" class="pick ${q.id===selected?'active':''}" data-id="${q.id}" aria-pressed="${q.id===selected}"><span class="id">${q.id}</span><span><strong>C${q.id} · ${q.type}</strong><span class="small mono">${fmt(q.h)} / ${fmt(q.c,1)} ppm</span></span></button>`).join('');E('pickList').querySelectorAll('button').forEach(b=>b.addEventListener('click',()=>select(b.dataset.id)));E('readouts').innerHTML=`<div class="readout"><span>结构位置</span><b>C${p.id} · ${p.pos}</b></div><div class="readout"><span>¹H 估读</span><b class="mono">≈ ${fmt(p.h)} ppm</b></div><div class="readout"><span>¹³C 估读</span><b class="mono">≈ ${fmt(p.c,1)} ppm</b></div><div class="readout"><span>编辑谱原图</span><b class="${p.phase==='红'?'redtext':''}">${p.phase}峰 · ${p.type}</b></div><div class="readout"><span>证据级别</span><b>峰位估读＋结构推断</b></div>`;E('reason').textContent=p.basis;E('assignmentRows').innerHTML=peaks.map(q=>`<tr class="${q.id===selected?'active':''}" data-id="${q.id}" tabindex="0" role="button" aria-label="选择 C${q.id}"><td><span><strong>C${q.id}</strong> ${q.pos}</span></td><td class="mono">≈ ${fmt(q.h)}</td><td class="mono">≈ ${fmt(q.c,1)}</td><td>${q.phase}峰</td><td>${q.type}</td><td>${q.basis}</td></tr>`).join('');E('assignmentRows').querySelectorAll('tr').forEach(tr=>{tr.addEventListener('click',()=>select(tr.dataset.id));tr.addEventListener('keydown',e=>keyboardSelect(e,tr.dataset.id))});buildStructure();plot('hsqc',false);plot('edited',true);zoom();}
-E('zoom').addEventListener('input',()=>{E('zoomValue').textContent=`±${fmt(E('zoom').value)} ppm`;zoom()});E('threshold').addEventListener('input',()=>{E('thresholdValue').textContent=`${fmt(E('threshold').value)} ppm`;plot('hsqc',false);plot('edited',true);zoom()});E('openOriginal').addEventListener('click',()=>{const w=window.open('','_blank');if(w){w.document.write('<!doctype html><title>课程原图</title><style>body{margin:0;background:#151a21}img{max-width:100%;height:auto;display:block;margin:auto}</style><img alt="完整课程原图" src="'+E('originalImage').src+'">');w.document.close()}});renderAll();window.addEventListener('resize',()=>{buildStructure();zoom()});
-</script></body></html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>3-庚酮 · HSQC 与编辑 HSQC 峰归属</title>
+<style>/*__KATEX_CSS__*/</style>
+<style>/*__CSS__*/</style>
+</head>
+<body>
+<a class="skip" href="#dashboard">跳到交互区</a>
+
+<header>
+<div class="shell">
+  <p class="eyebrow">NMR GRAPH · 异核单键相关 · 课程截图精读</p>
+  <h1>3-庚酮：HSQC 与编辑 HSQC 峰归属</h1>
+  <p class="goal" data-scope><b>一句话目标：</b>把截图里的 6 个交叉峰逐一对应到 3-庚酮的 6 个带氢碳，并说清编辑 HSQC 的“2 黑 4 红”为什么正好是 2 个 CH₃ 加 4 个 CH₂。</p>
+  <div class="mustread" data-scope>
+    <h2>读前必读</h2>
+    <ol>
+      <li>原材料只有一张课程幻灯片截图（1888 × 935 像素）。没有原始谱数据、峰表、溶剂、场强或脉冲参数。</li>
+      <li>所有 ppm 都是按截图像素估读的：¹H 约 ±0.03 ppm，¹³C 约 ±0.5 ppm。小数位只表示相对位置，不代表实测精度。</li>
+      <li>页面用四种标签区分证据的来历（形状和文字都不同）：<ul class="evlist" id="evList"></ul></li>
+      <li>中间的谱图是按估读坐标重绘的<strong>示意</strong>，没有恢复实验峰形或强度。要看真实像素，请用“原图局部放大”。</li>
+    </ol>
+  </div>
+  <nav aria-label="页内导航">
+    <ul class="toc">
+      <li><a href="#conclusion">主要结论</a></li><li><a href="#intuition">直观解释</a></li><li><a href="#dashboard">交互区</a></li>
+      <li><a href="#zoom">原图放大</a></li><li><a href="#table">归属表</a></li><li><a href="#steps">分步推理</a></li>
+      <li><a href="#checks">数值核对</a></li><li><a href="#pitfalls">常见误区</a></li><li><a href="#bilingual">中英对照</a></li>
+      <li><a href="#glossary">术语表</a></li><li><a href="#sources">来源与限制</a></li>
+    </ul>
+  </nav>
+</div>
+</header>
+
+<main class="shell">
+
+<!-- ================= 01 主要结论 ================= -->
+<section id="conclusion" class="panel block" data-scope>
+  <h2><span class="num">01</span>主要结论</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>{{ev:cnt}} 结构能给出几个峰</h3>
+      <p class="big">7 个碳 → 6 个峰</p>
+      <p>3-庚酮（C₇H₁₄O）有 2 个 CH₃、4 个 CH₂，外加 1 个不带氢的羰基碳。HSQC 只显示带氢的碳，所以预期 6 个交叉峰。</p>
+    </div>
+    <div class="card">
+      <h3>{{ev:obs}} 截图里看到什么</h3>
+      <p class="big">6 个峰：2 黑 4 红</p>
+      <p>常规 HSQC 和编辑 HSQC 各有 6 个交叉峰，位置一一对应。编辑谱里 ¹³C 最低的两个峰是黑色，其余四个是红色。</p>
+    </div>
+    <div class="card">
+      <h3>{{ev:inf}} 怎样对上号</h3>
+      <p class="big">黑 = CH₃，红 = CH₂</p>
+      <p>黑峰是 C1、C7 两个甲基，红峰是 C2、C4、C5、C6 四个亚甲基。逐峰归属要借助结构和经验位移，见下面的归属表。</p>
+    </div>
+    <div class="card">
+      <h3>{{ev:obs}} 最值得注意的一对峰</h3>
+      <p class="big">氢维只差约 0.02 ppm</p>
+      <p>羰基两侧的 C2、C4 在氢维几乎重叠（约 2.42 与 2.40 ppm），在碳维却相差约 6 ppm（约 36 与 43 ppm）。二维谱把它们分开了。</p>
+    </div>
+  </div>
+  <div class="answer">
+    <p><b>幻灯片问：</b>“Does it match the multiplicity data as expected?”——多重性数据与预期相符吗？</p>
+    <p><b>答：相符。</b>结构预期 2 个 CH₃ 加 4 个 CH₂；编辑谱正好是 2 个黑峰加 4 个红峰，而且两个黑峰都落在甲基应有的低位移区。但“哪个红峰是 C2、哪个是 C4”这类细分，只凭这两张谱定不下来。这正是幻灯片第一条要点的意思：没有谱库时，只靠 HSQC 很难确定结构，因为它不告诉你碳和碳怎样相连。</p>
+  </div>
+  <div class="fgrow" role="group" aria-label="本页涉及的基团结构图">
+    <span data-fg="ch3"></span><span data-fg="ch2"></span><span data-fg="co"></span><span data-fg="ethyl"></span><span data-fg="butyl"></span>
+  </div>
+</section>
+
+<!-- ================= 02 直观解释 ================= -->
+<section id="intuition" class="panel block" data-scope>
+  <h2><span class="num">02</span>直观解释</h2>
+  <div class="cards">
+    <div class="card">
+      <h3>HSQC 是一张“氢–碳配对表”</h3>
+      <p>每个斑点代表一个碳和直接连在它上面的氢。横着读氢的化学位移，竖着读碳的化学位移。一个 CH₂ 的两个氢连在同一个碳上，所以只出一个斑点。</p>
+      <div class="fgrow"><span data-fg="ch2"></span></div>
+    </div>
+    <div class="card">
+      <h3>编辑 HSQC 多告诉你一件事</h3>
+      <p>碳上的氢数是奇数（CH、CH₃）还是偶数（CH₂）。两类峰的相位相反，图上画成两种颜色。这张图里黑色是奇数类，红色是偶数类。</p>
+      <div class="fgrow"><span data-fg="ch3"></span><span data-fg="ch"></span></div>
+    </div>
+    <div class="card">
+      <h3>没有峰也是信息</h3>
+      <p>羰基碳不带氢，所以两张谱里都找不到它。7 个碳只出 6 个峰，少掉的那个正是 C3。在 HSQC 里找不到的碳，就是无氢碳。</p>
+      <div class="fgrow"><span data-fg="co"></span></div>
+    </div>
+    <div class="card">
+      <h3>第二个维度把重叠拆开</h3>
+      <p>两个 α-亚甲基的氢都在 2.4 ppm 附近，一维氢谱里挤成一团。但它们各自连着的碳相差约 6 ppm，在二维图上一上一下，清清楚楚。</p>
+      <div class="fgrow"><span data-fg="alpha"></span></div>
+    </div>
+  </div>
+  <div class="answer howto">
+    <h3>读这两张谱的五步</h3>
+    <ol>
+      <li>横轴读氢（¹H）：从左边的 3.0 到右边的约 0.5 ppm，向右变小。</li>
+      <li>纵轴读碳（¹³C）：从上边的约 0 到下边的约 50 ppm，向下变大。</li>
+      <li>一个斑点 = 一对直接相连的氢和碳。</li>
+      <li>编辑谱再看颜色：黑（CH 或 CH₃）还是红（CH₂）。</li>
+      <li>结构里有、谱上却找不到的碳，就是不带氢的碳。</li>
+    </ol>
+  </div>
+</section>
+
+<!-- ================= 03–08 三栏仪表盘 ================= -->
+<section id="dashboard" class="block" aria-label="交互区">
+  <div class="nowbar" id="nowbar" data-noterm>
+    <button type="button" class="btn" id="prevBtn" aria-label="上一个碳位">‹</button>
+    <div class="txt" id="nowText" aria-live="polite"></div>
+    <button type="button" class="btn" id="nextBtn" aria-label="下一个碳位">›</button>
+  </div>
+  <div class="dash">
+
+    <aside class="col left" aria-label="对象选择与参数控制">
+      <div class="panel">
+        <h2><span class="num">03</span>选择对象</h2>
+        <p class="sub">点列表、结构上的原子、谱图上的峰或归属表的一行，整页同步更新。</p>
+        <div id="objList" class="objlist" role="group" aria-label="七个碳位"></div>
+        <ul class="legend" aria-label="形状图例">
+          <li><span class="g-black" aria-hidden="true">◇</span>原图黑峰（CH₃）</li>
+          <li><span class="g-red" aria-hidden="true">○</span>原图红峰（CH₂）</li>
+          <li><span class="g-none" aria-hidden="true">✕</span>无交叉峰</li>
+        </ul>
+      </div>
+      <div class="panel stick">
+        <h2>参数控制</h2>
+        <p class="sub">这三个滑块只改变<strong>演示模型</strong>，不改变原图，也不改变估读的峰位。</p>
+        <p class="mobile-note small muted">手机上，滑块已移到对应图形的正上方。</p>
+        <div id="paramsHome">
+          <div class="control" id="ctlDelay">
+            <label for="sDelay">编辑延迟 Δ：<output id="oDelay" for="sDelay"></output></label>
+            <input type="range" id="sDelay" min="0" max="12" step="0.1" value="8">
+            <div class="scale"><span>0 ms</span><span>12 ms</span></div>
+            <p class="what">▲ 演示模型：只改变“模型 ①”的曲线和符号条。</p>
+          </div>
+          <div class="control" id="ctlJ">
+            <label for="sJ">一键耦合常数 ¹J(C,H)：<output id="oJ" for="sJ"></output></label>
+            <input type="range" id="sJ" min="110" max="170" step="1" value="125">
+            <div class="scale"><span>110 Hz</span><span>170 Hz</span></div>
+            <p class="what">▲ 演示模型：sp³ 碳约 125 Hz（通用经验值）；原图没有给出。</p>
+          </div>
+          <div class="control" id="ctlField">
+            <label for="sField">谱仪 ¹H 频率（假设）：<output id="oField" for="sField"></output></label>
+            <input type="range" id="sField" min="100" max="1000" step="25" value="400">
+            <div class="scale"><span>100 MHz</span><span>1000 MHz</span></div>
+            <p class="what">▲ 演示模型：原图没有给出场强；只改变“模型 ②”。</p>
+          </div>
+        </div>
+        <div class="control"><button type="button" class="btn" id="resetBtn">恢复默认参数</button></div>
+      </div>
+    </aside>
+
+    <div class="col center">
+      <div class="panel" data-scope>
+        <h2><span class="num">04</span>结构 <span class="badge sketch">示意重绘</span></h2>
+        <p class="sub">按原图的骨架式重画，并把省略的氢补全。每个碳和它的氢是一个可点的对象；编号从乙基一端数起，C3 是羰基碳。</p>
+        <svg id="structure" class="struct" role="group" aria-label="3-庚酮结构：七个碳位，可点选"></svg>
+      </div>
+
+      <div class="panel" data-scope>
+        <h2><span class="num">05</span>交互谱图 <span class="badge sketch">示意：按估读坐标重绘</span></h2>
+        <p class="sub">峰的位置来自原图像素估读；符号大小固定，不代表峰形或强度。坐标轴方向和右侧刻度与原图一致。</p>
+        <div class="plots">
+          <div class="plotcard">
+            <h3>常规 HSQC <small>只有位置</small></h3>
+            <svg id="specHsqc" class="chart" role="group" aria-label="常规 HSQC 示意图：六个交叉峰，可点选"></svg>
+          </div>
+          <div class="plotcard">
+            <h3>编辑 HSQC <small>位置 + 颜色类别</small></h3>
+            <svg id="specEdited" class="chart" role="group" aria-label="编辑 HSQC 示意图：两个黑峰、四个红峰，可点选"></svg>
+          </div>
+        </div>
+        <ul class="legend" aria-label="谱图图例">
+          <li><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="3.5" fill="#e6edf3"/></svg>常规谱：原图全为黑色</li>
+          <li><svg width="16" height="16" aria-hidden="true"><path d="M8 1.5 14.5 8 8 14.5 1.5 8Z" fill="none" stroke="#e6edf3" stroke-width="2"/></svg>编辑谱黑峰（菱形）</li>
+          <li><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="5.5" fill="none" stroke="#f08b83" stroke-width="2"/></svg>编辑谱红峰（圆圈）</li>
+          <li><svg width="16" height="16" aria-hidden="true"><circle cx="8" cy="8" r="6.5" fill="none" stroke="#5fd0a8" stroke-width="2.2"/></svg>当前选中</li>
+        </ul>
+      </div>
+
+      <div class="panel" data-scope id="model1">
+        <h2><span class="num">06</span>演示模型 ①：编辑延迟怎样让 CH₂ 反号 {{ev:mod}}</h2>
+        <p class="sub">编辑 HSQC 在自旋回波里让一键耦合演化一段时间 Δ。带 n 个氢的碳得到因子 cosⁿ(π·J·Δ)。原图没有给出 Δ 和 J，这里的数值是假设的。因子的正负是相对的：处理数据时可以整体反相，习惯上把 CH、CH₃ 显示为正；要看的是两类符号是否相反。</p>
+        <div class="slot" id="slotEdit"></div>
+        <svg id="editCurve" class="chart" role="img" aria-labelledby="editCurveDesc"></svg>
+        <p id="editCurveDesc" class="small muted" data-noterm></p>
+        <ul class="legend" aria-label="曲线图例">
+          <li><svg width="34" height="12" aria-hidden="true"><line x1="1" y1="6" x2="33" y2="6" stroke="#f08b83" stroke-width="2.2"/><circle cx="17" cy="6" r="4" fill="#0e1116" stroke="#f08b83" stroke-width="2"/></svg>CH₂：cos²（实线，圆圈）</li>
+          <li><svg width="34" height="12" aria-hidden="true"><line x1="1" y1="6" x2="33" y2="6" stroke="#e6edf3" stroke-width="2.2" stroke-dasharray="9 4"/><path d="M17 1.5 21.5 6 17 10.5 12.5 6Z" fill="#0e1116" stroke="#e6edf3" stroke-width="2"/></svg>CH₃：cos³（长虚线，菱形）</li>
+          <li><svg width="34" height="12" aria-hidden="true"><line x1="1" y1="6" x2="33" y2="6" stroke="#a9b7c2" stroke-width="1.6" stroke-dasharray="2 5"/></svg>CH：cos（点线；本结构没有）</li>
+        </ul>
+        <h3 style="margin-top:12px">模型给六个峰的相对符号与强度</h3>
+        <svg id="editBars" class="chart" role="img" aria-labelledby="editBarsDesc"></svg>
+        <p id="editBarsDesc" class="small muted" data-noterm></p>
+        <div class="statusline" id="editStatus" aria-live="polite" data-noterm></div>
+        <div class="kv" id="editKv" data-noterm></div>
+      </div>
+
+      <div class="panel" data-scope id="model2">
+        <h2><span class="num">07</span>演示模型 ②：2.4 ppm 的两组 CH₂ 为什么要靠碳维分开 {{ev:mod}}</h2>
+        <p class="sub">把 C2 与 C4 上的氢画成一级裂分的棒图：C2 的氢被邻位甲基的 3 个氢裂成四重峰，C4 的氢被邻位 CH₂ 的 2 个氢裂成三重峰。邻位耦合取 7.4 Hz（烷基链的典型值，假设）。不含线宽，不是原图的一维谱。</p>
+        <div class="slot" id="slotField"></div>
+        <svg id="multiplet" class="chart" role="img" aria-labelledby="multDesc"></svg>
+        <p id="multDesc" class="small muted" data-noterm></p>
+        <div class="kv" id="multKv" data-noterm></div>
+        <div class="statusline" id="multStatus" aria-live="polite" data-noterm></div>
+      </div>
+    </div>
+
+    <aside class="col right" aria-label="当前读数与解释">
+      <div class="stick">
+      <div class="panel">
+        <h2><span class="num">08</span>当前读数</h2>
+        <div id="readout" data-scope data-dynamic aria-live="polite"></div>
+      </div>
+      <div class="panel">
+        <h2>为什么这样归属</h2>
+        <div id="explain" data-scope data-dynamic></div>
+      </div>
+      </div>
+    </aside>
+  </div>
+</section>
+
+<!-- ================= 09 原图局部放大 ================= -->
+<section id="zoom" class="panel block" data-scope>
+  <h2><span class="num">09</span>原图局部放大 {{ev:obs}}</h2>
+  <p class="sub">这里显示的是原图的真实像素，没有重绘，也没有改动。绿色定位圈是叠加在上面的标记，可以关掉。</p>
+  <div class="zoomwrap">
+    <div>
+      <div class="viewer" id="viewer">
+        <img id="zoomImg" alt="课程原图的局部：随所选区域、碳位和放大倍数移动">
+        <div class="ring" id="zoomRing" hidden></div>
+        <div class="ringtag" id="zoomTag" hidden></div>
+      </div>
+      <p class="small muted" id="zoomCaption" aria-live="polite" data-noterm></p>
+    </div>
+    <div>
+      <div class="btnrow" role="group" aria-label="选择要看的原图区域" id="viewBtns">
+        <button type="button" class="btn" data-view="hsqc" aria-pressed="true">常规 HSQC 面板</button>
+        <button type="button" class="btn" data-view="edited" aria-pressed="false">编辑 HSQC 面板</button>
+        <button type="button" class="btn" data-view="struct" aria-pressed="false">结构式</button>
+      </div>
+      <div class="control">
+        <label for="sZoom">放大倍数：<output id="oZoom" for="sZoom"></output></label>
+        <input type="range" id="sZoom" min="1" max="8" step="0.5" value="2">
+        <div class="scale"><span>1×（整个区域）</span><span>8×</span></div>
+        <p class="what">● 来自原始材料：只改变原图的显示范围，不改变任何数据。</p>
+      </div>
+      <div class="control"><label style="font-weight:400"><input type="checkbox" id="showRing" checked> 显示定位圈和标签</label></div>
+      <div class="control">
+        <p id="zoomInfo" data-noterm></p>
+        <p class="small muted" style="margin-top:6px">估读方法：先找出谱图边框和带数字的刻度所在的像素，做直线定标；再取每个等高线小圈的墨迹重心，换算成 ppm。顶部的一维投影与二维峰之间有约 0.03 ppm 的错位，本页以二维峰的中心为准。</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 10 完整归属表 ================= -->
+<section id="table" class="panel block" data-scope>
+  <h2><span class="num">10</span>完整归属表</h2>
+  <p class="sub">点任意一行可以选中该碳位。数值为估读：¹H 约 ±0.03 ppm，¹³C 约 ±0.5 ppm。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>碳位</th><th>基团结构</th><th>¹H 估读（ppm）</th><th>¹³C 估读（ppm）</th><th>编辑谱颜色（原图）</th><th>碳类型（由结构）</th><th>归属依据</th><th>证据级别</th></tr></thead>
+      <tbody id="assignRows"></tbody>
+    </table>
+  </div>
+  <p class="small muted" style="margin-top:8px">峰的强度、积分、线宽和 J 值都无法从截图可靠读出，表中不列。一维氢谱的裂分是按结构做的一级预测，不是从原图读出的。</p>
+</section>
+
+<!-- ================= 11 分步推理 ================= -->
+<section id="steps" class="panel block">
+  <h2><span class="num">11</span>分步推理</h2>
+  <ol class="steps">
+    <li data-scope>
+      <h3>先数结构里的碳和氢 {{ev:cnt}}</h3>
+      <p>把骨架式写开：CH₃–CH₂–C(=O)–CH₂–CH₂–CH₂–CH₃。7 个碳里，2 个是甲基，4 个是亚甲基，1 个是不带氢的羰基碳。氢数是 \(2\times 3+4\times 2=14\)，与分子式 C₇H₁₄O 一致。分子没有对称性，7 个碳各不相同。</p>
+    </li>
+    <li data-scope>
+      <h3>预测 HSQC 的峰数 {{ev:cnt}}</h3>
+      <p>HSQC 只显示直接连着氢的碳，所以是 \(7-1=6\) 个交叉峰，C3 不出峰。编辑 HSQC 的峰数相同，只是分成两类：奇数个氢的一类（这里是 2 个 CH₃），偶数个氢的一类（4 个 CH₂）。</p>
+    </li>
+    <li data-scope>
+      <h3>看清坐标轴 {{ev:obs}}</h3>
+      <p>横轴是 ¹H（F2 维），从左边的 3.0 到右边的约 0.5 ppm，向右变小。纵轴是 ¹³C（F1 维），从上边的约 0 到下边的约 50 ppm，向下变大；右侧只有 20 和 40 两个带数字的刻度。上方和左侧各有一条一维投影。</p>
+    </li>
+    <li data-scope>
+      <h3>数峰 {{ev:obs}}</h3>
+      <p>两张谱的边框内各有 6 个等高线小圈。常规谱里全是黑色。编辑谱里，上方两个是黑色，下方四个是红色。两张谱的峰位一一对应。</p>
+    </li>
+    <li data-scope>
+      <h3>用颜色分类 {{ev:inf}}</h3>
+      <p>黑和红代表相反的相位。编辑 HSQC 中 CH 与 CH₃ 同号，CH₂ 反号。结构里没有次甲基，所以 2 个黑峰就是 2 个 CH₃，4 个红峰就是 4 个 CH₂。数目与上一步的预测一致。</p>
+    </li>
+    <li data-scope>
+      <h3>给两个甲基对号 {{ev:inf}}</h3>
+      <p>¹³C 约 8.2 ppm、¹H 约 1.06 ppm 的黑峰归 C1：乙基酮末端甲基的碳位移很低，氢因为靠近羰基而略高。¹³C 约 14.3 ppm、¹H 约 0.91 ppm 的黑峰归 C7：这是长烷基链末端甲基的典型位置。</p>
+    </li>
+    <li data-scope>
+      <h3>给四个亚甲基对号 {{ev:inf}}</h3>
+      <p>¹H 约 2.4 ppm 的两个红峰紧挨羰基，是 C2 和 C4。C4 比 C2 多一个 β 位碳和一个 γ 位碳，按经验加和应高出约 7 ppm，所以 36.3 ppm 归 C2，42.7 ppm 归 C4。剩下两个红峰按“离羰基越远，¹H 越小”排：1.57 ppm 归 C5，1.32 ppm 归 C6。</p>
+    </li>
+    <li data-scope>
+      <h3>还缺什么证据 {{ev:inf}}</h3>
+      <p>上面的细分都借助了“给定结构加经验位移”。HSQC 只说明哪个氢连在哪个碳上，不说明碳与碳怎样相连。要独立确认，可以用 COSY 或 TOCSY 沿氢–氢耦合走完乙基和丁基两段，再用 HMBC 从两侧的 α-亚甲基找到同一个羰基碳。仓库里另有 <a href="../tocsy-cosy-heptanone/index.html">3-庚酮的 COSY / TOCSY 专题</a>（单独下载本页时此链接不可用）。</p>
+    </li>
+  </ol>
+</section>
+
+<!-- ================= 12 数值核对 ================= -->
+<section id="checks" class="panel block">
+  <h2><span class="num">12</span>数值核对</h2>
+  <div class="checkgrid">
+    <div class="checkitem" data-scope>
+      <h3>分子式与不饱和度 {{ev:cnt}}</h3>
+      $$\begin{aligned}\mathrm{DBE}&=\frac{2C+2-H}{2}\cr &=\frac{2\times 7+2-14}{2}=1\end{aligned}$$
+      <p>一个不饱和度，正好是一个 C=O。没有环，也没有碳碳双键。</p>
+    </div>
+    <div class="checkitem" data-scope>
+      <h3>氢数与峰数 {{ev:cnt}}</h3>
+      $$\begin{aligned}N_{\mathrm{H}}&=2\times 3+4\times 2=14\cr N_{\mathrm{HSQC}}&=7-1=6\end{aligned}$$
+      <p>边界情形：如果一个结构里全是无氢碳，HSQC 应当一个峰也没有。</p>
+    </div>
+    <div class="checkitem" data-scope>
+      <h3>像素换算成 ppm {{ev:obs}}</h3>
+      $$\delta=a\cdot p+b$$
+      <p>p 是像素坐标，a 和 b 由带数字的刻度做直线拟合得到。<span id="pxExample" data-noterm></span></p>
+      <p class="small muted" id="pxScale" data-noterm></p>
+    </div>
+    <div class="checkitem" data-scope>
+      <h3>估读是否稳定 {{ev:obs}}</h3>
+      <p id="spreadText" data-noterm></p>
+      <p class="small muted">两张谱是同一化合物的两次实验，峰位应当相同；两份截图是同一张幻灯片。它们之间的差异给出了估读误差的大小。</p>
+    </div>
+    <div class="checkitem" data-scope>
+      <h3>C2 与 C4 的经验加和 {{ev:inf}}</h3>
+      $$\begin{aligned}\delta_{\mathrm{C}}(\mathrm{C4})&\approx\delta_{\mathrm{C}}(\mathrm{C2})+\beta+\gamma\cr &=36.3+9.4-2.5\cr &=43.2\ \mathrm{ppm}\end{aligned}$$
+      <p>估读值是 42.7 ppm，相差 0.5 ppm，在估读误差之内。增量取自烷烃的经验规则，用在酮上只能作量级核对。</p>
+    </div>
+    <div class="checkitem" data-scope>
+      <h3>编辑延迟模型 {{ev:mod}}</h3>
+      $$\begin{aligned}f_n(\Delta)&=\cos^{n}(\pi J\Delta)\cr \Delta=\frac{1}{J}\ &\Rightarrow\ f_n=(-1)^{n}\end{aligned}$$
+      <p>n = 1、3 时为 −1，n = 2 时为 +1：CH、CH₃ 与 CH₂ 反号。Δ = 0 时全为 +1（等于不编辑）；Δ = 1/(2J) 时全为 0。cos² 永远不为负，所以 CH₂ 不会翻转，翻转的是奇数类。</p>
+    </div>
+    <div class="checkitem" data-scope>
+      <h3>单位换算 {{ev:mod}}</h3>
+      $$\begin{aligned}\frac{1}{125\ \mathrm{Hz}}&=8.00\ \mathrm{ms}\cr 0.02\ \mathrm{ppm}\times 400\ \mathrm{MHz}&=8\ \mathrm{Hz}\cr 6.4\ \mathrm{ppm}\times 100.6\ \mathrm{MHz}&\approx 644\ \mathrm{Hz}\end{aligned}$$
+      <p>1 ppm 对应的 Hz 数等于该核的共振频率（MHz）。¹H 为 400 MHz 时，¹³C 约为 100.6 MHz。C2 与 C4 在碳维上的间距是氢维的约 80 倍。</p>
+    </div>
+    <div class="checkitem">
+      <h3>页面自检（打开时实时计算）</h3>
+      <p class="small muted">下面每一项都由页面里的同一份计算代码当场算出。完整的 69 项核对见仓库中的 <span class="mono">numerical-verification.json</span>。</p>
+      <ul class="selftest" id="selftest"></ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 13 常见误区 ================= -->
+<section id="pitfalls" class="panel block">
+  <h2><span class="num">13</span>常见误区</h2>
+  <ul class="pitfalls">
+    <li data-scope><p class="wrong">把编辑谱的颜色当成化学位移或峰的强弱。</p><p class="right">颜色只表示相位的正负，也就是碳上氢数的奇偶。位置仍然由横、纵坐标读出。</p></li>
+    <li data-scope><p class="wrong">把幻灯片里的 multiplicity 理解成氢谱的三重峰、四重峰。</p><p class="right">这里的多重性指碳上直接连了几个氢（CH、CH₂、CH₃）。氢谱的裂分来自邻位氢的耦合，是另一回事。</p></li>
+    <li data-scope><p class="wrong">看到黑峰就断定是 CH₃。</p><p class="right">CH 与 CH₃ 同号。这里能定为 CH₃，是因为结构里没有次甲基。对未知物，还要用 DEPT-90 或氢的积分来区分。</p></li>
+    <li data-scope><p class="wrong">把 2.4 ppm 处上下两个峰当成同一个 CH₂。</p><p class="right">氢的位移接近不等于同一个碳。它们的 ¹³C 相差约 6 ppm，是 C2 和 C4 两个不同的亚甲基。</p></li>
+    <li data-scope><p class="wrong">在 HSQC 里找羰基碳，找不到就怀疑结构。</p><p class="right">羰基碳不带氢，HSQC 本来就不显示它。它的 ¹³C 位移也远在这张图的 0–50 ppm 之外。</p></li>
+    <li data-scope><p class="wrong">认为有了 HSQC 就知道碳链的连接顺序。</p><p class="right">HSQC 只给出一键的氢–碳配对。连接顺序要靠 COSY、TOCSY 或 HMBC。</p></li>
+    <li data-scope><p class="wrong">把重绘的示意图或估读的小数当成实测数据。</p><p class="right">本页的 ppm 是像素估读，重绘图的符号大小是固定的。原图没有提供原始数据。</p></li>
+    <li data-scope><p class="wrong">用上方一维投影的位置代替二维峰的位置。</p><p class="right">原图的投影与二维峰之间有约 0.03 ppm 的错位。投影可以是另外采集的一维谱，对齐并不保证。</p></li>
+  </ul>
+</section>
+
+<!-- ================= 14 中英对照 ================= -->
+<section id="bilingual" class="panel block">
+  <h2><span class="num">14</span>原图英文与中文对照</h2>
+  <p class="sub">原图保持不动。下表把图上出现的英文逐条列出并给出中文。</p>
+  <div class="tablewrap">
+    <table>
+      <thead><tr><th>原图英文</th><th>中文</th><th>在图上的位置</th></tr></thead>
+      <tbody id="biRows" data-noterm></tbody>
+    </table>
+  </div>
+</section>
+
+<!-- ================= 15 术语表 ================= -->
+<section id="glossary" class="panel block" data-noterm>
+  <h2><span class="num">15</span>术语表</h2>
+  <p class="sub">正文里带虚线下划线的词都可以点按（或用 Tab 选中后按 Enter）查看注释；按 Esc 关闭。这里是全部术语。</p>
+  <dl class="glossary" id="glossaryList"></dl>
+</section>
+
+<!-- ================= 16 来源与限制 ================= -->
+<section id="sources" class="panel block">
+  <h2><span class="num">16</span>来源与限制</h2>
+  <div class="two">
+    <div data-scope>
+      <h3>来源</h3>
+      <ul class="srclist">
+        <li><strong>原始材料：</strong>用户上传的一张课程幻灯片截图（PNG，1888 × 935 像素），标题为 “HSQC – Practice Problem”。页面内嵌的原图没有改动。</li>
+        <li><strong>图的可能出处：</strong>幻灯片中的图题、化合物和两幅谱，与渥太华大学 NMR 设施博客 2007 年 11 月 14 日的文章 <a href="https://u-of-o-nmr-facility.blogspot.com/2007/11/hsqc-and-edited-hsqc-spectra.html" target="_blank" rel="noopener">HSQC and Edited HSQC Spectra</a>（Glenn Facey）所述一致。该文说明：编辑谱中 CH、CH₃ 为正（黑），CH₂ 为负（红）。截图本身没有注明出处，这一对应是制作者的判断。</li>
+        <li><strong>分子信息：</strong><a href="https://pubchem.ncbi.nlm.nih.gov/compound/7802" target="_blank" rel="noopener">PubChem CID 7802</a>：heptan-3-one，C₇H₁₄O，分子量 114.19。</li>
+        <li><strong>机制与经验值（教科书层面，非原图数据）：</strong>T. D. W. Claridge《High-Resolution NMR Techniques in Organic Chemistry》（HSQC 与多重性编辑）；E. Pretsch 等《Structure Determination of Organic Compounds》（¹³C 经验位移）；D. M. Grant, E. G. Paul, <i>J. Am. Chem. Soc.</i> 1964, 86, 2984（烷烃 ¹³C 加和增量）。</li>
+      </ul>
+      <p class="small muted" style="margin-top:8px">外部链接只在点击时访问网络；页面本身不请求任何外部资源。</p>
+    </div>
+    <div data-scope>
+      <h3>仍无法从原材料确认</h3>
+      <ul class="srclist">
+        <li>精确的化学位移：只有像素估读。</li>
+        <li>溶剂、温度、浓度、场强、脉冲序列和参数（包括编辑延迟和 J 的设定值）。</li>
+        <li>峰的强度、积分、线宽和耦合常数。</li>
+        <li>黑和红哪个是正相位：截图没有说明，上面的博客文章称黑为正。</li>
+        <li>C2 与 C4、C5 与 C6、C1 与 C7 的逐峰细分：需要 COSY 或 HMBC。</li>
+        <li>C3 羰基碳的化学位移：不在图内。</li>
+        <li>氢投影上约 1.7 ppm 处（以及更弱的约 2.1 ppm 处）小信号的来源：它们没有对应的交叉峰。</li>
+        <li>一维投影与二维峰之间约 0.03 ppm 错位的原因。</li>
+        <li>幻灯片出自哪门课程。</li>
+      </ul>
+    </div>
+  </div>
+
+  <h3 style="margin-top:16px">完整原图</h3>
+  <figure class="origfig">
+    <img id="origFull" src="__ORIGINAL_DATA_URI__" width="1888" height="935" alt="完整课程原图：标题 HSQC – Practice Problem；左侧三条英文要点；右侧是 3-庚酮的骨架式，以及常规 HSQC 和编辑 HSQC 两幅二维谱">
+    <figcaption>完整原图，等比例缩小显示，像素未改动。图中英文的中文对照见第 14 节。</figcaption>
+  </figure>
+  <details id="origDetails">
+    <summary>展开：按原始尺寸查看（1888 × 935 像素，可在框内滚动）</summary>
+    <div class="inner">
+      <div class="btnrow" style="margin-bottom:8px"><button type="button" class="btn" id="openOriginal">在新窗口打开原图</button><span class="small muted">焦点在图框内时，可用方向键滚动。</span></div>
+      <div class="origscroll" id="origScroll" tabindex="0" role="region" aria-label="原始尺寸的课程原图，可滚动">
+        <img id="origNative" width="1888" height="935" alt="原始尺寸的课程原图">
+      </div>
+    </div>
+  </details>
+</section>
+
+</main>
+
+<footer><div class="shell">NMR Graph · 单文件离线页面：样式、脚本、原图和公式字体都已内嵌。键盘操作：Tab 移动，Enter 或空格选择，方向键调节滑块，Esc 关闭术语注释。</div></footer>
+
+<div id="termPop" class="termpop" role="dialog" aria-modal="false" aria-labelledby="termPopTitle" tabindex="-1" hidden>
+  <button type="button" class="x" id="termPopClose" aria-label="关闭注释">×</button>
+  <h3 id="termPopTitle"></h3>
+  <p class="en" id="termPopEn"></p>
+  <div id="termPopBody" aria-live="polite"></div>
+  <a class="more" id="termPopMore" href="#glossary">在术语表中查看 →</a>
+</div>
+
+<script>const MEASURE = /*__MEASURE__*/null;</script>
+<script>/*__MODEL__*/</script>
+<script>/*__DATA__*/</script>
+<script>/*__APP__*/</script>
+</body>
+</html>
