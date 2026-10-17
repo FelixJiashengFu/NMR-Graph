@@ -1,0 +1,1683 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>观谱识物 · C₄H₈O₂ 的氢谱与耦合常数</title>
+<meta name="description" content="以水墨长卷的形式，逐步解析 C4H8O2 在 CDCl3 中的 250 MHz 氢谱：不饱和度、积分、裂分、耦合常数、化学位移与异构体排除。">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Zhi+Mang+Xing&family=Noto+Serif+SC:wght@400;600;700&display=swap">
+<style>
+/* Layout: 一幅手卷 —— 单栏阅读，每一卷以朱印卷号 + 圆相大字开篇；图表装裱成"画心"，比正文略宽。 */
+:root{
+  /* 纸与墨：宣纸底，墨分五色 */
+  --paper:#ebe7dd; --paper-2:#e1dccf; --paper-3:#f3f0e8;
+  --ink:#1d1c1a; --ink-2:#3a3834; --ink-3:#69655c; --ink-4:#a29d91; --ink-5:#ccc6b8;
+  /* 国画颜料：朱砂（印、强调）、花青（信号 a）、石绿（信号 c）、赭石（积分） */
+  --zhu:#b23526; --qing:#2b5576; --lv:#3a735d; --zhe:#a25f2a;
+  --wash:rgba(29,28,26,.055); --wash-2:rgba(29,28,26,.10);
+  --zhu-wash:rgba(178,53,38,.10);
+  --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .32 0 0 0 0 .27 0 0 0 0 .2 0 0 0 .10 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+  --mottle:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='.006' numOctaves='4' seed='9' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .4 0 0 0 0 .33 0 0 0 0 .22 0 0 0 .16 -.03'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>");
+  --f-brush:"Ma Shan Zheng","STKaiti","KaiTi","Kaiti SC",serif;
+  --f-cao:"Zhi Mang Xing","Ma Shan Zheng","STKaiti","KaiTi",cursive;
+  --f-body:"Noto Serif SC","Songti SC","STSong","SimSun","Source Han Serif SC",serif;
+  --step-0:clamp(15.5px,1.0vw + 11px,17px);
+  --step-1:clamp(19px,1.2vw + 13px,22px);
+  --step-2:clamp(30px,3vw + 14px,44px);
+  --step-3:clamp(54px,7vw + 14px,112px);
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){
+    --paper:#141311; --paper-2:#1c1a17; --paper-3:#211f1b;
+    --ink:#ece6d9; --ink-2:#cdc6b6; --ink-3:#979082; --ink-4:#615c53; --ink-5:#3b3832;
+    --zhu:#da624f; --qing:#89aed1; --lv:#86c3a6; --zhe:#d9a165;
+    --wash:rgba(236,230,217,.05); --wash-2:rgba(236,230,217,.09);
+    --zhu-wash:rgba(218,98,79,.14);
+    --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .92 0 0 0 0 .9 0 0 0 0 .84 0 0 0 .06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+    --mottle:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='.006' numOctaves='4' seed='9' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .9 0 0 0 0 .86 0 0 0 0 .78 0 0 0 .09 -.02'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>");
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#141311; --paper-2:#1c1a17; --paper-3:#211f1b;
+  --ink:#ece6d9; --ink-2:#cdc6b6; --ink-3:#979082; --ink-4:#615c53; --ink-5:#3b3832;
+  --zhu:#da624f; --qing:#89aed1; --lv:#86c3a6; --zhe:#d9a165;
+  --wash:rgba(236,230,217,.05); --wash-2:rgba(236,230,217,.09);
+  --zhu-wash:rgba(218,98,79,.14);
+  --grain:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='260' height='260'><filter id='g'><feTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .92 0 0 0 0 .9 0 0 0 0 .84 0 0 0 .06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23g)'/></svg>");
+  --mottle:url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='900' height='900'><filter id='m'><feTurbulence type='fractalNoise' baseFrequency='.006' numOctaves='4' seed='9' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 .9 0 0 0 0 .86 0 0 0 0 .78 0 0 0 .09 -.02'/></filter><rect width='100%25' height='100%25' filter='url(%23m)'/></svg>");
+  color-scheme:dark;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{
+  margin:0;
+  background-color:var(--paper);
+  background-image:var(--grain),var(--mottle);
+  color:var(--ink);
+  font-family:var(--f-body);
+  font-size:var(--step-0);
+  line-height:1.9;
+  font-feature-settings:"palt" 0;
+  overflow-x:hidden;
+}
+::selection{background:var(--zhu-wash)}
+a{color:inherit}
+sub,sup{line-height:0;font-size:.72em}
+strong{font-weight:700}
+.num,.tnum{font-variant-numeric:tabular-nums}
+.c-a{color:var(--qing)} .c-b{color:var(--ink)} .c-c{color:var(--lv)} .c-zhu{color:var(--zhu)} .c-zhe{color:var(--zhe)}
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+.prose{max-width:40em}
+.prose p{margin:0 0 1em}
+.brush{font-family:var(--f-brush);font-weight:400}
+:focus-visible{outline:2px solid var(--zhu);outline-offset:3px;border-radius:2px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+/* ---------- 卷首 ---------- */
+.hero{position:relative;overflow:hidden;padding-block:56px 0;isolation:isolate}
+.hero-land{position:absolute;inset:auto 0 0 0;width:100%;height:330px;z-index:-1;pointer-events:none}
+.hero-inner{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:clamp(20px,5vw,72px);align-items:start;min-height:470px}
+.hero-title{display:flex;flex-direction:row-reverse;align-items:flex-start;gap:14px}
+.hero-title h1{writing-mode:vertical-rl;font-size:var(--step-3);line-height:1.02;margin:0;letter-spacing:.06em;color:var(--ink);text-shadow:0 0 .5px var(--ink)}
+.hero-sub{writing-mode:vertical-rl;margin:12px 0 0;font-size:15px;letter-spacing:.32em;color:var(--ink-3)}
+.hero-title .seal{margin-top:auto;align-self:flex-end}
+.hero-q{max-width:34em;padding-top:8px}
+.eyebrow{display:inline-flex;align-items:center;gap:10px;margin:0 0 10px;font-size:13px;letter-spacing:.3em;color:var(--ink-3)}
+.eyebrow::before{content:"";width:28px;height:1px;background:var(--ink-4)}
+.q-text{font-size:var(--step-1);line-height:1.75;margin:0 0 22px;text-wrap:pretty}
+.q-text strong{color:var(--zhu);font-weight:600}
+.clues{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:2px;margin:0;border-top:1px solid var(--ink-5);border-bottom:1px solid var(--ink-5)}
+.clues div{padding:10px 12px 12px 0}
+.clues dt{font-size:12px;letter-spacing:.2em;color:var(--ink-3)}
+.clues dd{margin:0;font-size:18px;font-variant-numeric:tabular-nums}
+.land-cap{position:absolute;right:max(16px,env(safe-area-inset-right,0px));bottom:10px;margin:0;font-size:12px;color:var(--ink-3);letter-spacing:.08em;background:color-mix(in srgb,var(--paper) 70%,transparent);padding:0 6px}
+
+/* ---------- 路线 ---------- */
+.route{padding-block:34px 8px}
+.route ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:6px;position:relative}
+.route ol::before{content:"";position:absolute;left:4%;right:4%;top:31px;height:2px;background:var(--ink-5);z-index:0}
+.route a{display:flex;flex-direction:column;align-items:center;gap:4px;text-decoration:none;position:relative;z-index:1;padding:4px 0;border-radius:6px}
+.r-glyph{width:62px;height:62px;display:grid;place-items:center;font-family:var(--f-brush);font-size:34px;line-height:1;border-radius:50%;background:var(--paper);box-shadow:0 0 0 1.5px var(--ink-2) inset;transition:background .3s,color .3s}
+.r-no{font-size:11px;letter-spacing:.2em;color:var(--ink-3)}
+.r-txt{font-size:13px;color:var(--ink-2);text-align:center;line-height:1.4}
+.route a:hover .r-glyph,.route a:focus-visible .r-glyph{background:var(--ink);color:var(--paper)}
+
+/* ---------- 卷 ---------- */
+.juan{padding-block:clamp(64px,9vw,112px) 0;position:relative}
+.juan-head{display:flex;align-items:center;gap:clamp(14px,3vw,28px);margin-bottom:28px}
+.enso{position:relative;width:clamp(78px,10vw,108px);aspect-ratio:1;flex:none;display:grid;place-items:center}
+.enso svg{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+.enso .ring{fill:none;stroke:var(--ink);stroke-linecap:round}
+.enso .ring.thin{stroke:var(--ink-3)}
+.enso .glyph{font-family:var(--f-brush);font-size:clamp(44px,5.6vw,62px);line-height:1;position:relative;transform:translateY(2px)}
+.enso.pending .ring{stroke-dashoffset:var(--len)}
+.enso.drawn .ring{transition:stroke-dashoffset 1.6s cubic-bezier(.6,.05,.3,1)}
+.juan-meta{min-width:0}
+.juan-no{display:inline-block;font-family:var(--f-brush);font-size:15px;line-height:1;color:var(--paper);background:var(--zhu);padding:5px 7px 4px;border-radius:3px;letter-spacing:.15em;margin-bottom:6px}
+.juan h2{font-family:var(--f-brush);font-weight:400;font-size:var(--step-2);line-height:1.15;margin:0;text-wrap:balance}
+.lede{margin:6px 0 0;color:var(--ink-3);font-size:15.5px}
+.juan h3{font-size:var(--step-1);font-weight:600;margin:38px 0 10px;letter-spacing:.04em}
+.divider{display:block;width:min(560px,80%);height:26px;margin:clamp(56px,7vw,90px) auto 0;color:var(--ink-3)}
+
+/* 装裱：图表的画心 */
+.mount{position:relative;background:var(--paper-3);border:1px solid var(--ink-5);box-shadow:0 0 0 5px var(--paper-3),0 0 0 6px var(--ink-5),0 18px 40px -28px rgba(0,0,0,.45);margin:26px 6px 30px;padding:16px 16px 12px}
+.mount-cap{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:8px 16px;margin-bottom:8px}
+.mount-title{font-size:13.5px;letter-spacing:.14em;color:var(--ink-3)}
+.chart{position:relative;width:100%;touch-action:pan-y}
+.chart svg{display:block;width:100%;overflow:visible}
+.hint{font-size:13px;color:var(--ink-3);margin:6px 0 0}
+
+/* 控件 */
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.btn{font:inherit;font-size:13.5px;line-height:1.3;color:var(--ink-2);background:transparent;border:1px solid var(--ink-4);border-radius:3px;padding:6px 11px;cursor:pointer;transition:background .2s,color .2s,border-color .2s}
+.btn:hover{border-color:var(--ink-2);color:var(--ink)}
+.btn[aria-pressed="true"],.btn.solid{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.btn .dot{display:inline-block;width:8px;height:8px;border-radius:50%;margin-right:6px;vertical-align:1px;background:currentColor}
+.btn:disabled{opacity:.4;cursor:default}
+
+/* 信号三笺 */
+.sigs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;margin:6px 0 0}
+.sig{border-top:3px solid var(--ink);padding:10px 2px 4px;min-width:0;transition:background .25s}
+.sig[data-s="a"]{border-color:var(--qing)} .sig[data-s="c"]{border-color:var(--lv)}
+.sig.hot{background:var(--wash)}
+.sig-id{font-family:var(--f-brush);font-size:26px;line-height:1}
+.sig-d{font-size:22px;font-variant-numeric:tabular-nums;margin-left:6px}
+.sig dl{display:grid;grid-template-columns:auto 1fr;gap:0 12px;margin:6px 0 0;font-size:14.5px}
+.sig dt{color:var(--ink-3)} .sig dd{margin:0}
+
+/* 表 */
+.tbl-wrap{overflow-x:auto;margin:14px 0 6px}
+table.ink{border-collapse:collapse;font-variant-numeric:tabular-nums;font-size:15px;min-width:420px}
+table.ink th{font-weight:600;font-size:12.5px;letter-spacing:.12em;color:var(--ink-3);text-align:right;padding:6px 14px;border-bottom:1.5px solid var(--ink-2)}
+table.ink td{text-align:right;padding:6px 14px;border-bottom:1px solid var(--ink-5)}
+table.ink th:first-child,table.ink td:first-child{text-align:left;padding-left:2px}
+table.ink tr.sub td{border-bottom:none;color:var(--ink-3)}
+table.ink td.gap{color:var(--zhu)}
+
+/* 公式、批注 */
+.formula{font-size:clamp(18px,2.2vw,24px);margin:18px 0;padding:14px 0;border-top:1px solid var(--ink-5);border-bottom:1px solid var(--ink-5);font-variant-numeric:tabular-nums;overflow-x:auto}
+.formula .eq{color:var(--zhu)}
+.pi{display:grid;grid-template-columns:auto minmax(0,1fr);gap:12px;margin:22px 0;font-size:15.5px;color:var(--ink-2);max-width:42em}
+.pi-mark{width:26px;height:26px;border-radius:50%;border:1.5px solid var(--zhu);color:var(--zhu);font-family:var(--f-brush);font-size:16px;line-height:23px;text-align:center;margin-top:3px}
+.pi p{margin:0 0 .6em}
+.key{font-size:var(--step-1);line-height:1.7;margin:30px 0;padding-left:0;max-width:34em;font-weight:600}
+.key em{font-style:normal;color:var(--zhu)}
+
+/* 两栏 */
+.cols{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:clamp(18px,4vw,48px);align-items:start}
+.cols > *{min-width:0}
+
+/* 不饱和度：氢珠 */
+.beads{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0 6px}
+.bead{width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--paper);display:grid;place-items:center;font-size:13px;font-weight:600}
+.bead.miss{background:transparent;color:var(--zhu);box-shadow:0 0 0 1.6px var(--zhu) inset}
+.bead-legend{font-size:13.5px;color:var(--ink-3)}
+.frames{list-style:none;padding:0;margin:10px 0 0;display:grid;gap:8px}
+.frames li{display:grid;grid-template-columns:7.5em minmax(0,1fr);gap:10px;font-size:15px;border-bottom:1px dashed var(--ink-5);padding-bottom:7px}
+.frames b{font-weight:600}
+
+/* 帕斯卡三角 */
+.pascal{display:grid;gap:4px;justify-items:center;font-variant-numeric:tabular-nums;margin:6px 0}
+.pascal .row{display:flex;gap:10px;align-items:center;font-size:15px;color:var(--ink-3);padding:2px 10px;border-radius:3px}
+.pascal .row span{min-width:1.6em;text-align:center}
+.pascal .row.on{color:var(--zhu);background:var(--zhu-wash);font-weight:600}
+.pascal .tag{font-size:12px;letter-spacing:.06em;min-width:4.8em!important;text-align:left!important;color:inherit}
+.rule-tbl{font-size:14px}
+
+/* 化学位移刻度 */
+.shift{position:relative;margin:10px 0 0}
+.shift-row{display:grid;grid-template-columns:13.5em minmax(0,1fr);align-items:center;gap:12px;min-height:34px}
+.shift-lab{font-size:14px;line-height:1.35;color:var(--ink-2)}
+.shift-lab small{color:var(--ink-3);font-size:12px}
+.shift-track{position:relative;height:22px}
+.shift-band{position:absolute;top:3px;bottom:3px;border-radius:10px;background:var(--wash-2);box-shadow:0 0 0 1px var(--ink-5) inset;transition:background .25s}
+.shift-row.hit .shift-band{background:var(--ink-4)}
+.shift-row.hit .shift-lab{color:var(--ink);font-weight:600}
+.shift-axis{position:relative;height:30px;margin-left:calc(13.5em + 12px);border-top:1px solid var(--ink-3);font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums}
+.shift-axis span{position:absolute;top:4px;transform:translateX(-50%)}
+.shift-axis span::before{content:"";position:absolute;left:50%;top:-4px;height:5px;width:1px;background:var(--ink-3)}
+.shift-obs{position:absolute;top:0;bottom:30px;width:0;border-left:1.5px dashed currentColor;pointer-events:none}
+.shift-obs b{position:absolute;top:-24px;left:0;transform:translateX(-50%);font-size:12.5px;white-space:nowrap;font-weight:600;background:var(--paper-3);padding:0 4px}
+.shift-plot{position:relative;margin-left:calc(13.5em + 12px)}
+.shift-wrap{position:relative;padding-top:26px}
+
+/* 候选 */
+.cands{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:14px 0 4px}
+.cand{font:inherit;text-align:left;cursor:pointer;background:transparent;border:1px solid var(--ink-5);border-radius:4px;padding:8px 10px 6px;color:var(--ink);display:grid;gap:2px;transition:border-color .2s,background .2s;min-width:0}
+.cand:hover{border-color:var(--ink-3)}
+.cand[aria-pressed="true"]{border-color:var(--ink);background:var(--wash)}
+.cand svg{width:100%;height:58px}
+.cand-name{font-size:14.5px;font-weight:600;display:flex;justify-content:space-between;gap:6px;align-items:baseline}
+.cand-name i{font-style:normal;font-size:12px;color:var(--ink-3);font-weight:400}
+.cand-mark{font-family:var(--f-brush);font-size:18px;line-height:1}
+.verdict{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:16px;align-items:start;margin-top:8px}
+.checks{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:4px;font-size:14.5px}
+.checks li{display:grid;grid-template-columns:1.6em minmax(0,1fr);gap:4px}
+.checks .ok{color:var(--lv);font-weight:700} .checks .no{color:var(--zhu);font-weight:700}
+.v-note{font-size:15px;margin:10px 0 0;max-width:40em}
+
+/* 结构式 */
+.mol text{font-family:var(--f-body);fill:var(--ink)}
+.mol .bond{stroke:var(--ink);stroke-width:2.2;stroke-linecap:round;fill:none}
+.mol .atom-o{fill:var(--zhu)}
+.mol .halo{paint-order:stroke;stroke:var(--paper-3);stroke-width:7px;stroke-linejoin:round}
+.grp{cursor:pointer}
+.grp .blob{opacity:.0;transition:opacity .25s}
+.grp.hot .blob,.grp:hover .blob{opacity:1}
+
+/* 结论 */
+.answer{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:20px;align-items:center;border-top:2px solid var(--ink);border-bottom:2px solid var(--ink);padding:18px 0;margin:26px 0}
+.answer h3{margin:0 0 4px;font-size:13px;letter-spacing:.3em;color:var(--ink-3);font-weight:600}
+.answer .big{font-family:var(--f-brush);font-size:clamp(34px,5vw,52px);line-height:1.2;margin:0}
+.answer .big small{font-family:var(--f-body);font-size:16px;color:var(--ink-3);margin-left:10px}
+.report{font-size:15px;line-height:1.8;background:var(--wash);padding:14px 16px;border-radius:3px;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.colophon{display:flex;justify-content:center;align-items:flex-start;gap:26px;margin:70px 0 30px}
+.verse{writing-mode:vertical-rl;font-family:var(--f-cao);font-size:clamp(26px,3.4vw,36px);line-height:1.6;letter-spacing:.12em;margin:0;color:var(--ink)}
+.verse span{display:block}
+.colophon .sig-line{writing-mode:vertical-rl;font-size:13px;letter-spacing:.3em;color:var(--ink-3)}
+footer{padding-block:20px 60px;color:var(--ink-3);font-size:13px;border-top:1px solid var(--ink-5);margin-top:40px}
+footer p{margin:0 0 6px;max-width:60em}
+
+/* 印 */
+.seal{display:inline-block;width:56px;height:56px;flex:none}
+.seal svg{width:100%;height:100%;display:block;overflow:visible}
+.seal.lg{width:92px;height:92px}
+.seal.sm{width:40px;height:40px}
+
+/* 卷轴目录 */
+.toc{position:fixed;right:max(14px,env(safe-area-inset-right,0px));top:50%;transform:translateY(-50%);display:none;flex-direction:column;gap:6px;z-index:5}
+.toc a{width:34px;height:34px;display:grid;place-items:center;font-family:var(--f-brush);font-size:19px;text-decoration:none;color:var(--ink-3);border-radius:50%;transition:color .2s,background .2s}
+.toc a:hover{color:var(--ink)}
+.toc a.on{color:var(--paper);background:var(--zhu)}
+@media (min-width:1240px){.toc{display:flex}}
+
+/* 量尺与谱仪 */
+.jgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.jgrid > *{min-width:0}
+.jread{font-size:14.5px;margin:4px 0 0;min-height:2.2em;font-variant-numeric:tabular-nums}
+.field{display:grid;grid-template-columns:minmax(0,1fr);gap:10px}
+.field-ctl{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px}
+.field-ctl input[type=range]{flex:1 1 220px;accent-color:var(--zhu);min-width:0}
+.field-val{font-size:22px;font-variant-numeric:tabular-nums;min-width:7.5em}
+.readouts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:4px 0 0}
+.readouts div{border-top:1px solid var(--ink-5);padding-top:6px;min-width:0}
+.readouts dt{font-size:12px;color:var(--ink-3);letter-spacing:.06em}
+.readouts dd{margin:0;font-size:17px;font-variant-numeric:tabular-nums}
+.readouts dd.zhu{color:var(--zhu)}
+
+/* 分裂树 */
+.tree-ctl{display:flex;flex-wrap:wrap;gap:8px 14px;justify-content:space-between;align-items:center}
+.tree-cap{min-height:3.6em;font-size:15px;margin:8px 0 0;color:var(--ink-2)}
+
+@media (max-width:860px){
+  .cols{grid-template-columns:minmax(0,1fr)}
+  .cands{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .readouts{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .route ol{grid-template-columns:repeat(4,minmax(0,1fr));row-gap:14px}
+  .route ol::before{display:none}
+}
+@media (max-width:640px){
+  .hero{padding-top:30px}
+  .hero-inner{grid-template-columns:minmax(0,1fr);min-height:0;padding-bottom:230px}
+  .hero-title{justify-content:flex-end;order:-1}
+  .hero-land{height:250px}
+  .clues{grid-template-columns:minmax(0,1fr)}
+  .clues div{display:flex;justify-content:space-between;gap:12px;padding:6px 0}
+  .sigs{grid-template-columns:minmax(0,1fr)}
+  .jgrid{grid-template-columns:minmax(0,1fr)}
+  .shift-row{grid-template-columns:minmax(0,1fr);gap:0;min-height:0;margin-bottom:6px}
+  .shift-axis,.shift-plot{margin-left:0}
+  .verdict{grid-template-columns:minmax(0,1fr)}
+  .answer{grid-template-columns:minmax(0,1fr)}
+  .mount{margin-inline:5px;padding:12px 10px 10px}
+  .r-glyph{width:52px;height:52px;font-size:28px}
+  .frames li{grid-template-columns:minmax(0,1fr);gap:0}
+}
+@media (max-width:640px){table.ink{min-width:0;font-size:14px}table.ink th,table.ink td{padding:6px 7px}}
+@media (max-width:400px){.pascal .row{gap:6px;padding:2px 4px;font-size:13.5px}.pascal .row span{min-width:1.3em}.pascal .tag{min-width:4.2em!important}}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{transition-duration:.01ms!important;animation-duration:.01ms!important}
+}
+.frames.wide{margin-top:18px}
+.frames.wide li{grid-template-columns:6.5em minmax(0,1fr)}
+.steps{list-style:none;padding:0;margin:0;display:grid;gap:10px;counter-reset:s}
+.steps li{display:grid;grid-template-columns:5.2em minmax(0,1fr);gap:10px;font-size:15.5px;line-height:1.75}
+.steps b{font-family:var(--f-brush);font-weight:400;font-size:19px;color:var(--zhu);line-height:1.4}
+.big.j{font-family:var(--f-body);font-weight:600;font-size:clamp(24px,3.2vw,34px);margin-top:4px}
+.colo-side{display:flex;flex-direction:column;align-items:center;gap:14px}
+.report i{font-style:italic}
+ (max-width:640px){.frames.wide li,.steps li{grid-template-columns:minmax(0,1fr);gap:0}}
+@keyframes drawln{to{stroke-dashoffset:0}}
+.hero-inner{min-height:0;padding-bottom:200px}
+.cand svg{height:72px}
+@media (max-width:640px){.hero-inner{padding-bottom:220px}}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <defs>
+    <filter id="f-rough" x="-6%" y="-6%" width="112%" height="112%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.035" numOctaves="2" seed="4" result="t"/>
+      <feDisplacementMap in="SourceGraphic" in2="t" scale="4" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="f-dry" x="-4%" y="-40%" width="108%" height="180%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.9 0.03" numOctaves="2" seed="2" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -8 5" result="m"/>
+      <feComposite in="SourceGraphic" in2="m" operator="in" result="s"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.04" numOctaves="2" seed="5" result="w"/>
+      <feDisplacementMap in="s" in2="w" scale="5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="f-seal" x="-8%" y="-8%" width="116%" height="116%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.75" numOctaves="2" seed="11" result="n"/>
+      <feColorMatrix in="n" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0 0 0 -16 11.4" result="m"/>
+      <feComposite in="SourceGraphic" in2="m" operator="in" result="s"/>
+      <feTurbulence type="fractalNoise" baseFrequency="0.06" numOctaves="2" seed="3" result="w"/>
+      <feDisplacementMap in="s" in2="w" scale="2.5" xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+    <filter id="f-mist-1" x="-10%" y="-40%" width="120%" height="180%"><feGaussianBlur stdDeviation="10"/></filter>
+    <filter id="f-mist-2" x="-10%" y="-40%" width="120%" height="180%"><feGaussianBlur stdDeviation="5"/></filter>
+    <filter id="f-mist-3" x="-10%" y="-40%" width="120%" height="180%"><feGaussianBlur stdDeviation="1.6"/></filter>
+    <filter id="f-bleed" x="-20%" y="-20%" width="140%" height="140%"><feGaussianBlur stdDeviation="2.2"/></filter>
+  </defs>
+</svg>
+
+<nav class="toc" id="toc" aria-label="卷目">
+  <a href="#guan" title="卷一 观其全谱">观</a><a href="#suan" title="卷二 算其不饱和度">算</a><a href="#shu" title="卷三 数其氢数">数</a><a href="#fen" title="卷四 分其裂分">分</a><a href="#liang" title="卷五 量其耦合">量</a><a href="#wei" title="卷六 定其位移">位</a><a href="#bian" title="卷七 辨其异构">辨</a><a href="#ding" title="卷八 定其结构">定</a>
+</nav>
+
+<header class="hero" id="top">
+  <svg class="hero-land" id="heroLand" aria-hidden="true"></svg>
+  <div class="wrap hero-inner">
+    <div class="hero-q">
+      <p class="eyebrow">题</p>
+      <p class="q-text">分子式为 C<sub>4</sub>H<sub>8</sub>O<sub>2</sub> 的化合物，以 CDCl<sub>3</sub> 为溶剂测得 <sup>1</sup>H NMR 谱。<strong>推断其结构，并测量耦合常数。</strong></p>
+      <dl class="clues">
+        <div><dt>分子式</dt><dd>C<sub>4</sub>H<sub>8</sub>O<sub>2</sub></dd></div>
+        <div><dt>溶剂</dt><dd>CDCl<sub>3</sub></dd></div>
+        <div><dt>谱仪频率 ν<sub>0</sub></dt><dd>250.13 MHz</dd></div>
+      </dl>
+      <p class="hint">下文八卷依次拆解：先观全谱，再算、数、分、量、位、辨，最后定其结构。所有数值都取自题图标注或在题图上实测。卷首远山的轮廓，就是本题三组信号展宽后的样子。</p>
+    </div>
+    <div class="hero-title">
+      <h1 class="brush">观谱识物</h1>
+      <p class="hero-sub">一张氢谱的水墨解读</p>
+      <span class="seal" data-seal="解谱"></span>
+    </div>
+  </div>
+</header>
+
+<nav class="wrap route" aria-label="解题路线">
+  <ol>
+    <li><a href="#guan"><span class="r-glyph">观</span><span class="r-no">卷一</span><span class="r-txt">全谱总览</span></a></li>
+    <li><a href="#suan"><span class="r-glyph">算</span><span class="r-no">卷二</span><span class="r-txt">不饱和度</span></a></li>
+    <li><a href="#shu"><span class="r-glyph">数</span><span class="r-no">卷三</span><span class="r-txt">积分比</span></a></li>
+    <li><a href="#fen"><span class="r-glyph">分</span><span class="r-no">卷四</span><span class="r-txt">裂分规律</span></a></li>
+    <li><a href="#liang"><span class="r-glyph">量</span><span class="r-no">卷五</span><span class="r-txt">耦合常数</span></a></li>
+    <li><a href="#wei"><span class="r-glyph">位</span><span class="r-no">卷六</span><span class="r-txt">化学位移</span></a></li>
+    <li><a href="#bian"><span class="r-glyph">辨</span><span class="r-no">卷七</span><span class="r-txt">排除异构</span></a></li>
+    <li><a href="#ding"><span class="r-glyph">定</span><span class="r-no">卷八</span><span class="r-txt">结构定论</span></a></li>
+  </ol>
+</nav>
+
+<main>
+<!-- ============ 卷一 观 ============ -->
+<section class="juan" id="guan">
+ <div class="wrap">
+  <header class="juan-head">
+    <div class="enso" data-enso><span class="glyph">观</span></div>
+    <div class="juan-meta"><span class="juan-no">卷一</span><h2>观其全谱</h2><p class="lede">先看全貌：有几组峰，各在何处，形状如何。</p></div>
+  </header>
+  <div class="prose">
+    <p>横轴是化学位移 δ，单位 ppm，<strong>自左向右递减</strong>。左侧称"低场"，质子受到的屏蔽弱；右侧称"高场"，屏蔽强。纵轴是信号强度。整张谱只有三组信号；溶剂 CDCl<sub>3</sub> 中残留的 CHCl<sub>3</sub> 峰在 7.26 ppm，不在本谱窗口内。</p>
+  </div>
+  <figure class="mount">
+    <div class="mount-cap">
+      <span class="mount-title">¹H NMR · 250.13 MHz · CDCl<sub>3</sub>（按题图数据重绘）</span>
+      <div class="seg" role="group" aria-label="缩放谱图">
+        <button class="btn" type="button" id="zoom-full" data-zoom="full" aria-pressed="true">全谱</button>
+        <button class="btn" type="button" id="zoom-a" data-zoom="a" aria-pressed="false"><span class="dot c-a"></span>a · 4.14</button>
+        <button class="btn" type="button" id="zoom-b" data-zoom="b" aria-pressed="false"><span class="dot c-b"></span>b · 2.06</button>
+        <button class="btn" type="button" id="zoom-c" data-zoom="c" aria-pressed="false"><span class="dot c-c"></span>c · 1.27</button>
+      </div>
+    </div>
+    <div class="chart" id="specMain" role="img" aria-label="重绘的氢谱：4.14 ppm 四重峰 2H，2.06 ppm 单峰 3H，1.27 ppm 三重峰 3H"></div>
+    <p class="hint" id="specRead">把指针移到谱上：游标同时给出 δ（ppm）与 ν（Hz），两者之比恒为 250.13。点击任一组峰可放大。</p>
+  </figure>
+  <div class="sigs">
+    <div class="sig" data-s="a"><span class="sig-id c-a">a</span><span class="sig-d">δ 4.14</span>
+      <dl><dt>形状</dt><dd>四重峰（q）</dd><dt>积分</dt><dd>2 H</dd><dt>谱线</dt><dd>4 条，间距约 7.1 Hz</dd></dl></div>
+    <div class="sig" data-s="b"><span class="sig-id">b</span><span class="sig-d">δ 2.06</span>
+      <dl><dt>形状</dt><dd>单峰（s）</dd><dt>积分</dt><dd>3 H</dd><dt>谱线</dt><dd>1 条，不裂分</dd></dl></div>
+    <div class="sig" data-s="c"><span class="sig-id c-c">c</span><span class="sig-d">δ 1.27</span>
+      <dl><dt>形状</dt><dd>三重峰（t）</dd><dt>积分</dt><dd>3 H</dd><dt>谱线</dt><dd>3 条，间距约 7.1 Hz</dd></dl></div>
+  </div>
+  <p class="key">每组峰都回答三个问题：<em>在哪里</em>（化学位移），<em>有几个氢</em>（积分），<em>邻居有几个氢</em>（裂分）。下面逐卷拆解。</p>
+ </div>
+ <svg class="divider" viewBox="0 0 560 26" aria-hidden="true"><path d="M6 14C90 9 200 8 300 10S480 11 556 12C480 15 400 17 300 17S90 17 6 14Z" fill="currentColor" filter="url(#f-dry)"/></svg>
+</section>
+
+<!-- ============ 卷二 算 ============ -->
+<section class="juan" id="suan">
+ <div class="wrap">
+  <header class="juan-head">
+    <div class="enso" data-enso><span class="glyph">算</span></div>
+    <div class="juan-meta"><span class="juan-no">卷二</span><h2>算其不饱和度</h2><p class="lede">动笔之前，先从分子式算出少了几对氢。</p></div>
+  </header>
+  <div class="cols">
+    <div class="prose">
+      <p>不饱和度 Ω（也叫双键当量）衡量分子比同碳数的饱和链状分子少了几对氢。对只含 C、H、O 的分子：</p>
+      <div class="formula">Ω = (2C + 2 − H) ÷ 2 = (2×4 + 2 − 8) ÷ 2 <span class="eq">= 1</span></div>
+      <p>氧是二价原子，插进碳链不改变氢的数目，所以计算时可以忽略。4 个碳的饱和骨架最多容纳 10 个氢，这里只有 8 个，少了一对，即 1 个不饱和度。</p>
+      <p>1 个不饱和度等于 1 个 π 键或 1 个环。分子里恰有两个氧，最自然的组合是一个 C=O 加一个 O，也就是<strong>酯</strong>（–COO–）或<strong>羧酸</strong>（–COOH）。环醚、羟基酮等结构同样满足 Ω = 1，要交给谱图裁决。</p>
+    </div>
+    <div>
+      <div class="beads" id="beads" role="img" aria-label="饱和时可容纳 10 个氢，实有 8 个，缺 2 个"></div>
+      <p class="bead-legend">饱和 C<sub>4</sub> 骨架可容纳 10 个 H：实有 8 个（墨点），缺 2 个（朱圈），故 Ω = 1。</p>
+      <ul class="frames">
+        <li><b>酯</b><span>R–CO–O–R′：乙酸乙酯、丙酸甲酯、甲酸丙酯……</span></li>
+        <li><b>羧酸</b><span>R–COOH：丁酸、2-甲基丙酸</span></li>
+        <li><b>羟基酮</b><span>3-羟基-2-丁酮（乙偶姻）</span></li>
+        <li><b>环醚</b><span>1,4-二氧六环（不饱和度来自环）</span></li>
+      </ul>
+    </div>
+  </div>
+ </div>
+ <svg class="divider" viewBox="0 0 560 26" aria-hidden="true"><path d="M6 13C110 10 220 9 310 11S470 12 554 14C470 16 380 17 290 16S110 16 6 13Z" fill="currentColor" filter="url(#f-dry)"/></svg>
+</section>
+
+<!-- ============ 卷三 数 ============ -->
+<section class="juan" id="shu">
+ <div class="wrap">
+  <header class="juan-head">
+    <div class="enso" data-enso><span class="glyph">数</span></div>
+    <div class="juan-meta"><span class="juan-no">卷三</span><h2>数其氢数</h2><p class="lede">积分曲线的台阶高度，正比于产生该信号的氢原子数目。</p></div>
+  </header>
+  <div class="cols">
+    <div class="prose">
+      <p>题图中三段橙色阶梯就是积分曲线。在原图上用像素量出三段台阶的高度：</p>
+      <div class="tbl-wrap"><table class="ink">
+        <thead><tr><th>信号</th><th>台阶高 / px</th><th>÷ 最小值</th><th>× 2</th><th>氢数</th></tr></thead>
+        <tbody>
+          <tr><td><span class="c-a">a</span> · 4.14</td><td>359</td><td>1.00</td><td>2.00</td><td><b>2 H</b></td></tr>
+          <tr><td>b · 2.06</td><td>538</td><td>1.50</td><td>3.00</td><td><b>3 H</b></td></tr>
+          <tr><td><span class="c-c">c</span> · 1.27</td><td>541</td><td>1.51</td><td>3.01</td><td><b>3 H</b></td></tr>
+        </tbody>
+      </table></div>
+      <p>以最小台阶为 1，得到 1 : 1.5 : 1.5。出现了半数，于是同乘 2 化成整数：<strong>2 : 3 : 3</strong>。</p>
+      <p>2 + 3 + 3 = 8，恰好等于分子式里的 8 个氢。这说明每个氢都已在谱中出现，窗口之外（如 8 ppm 附近的甲酸 H、10–12 ppm 的羧酸 H）没有被遗漏的信号。</p>
+    </div>
+    <figure class="mount">
+      <div class="mount-cap"><span class="mount-title">积分台阶与氢数</span></div>
+      <div class="chart" id="stairs" role="img" aria-label="三段积分台阶，高度比 2 比 3 比 3"></div>
+      <p class="hint">积分只给出相对比例，必须与分子式的氢总数对照，才能定出每组的绝对氢数。</p>
+    </figure>
+  </div>
+  <div class="pi"><span class="pi-mark">注</span><div><p>题图把积分曲线略向左平移，只为不遮挡谱峰。读台阶高度时只看上下两段平台之差，与左右位置无关。</p></div></div>
+ </div>
+ <svg class="divider" viewBox="0 0 560 26" aria-hidden="true"><path d="M6 14C90 9 200 8 300 10S480 11 556 12C480 15 400 17 300 17S90 17 6 14Z" fill="currentColor" filter="url(#f-dry)"/></svg>
+</section>
+
+<!-- ============ 卷四 分 ============ -->
+<section class="juan" id="fen">
+ <div class="wrap">
+  <header class="juan-head">
+    <div class="enso" data-enso><span class="glyph">分</span></div>
+    <div class="juan-meta"><span class="juan-no">卷四</span><h2>分其裂分</h2><p class="lede">峰的形状，透露了邻居的数目。</p></div>
+  </header>
+  <div class="prose">
+    <p>相邻碳上的质子（H–C–C–H，相隔三根键）会经由成键电子感知彼此的自旋，这叫自旋–自旋耦合，记作 <sup>3</sup>J。若一组等价质子有 n 个等价的邻位质子，它的信号就裂分为 <strong>n + 1</strong> 条线，强度比是帕斯卡三角第 n 行的二项式系数。</p>
+  </div>
+  <figure class="mount">
+    <div class="mount-cap">
+      <span class="mount-title">裂分树 · 逐个加入邻位质子</span>
+      <div class="seg" role="group" aria-label="选择信号">
+        <button class="btn" type="button" id="tree-a" data-tree="a" aria-pressed="true"><span class="dot c-a"></span>a · CH<sub>2</sub>（邻位 3H）</button>
+        <button class="btn" type="button" id="tree-c" data-tree="c" aria-pressed="false"><span class="dot c-c"></span>c · CH<sub>3</sub>（邻位 2H）</button>
+        <button class="btn" type="button" id="tree-b" data-tree="b" aria-pressed="false"><span class="dot c-b"></span>b · CH<sub>3</sub>（邻位 0H）</button>
+      </div>
+    </div>
+    <div class="cols">
+      <div class="chart" id="tree" role="img" aria-label="裂分树示意图"></div>
+      <div>
+        <div class="pascal" id="pascal" aria-label="帕斯卡三角，高亮当前行"></div>
+        <p class="tree-cap" id="treeCap" aria-live="polite"></p>
+        <div class="tree-ctl">
+          <div class="seg">
+            <button class="btn" type="button" id="treePrev">上一步</button>
+            <button class="btn" type="button" id="treeNext">下一步</button>
+            <button class="btn solid" type="button" id="treePlay">演示全程</button>
+          </div>
+          <span class="hint" id="treeStep"></span>
+        </div>
+      </div>
+    </div>
+  </figure>
+  <div class="cols">
+    <div class="prose">
+      <h3>为什么是 1 : 3 : 3 : 1</h3>
+      <p>邻位 CH<sub>3</sub> 的三个质子，各自可取 ↑ 或 ↓ 两种自旋取向，共 2<sup>3</sup> = 8 种组合。它们在 CH<sub>2</sub> 处叠加出的局部磁场只有四种取值：三个同向、两同一反、一同两反、三个反向，对应的组合数是 1、3、3、1，正是四条线的强度比。同理，CH<sub>2</sub> 的两个质子给出 1、2、1 三种组合，使 CH<sub>3</sub> 成为三重峰。</p>
+      <p>题图放大区的峰高印证了这一点（以外侧两线均值为 1）：四重峰实测 0.97 : 3.07 : 3.12 : 1.03，三重峰实测 1.02 : 2.10 : 0.98。</p>
+    </div>
+    <div>
+      <h3>从裂分读出连接关系</h3>
+      <ul class="frames">
+        <li><b class="c-a">a 四重峰</b><span>邻位有 3 个 H；自身 2H，所以是一个 CH<sub>2</sub> 紧挨一个 CH<sub>3</sub>。</span></li>
+        <li><b class="c-c">c 三重峰</b><span>邻位有 2 个 H；自身 3H，所以是一个 CH<sub>3</sub> 紧挨一个 CH<sub>2</sub>。</span></li>
+        <li><b>互为邻居</b><span>a 与 c 正好互相解释，合起来是乙基 –CH<sub>2</sub>–CH<sub>3</sub>。</span></li>
+        <li><b>b 单峰</b><span>3H 且不裂分：孤立的 CH<sub>3</sub>，它所连的原子上没有 H，可能是 C=O 或 O。</span></li>
+      </ul>
+    </div>
+  </div>
+ </div>
+ <svg class="divider" viewBox="0 0 560 26" aria-hidden="true"><path d="M6 13C110 10 220 9 310 11S470 12 554 14C470 16 380 17 290 16S110 16 6 13Z" fill="currentColor" filter="url(#f-dry)"/></svg>
+</section>
+
+<!-- ============ 卷五 量 ============ -->
+<section class="juan" id="liang">
+ <div class="wrap">
+  <header class="juan-head">
+    <div class="enso" data-enso><span class="glyph">量</span></div>
+    <div class="juan-meta"><span class="juan-no">卷五</span><h2>量其耦合常数</h2><p class="lede">题目的第二问，答案就写在谱线的赫兹标注里。</p></div>
+  </header>
+  <div class="prose">
+    <p>耦合常数 J 是同一多重峰中相邻两条谱线的间距，<strong>必须以赫兹（Hz）表示</strong>。J 来自分子内部经由化学键传递的自旋相互作用，与外磁场强弱无关；ppm 则是相对谱仪频率的比值，同一个 J 在不同谱仪上对应的 ppm 间距不同。</p>
+    <div class="formula">ν (Hz) = δ (ppm) × ν<sub>0</sub> (MHz)<br><span class="eq">在本谱仪上：1 ppm = 250.13 Hz</span></div>
+    <p>题图已标出每条谱线的频率。表中 Δν 是每条线与上一条线的频率差：</p>
+  </div>
+  <div class="tbl-wrap"><table class="ink">
+    <thead><tr><th>谱线</th><th>ν / Hz</th><th>δ = ν / ν<sub>0</sub> / ppm</th><th>Δν / Hz</th></tr></thead>
+    <tbody>
+      <tr class="sub"><td colspan="4"><span class="c-a">a · 四重峰（OCH<sub>2</sub>）</span></td></tr>
+      <tr><td>1</td><td>1045.29</td><td>4.1790</td><td></td></tr>
+      <tr><td>2</td><td>1038.14</td><td>4.1504</td><td class="gap">7.15</td></tr>
+      <tr><td>3</td><td>1030.99</td><td>4.1218</td><td class="gap">7.15</td></tr>
+      <tr><td>4</td><td>1023.86</td><td>4.0933</td><td class="gap">7.13</td></tr>
+      <tr class="sub"><td colspan="4"><span class="c-c">c · 三重峰（CH<sub>3</sub>）</span></td></tr>
+      <tr><td>1</td><td>325.60</td><td>1.3017</td><td></td></tr>
+      <tr><td>2</td><td>318.48</td><td>1.2733</td><td class="gap">7.12</td></tr>
+      <tr><td>3</td><td>311.31</td><td>1.2446</td><td class="gap">7.17</td></tr>
+    </tbody>
+  </table></div>
+
+  <figure class="mount">
+    <div class="mount-cap">
+      <span class="mount-title">量尺 · 点选任意两条谱线</span>
+      <div class="seg"><button class="btn" type="button" id="jOuter">外线法</button><button class="btn" type="button" id="jClear">清除</button></div>
+    </div>
+    <div class="jgrid">
+      <div><div class="chart" id="jq" role="img" aria-label="四重峰放大，横轴为赫兹"></div><p class="jread" id="jqRead" aria-live="polite"></p></div>
+      <div><div class="chart" id="jt" role="img" aria-label="三重峰放大，横轴为赫兹"></div><p class="jread" id="jtRead" aria-live="polite"></p></div>
+    </div>
+    <p class="hint">谱线下方的朱色数字是相邻两线的间距。点选同一组里的两条线，上方会量出它们的距离，并除以间隔数折算成 J。</p>
+  </figure>
+
+  <div class="cols">
+    <div class="prose">
+      <h3>方法一 · 相邻差值取平均</h3>
+      <div class="formula">(7.15 + 7.15 + 7.13 + 7.12 + 7.17) ÷ 5 <span class="eq">= 7.144 Hz</span></div>
+      <h3>方法二 · 外侧两线跨度 ÷ 间隔数</h3>
+      <div class="formula">四重峰 (1045.29 − 1023.86) ÷ 3 <span class="eq">= 7.143 Hz</span></div>
+      <div class="formula">三重峰 (325.60 − 311.31) ÷ 2 <span class="eq">= 7.145 Hz</span></div>
+    </div>
+    <div class="prose">
+      <h3>为什么差值会有 ±0.03 Hz 的起伏</h3>
+      <p>谱线由有限个数据点描出，峰顶位置只能精确到数据点间隔附近，这就是数字分辨率带来的读数误差，并非真实的耦合差别。方法二只用最外侧两条线，单次读数误差被间隔数摊薄，通常更稳。两种方法结果一致，报告到 0.1 Hz 即可：</p>
+      <p class="key"><em><sup>3</sup>J</em>(H,H) = 7.14 Hz ≈ <em>7.1 Hz</em></p>
+    </div>
+  </div>
+  <p class="key">两组多重峰的间距<em>完全相同</em>。耦合是相互的：CH<sub>2</sub> 被 CH<sub>3</sub> 以 7.1 Hz 裂分，CH<sub>3</sub> 也必被 CH<sub>2</sub> 以同样的 7.1 Hz 裂分。相同的 J，就是谁与谁耦合的指纹。</p>
+  <div class="pi"><span class="pi-mark">注</span><div><p>约 7 Hz 是可以自由旋转的 H–C–C–H（例如乙基）三键耦合的典型值。</p></div></div>
+
+  <h3>换一台谱仪试试</h3>
+  <div class="prose"><p>J 以 Hz 计，化学位移以 ppm 计，两者都与磁场无关。会变的是多重峰在 ppm 轴上的<strong>宽度</strong>：谱仪频率越高，同样 7.14 Hz 的间距折合的 ppm 越小，多重峰越紧凑，不同信号越不容易重叠。拖动滑块看看。</p></div>
+  <figure class="mount">
+    <div class="field">
+      <div class="field-ctl">
+        <label for="nu0" class="mount-title">谱仪频率 ν<sub>0</sub></label>
+        <input type="range" id="nu0" min="0" max="1000" step="1" value="477" aria-describedby="nu0Val">
+        <span class="field-val" id="nu0Val">250.13 MHz</span>
+      </div>
+      <div class="seg" id="nuPresets" role="group" aria-label="常见谱仪频率"></div>
+      <div class="jgrid">
+        <div class="chart" id="fq" role="img" aria-label="四重峰在 ppm 轴上的宽度"></div>
+        <div class="chart" id="ft" role="img" aria-label="三重峰在 ppm 轴上的宽度"></div>
+      </div>
+      <dl class="readouts">
+        <div><dt>J（与场强无关）</dt><dd class="zhu">7.14 Hz</dd></div>
+        <div><dt>J 折合</dt><dd id="roJppm">0.0286 ppm</dd></div>
+        <div><dt>a、c 中心间距 Δν</dt><dd id="roDnu">716.1 Hz</dd></div>
+        <div><dt>Δν / J</dt><dd id="roRatio">100</dd></div>
+      </dl>
+    </div>
+  </figure>
+  <div class="prose">
+    <p>Δν/J 远大于 10 时称为一级谱，n + 1 规则和二项式强度比都成立。本题 Δν/J ≈ 716.1 ÷ 7.14 ≈ 100，是很干净的一级谱，Pople 记号中属 A<sub>3</sub>X<sub>2</sub> 型（字母在字母表里相距越远，表示位移差相对 J 越大）。若 Δν/J 接近 1，谱线会明显扭曲，就不能再直接按间距读 J。</p>
+    <p>细看题图放大区还会发现：四重峰右侧两线略高于左侧（外线实测 100 px 对 94 px），三重峰左侧略高于右侧（234 px 对 226 px）。两组峰都微微倾向对方，这是轻微的屋顶效应。差别只有几个百分点，却从侧面印证了二者互相耦合。</p>
+  </div>
+ </div>
+ <svg class="divider" viewBox="0 0 560 26" aria-hidden="true"><path d="M6 14C90 9 200 8 300 10S480 11 556 12C480 15 400 17 300 17S90 17 6 14Z" fill="currentColor" filter="url(#f-dry)"/></svg>
+</section>
+
+<!-- ============ 卷六 位 ============ -->
+<section class="juan" id="wei">
+ <div class="wrap">
+  <header class="juan-head">
+    <div class="enso" data-enso><span class="glyph">位</span></div>
+    <div class="juan-meta"><span class="juan-no">卷六</span><h2>定其化学位移</h2><p class="lede">知道了有几个氢、邻居是谁，再看它们住在哪里。</p></div>
+  </header>
+  <div class="prose">
+    <p>质子周围的电子云越稀薄，受到的屏蔽越弱，信号越往左（低场，δ 大）。电负性强的氧会直接拉走电子；羰基除了吸电子，还有磁各向异性，也使附近质子去屏蔽。下图把常见基团的典型范围画成淡墨带，三条虚线是本题的三组信号。</p>
+  </div>
+  <figure class="mount">
+    <div class="mount-cap"><span class="mount-title">¹H 化学位移参考 · CDCl<sub>3</sub> 中的典型范围</span></div>
+    <div class="shift-wrap" id="shift"></div>
+    <p class="hint">被虚线穿过的行会加深显示。</p>
+  </figure>
+  <ul class="frames wide">
+    <li><b class="c-a">a · 4.14</b><span>CH<sub>2</sub> 直接连在氧上，而这个氧又连着羰基：–C(=O)–O–CH<sub>2</sub>–。只有酯的烷氧基位置会把 CH<sub>2</sub> 推到 4.1 ppm 左右。普通醚或醇的 –O–CH<sub>2</sub>– 在 3.4–3.7 ppm；连在羰基碳上的 –CH<sub>2</sub>–C(=O)– 只在 2.2–2.5 ppm。</span></li>
+    <li><b>b · 2.06</b><span>典型的乙酰基 CH<sub>3</sub>–C(=O)–，比普通 CH<sub>3</sub> 低场约 1 ppm。如果这个 CH<sub>3</sub> 连在氧上（–O–CH<sub>3</sub>），应出现在 3.6–3.8 ppm。</span></li>
+    <li><b class="c-c">c · 1.27</b><span>普通烷基 CH<sub>3</sub>；β 位有氧，所以比 0.9 ppm 略偏低场。</span></li>
+  </ul>
+ </div>
+ <svg class="divider" viewBox="0 0 560 26" aria-hidden="true"><path d="M6 13C110 10 220 9 310 11S470 12 554 14C470 16 380 17 290 16S110 16 6 13Z" fill="currentColor" filter="url(#f-dry)"/></svg>
+</section>
+
+<!-- ============ 卷七 辨 ============ -->
+<section class="juan" id="bian">
+ <div class="wrap">
+  <header class="juan-head">
+    <div class="enso" data-enso><span class="glyph">辨</span></div>
+    <div class="juan-meta"><span class="juan-no">卷七</span><h2>辨其同分异构</h2><p class="lede">把 C<sub>4</sub>H<sub>8</sub>O<sub>2</sub> 的几位嫌疑人请上来，逐一与实测谱对质。</p></div>
+  </header>
+  <div class="prose"><p>下面列出八种 C<sub>4</sub>H<sub>8</sub>O<sub>2</sub> 异构体在 CDCl<sub>3</sub> 中的典型氢谱。点选任一候选：上排是实测谱，下排是该候选应有的谱，下方逐条核对六个线索。</p></div>
+  <div class="cands" id="cands" role="group" aria-label="候选结构"></div>
+  <figure class="mount">
+    <div class="mount-cap"><span class="mount-title" id="candTitle"></span></div>
+    <div class="chart" id="candChart" role="img" aria-label="实测与候选的棒状谱对照"></div>
+    <div class="verdict">
+      <div>
+        <ul class="checks" id="candChecks"></ul>
+        <p class="v-note" id="candNote"></p>
+      </div>
+      <span class="seal lg" id="candSeal"></span>
+    </div>
+    <p class="hint">棒状谱为示意：多重峰内各线的间距经过放大，便于辨认形状；横轴位置按真实化学位移绘制，10 ppm 以上的羧酸峰压在左端标出。</p>
+  </figure>
+  <p class="key">只有乙酸乙酯同时满足全部线索。最容易混淆的是它的<em>镜像</em>丙酸甲酯：同样是一个单峰、一个四重峰、一个三重峰，积分同样是 3 : 2 : 3，区别只在位置。乙酸乙酯的 CH<sub>2</sub> 连在 O 上（4.1 ppm），CH<sub>3</sub> 连在 C=O 上（2.05 ppm）；丙酸甲酯正好反过来，CH<sub>2</sub> 连在 C=O 上（2.3 ppm），CH<sub>3</sub> 连在 O 上（3.7 ppm）。</p>
+ </div>
+ <svg class="divider" viewBox="0 0 560 26" aria-hidden="true"><path d="M6 14C90 9 200 8 300 10S480 11 556 12C480 15 400 17 300 17S90 17 6 14Z" fill="currentColor" filter="url(#f-dry)"/></svg>
+</section>
+
+<!-- ============ 卷八 定 ============ -->
+<section class="juan" id="ding">
+ <div class="wrap">
+  <header class="juan-head">
+    <div class="enso" data-enso><span class="glyph">定</span></div>
+    <div class="juan-meta"><span class="juan-no">卷八</span><h2>定其结构</h2><p class="lede">把三组信号安回分子上。</p></div>
+  </header>
+  <div class="cols">
+    <figure class="mount">
+      <div class="mount-cap"><span class="mount-title">乙酸乙酯 · 结构与信号对应</span></div>
+      <div class="chart" id="molBig" role="img" aria-label="乙酸乙酯结构式，标出 a、b、c 三组氢"></div>
+      <div class="chart" id="specMini" role="img" aria-label="与结构对应的三组信号"></div>
+      <p class="hint">指向结构中的基团或谱中的峰，两边会一起亮起。</p>
+    </figure>
+    <div class="prose">
+      <h3>拼合线索</h3>
+      <ol class="steps">
+        <li><b>卷二</b><span>Ω = 1，两个氧，指向酯或羧酸。</span></li>
+        <li><b>卷三</b><span>2 : 3 : 3，共 8H，谱中没有 OH、CHO 之类的单个氢。</span></li>
+        <li><b>卷四 · 五</b><span>a 与 c 以同一 J = 7.1 Hz 互相裂分，构成 –CH<sub>2</sub>–CH<sub>3</sub>；b 是孤立的 CH<sub>3</sub>。</span></li>
+        <li><b>卷六</b><span>CH<sub>2</sub> 在 4.14 ppm，连在酯氧上；b 在 2.06 ppm，连在羰基上。</span></li>
+        <li><b>卷七</b><span>其余七种异构体至少有一条线索对不上。</span></li>
+        <li><b>合</b><span>CH<sub>3</sub>–C(=O)–O–CH<sub>2</sub>–CH<sub>3</sub>，恰为 C<sub>4</sub>H<sub>8</sub>O<sub>2</sub>。</span></li>
+      </ol>
+    </div>
+  </div>
+  <div class="answer">
+    <div>
+      <h3>答</h3>
+      <p class="big">乙酸乙酯<small>ethyl acetate · CH<sub>3</sub>COOCH<sub>2</sub>CH<sub>3</sub></small></p>
+      <p class="big j"><sup>3</sup>J(H,H) = 7.1 Hz<small>实测 7.14 Hz</small></p>
+    </div>
+    <span class="seal lg" data-seal="乙酸乙酯"></span>
+  </div>
+  <p class="report"><b>¹H NMR</b>（250.13 MHz, CDCl<sub>3</sub>）δ 4.14 (q, <i>J</i> = 7.1 Hz, 2H, OCH<sub>2</sub>), 2.06 (s, 3H, C(O)CH<sub>3</sub>), 1.27 (t, <i>J</i> = 7.1 Hz, 3H, CH<sub>2</sub>CH<sub>3</sub>).</p>
+  <div class="colophon">
+    <p class="verse" aria-label="题诗：一度不饱藏羰基，二三三积八氢齐。四三裂分同七赫，氧连乙基酯无疑。"><span>一度不饱藏羰基</span><span>二三三积八氢齐</span><span>四三裂分同七赫</span><span>氧连乙基酯无疑</span></p>
+    <div class="colo-side">
+      <span class="sig-line">解谱八卷 · 题跋</span>
+      <span class="seal sm" data-seal="墨"></span>
+    </div>
+  </div>
+ </div>
+</section>
+</main>
+
+<footer class="wrap">
+  <p>数据说明：谱线频率取自题图标注，δ 由 ν ÷ 250.13 算得；单峰位置、积分台阶与峰高在题图像素上实测（主谱刻度 487.1 px/ppm，位置读数误差约 ±0.003 ppm）。</p>
+  <p>候选异构体的化学位移取 CDCl<sub>3</sub> 中的常见文献值，仅作对照。</p>
+</footer>
+
+<script>
+(() => {
+'use strict';
+/* ================= 基础工具 ================= */
+const NS = 'http://www.w3.org/2000/svg';
+const NU0 = 250.13;
+const REDUCED = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const COL = { a: 'var(--qing)', b: 'var(--ink)', c: 'var(--lv)', zhu: 'var(--zhu)', zhe: 'var(--zhe)' };
+
+function el(tag, attrs, parent) {
+  const e = document.createElementNS(NS, tag);
+  if (attrs) for (const k in attrs) if (attrs[k] != null) e.setAttribute(k, attrs[k]);
+  if (parent) parent.appendChild(e);
+  return e;
+}
+function txt(parent, x, y, s, attrs) {
+  const t = el('text', Object.assign({ x, y }, attrs || {}), parent);
+  t.textContent = s;
+  return t;
+}
+/* 化学式标注：数字自动下标，fs 为字号(px) */
+function chem(parent, x, y, s, fs, attrs) {
+  const t = el('text', Object.assign({ x, y, 'font-size': fs }, attrs || {}), parent);
+  const parts = s.match(/\d+|\D+/g) || [];
+  let wasNum = false;
+  for (const p of parts) {
+    const isNum = /^\d+$/.test(p);
+    const a = {};
+    if (isNum) { a['font-size'] = (fs * 0.7).toFixed(1); a.dy = (fs * 0.28).toFixed(1); }
+    else if (wasNum) a.dy = (-fs * 0.28).toFixed(1);
+    el('tspan', a, t).textContent = p;
+    wasNum = isNum;
+  }
+  return t;
+}
+function svgRoot(host, w, h, label) {
+  host.textContent = '';
+  const s = el('svg', { width: w, height: h, viewBox: `0 0 ${w} ${h}` }, host);
+  if (label) { s.setAttribute('role', 'img'); s.setAttribute('aria-label', label); }
+  return s;
+}
+function rng(seed) {
+  let s = seed >>> 0;
+  return () => {
+    s = (s + 0x6D2B79F5) >>> 0;
+    let t = s;
+    t = Math.imul(t ^ (t >>> 15), t | 1);
+    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+}
+const binom = n => { const r = [1]; for (let k = 1; k <= n; k++) r.push(r[k - 1] * (n - k + 1) / k); return r; };
+const fmt = (v, d) => v.toFixed(d);
+const subify = s => String(s).replace(/[\u2080-\u2089]+/g, m => '<sub>' + [...m].map(c => c.charCodeAt(0) - 0x2080).join('') + '</sub>');
+
+/* 响应式图表：宽度变化时重绘 */
+const charts = [];
+function chart(id, draw) {
+  const host = document.getElementById(id);
+  if (!host) return null;
+  const c = { host, draw, w: 0, redraw() { const w = Math.round(host.clientWidth); if (w > 0) { c.w = w; draw(host, w); } } };
+  charts.push(c);
+  return c;
+}
+
+/* ================= 谱图数据（取自题图） ================= */
+const SIG = {
+  a: { id: 'a', lines: [1045.29, 1038.14, 1030.99, 1023.86], rel: [1, 3, 3, 1], nH: 2, mult: '四重峰 q', grp: 'OCH₂' },
+  b: { id: 'b', lines: [2.056 * NU0], rel: [1], nH: 3, mult: '单峰 s', grp: 'C(O)CH₃' },
+  c: { id: 'c', lines: [325.60, 318.48, 311.31], rel: [1, 2, 1], nH: 3, mult: '三重峰 t', grp: 'CH₂CH₃' }
+};
+const ORDER = ['a', 'b', 'c'];
+for (const k of ORDER) {
+  const s = SIG[k];
+  const sum = s.rel.reduce((p, q) => p + q, 0);
+  s.center = s.lines.reduce((p, q) => p + q, 0) / s.lines.length;
+  s.delta = s.center / NU0;
+  s.amp = s.rel.map(r => s.nH * r / sum);
+}
+const LINES = ORDER.flatMap(k => SIG[k].lines.map((nu, i) => ({ nu, h: SIG[k].amp[i], s: k })));
+const LW = 0.85; // 线宽 FWHM / Hz
+function specAt(nu, lw) {
+  const hw = (lw || LW) / 2, hw2 = hw * hw;
+  let y = 0;
+  for (const L of LINES) { const d = nu - L.nu; y += L.h * hw2 / (d * d + hw2); }
+  return y;
+}
+function sigOf(nu) { // 最近的信号（用于着色/悬停）
+  let best = null, bd = 1e9;
+  for (const k of ORDER) { const d = Math.abs(nu - SIG[k].center); if (d < bd) { bd = d; best = k; } }
+  return best;
+}
+
+/* ================= 印章 ================= */
+function seal(host, text, opts) {
+  opts = opts || {};
+  const chars = [...text];
+  const svg = el('svg', { viewBox: '0 0 100 100', 'aria-hidden': 'true' });
+  const g = el('g', { filter: 'url(#f-seal)', transform: `rotate(${opts.rot != null ? opts.rot : -3} 50 50)` }, svg);
+  const zhuwen = !!opts.zhuwen;
+  if (zhuwen) el('rect', { x: 6, y: 6, width: 88, height: 88, rx: 9, style: 'fill:none;stroke:var(--zhu);stroke-width:6' }, g);
+  else el('rect', { x: 3, y: 3, width: 94, height: 94, rx: 7, style: 'fill:var(--zhu)' }, g);
+  const tc = zhuwen ? 'var(--zhu)' : 'var(--paper-3)';
+  const st = `fill:${tc};font-family:var(--f-brush)`;
+  if (chars.length === 1) txt(g, 50, 52, chars[0], { 'text-anchor': 'middle', 'dominant-baseline': 'central', 'font-size': 62, style: st });
+  else if (chars.length === 2) chars.forEach((ch, i) => txt(g, 50, 30 + i * 40, ch, { 'text-anchor': 'middle', 'dominant-baseline': 'central', 'font-size': 40, style: st }));
+  else {
+    const pos = [[71, 29], [71, 71], [29, 29], [29, 71]]; // 右列先读，自上而下
+    chars.slice(0, 4).forEach((ch, i) => txt(g, pos[i][0], pos[i][1] + 1, ch, { 'text-anchor': 'middle', 'dominant-baseline': 'central', 'font-size': 38, style: st }));
+  }
+  host.textContent = '';
+  host.appendChild(svg);
+  if (opts.label) { host.setAttribute('role', 'img'); host.setAttribute('aria-label', opts.label); }
+}
+document.querySelectorAll('[data-seal]').forEach((h, i) => seal(h, h.dataset.seal, { rot: [-3, 2, -2, 3][i % 4], zhuwen: h.dataset.seal === '墨', label: '印：' + h.dataset.seal }));
+
+/* ================= 圆相（卷首大字外的墨环） ================= */
+let ensoId = 0;
+function enso(host, seed) {
+  const r = rng(seed);
+  const svg = el('svg', { viewBox: '0 0 100 100', 'aria-hidden': 'true' });
+  const a0 = -128 + r() * 40, sweep = 322 + r() * 22, N = 90, R0 = 43;
+  const wob = [r() * 6.28, r() * 6.28];
+  const cx = [], cy = [], nx = [], ny = [], w = [];
+  for (let i = 0; i <= N; i++) {
+    const t = i / N, a = (a0 + sweep * t) * Math.PI / 180;
+    const R = R0 + 1.4 * Math.sin(t * 9 + wob[0]) + 0.8 * Math.sin(t * 23 + wob[1]) - 2.2 * t;
+    cx.push(50 + R * Math.cos(a)); cy.push(50 + R * Math.sin(a));
+    nx.push(Math.cos(a)); ny.push(Math.sin(a));
+    w.push(1.1 + 8.6 * Math.pow(1 - t, 0.75) * (0.3 + 0.7 * Math.min(1, t * 7)));
+  }
+  let outer = '', inner = '', line = '';
+  for (let i = 0; i <= N; i++) {
+    outer += (i ? 'L' : 'M') + (cx[i] + nx[i] * w[i] / 2).toFixed(2) + ' ' + (cy[i] + ny[i] * w[i] / 2).toFixed(2);
+    line += (i ? 'L' : 'M') + cx[i].toFixed(2) + ' ' + cy[i].toFixed(2);
+  }
+  for (let i = N; i >= 0; i--) inner += 'L' + (cx[i] - nx[i] * w[i] / 2).toFixed(2) + ' ' + (cy[i] - ny[i] * w[i] / 2).toFixed(2);
+  const id = 'enso-m' + (ensoId++);
+  const mask = el('mask', { id, maskUnits: 'userSpaceOnUse', x: -10, y: -10, width: 120, height: 120 }, el('defs', null, svg));
+  const ml = el('path', { d: line, class: 'ring', style: 'stroke:#fff;fill:none', 'stroke-width': 16 }, mask);
+  el('path', { d: outer + inner + 'Z', style: 'fill:var(--ink)', filter: 'url(#f-rough)', mask: `url(#${id})` }, svg);
+  // 拖尾飞白
+  let tail = '';
+  for (let i = Math.floor(N * 0.55); i <= N; i++) tail += (tail ? 'L' : 'M') + (cx[i] - nx[i] * 3.2).toFixed(2) + ' ' + (cy[i] - ny[i] * 3.2).toFixed(2);
+  el('path', { d: tail, style: 'fill:none;stroke:var(--ink-3)', 'stroke-width': 0.7, opacity: 0.8, mask: `url(#${id})` }, svg);
+  host.prepend(svg);
+  const len = Math.ceil(ml.getTotalLength()) + 2;
+  ml.style.strokeDasharray = len;
+  host.style.setProperty('--len', len);
+  return host;
+}
+const ensos = [...document.querySelectorAll('[data-enso]')].map((h, i) => enso(h, 11 + i * 7));
+if (!REDUCED && 'IntersectionObserver' in window) {
+  const vh = window.innerHeight;
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    if (!e.isIntersecting) return;
+    const h = e.target;
+    h.classList.add('drawn');
+    requestAnimationFrame(() => requestAnimationFrame(() => h.classList.remove('pending')));
+    io.unobserve(h);
+  }), { rootMargin: '0px 0px -12% 0px' });
+  ensos.forEach(h => { if (h.getBoundingClientRect().top > vh) { h.classList.add('pending'); io.observe(h); } });
+}
+
+/* ================= 卷二：氢珠 ================= */
+(() => {
+  const host = document.getElementById('beads');
+  for (let i = 0; i < 10; i++) {
+    const d = document.createElement('span');
+    d.className = 'bead' + (i >= 8 ? ' miss' : '');
+    d.textContent = 'H';
+    host.appendChild(d);
+  }
+})();
+
+/* ================= 卷首：远山即谱 ================= */
+function drawHero() {
+  const svg = document.getElementById('heroLand');
+  const W = Math.round(svg.clientWidth), H = Math.round(svg.clientHeight);
+  if (!W || !H) return;
+  svg.setAttribute('viewBox', `0 0 ${W} ${H}`);
+  svg.textContent = '';
+  const defs = el('defs', null, svg);
+  const grad = (id, stops) => {
+    const g = el('linearGradient', { id, x1: 0, y1: 0, x2: 0, y2: 1 }, defs);
+    stops.forEach(([o, c, op]) => el('stop', { offset: o, style: `stop-color:${c};stop-opacity:${op}` }, g));
+  };
+  grad('hg-far', [[0, 'var(--ink)', 0.2], [1, 'var(--ink)', 0]]);
+  grad('hg-mid', [[0, 'var(--ink)', 0.34], [0.8, 'var(--ink)', 0.02]]);
+  grad('hg-near', [[0, 'var(--ink)', 0.78], [0.55, 'var(--ink)', 0.18], [1, 'var(--ink)', 0]]);
+  grad('hg-mist', [[0, 'var(--paper)', 0], [1, 'var(--paper)', 0.95]]);
+  const r = rng(23);
+  const ridge = (base, amp, seed, sharp) => {
+    const rr = rng(seed), ph = [0, 1, 2, 3].map(() => rr() * 6.28), fr = [1.3, 2.9, 6.1, 13.7];
+    const pts = [];
+    for (let x = -10; x <= W + 10; x += 6) {
+      const u = x / W;
+      let v = 0.48 * Math.sin(u * fr[0] * 3.1 + ph[0]) + 0.28 * Math.sin(u * fr[1] * 3.1 + ph[1]) + 0.15 * Math.sin(u * fr[2] * 3.1 + ph[2]) + 0.07 * Math.sin(u * fr[3] * 3.1 + ph[3]);
+      v = Math.pow((v + 1) / 2, sharp);
+      pts.push([x, base - amp * v]);
+    }
+    return 'M-10 ' + H + pts.map(p => 'L' + p[0] + ' ' + p[1].toFixed(1)).join('') + `L${W + 10} ${H}Z`;
+  };
+  el('path', { d: ridge(H * 0.62, H * 0.42, 5, 1.5), fill: 'url(#hg-far)', filter: 'url(#f-mist-1)' }, svg);
+  el('rect', { x: 0, y: H * 0.42, width: W, height: H * 0.4, fill: 'url(#hg-mist)' }, svg);
+  el('path', { d: ridge(H * 0.8, H * 0.38, 9, 1.9), fill: 'url(#hg-mid)', filter: 'url(#f-mist-2)' }, svg);
+  el('rect', { x: 0, y: H * 0.62, width: W, height: H * 0.3, fill: 'url(#hg-mist)' }, svg);
+  // 朱日与飞鸟
+  const sunR = Math.max(16, Math.min(30, W * 0.022));
+  el('circle', { cx: W * 0.56, cy: H * 0.2, r: sunR, style: 'fill:var(--zhu)', opacity: 0.78, filter: 'url(#f-mist-3)' }, svg);
+  [[0.63, 0.16, 1], [0.66, 0.22, 0.8], [0.6, 0.27, 0.65]].forEach(([u, v, s]) => {
+    const x = W * u, y = H * v, k = 7 * s;
+    el('path', { d: `M${x - k} ${y - k * 0.3}Q${x - k * 0.45} ${y - k * 0.75} ${x} ${y}Q${x + k * 0.45} ${y - k * 0.75} ${x + k} ${y - k * 0.3}`, style: 'fill:none;stroke:var(--ink-2)', 'stroke-width': 1.3, 'stroke-linecap': 'round' }, svg);
+  });
+  // 近山 = 展宽的谱（裂分放大 4 倍，线宽放宽）
+  const p0 = 4.62, p1 = 0.42, x0 = W * 0.03, x1 = W * 0.97;
+  const X = ppm => x0 + (p0 - ppm) / (p0 - p1) * (x1 - x0);
+  const broad = ppm => {
+    let y = 0;
+    for (const k of ORDER) {
+      const s = SIG[k];
+      s.lines.forEach((nu, i) => {
+        const pos = s.delta + (nu - s.center) / NU0 * 4.2, hw = 0.03, d = ppm - pos;
+        y += s.amp[i] * hw * hw / (d * d + hw * hw);
+      });
+    }
+    return y;
+  };
+  let maxB = 0; const samples = [];
+  for (let x = 0; x <= W; x += 2) { const ppm = p0 - (x - x0) / (x1 - x0) * (p0 - p1); const v = broad(ppm); samples.push([x, v]); if (v > maxB) maxB = v; }
+  const baseN = H - 16, ampN = H * 0.6;
+  const near = 'M0 ' + H + samples.map(([x, v]) => 'L' + x + ' ' + (baseN - ampN * Math.pow(v / maxB, 0.85) - 6 * Math.sin(x / 37) * Math.sin(x / 11)).toFixed(1)).join('') + `L${W} ${H}Z`;
+  el('path', { d: near, fill: 'url(#hg-near)', filter: 'url(#f-mist-3)' }, svg);
+  // 题图真谱：细墨线
+  let maxS = 0; const pts = [];
+  const step = (p0 - p1) / (W * 2);
+  for (let ppm = p0; ppm >= p1; ppm -= step) { const v = specAt(ppm * NU0, 1.6); pts.push([X(ppm), v]); if (v > maxS) maxS = v; }
+  for (const L of LINES) { const ppm = L.nu / NU0; pts.push([X(ppm), specAt(L.nu, 1.6)]); }
+  pts.sort((p, q) => p[0] - q[0]);
+  const baseS = H - 10, ampS = H * 0.36;
+  const d = pts.map((p, i) => (i ? 'L' : 'M') + p[0].toFixed(1) + ' ' + (baseS - ampS * p[1] / maxS).toFixed(1)).join('');
+  el('path', { d, style: 'fill:none;stroke:var(--ink)', 'stroke-width': 3.5, opacity: 0.12, filter: 'url(#f-bleed)' }, svg);
+  el('path', { d, style: 'fill:none;stroke:var(--ink)', 'stroke-width': 1.1, 'stroke-linejoin': 'round' }, svg);
+  r();
+}
+
+/* ================= 谱图绘制通用件 ================= */
+function niceStep(range, px, minPx) {
+  const steps = [100, 50, 20, 10, 5, 2, 1, 0.5, 0.2, 0.1, 0.05, 0.02, 0.01, 0.005, 0.002, 0.001];
+  let best = steps[0];
+  for (const s of steps) { if (px * s / range >= minPx) best = s; else break; }
+  return best;
+}
+function decimalsFor(step) { return Math.max(0, Math.ceil(-Math.log10(step) - 1e-9) + (String(step).includes('5') && step < 1 ? 0 : 0)); }
+/* 横轴：hi→lo 自左向右（ppm 习惯），或 lo→hi（Hz 量尺用 reverse=false 也同样 hi 在左） */
+function drawAxis(svg, X, hi, lo, y, pw, unit, minPx) {
+  const g = el('g', { 'font-size': 11.5, style: 'fill:var(--ink-3)' }, svg);
+  el('line', { x1: X(hi), x2: X(lo), y1: y + 0.5, y2: y + 0.5, style: 'stroke:var(--ink-3)', 'stroke-width': 1 }, g);
+  const step = niceStep(hi - lo, pw, minPx || 64);
+  const dec = Math.max(0, Math.ceil(-Math.log10(step) - 1e-9));
+  const minor = step / (String(step)[0] === '2' || String(step).replace('0.', '').replace(/^0+/, '')[0] === '2' ? 4 : 5);
+  const first = Math.ceil(lo / minor - 1e-6) * minor;
+  for (let v = first; v <= hi + 1e-9; v += minor) {
+    const isMajor = Math.abs(v / step - Math.round(v / step)) < 1e-6;
+    const x = X(v);
+    el('line', { x1: x, x2: x, y1: y, y2: y + (isMajor ? 6 : 3), style: 'stroke:var(--ink-3)', 'stroke-width': 1 }, g);
+    if (isMajor) txt(g, x, y + 19, v.toFixed(dec), { 'text-anchor': 'middle', 'font-variant-numeric': 'tabular-nums' });
+  }
+  if (unit) txt(g, X(lo), y + 33, unit, { 'text-anchor': 'end', 'font-size': 11, style: 'fill:var(--ink-3)' });
+  return g;
+}
+/* 按信号分段着色的谱线 */
+function drawTrace(g, hi, lo, X, Y, pw, opt) {
+  opt = opt || {};
+  const half = opt.regionHalf || 0.12, lw = opt.lw || LW;
+  const n = Math.max(500, Math.round(pw * 3));
+  const ppms = [];
+  for (let i = 0; i <= n; i++) ppms.push(hi - (hi - lo) * i / n);
+  for (const L of LINES) { const p = L.nu / NU0; if (p < hi && p > lo) ppms.push(p); }
+  ppms.sort((p, q) => q - p);
+  const runs = [];
+  let cur = null;
+  for (const p of ppms) {
+    const k = ORDER.find(s => Math.abs(p - SIG[s].delta) < half) || '_';
+    const xy = [X(p), Y(specAt(p * NU0, lw))];
+    if (!cur || cur.k !== k) {
+      if (cur) cur.pts.push(xy);
+      cur = { k, pts: [] };
+      runs.push(cur);
+    }
+    cur.pts.push(xy);
+  }
+  const out = {};
+  for (const r of runs) {
+    const d = r.pts.map((q, i) => (i ? 'L' : 'M') + q[0].toFixed(1) + ' ' + q[1].toFixed(1)).join('');
+    const c = r.k === '_' ? 'var(--ink-3)' : COL[r.k];
+    if (r.k !== '_') el('path', { d, style: `fill:none;stroke:${c}`, 'stroke-width': 4, opacity: 0.1, 'stroke-linejoin': 'round' }, g);
+    const p = el('path', { d, style: `fill:none;stroke:${c}`, 'stroke-width': r.k === '_' ? 1 : 1.35, 'stroke-linejoin': 'round', 'data-s': r.k }, g);
+    (out[r.k] = out[r.k] || []).push(p);
+  }
+  return out;
+}
+/* 积分（解析式：洛伦兹线的累积面积），返回 [ppm, 0..1] */
+function integralFrac(k, ppm) {
+  const s = SIG[k], hw = LW / 2, nu = ppm * NU0;
+  let a = 0, tot = 0;
+  s.lines.forEach((ln, i) => { a += s.amp[i] * (Math.PI / 2 - Math.atan((nu - ln) / hw)); tot += s.amp[i] * Math.PI; });
+  return a / tot;
+}
+
+/* ================= 卷一：主谱（可缩放、游标读数） ================= */
+const VIEWS = { full: [4.55, 0.45], a: [4.232, 4.04], b: [2.118, 1.994], c: [1.35, 1.196] };
+const spec = { dom: VIEWS.full.slice(), ymax: null, view: 'full', hover: null };
+const readEl = document.getElementById('specRead');
+const readDefault = readEl.textContent;
+function visMax(dom) {
+  let m = 0;
+  for (const L of LINES) { const p = L.nu / NU0; if (p <= dom[0] && p >= dom[1]) m = Math.max(m, specAt(L.nu)); }
+  return m || 1;
+}
+spec.ymax = visMax(spec.dom);
+function setHover(k) {
+  if (spec.hover === k) return;
+  spec.hover = k;
+  document.querySelectorAll('.sig').forEach(c => c.classList.toggle('hot', c.dataset.s === k));
+  if (spec.band) {
+    if (k && spec.view === 'full') {
+      const s = SIG[k];
+      spec.band.setAttribute('x', spec.X(s.delta + 0.12));
+      spec.band.setAttribute('width', spec.X(s.delta - 0.12) - spec.X(s.delta + 0.12));
+      spec.band.style.opacity = 1;
+    } else spec.band.style.opacity = 0;
+  }
+}
+const specChart = chart('specMain', (host, w) => {
+  const h = w < 560 ? 260 : 320;
+  const svg = svgRoot(host, w, h);
+  const m = { t: 40, r: 12, b: 40, l: 12 };
+  const pw = w - m.l - m.r, ph = h - m.t - m.b, y0 = m.t + ph;
+  const [hi, lo] = spec.dom;
+  const X = p => m.l + (hi - p) / (hi - lo) * pw;
+  const Y = v => y0 - v / spec.ymax * ph * 0.84;
+  spec.X = X;
+  const defs = el('defs', null, svg);
+  el('rect', { x: m.l, y: 0, width: pw, height: h, }, el('clipPath', { id: 'clip-spec' }, defs));
+  spec.band = el('rect', { x: 0, y: m.t - 22, width: 0, height: ph + 22, rx: 6, style: 'fill:var(--wash-2);opacity:0;transition:opacity .2s' }, svg);
+  drawAxis(svg, X, hi, lo, y0, pw, 'δ / ppm', w < 560 ? 56 : 70);
+  const g = el('g', { 'clip-path': 'url(#clip-spec)' }, svg);
+  drawTrace(g, hi, lo, X, Y, pw, { regionHalf: 0.12 });
+  // 积分曲线（与题图一样略向左平移）
+  const unitH = ph * 0.18, shift = 14;
+  for (const k of ORDER) {
+    const s = SIG[k], a = Math.min(hi, s.delta + 0.11), b = Math.max(lo, s.delta - 0.11);
+    if (a <= b) continue;
+    let d = '';
+    const N = 240;
+    for (let i = 0; i <= N; i++) {
+      const p = a - (a - b) * i / N;
+      d += (i ? 'L' : 'M') + (X(p) - shift).toFixed(1) + ' ' + (y0 - 8 - unitH * s.nH * integralFrac(k, p)).toFixed(1);
+    }
+    el('path', { d, style: 'fill:none;stroke:var(--zhe)', 'stroke-width': 1.6, opacity: 0.9 }, g);
+    const endX = X(b) - shift, endY = y0 - 8 - unitH * s.nH * integralFrac(k, b);
+    if (endX > m.l + 10 && endX < w - 4) txt(g, Math.min(endX + 4, w - 30), endY - 4, s.nH + 'H', { 'font-size': 12, style: 'fill:var(--zhe);font-weight:600' });
+  }
+  // 信号标签与赫兹标注
+  const zoomed = (hi - lo) < 0.5;
+  for (const k of ORDER) {
+    const s = SIG[k];
+    if (s.delta > hi || s.delta < lo) continue;
+    if (!zoomed) {
+      const top = Math.min(...s.lines.map(nu => Y(specAt(nu))));
+      txt(svg, X(s.delta), Math.max(16, top - 10), k, { 'text-anchor': 'middle', 'font-size': 22, style: `fill:${COL[k]};font-family:var(--f-brush)` });
+    } else {
+      s.lines.forEach(nu => {
+        const p = nu / NU0;
+        if (p > hi || p < lo) return;
+        const x = X(p), yTop = Y(specAt(nu));
+        txt(svg, x, Math.max(14, yTop - 8), nu.toFixed(2), { 'text-anchor': 'middle', 'font-size': 11.5, style: `fill:${COL[k]};font-variant-numeric:tabular-nums` });
+      });
+      txt(svg, m.l + 2, 14, `${k} · ${s.mult} · 谱线标注单位 Hz`, { 'font-size': 12, style: 'fill:var(--ink-3)' });
+    }
+  }
+  // 游标
+  const cur = el('g', { style: 'opacity:0;pointer-events:none' }, svg);
+  const cl = el('line', { y1: m.t - 24, y2: y0, style: 'stroke:var(--zhu)', 'stroke-width': 1, 'stroke-dasharray': '3 3' }, cur);
+  const ct = txt(cur, 0, m.t - 28, '', { 'font-size': 12, style: 'fill:var(--zhu);font-variant-numeric:tabular-nums' });
+  const ov = el('rect', { x: m.l, y: 0, width: pw, height: h, style: 'fill:transparent;cursor:crosshair' }, svg);
+  const ppmAt = e => { const r = svg.getBoundingClientRect(); const x = (e.clientX - r.left) * (w / r.width); return { x, p: hi - (x - m.l) / pw * (hi - lo) }; };
+  ov.addEventListener('pointermove', e => {
+    const { x, p } = ppmAt(e);
+    const dec = (hi - lo) < 0.5 ? 4 : 3;
+    cur.style.opacity = 1;
+    cl.setAttribute('x1', x); cl.setAttribute('x2', x);
+    const label = `δ ${p.toFixed(dec)} ppm · ${(p * NU0).toFixed(1)} Hz`;
+    ct.textContent = label;
+    const right = x > w * 0.62;
+    ct.setAttribute('x', right ? x - 6 : x + 6);
+    ct.setAttribute('text-anchor', right ? 'end' : 'start');
+    readEl.textContent = `游标：δ = ${p.toFixed(dec)} ppm，ν = δ × 250.13 = ${(p * NU0).toFixed(2)} Hz`;
+    setHover(spec.view === 'full' ? (ORDER.find(k => Math.abs(p - SIG[k].delta) < 0.12) || null) : null);
+  });
+  ov.addEventListener('pointerleave', () => { cur.style.opacity = 0; readEl.textContent = readDefault; setHover(null); });
+  ov.addEventListener('click', e => {
+    if (spec.view !== 'full') return;
+    const { p } = ppmAt(e);
+    const k = ORDER.find(s => Math.abs(p - SIG[s].delta) < 0.12);
+    if (k) zoomTo(k);
+  });
+  spec.band.style.opacity = 0; spec.hover = null;
+});
+let zoomRAF = 0;
+function zoomTo(view) {
+  const from = spec.dom.slice(), to = VIEWS[view];
+  const y0 = spec.ymax, y1 = visMax(to);
+  spec.view = view;
+  document.querySelectorAll('[data-zoom]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.zoom === view)));
+  setHover(null);
+  cancelAnimationFrame(zoomRAF);
+  const c0 = (from[0] + from[1]) / 2, c1 = (to[0] + to[1]) / 2, w0 = from[0] - from[1], w1 = to[0] - to[1];
+  const T = REDUCED ? 0 : 750, t0 = performance.now();
+  const ease = t => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+  const frame = now => {
+    const t = T ? Math.min(1, (now - t0) / T) : 1, e = ease(t);
+    const c = c0 + (c1 - c0) * e, wd = w0 * Math.pow(w1 / w0, e);
+    spec.dom = [c + wd / 2, c - wd / 2];
+    spec.ymax = y0 * Math.pow(y1 / y0, e);
+    specChart.redraw();
+    if (t < 1) zoomRAF = requestAnimationFrame(frame);
+  };
+  zoomRAF = requestAnimationFrame(frame);
+}
+document.querySelectorAll('[data-zoom]').forEach(b => b.addEventListener('click', () => zoomTo(b.dataset.zoom)));
+document.querySelectorAll('.sig').forEach(c => {
+  c.addEventListener('mouseenter', () => { if (spec.view === 'full') setHover(c.dataset.s); });
+  c.addEventListener('mouseleave', () => setHover(null));
+});
+
+/* ================= 卷三：积分台阶 ================= */
+const HPX = { a: 359, b: 538, c: 541 };
+chart('stairs', (host, w) => {
+  const h = 270;
+  const svg = svgRoot(host, w, h);
+  const m = { t: 24, r: 10, b: 46, l: 40 };
+  const pw = w - m.l - m.r, ph = h - m.t - m.b, base = m.t + ph, unit = ph / 3.4;
+  for (let k = 1; k <= 3; k++) {
+    const y = base - unit * k;
+    el('line', { x1: m.l, x2: w - m.r, y1: y, y2: y, style: 'stroke:var(--ink-5)', 'stroke-dasharray': '2 4' }, svg);
+    txt(svg, m.l - 6, y + 4, k + 'H', { 'text-anchor': 'end', 'font-size': 11.5, style: 'fill:var(--ink-3)' });
+  }
+  el('line', { x1: m.l, x2: w - m.r, y1: base + 0.5, y2: base + 0.5, style: 'stroke:var(--ink-3)' }, svg);
+  const colW = pw / 3;
+  ORDER.forEach((k, i) => {
+    const s = SIG[k], x0 = m.l + colW * i + 8, x1 = m.l + colW * (i + 1) - 8, cx = (x0 + x1) / 2 - colW * 0.1;
+    let d = '';
+    for (let j = 0; j <= 60; j++) {
+      const x = x0 + (x1 - x0) * j / 60, u = (x - cx) / 9;
+      const f = 1 / (1 + Math.exp(-u));
+      d += (j ? 'L' : 'M') + x.toFixed(1) + ' ' + (base - 3 - unit * s.nH * f).toFixed(1);
+    }
+    el('path', { d, style: 'fill:none;stroke:var(--zhe)', 'stroke-width': 6, opacity: 0.14 }, svg);
+    el('path', { d, style: 'fill:none;stroke:var(--zhe)', 'stroke-width': 2.2, 'stroke-linecap': 'round' }, svg);
+    // 氢珠
+    const dx = x1 - 12;
+    for (let j = 0; j < s.nH; j++) el('circle', { cx: dx, cy: base - unit * (j + 0.5), r: Math.min(9, unit * 0.32), style: `fill:${COL[k]}`, opacity: 0.9 }, svg);
+    txt(svg, cx + 12, base - unit * s.nH - 8, HPX[k] + ' px', { 'text-anchor': 'middle', 'font-size': 11.5, style: 'fill:var(--ink-3);font-variant-numeric:tabular-nums' });
+    txt(svg, (x0 + x1) / 2, base + 22, `${k} · δ ${s.delta.toFixed(2)}`, { 'text-anchor': 'middle', 'font-size': 13, style: `fill:${COL[k]};font-weight:600` });
+    txt(svg, (x0 + x1) / 2, base + 40, s.nH + ' H', { 'text-anchor': 'middle', 'font-size': 13, style: 'fill:var(--ink-2)' });
+  });
+});
+
+/* ================= 卷四：裂分树 + 帕斯卡三角 ================= */
+const TREE = {
+  a: { n: 3, caps: [
+    '未耦合时，a 组的两个 H 只给出一条线（δ 4.14）。',
+    '邻位 CH₃ 的第 1 个 H 取 ↑ 或 ↓，把谱线一分为二，两线相距 J = 7.14 Hz，强度 1 : 1。',
+    '第 2 个 H 再把每条线一分为二。中间两条恰好重合，强度变为 1 : 2 : 1。',
+    '第 3 个 H 再裂分一次，得到 1 : 3 : 3 : 1 的四重峰。三个邻位 H 共有 2³ = 8 种自旋组合。'] },
+  c: { n: 2, caps: [
+    '未耦合时，c 组的三个 H 只给出一条线（δ 1.27）。',
+    '邻位 CH₂ 的第 1 个 H 把谱线一分为二，两线相距 J = 7.14 Hz。',
+    '第 2 个 H 再裂分，中间两条重合，得到 1 : 2 : 1 的三重峰。两个邻位 H 共有 2² = 4 种自旋组合。'] },
+  b: { n: 0, caps: [
+    'b 组 CH₃ 连在羰基碳上，羰基碳没有 H；更远处的 H 相隔四根键以上，耦合可以忽略。所以 b 不裂分，是单峰。'] }
+};
+const tree = { k: 'a', step: 3, timer: 0, prev: -1 };
+const MULT_NAME = ['单峰', '双峰', '三重峰', '四重峰', '五重峰', '六重峰', '七重峰'];
+(() => {
+  const host = document.getElementById('pascal');
+  for (let n = 0; n <= 6; n++) {
+    const row = document.createElement('div');
+    row.className = 'row';
+    row.dataset.n = n;
+    const tag = document.createElement('span');
+    tag.className = 'tag';
+    tag.textContent = `n=${n} ${MULT_NAME[n]}`;
+    row.appendChild(tag);
+    binom(n).forEach(v => { const s = document.createElement('span'); s.textContent = v; row.appendChild(s); });
+    host.appendChild(row);
+  }
+})();
+function combos(k) { // 每条线对应的自旋组合（↓ 的个数 = 线序号）
+  const out = Array.from({ length: k + 1 }, () => []);
+  for (let mask = 0; mask < (1 << k); mask++) {
+    let s = '', down = 0;
+    for (let b = k - 1; b >= 0; b--) { const d = (mask >> b) & 1; s += d ? '↓' : '↑'; down += d; }
+    out[down].push(s);
+  }
+  return out;
+}
+const treeChart = chart('tree', (host, w) => {
+  const T = TREE[tree.k], n = T.n, k = Math.min(tree.step, n);
+  const narrow = w < 420;
+  const h = narrow ? 330 : 350;
+  const svg = svgRoot(host, w, h);
+  const top = 26, barBase = h - 74, barMax = 70;
+  const lev = n ? (barBase - barMax - 26 - top) / n : 0;
+  const J = n ? Math.min(118, (w - 70) / n * 0.86) : 0;
+  const cx = w / 2 + 14;
+  const col = COL[tree.k];
+  // 左侧层标
+  for (let i = 1; i <= n; i++) {
+    const y = top + i * lev;
+    txt(svg, 6, y + 4, `H${['₁', '₂', '₃'][i - 1]}`, { 'font-size': 13, style: `fill:${i <= k ? 'var(--ink-2)' : 'var(--ink-5)'}` });
+  }
+  txt(svg, 6, top + 4, '起点', { 'font-size': 11.5, style: 'fill:var(--ink-3)' });
+  // 树
+  let nodes = [cx];
+  el('circle', { cx, cy: top, r: 3, style: `fill:${col}` }, svg);
+  for (let i = 1; i <= k; i++) {
+    const y1 = top + (i - 1) * lev, y2 = top + i * lev, yb = y1 + lev * 0.3;
+    const next = [];
+    nodes.forEach(x => {
+      [-1, 1].forEach(sg => {
+        const x2 = x + sg * J / 2;
+        const p = el('path', { d: `M${x} ${y1}L${x} ${yb}L${x2} ${y2}`, style: `fill:none;stroke:${col}`, 'stroke-width': 1.8, opacity: 0.55, 'stroke-linejoin': 'round' }, svg);
+        if (i === k && tree.prev < k && !REDUCED) {
+          const L = p.getTotalLength();
+          p.style.strokeDasharray = L; p.style.strokeDashoffset = L;
+          p.style.animation = 'drawln .7s ease forwards';
+        }
+        next.push(x2);
+      });
+    });
+    nodes = next;
+    if (i === 1) { // J 标注
+      const yy = y2, xa = cx - J / 2 + 5, xb = cx + J / 2 - 5;
+      el('path', { d: `M${xa} ${yy - 3}L${xa} ${yy + 3}M${xa} ${yy}L${xb} ${yy}M${xb} ${yy - 3}L${xb} ${yy + 3}`, style: 'fill:none;stroke:var(--zhu)', 'stroke-width': 1 }, svg);
+      txt(svg, cx, yy - 6, narrow ? 'J' : 'J = 7.14 Hz', { 'text-anchor': 'middle', 'font-size': 11.5, style: 'fill:var(--zhu)' });
+    }
+  }
+  // 末层：谱线强度
+  const co = binom(k), cm = Math.max(...co), cmb = combos(k);
+  const xs = co.map((_, j) => cx + (j - k / 2) * J);
+  const yEnd = top + k * lev;
+  xs.forEach((x, j) => {
+    el('line', { x1: x, x2: x, y1: yEnd + 4, y2: barBase - barMax - 4, style: 'stroke:var(--ink-5)', 'stroke-dasharray': '2 3' }, svg);
+    const bh = barMax * co[j] / cm;
+    el('line', { x1: x, x2: x, y1: barBase, y2: barBase - bh, style: `stroke:${col}`, 'stroke-width': narrow ? 4 : 5, 'stroke-linecap': 'round' }, svg);
+    txt(svg, x, barBase - bh - 8, co[j], { 'text-anchor': 'middle', 'font-size': 14, style: 'fill:var(--zhu);font-weight:600' });
+    if (k > 0) cmb[j].forEach((s, r) => txt(svg, x, barBase + 18 + r * 15, s, { 'text-anchor': 'middle', 'font-size': narrow ? 10.5 : 12, style: 'fill:var(--ink-3)' }));
+  });
+  el('line', { x1: cx - Math.max(J * n / 2, 30) - 26, x2: cx + Math.max(J * n / 2, 30) + 26, y1: barBase + 0.5, y2: barBase + 0.5, style: 'stroke:var(--ink-3)' }, svg);
+  if (k > 0) txt(svg, 6, barBase + 18, '邻位自旋', { 'font-size': 11, style: 'fill:var(--ink-3)' });
+  tree.prev = k;
+  // 侧栏同步
+  document.querySelectorAll('#pascal .row').forEach(r => r.classList.toggle('on', +r.dataset.n === k));
+  document.getElementById('treeCap').innerHTML = subify(T.caps[k]);
+  document.getElementById('treeStep').textContent = n ? `第 ${k} / ${n} 步` : '无需裂分';
+  document.getElementById('treePrev').disabled = k <= 0;
+  document.getElementById('treeNext').disabled = k >= n;
+});
+function treeSet(k, step) {
+  if (k !== tree.k) { tree.k = k; tree.prev = -1; }
+  tree.step = Math.max(0, Math.min(TREE[k].n, step));
+  document.querySelectorAll('[data-tree]').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.tree === k)));
+  treeChart.redraw();
+}
+function treeStop() { clearInterval(tree.timer); tree.timer = 0; }
+document.querySelectorAll('[data-tree]').forEach(b => b.addEventListener('click', () => { treeStop(); treeSet(b.dataset.tree, TREE[b.dataset.tree].n); }));
+document.getElementById('treePrev').addEventListener('click', () => { treeStop(); tree.prev = 99; treeSet(tree.k, tree.step - 1); });
+document.getElementById('treeNext').addEventListener('click', () => { treeStop(); treeSet(tree.k, tree.step + 1); });
+document.getElementById('treePlay').addEventListener('click', () => {
+  treeStop();
+  tree.prev = -1;
+  treeSet(tree.k, 0);
+  const n = TREE[tree.k].n;
+  if (!n) return;
+  tree.timer = setInterval(() => { if (tree.step >= n) return treeStop(); treeSet(tree.k, tree.step + 1); }, REDUCED ? 600 : 1300);
+});
+
+/* ================= 卷五：量尺 ================= */
+const JWIN = { a: [1049.6, 1019.6], c: [329.9, 307.0] };
+const jsel = { a: [], c: [] };
+function jPanel(k, id, readId) {
+  const read = document.getElementById(readId);
+  const c = chart(id, (host, w) => {
+    const h = 248;
+    const svg = svgRoot(host, w, h);
+    const m = { t: 52, r: 10, b: 74, l: 10 };
+    const pw = w - m.l - m.r, ph = h - m.t - m.b, y0 = m.t + ph;
+    const [hi, lo] = JWIN[k];
+    const X = nu => m.l + (hi - nu) / (hi - lo) * pw;
+    const s = SIG[k];
+    const ymax = Math.max(...s.lines.map(nu => specAt(nu)));
+    const Y = v => y0 - v / ymax * ph * 0.9;
+    // 谱线（Hz 轴）
+    const n = Math.round(pw * 3);
+    const pts = [];
+    for (let i = 0; i <= n; i++) pts.push(hi - (hi - lo) * i / n);
+    s.lines.forEach(nu => pts.push(nu));
+    pts.sort((p, q) => q - p);
+    const d = pts.map((nu, i) => (i ? 'L' : 'M') + X(nu).toFixed(1) + ' ' + Y(specAt(nu)).toFixed(1)).join('');
+    el('path', { d, style: `fill:none;stroke:${COL[k]}`, 'stroke-width': 4, opacity: 0.1 }, svg);
+    el('path', { d, style: `fill:none;stroke:${COL[k]}`, 'stroke-width': 1.4, 'stroke-linejoin': 'round' }, svg);
+    // Hz 轴
+    drawAxis(svg, X, hi, lo, y0 + 38, pw, 'ν / Hz', 64);
+    // 相邻间距（朱色）
+    for (let i = 0; i < s.lines.length - 1; i++) {
+      const xa = X(s.lines[i]), xb = X(s.lines[i + 1]), yy = y0 + 8;
+      el('path', { d: `M${xa + 3} ${yy - 4}Q${(xa + xb) / 2} ${yy + 5} ${xb - 3} ${yy - 4}`, style: 'fill:none;stroke:var(--zhu)', 'stroke-width': 1 }, svg);
+      txt(svg, (xa + xb) / 2, yy + 17, (s.lines[i] - s.lines[i + 1]).toFixed(2), { 'text-anchor': 'middle', 'font-size': 11.5, style: 'fill:var(--zhu);font-variant-numeric:tabular-nums' });
+    }
+    // 谱线标注与选择
+    const sel = jsel[k];
+    s.lines.forEach((nu, i) => {
+      const x = X(nu), yt = Y(specAt(nu)), on = sel.includes(i);
+      if (on) el('line', { x1: x, x2: x, y1: m.t - 14, y2: y0, style: 'stroke:var(--zhu)', 'stroke-dasharray': '3 3' }, svg);
+      txt(svg, x, Math.max(m.t - 18, yt - 8), nu.toFixed(2), { 'text-anchor': 'middle', 'font-size': 11.5, style: `fill:${on ? 'var(--zhu)' : 'var(--ink-2)'};font-variant-numeric:tabular-nums;font-weight:${on ? 700 : 400}` });
+      const hit = el('rect', { x: x - 18, y: 0, width: 36, height: y0 + 4, rx: 4, style: 'fill:transparent;cursor:pointer', tabindex: 0, role: 'button', 'aria-label': `选择谱线 ${nu.toFixed(2)} Hz`, 'aria-pressed': String(on) }, svg);
+      const act = () => {
+        const j = sel.indexOf(i);
+        if (j >= 0) sel.splice(j, 1); else { sel.push(i); if (sel.length > 2) sel.shift(); }
+        c.redraw();
+      };
+      hit.addEventListener('click', act);
+      hit.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); act(); } });
+    });
+    // 测量括线
+    if (sel.length === 2) {
+      const [i1, i2] = sel.slice().sort((p, q) => p - q);
+      const xa = X(s.lines[i1]), xb = X(s.lines[i2]), yy = 18;
+      const dnu = s.lines[i1] - s.lines[i2], gaps = i2 - i1;
+      el('path', { d: `M${xa} ${yy + 8}L${xa} ${yy}L${xb} ${yy}L${xb} ${yy + 8}`, style: 'fill:none;stroke:var(--zhu)', 'stroke-width': 1.4 }, svg);
+      const label = gaps > 1 ? `Δν = ${dnu.toFixed(2)} Hz ÷ ${gaps} = ${(dnu / gaps).toFixed(3)} Hz` : `Δν = J = ${dnu.toFixed(2)} Hz`;
+      const lx = Math.min(Math.max((xa + xb) / 2, 90), w - 90);
+      txt(svg, lx, yy - 6, label, { 'text-anchor': 'middle', 'font-size': 12.5, style: 'fill:var(--zhu);font-weight:600;font-variant-numeric:tabular-nums' });
+      read.innerHTML = `<span class="c-${k === 'a' ? 'a' : 'c'}">${k} 组</span>：第 ${i1 + 1}、${i2 + 1} 条线相距 ${dnu.toFixed(2)} Hz，跨 ${gaps} 个间隔，J = <b class="c-zhu">${(dnu / gaps).toFixed(3)} Hz</b>`;
+    } else {
+      read.innerHTML = `<span class="c-${k === 'a' ? 'a' : 'c'}">${k} 组 · ${s.mult}</span>：${sel.length ? '再点一条线' : '点选两条谱线开始测量'}`;
+    }
+  });
+  return c;
+}
+const jq = jPanel('a', 'jq', 'jqRead'), jt = jPanel('c', 'jt', 'jtRead');
+document.getElementById('jOuter').addEventListener('click', () => { jsel.a = [0, 3]; jsel.c = [0, 2]; jq.redraw(); jt.redraw(); });
+document.getElementById('jClear').addEventListener('click', () => { jsel.a = []; jsel.c = []; jq.redraw(); jt.redraw(); });
+
+/* ================= 卷五：换一台谱仪 ================= */
+const Jmean = 7.144, DDELTA = SIG.a.delta - SIG.c.delta;
+const field = { nu: NU0 };
+const sliderToNu = v => 60 * Math.pow(20, v / 1000);
+const nuToSlider = nu => Math.round(1000 * Math.log(nu / 60) / Math.log(20));
+function fieldPanel(k, id) {
+  return chart(id, (host, w) => {
+    const h = 170;
+    const svg = svgRoot(host, w, h);
+    const m = { t: 44, r: 12, b: 38, l: 12 };
+    const pw = w - m.l - m.r, y0 = h - m.b;
+    const s = SIG[k], hi = s.delta + 0.25, lo = s.delta - 0.25;
+    const X = p => m.l + (hi - p) / (hi - lo) * pw;
+    drawAxis(svg, X, hi, lo, y0, pw, 'δ / ppm', 56);
+    const mx = Math.max(...s.rel), pos = s.lines.map(nu => s.delta + (nu - s.center) / field.nu);
+    pos.forEach((p, i) => {
+      const x = X(p), hh = (y0 - m.t - 6) * s.rel[i] / mx;
+      el('line', { x1: x, x2: x, y1: y0, y2: y0 - hh, style: `stroke:${COL[k]}`, 'stroke-width': 2.2, 'stroke-linecap': 'round' }, svg);
+    });
+    const span = s.lines[0] - s.lines[s.lines.length - 1];
+    const xa = X(pos[0]), xb = X(pos[pos.length - 1]);
+    el('path', { d: `M${xa} ${m.t - 8}L${xa} ${m.t - 14}L${xb} ${m.t - 14}L${xb} ${m.t - 8}`, style: 'fill:none;stroke:var(--zhu)', 'stroke-width': 1.2 }, svg);
+    txt(svg, w / 2, m.t - 22, `${k} 组总宽 ${span.toFixed(2)} Hz = ${(span / field.nu).toFixed(4)} ppm`, { 'text-anchor': 'middle', 'font-size': 12, style: 'fill:var(--zhu);font-variant-numeric:tabular-nums' });
+  });
+}
+const fq = fieldPanel('a', 'fq'), ft = fieldPanel('c', 'ft');
+const nuInput = document.getElementById('nu0');
+function setField(nu, fromSlider) {
+  field.nu = nu;
+  if (!fromSlider) nuInput.value = nuToSlider(nu);
+  document.getElementById('nu0Val').textContent = (Math.abs(nu - NU0) < 0.01 ? '250.13' : Math.round(nu)) + ' MHz';
+  document.getElementById('roJppm').textContent = (Jmean / nu).toFixed(4) + ' ppm';
+  const dnu = DDELTA * nu;
+  document.getElementById('roDnu').textContent = dnu.toFixed(1) + ' Hz';
+  document.getElementById('roRatio').textContent = (dnu / Jmean).toFixed(0) + (dnu / Jmean > 10 ? '（一级谱）' : '');
+  document.querySelectorAll('#nuPresets .btn').forEach(b => b.setAttribute('aria-pressed', String(Math.abs(+b.dataset.nu - nu) < 0.5)));
+  fq.redraw(); ft.redraw();
+}
+(() => {
+  const host = document.getElementById('nuPresets');
+  [60, 100, 250.13, 400, 600, 900, 1200].forEach(v => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'btn'; b.dataset.nu = v; b.id = 'nu-' + String(v).replace('.', '_');
+    b.textContent = v + (v === 250.13 ? '（本题）' : '');
+    b.addEventListener('click', () => setField(v));
+    host.appendChild(b);
+  });
+})();
+nuInput.addEventListener('input', () => setField(sliderToNu(+nuInput.value), true));
+
+/* ================= 卷六：化学位移参考 ================= */
+const SHIFT_ROWS = [
+  ['烷基 R–CH₃', 0.8, 1.3], ['烷基 R–CH₂–R', 1.2, 1.7], ['乙酰基 CH₃–C(=O)–', 2.0, 2.3], ['羰基 α 位 –CH₂–C(=O)–', 2.2, 2.6],
+  ['醚、醇 –O–CH₂– / –O–CH₃', 3.3, 3.7], ['酯甲氧基 –C(=O)O–CH₃', 3.6, 3.8], ['酯烷氧基 –C(=O)O–CH₂–', 4.0, 4.3],
+  ['甲酸酯 H–C(=O)O–', 8.0, 8.2], ['羧酸 –COOH', 10.0, 12.0]
+];
+const OBS = ORDER.map(k => ({ k, d: SIG[k].delta }));
+chart('shift', (host, w) => {
+  host.textContent = '';
+  const PMAX = 12.5, pct = v => ((PMAX - v) / PMAX * 100).toFixed(3) + '%';
+  const rows = SHIFT_ROWS.map(([lab, lo, hi]) => {
+    const row = document.createElement('div');
+    row.className = 'shift-row' + (OBS.some(o => o.d >= lo - 0.02 && o.d <= hi + 0.02) ? ' hit' : '');
+    row.innerHTML = `<div class="shift-lab">${subify(lab)} <small class="tnum">${lo}–${hi}</small></div><div class="shift-track"><span class="shift-band" style="left:${pct(hi)};width:${((hi - lo) / PMAX * 100).toFixed(3)}%"></span></div>`;
+    host.appendChild(row);
+    return row;
+  });
+  const axis = document.createElement('div');
+  axis.className = 'shift-axis';
+  for (let v = 12; v >= 0; v -= (w < 520 ? 2 : 1)) { const s = document.createElement('span'); s.style.left = pct(v); s.textContent = v; axis.appendChild(s); }
+  host.appendChild(axis);
+  const tr = rows[0].querySelector('.shift-track').getBoundingClientRect(), hr = host.getBoundingClientRect();
+  const left = tr.left - hr.left, width = tr.width;
+  axis.style.marginLeft = left + 'px';
+  axis.style.width = width + 'px';
+  OBS.forEach(o => {
+    const ln = document.createElement('div');
+    ln.className = 'shift-obs';
+    ln.style.left = (left + (PMAX - o.d) / PMAX * width) + 'px';
+    ln.style.top = '26px';
+    ln.style.color = COL[o.k];
+    ln.innerHTML = `<b>${w < 520 ? o.k : o.k + ' ' + o.d.toFixed(2)}</b>`;
+    host.appendChild(ln);
+  });
+});
+
+/* ================= 结构式（骨架式） ================= */
+const MOLS = {
+  etoac: { a: [[20, 65], [46, 50], [46, 20, 'O'], [72, 65, 'O'], [98, 50], [124, 65]], b: [[0, 1], [1, 2, 2], [1, 3], [3, 4], [4, 5]] },
+  mepr: { a: [[20, 50], [46, 65], [72, 50], [72, 20, 'O'], [98, 65, 'O'], [124, 50]], b: [[0, 1], [1, 2], [2, 3, 2], [2, 4], [4, 5]] },
+  prfo: { a: [[20, 65, 'H'], [46, 50], [46, 20, 'O'], [72, 65, 'O'], [98, 50], [124, 65], [150, 50]], b: [[0, 1], [1, 2, 2], [1, 3], [3, 4], [4, 5], [5, 6]] },
+  iprfo: { a: [[20, 65, 'H'], [46, 50], [46, 20, 'O'], [72, 65, 'O'], [98, 50], [124, 65], [98, 20]], b: [[0, 1], [1, 2, 2], [1, 3], [3, 4], [4, 5], [4, 6]] },
+  buac: { a: [[20, 65], [46, 50], [72, 65], [98, 50], [98, 20, 'O'], [124, 65, 'OH']], b: [[0, 1], [1, 2], [2, 3], [3, 4, 2], [3, 5]] },
+  ibuac: { a: [[20, 65], [46, 50], [46, 20], [72, 65], [72, 95, 'O'], [98, 50, 'OH']], b: [[0, 1], [1, 2], [1, 3], [3, 4, 2], [3, 5]] },
+  acetoin: { a: [[20, 65], [46, 50], [46, 20, 'O'], [72, 65], [72, 95, 'OH'], [98, 50]], b: [[0, 1], [1, 2, 2], [1, 3], [3, 4], [3, 5]] },
+  diox: { a: [[46, 22, 'O'], [72, 37], [72, 67], [46, 82, 'O'], [20, 67], [20, 37]], b: [[0, 1], [1, 2], [2, 3], [3, 4], [4, 5], [5, 0]] }
+};
+function drawMol(svg, mol, halo, fs) {
+  const xs = mol.a.map(p => p[0]), ys = mol.a.map(p => p[1]);
+  const pad = 13;
+  svg.setAttribute('viewBox', `${Math.min(...xs) - pad} ${Math.min(...ys) - pad} ${Math.max(...xs) - Math.min(...xs) + pad * 2 + 8} ${Math.max(...ys) - Math.min(...ys) + pad * 2}`);
+  const g = el('g', { class: 'mol' }, svg);
+  mol.b.forEach(([i, j, order]) => {
+    const [x1, y1] = mol.a[i], [x2, y2] = mol.a[j];
+    if (order === 2) {
+      const dx = x2 - x1, dy = y2 - y1, L = Math.hypot(dx, dy), ox = -dy / L * 2.6, oy = dx / L * 2.6;
+      [-1, 1].forEach(s => el('line', { x1: x1 + ox * s, y1: y1 + oy * s, x2: x2 + ox * s, y2: y2 + oy * s, class: 'bond', 'stroke-width': 1.7 }, g));
+    } else el('line', { x1, y1, x2, y2, class: 'bond', 'stroke-width': 1.9 }, g);
+  });
+  mol.a.forEach(([x, y, lab]) => {
+    if (!lab) return;
+    const t = txt(g, lab === 'OH' ? x - fs * 0.36 : x, y, lab, { 'text-anchor': lab === 'OH' ? 'start' : 'middle', 'dominant-baseline': 'central', 'font-size': fs, style: `fill:${lab === 'H' ? 'var(--ink)' : 'var(--zhu)'};paint-order:stroke;stroke:${halo};stroke-width:${fs * 0.5}px;stroke-linejoin:round;font-weight:600` });
+    t.setAttribute('class', 'atom');
+  });
+}
+
+/* ================= 卷七：异构体对质 ================= */
+const CANDS = [
+  { id: 'etoac', name: '乙酸乙酯', en: 'ethyl acetate', sig: [[4.12, 'q', 2, 'OCH₂'], [2.05, 's', 3, 'C(O)CH₃'], [1.26, 't', 3, 'CH₂CH₃']], note: '三组信号的位置、形状、积分与实测逐一吻合：OCH₂ 四重峰 4.12，乙酰基单峰 2.05，CH₃ 三重峰 1.26。' },
+  { id: 'mepr', name: '丙酸甲酯', en: 'methyl propanoate', sig: [[3.67, 's', 3, 'OCH₃'], [2.32, 'q', 2, 'C(O)CH₂'], [1.14, 't', 3, 'CH₂CH₃']], note: '形状和积分都对得上，位置却是反的：单峰应在 3.67（O–CH₃），四重峰应在 2.32（C(=O)–CH₂）。实测四重峰在 4.14，单峰在 2.06。' },
+  { id: 'prfo', name: '甲酸丙酯', en: 'propyl formate', sig: [[8.06, 's', 1, 'HC(O)O'], [4.11, 't', 2, 'OCH₂'], [1.70, 'sext', 2, 'CH₂'], [0.96, 't', 3, 'CH₃']], note: '应有四组信号（1 : 2 : 2 : 3），8.06 ppm 还有甲酸 H 单峰；4.1 处的 OCH₂ 只有一个 CH₂ 作邻居，应是三重峰而非四重峰。' },
+  { id: 'iprfo', name: '甲酸异丙酯', en: 'isopropyl formate', sig: [[8.02, 's', 1, 'HC(O)O'], [5.13, 'sept', 1, 'OCH'], [1.28, 'd', 6, 'CH(CH₃)₂']], note: '积分应为 1 : 1 : 6；异丙基给出七重峰和 6H 双峰，而不是四重峰和三重峰。' },
+  { id: 'buac', name: '丁酸', en: 'butanoic acid', sig: [[11.6, 'br', 1, 'COOH'], [2.35, 't', 2, 'CH₂C(O)'], [1.68, 'sext', 2, 'CH₂'], [0.99, 't', 3, 'CH₃']], note: '应有四组信号，包括 10–12 ppm 的羧酸宽峰，而且没有 3H 单峰。' },
+  { id: 'ibuac', name: '2-甲基丙酸', en: 'isobutyric acid', sig: [[11.8, 'br', 1, 'COOH'], [2.58, 'sept', 1, 'CH'], [1.21, 'd', 6, '(CH₃)₂']], note: '积分 1 : 1 : 6，是七重峰加 6H 双峰，另有羧酸宽峰。' },
+  { id: 'acetoin', name: '3-羟基-2-丁酮', en: 'acetoin', sig: [[4.25, 'q', 1, 'CH(OH)'], [3.6, 'br', 1, 'OH'], [2.21, 's', 3, 'C(O)CH₃'], [1.41, 'd', 3, 'CHCH₃']], note: '最像的陷阱：同样有 4.2 附近的四重峰和 2.2 附近的单峰。但四重峰只有 1H，高场 CH₃ 是双峰（邻位只有 1 个 H），还多一个 OH 峰，积分 1 : 1 : 3 : 3。' },
+  { id: 'diox', name: '1,4-二氧六环', en: '1,4-dioxane', sig: [[3.71, 's', 8, 'OCH₂ ×4']], note: '8 个 H 完全等价，整张谱只有 3.71 ppm 一个单峰。' }
+];
+const OBS_SIG = [[SIG.a.delta, 'q', 2, 'a'], [SIG.b.delta, 's', 3, 'b'], [SIG.c.delta, 't', 3, 'c']];
+const MULT_REL = { s: [1], d: [1, 1], t: [1, 2, 1], q: [1, 3, 3, 1], sext: binom(5), sept: binom(6) };
+const MULT_CN = { s: '单峰', d: '双峰', t: '三重峰', q: '四重峰', sext: '六重峰', sept: '七重峰', br: '宽峰' };
+const near = (sig, d, m, n) => sig.some(s => s[1] === m && s[2] === n && Math.abs(s[0] - d) <= 0.2);
+function checksFor(c) {
+  const s = c.sig, nh = s.map(x => x[2]).sort((p, q) => p - q).join();
+  return [
+    ['恰好三组信号', s.length === 3],
+    ['积分比 2 : 3 : 3（共 8H）', nh === '2,3,3'],
+    ['约 4.14 ppm 有 2H 四重峰', near(s, 4.14, 'q', 2)],
+    ['约 2.06 ppm 有 3H 单峰', near(s, 2.06, 's', 3)],
+    ['约 1.27 ppm 有 3H 三重峰', near(s, 1.27, 't', 3)],
+    ['所有信号都落在 0.5–4.5 ppm 内', s.every(x => x[0] >= 0.5 && x[0] <= 4.5)]
+  ];
+}
+let candSel = 'mepr';
+(() => {
+  const host = document.getElementById('cands');
+  CANDS.forEach(c => {
+    const b = document.createElement('button');
+    b.type = 'button'; b.className = 'cand'; b.id = 'cand-' + c.id; b.dataset.id = c.id;
+    const pass = checksFor(c).filter(x => x[1]).length;
+    b.innerHTML = `<span class="cand-name">${c.name}<span class="cand-mark ${pass === 6 ? 'c-zhu' : ''}" aria-hidden="true">${pass}/6</span></span><i>${c.en}</i>`;
+    const svg = el('svg', { 'aria-hidden': 'true' });
+    b.insertBefore(svg, b.firstChild);
+    drawMol(svg, MOLS[c.id], 'var(--paper)', 15);
+    b.addEventListener('click', () => { candSel = c.id; candUpdate(); });
+    host.appendChild(b);
+  });
+})();
+const candChart = chart('candChart', (host, w) => {
+  const c = CANDS.find(x => x.id === candSel);
+  const h = 250;
+  const svg = svgRoot(host, w, h);
+  const m = { t: 10, r: 14, b: 34, l: 40 };
+  const pw = w - m.l - m.r, rowH = 92, b1 = m.t + rowH + 6, b2 = b1 + rowH + 14;
+  const PH = 10, X = p => m.l + (PH - Math.min(p, 9.8)) / PH * pw;
+  const g = Math.max(3, Math.min(5, pw / 190));
+  OBS_SIG.forEach(([d]) => el('line', { x1: X(d), x2: X(d), y1: m.t + 4, y2: b2, style: 'stroke:var(--ink-5)', 'stroke-dasharray': '3 4' }, svg));
+  [[b1, '实测'], [b2, '候选']].forEach(([y, lab]) => {
+    el('line', { x1: m.l, x2: w - m.r, y1: y + 0.5, y2: y + 0.5, style: 'stroke:var(--ink-3)' }, svg);
+    txt(svg, 4, y - 6, lab, { 'font-size': 12.5, style: 'fill:var(--ink-3)' });
+  });
+  const labels = [];
+  const glyph = (d, mlt, n, base, color, tag) => {
+    const x = X(d), H = rowH * Math.min(0.9, 0.3 + 0.075 * n);
+    if (mlt === 'br') {
+      const wd = 13;
+      el('path', { d: `M${x - wd * 1.6} ${base}C${x - wd * 0.6} ${base} ${x - wd * 0.5} ${base - rowH * 0.24} ${x} ${base - rowH * 0.24}S${x + wd * 0.6} ${base} ${x + wd * 1.6} ${base}`, style: `fill:none;stroke:${color}`, 'stroke-width': 1.6 }, svg);
+    } else {
+      const rel = MULT_REL[mlt], mx = Math.max(...rel);
+      rel.forEach((r, i) => {
+        const xx = x + (i - (rel.length - 1) / 2) * g;
+        el('line', { x1: xx, x2: xx, y1: base, y2: base - H * r / mx, style: `stroke:${color}`, 'stroke-width': 1.6, 'stroke-linecap': 'round' }, svg);
+      });
+    }
+    labels.push({ x, y: base - (mlt === 'br' ? rowH * 0.24 : H) - 6, s: (d > 9.8 ? '‹ ' : '') + `${tag} ${n}H`, color, base });
+  };
+  OBS_SIG.forEach(([d, mlt, n, k]) => glyph(d, mlt, n, b1, COL[k], `${mlt}`));
+  c.sig.forEach(([d, mlt, n]) => {
+    const hit = OBS_SIG.find(([od, om, on]) => om === mlt && on === n && Math.abs(od - d) <= 0.2);
+    glyph(d, mlt, n, b2, hit ? COL[hit[3]] : 'var(--zhu)', (d > 9.8 ? d.toFixed(1) + ' ' : '') + mlt);
+  });
+  // 标签避让
+  const placed = [];
+  labels.sort((p, q) => p.x - q.x).forEach(L => {
+    const wEst = L.s.length * 6.6 + 4;
+    let lift = 0;
+    while (placed.some(P => P.base === L.base && Math.abs(P.x - L.x) < (P.w + wEst) / 2 && Math.abs(P.y - (L.y - lift)) < 13) && lift < 40) lift += 13;
+    placed.push({ x: L.x, y: L.y - lift, w: wEst, base: L.base });
+    txt(svg, Math.max(m.l + wEst / 2, Math.min(w - m.r - wEst / 2, L.x)), L.y - lift, L.s, { 'text-anchor': 'middle', 'font-size': 11.5, style: `fill:${L.color};font-variant-numeric:tabular-nums` });
+  });
+  drawAxis(svg, X, PH, 0, b2 + 2, pw, 'δ / ppm', w < 520 ? 34 : 60);
+});
+function candUpdate() {
+  const c = CANDS.find(x => x.id === candSel);
+  document.querySelectorAll('.cand').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.id === candSel)));
+  const ck = checksFor(c), pass = ck.filter(x => x[1]).length;
+  document.getElementById('candTitle').textContent = `${c.name} · ${c.en} · 命中 ${pass} / 6 条线索`;
+  document.getElementById('candChecks').innerHTML = ck.map(([t, ok]) => `<li><span class="${ok ? 'ok' : 'no'}">${ok ? '✓' : '✗'}</span><span>${t}</span></li>`).join('') +
+    `<li><span></span><span class="hint">候选谱：${c.sig.map(s => `${s[0].toFixed(2)}（${MULT_CN[s[1]]}，${s[2]}H，${subify(s[3])}）`).join('；')}</span></li>`;
+  document.getElementById('candNote').innerHTML = subify(c.note);
+  seal(document.getElementById('candSeal'), pass === 6 ? '合' : '否', { rot: pass === 6 ? -4 : 3, zhuwen: pass !== 6, label: pass === 6 ? '结论：相合' : '结论：不合' });
+  candChart.redraw();
+}
+
+/* ================= 卷八：结构与信号联动 ================= */
+const finalHot = { k: null, runs: null };
+(() => {
+  const host = document.getElementById('molBig');
+  const svg = el('svg', { viewBox: '0 0 420 196', width: '100%', 'aria-hidden': 'true' }, host);
+  svg.style.display = 'block';
+  const P = { b: [62, 128], C2: [140, 84], O1: [140, 26], O3: [218, 128], a: [296, 84], c: [374, 128] };
+  const g = el('g', { class: 'mol' }, svg);
+  const groups = {};
+  [['b', 'H3C', '2.06 · s · 3H'], ['a', 'CH2', '4.14 · q · 2H'], ['c', 'CH3', '1.27 · t · 3H']].forEach(([k, lab, info]) => {
+    const [x, y] = P[k];
+    const gg = el('g', { class: 'grp', 'data-s': k }, svg);
+    el('ellipse', { cx: x, cy: y, rx: 40, ry: 28, class: 'blob', style: `fill:${COL[k]}`, 'fill-opacity': 0.16 }, gg);
+    groups[k] = { gg, x, y, lab, info };
+  });
+  const bond = (p, q, dbl) => {
+    if (dbl) {
+      const dx = q[0] - p[0], dy = q[1] - p[1], L = Math.hypot(dx, dy), ox = -dy / L * 4, oy = dx / L * 4;
+      [-1, 1].forEach(s => el('line', { x1: p[0] + ox * s, y1: p[1] + oy * s, x2: q[0] + ox * s, y2: q[1] + oy * s, class: 'bond' }, g));
+    } else el('line', { x1: p[0], y1: p[1], x2: q[0], y2: q[1], class: 'bond' }, g);
+  };
+  bond(P.b, P.C2); bond(P.C2, P.O1, true); bond(P.C2, P.O3); bond(P.O3, P.a); bond(P.a, P.c);
+  const lab = (x, y, s, fill) => chem(g, x, y, s, 22, { 'text-anchor': 'middle', 'dominant-baseline': 'central', class: 'halo', style: `fill:${fill};font-weight:600` });
+  lab(P.O1[0], P.O1[1], 'O', 'var(--zhu)'); lab(P.O3[0], P.O3[1], 'O', 'var(--zhu)');
+  for (const k of ['a', 'b', 'c']) {
+    const G = groups[k];
+    lab(G.x, G.y, G.lab, COL[k]);
+    const below = k !== 'a';
+    txt(G.gg, G.x, below ? G.y + 44 : G.y - 40, `${k} · ${G.info}`, { 'text-anchor': 'middle', 'font-size': 13, style: `fill:${COL[k]};font-variant-numeric:tabular-nums;font-weight:600` });
+    G.gg.addEventListener('mouseenter', () => setFinal(k));
+    G.gg.addEventListener('mouseleave', () => setFinal(null));
+    G.gg.addEventListener('click', () => setFinal(finalHot.k === k ? null : k));
+  }
+  finalHot.groups = groups;
+})();
+function setFinal(k) {
+  finalHot.k = k;
+  Object.entries(finalHot.groups).forEach(([s, G]) => G.gg.classList.toggle('hot', s === k));
+  if (finalHot.runs) Object.entries(finalHot.runs).forEach(([s, ps]) => ps.forEach(p => { if (s !== '_') p.style.opacity = !k || s === k ? 1 : 0.28; p.style.strokeWidth = s === k ? 2.4 : ''; }));
+}
+chart('specMini', (host, w) => {
+  const h = 150;
+  const svg = svgRoot(host, w, h);
+  const m = { t: 26, r: 10, b: 34, l: 10 }, pw = w - m.l - m.r, y0 = h - m.b;
+  const hi = 4.5, lo = 0.5, X = p => m.l + (hi - p) / (hi - lo) * pw, ymax = visMax([hi, lo]), Y = v => y0 - v / ymax * (h - m.t - m.b) * 0.92;
+  drawAxis(svg, X, hi, lo, y0, pw, 'δ / ppm', 50);
+  finalHot.runs = drawTrace(el('g', null, svg), hi, lo, X, Y, pw, { regionHalf: 0.12 });
+  ORDER.forEach(k => {
+    const s = SIG[k], top = Math.min(...s.lines.map(nu => Y(specAt(nu))));
+    txt(svg, X(s.delta), Math.max(14, top - 6), k, { 'text-anchor': 'middle', 'font-size': 18, style: `fill:${COL[k]};font-family:var(--f-brush)` });
+    const zone = el('rect', { x: X(s.delta + 0.16), y: 0, width: X(s.delta - 0.16) - X(s.delta + 0.16), height: y0, style: 'fill:transparent;cursor:pointer' }, svg);
+    zone.addEventListener('mouseenter', () => setFinal(k));
+    zone.addEventListener('mouseleave', () => setFinal(null));
+    zone.addEventListener('click', () => setFinal(finalHot.k === k ? null : k));
+  });
+  if (finalHot.k) setFinal(finalHot.k);
+});
+
+/* ================= 卷目高亮 ================= */
+if ('IntersectionObserver' in window) {
+  const links = [...document.querySelectorAll('#toc a')];
+  const io2 = new IntersectionObserver(es => es.forEach(e => {
+    if (e.isIntersecting) links.forEach(a => a.classList.toggle('on', a.getAttribute('href') === '#' + e.target.id));
+  }), { rootMargin: '-40% 0px -55% 0px' });
+  document.querySelectorAll('.juan').forEach(s => io2.observe(s));
+}
+
+/* ================= 启动 ================= */
+tree.prev = 3;
+setField(NU0);
+candUpdate();
+charts.forEach(c => c.redraw());
+drawHero();
+if ('ResizeObserver' in window) {
+  const ro = new ResizeObserver(es => es.forEach(e => {
+    if (e.target.id === 'heroLand') return drawHero();
+    const c = charts.find(x => x.host === e.target);
+    if (c && Math.round(e.contentRect.width) !== c.w) c.redraw();
+  }));
+  charts.forEach(c => ro.observe(c.host));
+  ro.observe(document.getElementById('heroLand'));
+}
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { charts.forEach(c => c.redraw()); });
+})();
+</script>
+</body>
+</html>

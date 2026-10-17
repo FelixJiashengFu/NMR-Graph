@@ -13,6 +13,7 @@
 | 异核长程相关 | H2BC × HMBC：两键与三键相关判读 | [打开](./topics/h2bc-hmbc/index.html) |
 | 异核长程相关 | ¹H–¹⁵N HMBC：齐拉西酮降解产物教学页 | [打开](./topics/hmbc-ziprasidone-degradation/index.html) |
 | 结构解析 | 苯佐卡因：¹H NMR 与 ¹³C APT 拼结构 | [打开](./topics/benzocaine-structure/index.html) |
+| 结构解析 | C₄H₈O₂：¹H NMR 推结构与测耦合常数（水墨长卷） | [打开](./topics/ethyl-acetate-1h/index.html) |
 | 异核单键相关 | 3-庚酮：HSQC 与编辑 HSQC 峰归属 | [打开](./topics/hsqc-edited-heptanone/index.html) |
 | 异核单键相关 | HSQC：一行两点（同碳的两个氢，和不守规矩的碳） | [打开](./topics/hsqc-diastereotopic-protons/index.html) |
 | 同核相关 | COSY：交叉峰从哪来、什么时候会少 | [打开](./topics/cosy-cross-peaks/index.html) |
@@ -108,6 +109,11 @@ NMR-Graph/
     │   └── verify/                    # 数据、核验报告与截图
     ├── benzocaine-structure/
     │   └── index.html                 # 苯佐卡因氢谱与 APT 结构解析
+    ├── ethyl-acetate-1h/
+    │   ├── index.html                 # 水墨风格 C₄H₈O₂ 氢谱解析页（单文件；字体联网加载，断网回退）
+    │   ├── README.md                  # 页面范围、像素估读、重绘与推断、数据限制
+    │   ├── preview.png                # 桌面整页预览（另有 390 px 手机预览）
+    │   └── source/                    # 题图、像素估读、页面源文件、构建与浏览器验收脚本
     ├── nmr-15n-hmbc-hsqc/
     │   ├── index.html                 # ¹H–¹⁵N HMBC / HSQC 交互教学页
     │   ├── README.md                  # 页面范围与数据限制
@@ -145,6 +151,8 @@ TOCSY 专题使用用户课程截图：ppm 仅为估读，峰强为图扩散类�
 3-庚酮 HSQC 专题以用户课程截图为来源（2026-10 重做）：七个碳位与结构、常规和编辑 HSQC 重绘示意、读数、归属表及原图局部放大联动；正文术语可点按查看中文注释，官能团附小结构图。ppm 由脚本按截图像素估读（¹H 约 ±0.03、¹³C 约 ±0.5 ppm）；C2/C4、C5/C6、C1/C7 的细分是结构辅助推断；“编辑延迟”和“一级裂分”两个滑块模型的 J、Δ、场强均为假设值，不代表原始实验。原图、估读与构建脚本、数值和浏览器验收记录及预览随专题保存。
 
 HSQC “一行两点”专题以用户课程截图 “HSQC – interpretation and use cases” 为来源，水墨风格。五个交叉峰的坐标和两条一维曲线由脚本按截图像素估读（¹H 约 ±0.02、¹³C 约 ±0.3 ppm），不是实测化学位移。哪两个点同在一个碳上是推断：两行只差约 0.4 ppm（约 4 个像素），依据是两对点各自齐平。课件没有给出结构；“碳不守规矩”一节的连线图、卤代甲烷例子和解释是制作者的理解，墨圈大小、展开动画和椅式环均为示意。原图、估读与构建脚本及预览随专题保存。
+
+C₄H₈O₂ 氢谱专题以用户上传的题图（250.13 MHz，CDCl₃）为来源，水墨风格，结论为乙酸乙酯、³J = 7.1 Hz。谱线频率取自题图标注，J 由标注直接相减；单峰位置（约 2.06 ppm）、积分台阶（359 : 538 : 541 px）和放大区峰高由 `source/measure.py` 从截图像素估读。谱图按标注频率用洛伦兹线重绘，线宽为假设值；候选异构体的谱取 CDCl₃ 中的常见文献值，棒状谱只表示形状。题图、估读与构建脚本、浏览器验收脚本及预览随专题保存。
 
 正丙醇 TOCSY 自旋混合专题保留另一份独立教学实现，使用理想各向同性混合模型显示四组质子（含可选 OH）的磁化转移。默认化学位移、J、混合时间与峰强均属教学模型或文献近似；原练习截图不含实测谱图。
 
