@@ -28,12 +28,17 @@
 | ¹⁵N 二维核磁 | ¹H–¹⁵N HMBC 与 HSQC：小分子氮环境和蛋白磷酸化 | [打开](./topics/nmr-15n-hmbc-hsqc/index.html) |
 | 基础速查 | ¹H / ¹³C 化学位移分区速查 | [打开](./topics/chemical-shift-reference/index.html) |
 
+## 课程讲义（PDF）
+
+CHMD11 的中文精讲 / 复习版 PDF 讲义放在 [`notes/`](./notes/README.md)，按主题分目录：课程总览与第一周、UV-Vis、FTIR、NMR 导论、NMR 采集与处理、多维 NMR、高级 NMR、色谱与质谱、速查表。完整清单见 [notes/README.md](./notes/README.md)。
+
 ## 仓库结构
 
 ```text
 NMR-Graph/
 ├── index.html                         # 全部专题的目录入口
 ├── README.md                          # 专题索引与维护规则
+├── notes/                             # CHMD11 课程 PDF 讲义，按主题分目录（见 notes/README.md）
 └── topics/
     ├── inadequate-octanol/
     │   └── index.html                 # 原有 INADEQUATE 练习
