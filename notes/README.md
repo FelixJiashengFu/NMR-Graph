@@ -16,6 +16,7 @@
 | `05-nmr-multidimensional/` | 多维 NMR（COSY / TOCSY / HSQC / HMBC 等） | [多维核磁共振逐页精讲全解析](./05-nmr-multidimensional/多维核磁共振CHMD11逐页精讲全解析_20261102.pdf) | 50 |
 | `06-nmr-advanced/` | 高级 NMR 方法（中英双语） | [高级 NMR 方法讲义复习版](./06-nmr-advanced/CHMD11_高级NMR方法_讲义复习版_2026-11-05.pdf) | 95 |
 | `07-chromatography-ms/` | 色谱与质谱 | [色谱与质谱中文详细讲解](./07-chromatography-ms/色谱与质谱中文详细讲解_2026-11-02.pdf) | 43 |
+| `09-macromolecules/` | 大分子与其他结构解析方法（XRD / Cryo-EM / 串联 MS / 蛋白 NMR，中英双语） | [Macromolecules · 中英文讲解版](./09-macromolecules/CHMD11_Macromolecules_中英文讲解版.pdf) | 57 |
 | `08-reference/` | 速查表 | [¹H / ¹³C 化学位移与常见 MS 碎片汇总](./08-reference/CHMD11_氢谱碳谱与质谱碎片汇总_2026-11-01.pdf) | 5 |
 
 两份 FTIR 讲义内容不同：前者 84 页、逐页对照课件并附习题答案；后者 53 页，为精简讲解版，所以都保留。
